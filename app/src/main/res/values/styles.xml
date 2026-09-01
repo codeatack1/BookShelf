@@ -5,7 +5,7 @@
     <!--Toolbars-->
     <!--========-->
 
-    <style name="Theme.Tachiyomi.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
+    <style name="Theme.BookShelf.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">?attr/colorOnSurface</item>
     </style>
 
@@ -29,9 +29,9 @@
         <item name="android:textColor">?attr/colorOnBackground</item>
     </style>
 
-    <style name="TextAppearance.Tachiyomi.Preference.Secondary" parent="TextAppearance.Material3.BodySmall" />
+    <style name="TextAppearance.BookShelf.Preference.Secondary" parent="TextAppearance.Material3.BodySmall" />
 
-    <style name="TextAppearance.Tachiyomi.SectionHeader" parent="TextAppearance.Material3.LabelLarge">
+    <style name="TextAppearance.BookShelf.SectionHeader" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
@@ -39,7 +39,7 @@
     <!--=======================-->
     <!--Widgets.MaterialDivider-->
     <!--=======================-->
-    <style name="Widget.Tachiyomi.MaterialDivider" parent="Widget.Material3.MaterialDivider">
+    <style name="Widget.BookShelf.MaterialDivider" parent="Widget.Material3.MaterialDivider">
         <item name="dividerColor">@color/divider_default</item>
     </style>
 
@@ -47,7 +47,7 @@
     <!--==============-->
     <!--Widgets.Switch-->
     <!--==============-->
-    <style name="Widget.Tachiyomi.Switch" parent="Widget.Material3.CompoundButton.Switch">
+    <style name="Widget.BookShelf.Switch" parent="Widget.Material3.CompoundButton.Switch">
         <item name="materialThemeOverlay">@style/ThemeOverlay.Tachiyomi.Switch</item>
     </style>
 

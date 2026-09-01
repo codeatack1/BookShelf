@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "mihon.core.metro"
+    namespace = "com.bookshelf.core.metro"
 }
 
 dependencies {

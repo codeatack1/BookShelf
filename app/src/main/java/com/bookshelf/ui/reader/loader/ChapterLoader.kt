@@ -1,0 +1,109 @@
+package com.bookshelf.ui.reader.loader
+
+import android.content.Context
+import com.bookshelf.data.cache.ChapterCache
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.data.download.DownloadProvider
+import com.bookshelf.source.Source
+import com.bookshelf.source.online.HttpSource
+import com.bookshelf.ui.reader.model.ReaderChapter
+import com.bookshelf.core.archive.archiveReader
+import com.bookshelf.core.archive.epubReader
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.source.model.StubSource
+import com.bookshelf.i18n.MR
+import com.bookshelf.source.local.LocalSource
+import com.bookshelf.source.local.io.Format
+
+/**
+ * Loader used to retrieve the [PageLoader] for a given chapter.
+ */
+class ChapterLoader(
+    private val context: Context,
+    private val downloadManager: DownloadManager,
+    private val downloadProvider: DownloadProvider,
+    private val chapterCache: ChapterCache,
+    private val manga: Manga,
+    private val source: Source,
+) {
+
+    /**
+     * Assigns the chapter's page loader and loads the its pages. Returns immediately if the chapter
+     * is already loaded.
+     */
+    suspend fun loadChapter(chapter: ReaderChapter) {
+        if (chapterIsReady(chapter)) {
+            return
+        }
+
+        chapter.state = ReaderChapter.State.Loading
+        withIOContext {
+            logcat { "Loading pages for ${chapter.chapter.name}" }
+            try {
+                val loader = getPageLoader(chapter)
+                chapter.pageLoader = loader
+
+                val pages = loader.getPages()
+                    .onEach { it.chapter = chapter }
+
+                if (pages.isEmpty()) {
+                    throw Exception(context.stringResource(MR.strings.page_list_empty_error))
+                }
+
+                // If the chapter is partially read, set the starting page to the last the user read
+                // otherwise use the requested page.
+                if (!chapter.chapter.read) {
+                    chapter.requestedPage = chapter.chapter.last_page_read
+                }
+
+                chapter.state = ReaderChapter.State.Loaded(pages)
+            } catch (e: Throwable) {
+                chapter.state = ReaderChapter.State.Error(e)
+                throw e
+            }
+        }
+    }
+
+    /**
+     * Checks [chapter] to be loaded based on present pages and loader in addition to state.
+     */
+    private fun chapterIsReady(chapter: ReaderChapter): Boolean {
+        return chapter.state is ReaderChapter.State.Loaded && chapter.pageLoader != null
+    }
+
+    /**
+     * Returns the page loader to use for this [chapter].
+     */
+    private fun getPageLoader(chapter: ReaderChapter): PageLoader {
+        val dbChapter = chapter.chapter
+        val isDownloaded = downloadManager.isChapterDownloadedOnDisk(
+            dbChapter.name,
+            dbChapter.scanlator,
+            dbChapter.url,
+            manga.title,
+            source,
+        )
+        return when {
+            isDownloaded -> DownloadPageLoader(
+                chapter,
+                manga,
+                source,
+                downloadManager,
+                downloadProvider,
+            )
+            source is LocalSource -> source.getFormat(chapter.chapter).let { format ->
+                when (format) {
+                    is Format.Directory -> DirectoryPageLoader(format.file)
+                    is Format.Archive -> ArchivePageLoader(format.file.archiveReader(context))
+                    is Format.Epub -> EpubPageLoader(format.file.epubReader(context))
+                }
+            }
+            source is HttpSource -> HttpPageLoader(chapter, source, chapterCache)
+            source is StubSource -> error(context.stringResource(MR.strings.source_not_installed, source.toString()))
+            else -> error(context.stringResource(MR.strings.loader_not_implemented_error))
+        }
+    }
+}

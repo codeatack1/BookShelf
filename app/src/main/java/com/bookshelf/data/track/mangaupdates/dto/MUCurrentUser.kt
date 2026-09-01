@@ -1,0 +1,8 @@
+package com.bookshelf.data.track.mangaupdates.dto
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class MUCurrentUser(
+    val username: String,
+)

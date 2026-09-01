@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "eu.kanade.tachiyomi.source"
+    namespace = "com.bookshelf.source"
 
     defaultConfig {
         consumerProguardFiles("consumer-proguard.pro")

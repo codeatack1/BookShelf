@@ -18,20 +18,13 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-if (Config.includeTelemetry) {
-    pluginManager.apply {
-        apply(libs.plugins.google.services.get().pluginId)
-        apply(libs.plugins.firebase.crashlytics.get().pluginId)
-    }
-}
-
 val keystorePropertiesFile = rootProject.file("keystore.properties")
 
 android {
-    namespace = "eu.kanade.tachiyomi"
+    namespace = "com.bookshelf"
 
     defaultConfig {
-        applicationId = "app.mihon"
+        applicationId = "com.bookshelf.app"
 
         versionCode = 29
         versionName = "0.20.4"
@@ -39,7 +32,6 @@ android {
         buildConfigField("String", "COMMIT_COUNT", "\"${getLatestCommitCount()}\"")
         buildConfigField("String", "COMMIT_SHA", "\"${getLatestCommitSha()}\"")
         buildConfigField("String", "BUILD_TIME", "\"${getBuildTime(useLatestCommitTime = false)}\"")
-        buildConfigField("boolean", "TELEMETRY_INCLUDED", "${Config.includeTelemetry}")
         buildConfigField("boolean", "UPDATER_ENABLED", "${Config.enableUpdater}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -220,7 +212,6 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.presentationCore)
     implementation(projects.presentationWidget)
-    implementation(projects.telemetry)
 
     // Compose
     implementation(libs.androidx.activity.compose)

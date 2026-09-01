@@ -1,7 +1,7 @@
 -dontobfuscate
 
--keep,allowoptimization class eu.kanade.**
--keep,allowoptimization class tachiyomi.**
+-keep,allowoptimization class com.bookshelf.**
+-keep,allowoptimization class com.bookshelf.**
 -keep,allowoptimization class mihon.**
 
 # Keep common dependencies used in extensions
@@ -19,12 +19,12 @@
 -keep,allowoptimization class com.squareup.zstd.** { public protected *; }
 
 # From extensions-lib
--keep,allowoptimization class eu.kanade.tachiyomi.network.interceptor.RateLimitInterceptorKt { public protected *; }
--keep,allowoptimization class eu.kanade.tachiyomi.network.interceptor.SpecificHostRateLimitInterceptorKt { public protected *; }
--keep,allowoptimization class eu.kanade.tachiyomi.network.NetworkHelper { public protected *; }
--keep,allowoptimization class eu.kanade.tachiyomi.network.OkHttpExtensionsKt { public protected *; }
--keep,allowoptimization class eu.kanade.tachiyomi.network.RequestsKt { public protected *; }
--keep,allowoptimization class eu.kanade.tachiyomi.AppInfo { public protected *; }
+-keep,allowoptimization class com.bookshelf.network.interceptor.RateLimitInterceptorKt { public protected *; }
+-keep,allowoptimization class com.bookshelf.network.interceptor.SpecificHostRateLimitInterceptorKt { public protected *; }
+-keep,allowoptimization class com.bookshelf.network.NetworkHelper { public protected *; }
+-keep,allowoptimization class com.bookshelf.network.OkHttpExtensionsKt { public protected *; }
+-keep,allowoptimization class com.bookshelf.network.RequestsKt { public protected *; }
+-keep,allowoptimization class com.bookshelf.AppInfo { public protected *; }
 
 -keepclassmembers class * implements java.io.Serializable {
     java.lang.Object writeReplace();
@@ -70,11 +70,11 @@
     kotlinx.serialization.KSerializer serializer(...);
 }
 
--keep,includedescriptorclasses class eu.kanade.**$$serializer { *; }
--keepclassmembers class eu.kanade.** {
+-keep,includedescriptorclasses class com.bookshelf.**$$serializer { *; }
+-keepclassmembers class com.bookshelf.** {
     *** Companion;
 }
--keepclasseswithmembers class eu.kanade.** {
+-keepclasseswithmembers class com.bookshelf.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
 

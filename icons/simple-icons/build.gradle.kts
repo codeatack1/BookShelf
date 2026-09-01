@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "mihon.icons.simpleicons"
+    namespace = "com.bookshelf.icons.simpleicons"
 }
 
 spotless {

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "tachiyomi.source.local"
+    namespace = "com.bookshelf.source.local"
 }
 
 kotlin {

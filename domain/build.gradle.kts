@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "tachiyomi.domain"
+    namespace = "com.bookshelf.domain"
 }
 
 kotlin {

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "tachiyomi.core.metadata"
+    namespace = "com.bookshelf.core.metadata"
 }
 
 dependencies {

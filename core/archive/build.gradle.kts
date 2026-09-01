@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "mihon.core.archive"
+    namespace = "com.bookshelf.core.archive"
 }
 
 dependencies {

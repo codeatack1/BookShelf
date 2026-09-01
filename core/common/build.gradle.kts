@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "eu.kanade.tachiyomi.core.common"
+    namespace = "com.bookshelf.core.common"
 }
 
 kotlin {

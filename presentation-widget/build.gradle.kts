@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "tachiyomi.presentation.widget"
+    namespace = "com.bookshelf.presentation.widget"
 }
 
 dependencies {
