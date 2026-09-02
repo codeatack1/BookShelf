@@ -1,8 +1,8 @@
-import mihon.gradle.Config
-import mihon.gradle.getBuildTime
-import mihon.gradle.getLatestCommitCount
-import mihon.gradle.getLatestCommitSha
-import mihon.gradle.tasks.ReplaceShortcutsPlaceholderTask
+import com.bookshelf.gradle.Config
+import com.bookshelf.gradle.getBuildTime
+import com.bookshelf.gradle.getLatestCommitCount
+import com.bookshelf.gradle.getLatestCommitSha
+import com.bookshelf.gradle.tasks.ReplaceShortcutsPlaceholderTask
 import java.io.FileInputStream
 import java.util.Properties
 import kotlin.io.encoding.Base64
