@@ -26,7 +26,7 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import dev.zacsweers.metrox.viewmodel.metroViewModel
 import com.bookshelf.presentation.category.components.ChangeCategoryDialog
-import com.bookshelf.presentation.library.DeleteLibraryMangaDialog
+import com.bookshelf.presentation.library.DeleteLibraryTextbookDialog
 import com.bookshelf.presentation.library.LibrarySettingsDialog
 import com.bookshelf.presentation.library.components.LibraryContent
 import com.bookshelf.presentation.library.components.LibraryToolbar
@@ -39,7 +39,7 @@ import com.bookshelf.ui.browse.source.globalsearch.GlobalSearchScreen
 import com.bookshelf.ui.category.CategoryScreen
 import com.bookshelf.ui.home.HomeScreen
 import com.bookshelf.ui.main.MainActivity
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.util.system.workManager
 import kotlinx.coroutines.channels.Channel
@@ -52,8 +52,8 @@ import com.bookshelf.icons.materialsymbols.automirroredrounded.Help
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.domain.category.model.Category
-import com.bookshelf.domain.library.model.LibraryManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.library.model.LibraryTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
@@ -127,7 +127,7 @@ data object LibraryTab : Tab {
                         scope.launch {
                             val randomItem = viewModel.getRandomLibraryItemForCurrentCategory()
                             if (randomItem != null) {
-                                navigator.push(MangaScreen(randomItem.libraryManga.manga.id))
+                                navigator.push(TextbookScreen(randomItem.libraryManga.textbook.id))
                             } else {
                                 snackbarHostState.showSnackbar(
                                     context.stringResource(MR.strings.information_no_entries_found),
@@ -149,7 +149,7 @@ data object LibraryTab : Tab {
                     onMarkAsUnreadClicked = { viewModel.markReadSelection(false) },
                     onDownloadClicked = viewModel::performDownloadAction
                         .takeIf { state.selectedManga.fastAll { !it.isLocal() } },
-                    onDeleteClicked = viewModel::openDeleteMangaDialog,
+                    onDeleteClicked = viewModel::openDeleteTextbookDialog,
                     onMigrateClicked = {
                         val selection = state.selection
                         viewModel.clearSelection()
@@ -187,13 +187,13 @@ data object LibraryTab : Tab {
                         hasActiveFilters = state.hasActiveFilters,
                         showPageTabs = state.showCategoryTabs || !state.searchQuery.isNullOrEmpty(),
                         onChangeCurrentPage = viewModel::updateActiveCategoryIndex,
-                        onClickManga = { navigator.push(MangaScreen(it)) },
-                        onContinueReadingClicked = { it: LibraryManga ->
+                        onClickManga = { navigator.push(TextbookScreen(it)) },
+                        onContinueReadingClicked = { it: LibraryTextbook ->
                             scope.launchIO {
-                                val chapter = viewModel.getNextUnreadChapter(it.manga)
+                                val chapter = viewModel.getNextUnreadChapter(it.textbook)
                                 if (chapter != null) {
                                     context.startActivity(
-                                        ReaderActivity.newIntent(context, chapter.mangaId, chapter.id),
+                                        ReaderActivity.newIntent(context, chapter.textbookId, chapter.id),
                                     )
                                 } else {
                                     snackbarHostState.showSnackbar(context.stringResource(MR.strings.no_next_chapter))
@@ -238,13 +238,13 @@ data object LibraryTab : Tab {
                     },
                     onConfirm = { include, exclude ->
                         viewModel.clearSelection()
-                        viewModel.setMangaCategories(dialog.manga, include, exclude)
+                        viewModel.setTextbookCategories(dialog.manga, include, exclude)
                     },
                 )
             }
-            is LibraryViewModel.Dialog.DeleteManga -> {
-                DeleteLibraryMangaDialog(
-                    containsLocalManga = dialog.manga.any(Manga::isLocal),
+            is LibraryViewModel.Dialog.DeleteTextbook -> {
+                DeleteLibraryTextbookDialog(
+                    containsLocalManga = dialog.manga.any(Textbook::isLocal),
                     onDismissRequest = onDismissRequest,
                     onConfirm = { deleteManga, deleteChapter ->
                         viewModel.removeMangas(dialog.manga, deleteManga, deleteChapter)

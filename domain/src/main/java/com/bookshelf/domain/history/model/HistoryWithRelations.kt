@@ -1,15 +1,15 @@
 package com.bookshelf.domain.history.model
 
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.textbook.model.TextbookCover
 import java.util.Date
 
 data class HistoryWithRelations(
     val id: Long,
     val chapterId: Long,
-    val mangaId: Long,
+    val textbookId: Long,
     val title: String,
     val chapterNumber: Double,
     val readAt: Date?,
     val readDuration: Long,
-    val coverData: MangaCover,
+    val coverData: TextbookCover,
 )

@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import kotlin.time.Duration.Companion.milliseconds
 
 data class Download(
     val source: HttpSource,
-    val manga: Manga,
+    val textbook: Textbook,
     val chapter: Chapter,
 ) {
     var pages: List<Page>? = null

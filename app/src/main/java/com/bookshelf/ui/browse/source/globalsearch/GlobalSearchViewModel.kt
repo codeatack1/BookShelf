@@ -10,8 +10,8 @@ import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.extension.ExtensionManager
 import com.bookshelf.source.Source
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.interactor.NetworkToLocalManga
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
 import com.bookshelf.domain.source.service.SourceManager
 
 @AssistedInject
@@ -21,8 +21,8 @@ class GlobalSearchViewModel(
     sourcePreferences: SourcePreferences,
     sourceManager: SourceManager,
     extensionManager: ExtensionManager,
-    networkToLocalManga: NetworkToLocalManga,
-    getManga: GetManga,
+    networkToLocalManga: NetworkToLocalTextbook,
+    getManga: GetTextbook,
     preferences: SourcePreferences,
 ) : SearchViewModel(
     initialState = State(searchQuery = initialQuery),

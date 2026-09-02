@@ -775,7 +775,7 @@
     <string name="upcoming_calendar_next">Tháng tiếp theo</string>
     <string name="upcoming_calendar_prev">Tháng trước</string>
     <string name="action_copy_link">Sao chép liên kết</string>
-    <string name="manga_interval_expected_update_null">Manga này đã hoàn thành hoặc chưa có ngày phát hành dự kiến.</string>
+    <string name="manga_interval_expected_update_null">Textbook này đã hoàn thành hoặc chưa có ngày phát hành dự kiến.</string>
     <string name="pref_flash_duration_summary">%1$s ms</string>
     <string name="pref_flash_page_interval">Làm mới mỗi</string>
     <string name="pref_flash_with">Làm mới bằng</string>

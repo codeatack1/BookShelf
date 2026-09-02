@@ -20,8 +20,8 @@ import androidx.compose.ui.util.fastAny
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.manga.components.ChapterDownloadAction
-import com.bookshelf.presentation.manga.components.MangaBottomActionMenu
-import com.bookshelf.com.bookshelf.data.download.model.Download
+import com.bookshelf.presentation.manga.components.TextbookBottomActionMenu
+import com.bookshelf.data.download.model.Download
 import com.bookshelf.ui.updates.UpdatesItem
 import com.bookshelf.ui.updates.UpdatesViewModel
 import kotlinx.coroutines.delay
@@ -205,7 +205,7 @@ private fun UpdatesBottomBar(
     onMultiMarkAsReadClicked: (List<UpdatesItem>, read: Boolean) -> Unit,
     onMultiDeleteClicked: (List<UpdatesItem>) -> Unit,
 ) {
-    MangaBottomActionMenu(
+    TextbookBottomActionMenu(
         visible = selected.isNotEmpty(),
         modifier = Modifier.fillMaxWidth(),
         onBookmarkClicked = {

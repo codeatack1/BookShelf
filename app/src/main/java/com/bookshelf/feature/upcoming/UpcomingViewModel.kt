@@ -29,11 +29,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.yearMonth
-import com.bookshelf.domain.upcoming.interactor.GetUpcomingManga
+import com.bookshelf.domain.upcoming.interactor.GetUpcomingTextbook
 import com.bookshelf.core.common.preference.getAndSet
 import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.category.model.Category
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.upcoming.service.UpcomingPreferences
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
@@ -42,7 +42,7 @@ import kotlin.time.Duration.Companion.seconds
 @ViewModelKey
 @ContributesIntoMap(AppScope::class, binding = binding<ViewModel>())
 class UpcomingViewModel(
-    private val getUpcomingManga: GetUpcomingManga,
+    private val getUpcomingTextbooks: GetUpcomingTextbook,
     val getCategories: GetCategories,
     val upcomingPreferences: UpcomingPreferences,
 ) : ViewModel() {
@@ -72,7 +72,7 @@ class UpcomingViewModel(
     private val upcoming = getUpcomingItemPreferenceFlow()
         .distinctUntilChanged()
         .flatMapLatest {
-            getUpcomingManga.subscribe(
+            getUpcomingTextbooks.subscribe(
                 excludedCategories = it.filterExcludedCategories,
                 includedCategories = it.filterIncludedCategories,
             )
@@ -103,7 +103,7 @@ class UpcomingViewModel(
             State(selectedYearMonth = selectedYearMonth.value),
         )
 
-    private fun List<Manga>.toUpcomingUIModels(): List<UpcomingUIModel> {
+    private fun List<Textbook>.toUpcomingUIModels(): List<UpcomingUIModel> {
         var mangaCount = 0
         return fastMap { UpcomingUIModel.Item(it) }
             .insertSeparatorsReversed { before, after ->

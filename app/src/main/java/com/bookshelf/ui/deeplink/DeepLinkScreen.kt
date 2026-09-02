@@ -12,7 +12,7 @@ import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.ui.browse.source.globalsearch.GlobalSearchScreen
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.Scaffold
@@ -50,7 +50,7 @@ class DeepLinkScreen(
                     val resultState = state as DeepLinkViewModel.State.Result
                     if (resultState.chapterId == null) {
                         navigator.replace(
-                            MangaScreen(
+                            TextbookScreen(
                                 resultState.manga.id,
                                 true,
                             ),

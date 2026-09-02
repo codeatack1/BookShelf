@@ -51,8 +51,8 @@ import dev.icerock.moko.resources.StringResource
 import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.presentation.track.components.TrackLogoIcon
-import com.bookshelf.com.bookshelf.data.track.Tracker
-import com.bookshelf.ui.manga.track.TrackItem
+import com.bookshelf.data.track.Tracker
+import com.bookshelf.ui.textbook.track.TrackItem
 import com.bookshelf.util.lang.toJavaLocalDate
 import com.bookshelf.util.lang.toLocalDate
 import com.bookshelf.util.system.copyToClipboard

@@ -26,14 +26,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.bookshelf.domain.manga.model.downloadedFilter
+import com.bookshelf.domain.textbook.model.downloadedFilter
 import com.bookshelf.presentation.components.TabbedDialog
 import com.bookshelf.presentation.components.TabbedDialogPaddings
 import com.bookshelf.app.di.appGraph
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.PeopleAlt
 import com.bookshelf.core.common.preference.TriState
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.LabeledCheckbox
 import com.bookshelf.presentation.core.components.RadioItem
@@ -45,7 +45,7 @@ import com.bookshelf.presentation.core.theme.active
 @Composable
 fun ChapterSettingsDialog(
     onDismissRequest: () -> Unit,
-    manga: Manga? = null,
+    manga: Textbook? = null,
     onDownloadFilterChanged: (TriState) -> Unit,
     onUnreadFilterChanged: (TriState) -> Unit,
     onBookmarkedFilterChanged: (TriState) -> Unit,
@@ -196,10 +196,10 @@ private fun ColumnScope.SortPage(
     onItemSelected: (Long) -> Unit,
 ) {
     listOf(
-        MR.strings.sort_by_source to Manga.CHAPTER_SORTING_SOURCE,
-        MR.strings.sort_by_number to Manga.CHAPTER_SORTING_NUMBER,
-        MR.strings.sort_by_upload_date to Manga.CHAPTER_SORTING_UPLOAD_DATE,
-        MR.strings.action_sort_alpha to Manga.CHAPTER_SORTING_ALPHABET,
+        MR.strings.sort_by_source to Textbook.CHAPTER_SORTING_SOURCE,
+        MR.strings.sort_by_number to Textbook.CHAPTER_SORTING_NUMBER,
+        MR.strings.sort_by_upload_date to Textbook.CHAPTER_SORTING_UPLOAD_DATE,
+        MR.strings.action_sort_alpha to Textbook.CHAPTER_SORTING_ALPHABET,
     ).map { (titleRes, mode) ->
         SortItem(
             label = stringResource(titleRes),
@@ -215,8 +215,8 @@ private fun ColumnScope.DisplayPage(
     onItemSelected: (Long) -> Unit,
 ) {
     listOf(
-        MR.strings.show_title to Manga.CHAPTER_DISPLAY_NAME,
-        MR.strings.show_chapter_number to Manga.CHAPTER_DISPLAY_NUMBER,
+        MR.strings.show_title to Textbook.CHAPTER_DISPLAY_NAME,
+        MR.strings.show_chapter_number to Textbook.CHAPTER_DISPLAY_NUMBER,
     ).map { (titleRes, mode) ->
         RadioItem(
             label = stringResource(titleRes),

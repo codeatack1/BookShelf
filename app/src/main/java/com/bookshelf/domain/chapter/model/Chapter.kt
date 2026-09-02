@@ -1,9 +1,9 @@
 package com.bookshelf.domain.chapter.model
 
-import com.bookshelf.com.bookshelf.data.database.models.ChapterImpl
-import com.bookshelf.com.bookshelf.source.model.SChapter
+import com.bookshelf.data.database.models.ChapterImpl
+import com.bookshelf.source.model.SChapter
 import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.com.bookshelf.data.database.models.Chapter as DbChapter
+import com.bookshelf.data.database.models.Chapter as DbChapter
 
 // TODO: Remove when all deps are migrated
 fun Chapter.toSChapter(): SChapter {
@@ -30,7 +30,7 @@ fun Chapter.copyFromSChapter(sChapter: SChapter): Chapter {
 
 fun Chapter.toDbChapter(): DbChapter = ChapterImpl().also {
     it.id = id
-    it.manga_id = mangaId
+    it.manga_id = textbookId
     it.url = url
     it.name = name
     it.scanlator = scanlator

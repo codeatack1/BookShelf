@@ -1,16 +1,16 @@
 -- Mangas table
-ALTER TABLE mangas ADD COLUMN version INTEGER NOT NULL DEFAULT 0;
-ALTER TABLE mangas ADD COLUMN is_syncing INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE textbooks ADD COLUMN version INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE textbooks ADD COLUMN is_syncing INTEGER NOT NULL DEFAULT 0;
 
 -- Chapters table
 ALTER TABLE chapters ADD COLUMN version INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE chapters ADD COLUMN is_syncing INTEGER NOT NULL DEFAULT 0;
 
 -- Mangas triggers
-DROP TRIGGER IF EXISTS update_manga_version;
-CREATE TRIGGER update_manga_version AFTER UPDATE ON mangas
+DROP TRIGGER IF EXISTS update_textbook_version;
+CREATE TRIGGER update_textbook_version AFTER UPDATE ON textbooks
 BEGIN
-    UPDATE mangas SET version = version + 1
+    UPDATE textbooks SET version = version + 1
     WHERE _id = new._id AND new.is_syncing = 0 AND (
         new.url != old.url OR
         new.description != old.description OR
@@ -19,8 +19,8 @@ BEGIN
 END;
 
 -- Chapters triggers
-DROP TRIGGER IF EXISTS update_chapter_and_manga_version;
-CREATE TRIGGER update_chapter_and_manga_version AFTER UPDATE ON chapters
+DROP TRIGGER IF EXISTS update_chapter_and_textbook_version;
+CREATE TRIGGER update_chapter_and_textbook_version AFTER UPDATE ON chapters
 WHEN new.is_syncing = 0 AND (
     new.read != old.read OR
     new.bookmark != old.bookmark OR
@@ -32,15 +32,15 @@ BEGIN
     WHERE _id = new._id;
 
     -- Update the manga version
-    UPDATE mangas SET version = version + 1
-    WHERE _id = new.manga_id AND (SELECT is_syncing FROM mangas WHERE _id = new.manga_id) = 0;
+    UPDATE textbooks SET version = version + 1
+    WHERE _id = new.textbook_id AND (SELECT is_syncing FROM textbooks WHERE _id = new.textbook_id) = 0;
 END;
 
 -- manga_categories table
-DROP TRIGGER IF EXISTS insert_manga_category_update_version;
-CREATE TRIGGER insert_manga_category_update_version AFTER INSERT ON mangas_categories
+DROP TRIGGER IF EXISTS insert_textbook_category_update_version;
+CREATE TRIGGER insert_textbook_category_update_version AFTER INSERT ON textbooks_categories
 BEGIN
-    UPDATE mangas
+    UPDATE textbooks
     SET version = version + 1
-    WHERE _id = new.manga_id AND (SELECT is_syncing FROM mangas WHERE _id = new.manga_id) = 0;
+    WHERE _id = new.textbook_id AND (SELECT is_syncing FROM textbooks WHERE _id = new.textbook_id) = 0;
 END;

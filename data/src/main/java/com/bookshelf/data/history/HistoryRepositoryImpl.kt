@@ -25,13 +25,13 @@ class HistoryRepositoryImpl(
 ) : HistoryRepository {
 
     override fun getHistory(query: String): Flow<List<HistoryWithRelations>> {
-        return database.historyViewQueries
+        return database.historyTextViewQueries
             .history(query, HistoryMapper::mapHistoryWithRelations)
             .subscribeToList()
     }
 
     override suspend fun getLastHistory(): HistoryWithRelations? {
-        return database.historyViewQueries
+        return database.historyTextViewQueries
             .getLatestHistory(HistoryMapper::mapHistoryWithRelations)
             .awaitAsOneOrNull()
     }
@@ -42,9 +42,9 @@ class HistoryRepositoryImpl(
             .awaitAsOne()
     }
 
-    override suspend fun getHistoryByMangaId(mangaId: Long): List<History> {
+    override suspend fun getHistoryByTextbookId(textbookId: Long): List<History> {
         return database.historyQueries
-            .getHistoryByMangaId(mangaId, HistoryMapper::mapHistory)
+            .getHistoryByTextbookId(textbookId, HistoryMapper::mapHistory)
             .awaitAsList()
     }
 
@@ -56,9 +56,9 @@ class HistoryRepositoryImpl(
         }
     }
 
-    override suspend fun resetHistoryByMangaId(mangaId: Long) {
+    override suspend fun resetHistoryByTextbookId(textbookId: Long) {
         try {
-            database.historyQueries.resetHistoryByMangaId(mangaId)
+            database.historyQueries.resetHistoryByTextbookId(textbookId)
         } catch (e: Exception) {
             logcat(LogPriority.ERROR, throwable = e)
         }

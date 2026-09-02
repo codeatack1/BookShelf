@@ -9,7 +9,7 @@ import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.core.common.preference.getEnum
 import com.bookshelf.domain.library.model.LibraryDisplayMode
 import com.bookshelf.domain.library.model.LibrarySort
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 
 @Inject
 @SingleIn(AppScope::class)
@@ -49,7 +49,7 @@ class LibraryPreferences(
             DEVICE_ONLY_ON_WIFI,
         ),
     )
-    val autoUpdateMangaRestrictions: Preference<Set<String>> = preferenceStore.getStringSet(
+    val autoUpdateTextbookRestrictions: Preference<Set<String>> = preferenceStore.getStringSet(
         "library_update_manga_restriction",
         setOf(
             MANGA_HAS_UNREAD,
@@ -153,43 +153,43 @@ class LibraryPreferences(
 
     val filterChapterByRead: Preference<Long> = preferenceStore.getLong(
         "default_chapter_filter_by_read",
-        Manga.SHOW_ALL,
+        Textbook.SHOW_ALL,
     )
 
     val filterChapterByDownloaded: Preference<Long> = preferenceStore.getLong(
         "default_chapter_filter_by_downloaded",
-        Manga.SHOW_ALL,
+        Textbook.SHOW_ALL,
     )
 
     val filterChapterByBookmarked: Preference<Long> = preferenceStore.getLong(
         "default_chapter_filter_by_bookmarked",
-        Manga.SHOW_ALL,
+        Textbook.SHOW_ALL,
     )
 
     // and upload date
     val sortChapterBySourceOrNumber: Preference<Long> = preferenceStore.getLong(
         "default_chapter_sort_by_source_or_number",
-        Manga.CHAPTER_SORTING_SOURCE,
+        Textbook.CHAPTER_SORTING_SOURCE,
     )
 
     val displayChapterByNameOrNumber: Preference<Long> = preferenceStore.getLong(
         "default_chapter_display_by_name_or_number",
-        Manga.CHAPTER_DISPLAY_NAME,
+        Textbook.CHAPTER_DISPLAY_NAME,
     )
 
     val sortChapterByAscendingOrDescending: Preference<Long> = preferenceStore.getLong(
         "default_chapter_sort_by_ascending_or_descending",
-        Manga.CHAPTER_SORT_DESC,
+        Textbook.CHAPTER_SORT_DESC,
     )
 
-    fun setChapterSettingsDefault(manga: Manga) {
+    fun setChapterSettingsDefault(manga: Textbook) {
         filterChapterByRead.set(manga.unreadFilterRaw)
         filterChapterByDownloaded.set(manga.downloadedFilterRaw)
         filterChapterByBookmarked.set(manga.bookmarkedFilterRaw)
         sortChapterBySourceOrNumber.set(manga.sorting)
         displayChapterByNameOrNumber.set(manga.displayMode)
         sortChapterByAscendingOrDescending.set(
-            if (manga.sortDescending()) Manga.CHAPTER_SORT_DESC else Manga.CHAPTER_SORT_ASC,
+            if (manga.sortDescending()) Textbook.CHAPTER_SORT_DESC else Textbook.CHAPTER_SORT_ASC,
         )
     }
 

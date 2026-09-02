@@ -1,19 +1,19 @@
 package com.bookshelf.domain.chapter.model
 
-import com.bookshelf.domain.manga.model.downloadedFilter
-import com.bookshelf.com.bookshelf.data.download.DownloadManager
-import com.bookshelf.ui.manga.ChapterList
+import com.bookshelf.domain.textbook.model.downloadedFilter
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.ui.textbook.ChapterList
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.service.getChapterSort
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.model.applyFilter
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.applyFilter
 import com.bookshelf.source.local.isLocal
 
 /**
  * Applies the view filters to the list of chapters obtained from the database.
  * @return an observable of the list of chapters filtered and sorted.
  */
-fun List<Chapter>.applyFilters(manga: Manga, downloadManager: DownloadManager): List<Chapter> {
+fun List<Chapter>.applyFilters(manga: Textbook, downloadManager: DownloadManager): List<Chapter> {
     val isLocalManga = manga.isLocal()
     val unreadFilter = manga.unreadFilter
     val downloadedFilter = manga.downloadedFilter
@@ -40,7 +40,7 @@ fun List<Chapter>.applyFilters(manga: Manga, downloadManager: DownloadManager): 
  * Applies the view filters to the list of chapters obtained from the database.
  * @return an observable of the list of chapters filtered and sorted.
  */
-fun List<ChapterList.Item>.applyFilters(manga: Manga): Sequence<ChapterList.Item> {
+fun List<ChapterList.Item>.applyFilters(manga: Textbook): Sequence<ChapterList.Item> {
     val isLocalManga = manga.isLocal()
     val unreadFilter = manga.unreadFilter
     val downloadedFilter = manga.downloadedFilter

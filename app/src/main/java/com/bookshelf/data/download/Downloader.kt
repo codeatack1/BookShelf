@@ -6,7 +6,7 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import com.bookshelf.domain.chapter.model.toSChapter
-import com.bookshelf.domain.manga.model.getComicInfo
+import com.bookshelf.domain.textbook.model.getComicInfo
 import com.bookshelf.data.cache.ChapterCache
 import com.bookshelf.data.download.model.Download
 import com.bookshelf.data.library.LibraryUpdateNotifier
@@ -56,7 +56,7 @@ import com.bookshelf.core.metadata.comicinfo.ComicInfo
 import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.download.service.DownloadPreferences
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.domain.track.interactor.GetTracks
 import com.bookshelf.i18n.MR
@@ -265,7 +265,7 @@ class Downloader(
      * @param chapters the list of chapters to download.
      * @param autoStart whether to start the downloader after enqueing the chapters.
      */
-    suspend fun queueChapters(manga: Manga, chapters: List<Chapter>, autoStart: Boolean) {
+    suspend fun queueChapters(manga: Textbook, chapters: List<Chapter>, autoStart: Boolean) {
         if (chapters.isEmpty()) return
 
         val source = sourceManager.get(manga.source) as? HttpSource ?: return
@@ -316,9 +316,9 @@ class Downloader(
      * @param download the chapter to be downloaded.
      */
     private suspend fun downloadChapter(download: Download) {
-        val mangaDir = provider.getMangaDir(download.manga.title, download.source).getOrElse { e ->
+        val mangaDir = provider.getMangaDir(download.textbook.title, download.source).getOrElse { e ->
             download.status = Download.State.ERROR
-            notifier.onError(e.message, download.chapter.name, download.manga.title, download.manga.id)
+            notifier.onError(e.message, download.chapter.name, download.textbook.title, download.textbook.id)
             return
         }
 
@@ -328,8 +328,8 @@ class Downloader(
             notifier.onError(
                 context.stringResource(MR.strings.download_insufficient_space),
                 download.chapter.name,
-                download.manga.title,
-                download.manga.id,
+                download.textbook.title,
+                download.textbook.id,
             )
             return
         }
@@ -390,7 +390,7 @@ class Downloader(
 
             createComicInfoFile(
                 tmpDir,
-                download.manga,
+                download.textbook,
                 download.chapter,
                 download.source,
             )
@@ -401,7 +401,7 @@ class Downloader(
             } else {
                 tmpDir.renameTo(chapterDirname)
             }
-            cache.addChapter(chapterDirname, mangaDir, download.manga)
+            cache.addChapter(chapterDirname, mangaDir, download.textbook)
 
             DiskUtil.createNoMediaFile(tmpDir, context)
 
@@ -411,7 +411,7 @@ class Downloader(
             // If the page list threw, it will resume here
             logcat(LogPriority.ERROR, error)
             download.status = Download.State.ERROR
-            notifier.onError(error.message, download.chapter.name, download.manga.title, download.manga.id)
+            notifier.onError(error.message, download.chapter.name, download.textbook.title, download.textbook.id)
         }
     }
 
@@ -457,7 +457,7 @@ class Downloader(
             // Mark this page as error and allow to download the remaining
             page.progress = 0
             page.status = Page.State.Error(e)
-            notifier.onError(e.message, download.chapter.name, download.manga.title, download.manga.id)
+            notifier.onError(e.message, download.chapter.name, download.textbook.title, download.textbook.id)
         }
     }
 
@@ -625,7 +625,7 @@ class Downloader(
      */
     private suspend fun createComicInfoFile(
         dir: UniFile,
-        manga: Manga,
+        manga: Textbook,
         chapter: Chapter,
         source: HttpSource,
     ) {
@@ -698,8 +698,8 @@ class Downloader(
         removeFromQueueIf { it.chapter.id in chapterIds }
     }
 
-    fun removeFromQueue(manga: Manga) {
-        removeFromQueueIf { it.manga.id == manga.id }
+    fun removeFromQueue(manga: Textbook) {
+        removeFromQueueIf { it.textbook.id == manga.id }
     }
 
     private fun internalClearQueue() {

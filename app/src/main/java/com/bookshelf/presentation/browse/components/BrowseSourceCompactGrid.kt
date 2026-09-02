@@ -11,26 +11,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.bookshelf.presentation.library.components.CommonMangaItemDefaults
-import com.bookshelf.presentation.library.components.MangaCompactGridItem
+import com.bookshelf.presentation.library.components.CommonTextbookItemDefaults
+import com.bookshelf.presentation.library.components.TextbookCompactGridItem
 import kotlinx.coroutines.flow.StateFlow
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.presentation.core.util.plus
 
 @Composable
 fun BrowseSourceCompactGrid(
-    mangaList: LazyPagingItems<StateFlow<Manga>>,
+    mangaList: LazyPagingItems<StateFlow<Textbook>>,
     columns: GridCells,
     contentPadding: PaddingValues,
-    onMangaClick: (Manga) -> Unit,
-    onMangaLongClick: (Manga) -> Unit,
+    onMangaClick: (Textbook) -> Unit,
+    onMangaLongClick: (Textbook) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = columns,
         contentPadding = contentPadding + PaddingValues(8.dp),
-        verticalArrangement = Arrangement.spacedBy(CommonMangaItemDefaults.GridVerticalSpacer),
-        horizontalArrangement = Arrangement.spacedBy(CommonMangaItemDefaults.GridHorizontalSpacer),
+        verticalArrangement = Arrangement.spacedBy(CommonTextbookItemDefaults.GridVerticalSpacer),
+        horizontalArrangement = Arrangement.spacedBy(CommonTextbookItemDefaults.GridHorizontalSpacer),
     ) {
         if (mangaList.loadState.prepend is LoadState.Loading) {
             item(span = { GridItemSpan(maxLineSpan) }) {
@@ -57,20 +57,20 @@ fun BrowseSourceCompactGrid(
 
 @Composable
 private fun BrowseSourceCompactGridItem(
-    manga: Manga,
+    manga: Textbook,
     onClick: () -> Unit = {},
     onLongClick: () -> Unit = onClick,
 ) {
-    MangaCompactGridItem(
+    TextbookCompactGridItem(
         title = manga.title,
-        coverData = MangaCover(
-            mangaId = manga.id,
+        coverData = TextbookCover(
+            textbookId = manga.id,
             sourceId = manga.source,
-            isMangaFavorite = manga.favorite,
+            isFavorite = manga.favorite,
             url = manga.thumbnailUrl,
             lastModified = manga.coverLastModified,
         ),
-        coverAlpha = if (manga.favorite) CommonMangaItemDefaults.BrowseFavoriteCoverAlpha else 1f,
+        coverAlpha = if (manga.favorite) CommonTextbookItemDefaults.BrowseFavoriteCoverAlpha else 1f,
         coverBadgeStart = {
             InLibraryBadge(enabled = manga.favorite)
         },

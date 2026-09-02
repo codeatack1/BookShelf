@@ -25,7 +25,7 @@ import com.bookshelf.presentation.category.visualName
 import com.bookshelf.presentation.components.TabbedDialog
 import com.bookshelf.presentation.components.TabbedDialogPaddings
 import com.bookshelf.presentation.util.Screen
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.SettingsItemsPaddings
@@ -57,7 +57,7 @@ class UpcomingScreen : Screen() {
         UpcomingScreenContent(
             state = state,
             setSelectedYearMonth = viewModel::setSelectedYearMonth,
-            onClickUpcoming = { navigator.push(MangaScreen(it.id)) },
+            onClickUpcoming = { navigator.push(TextbookScreen(it.id)) },
             hasActiveFilters = state.hasActiveFilters,
             onClickFilter = viewModel::showFilterDialog,
         )

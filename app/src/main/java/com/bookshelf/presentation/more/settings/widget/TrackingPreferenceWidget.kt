@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bookshelf.presentation.more.settings.LocalPreferenceHighlighted
 import com.bookshelf.presentation.track.components.TrackLogoIcon
-import com.bookshelf.com.bookshelf.data.track.Tracker
+import com.bookshelf.data.track.Tracker
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Done
 import com.bookshelf.i18n.MR

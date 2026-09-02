@@ -779,7 +779,7 @@
     <string name="action_view_upcoming">Bevorstehende Aktualisierungen ansehen</string>
     <string name="upcoming_guide">Leitfaden für Bevorstehendes</string>
     <string name="file_picker_uri_permission_unsupported">Dauerhafter Ordnerzugriff konnte nicht erlangt werden. Die App kann sich unerwartet verhalten.</string>
-    <string name="manga_interval_expected_update_null">Dieser Manga ist entweder abgeschlossen, oder es existiert kein geschätztes Veröffentlichungsdatum.</string>
+    <string name="manga_interval_expected_update_null">Dieser Textbook ist entweder abgeschlossen, oder es existiert kein geschätztes Veröffentlichungsdatum.</string>
     <string name="pref_flash_page_interval">Leuchte jede</string>
     <string name="pref_flash_with">Leuchte mit</string>
     <string name="pref_flash_style_black">Schwarz</string>
@@ -833,7 +833,7 @@
     <string name="storage_failed_to_create_download_directory">Erstellen eines Download-Verzeichnisses fehlgeschlagen</string>
     <string name="storage_failed_to_create_directory">Erstellen des Verzeichnisses fehlgeschlagen: %s</string>
     <string name="pref_update_library_manga_titles">Mangatitel in der Bibliothek mit ihren Quellen abgleichen</string>
-    <string name="pref_update_library_manga_titles_summary">Achtung: Sollte ein Manga umbenannt werden, wird er aus der Downloadwarteschlange entfernt (falls dort vorhanden).</string>
+    <string name="pref_update_library_manga_titles_summary">Achtung: Sollte ein Textbook umbenannt werden, wird er aus der Downloadwarteschlange entfernt (falls dort vorhanden).</string>
     <string name="logging_in">Einloggen…</string>
     <string name="theme_catppuccin">Catppuccin</string>
     <string name="migrationConfigScreen.selectAllLabel">Alle auswählen</string>
@@ -877,7 +877,7 @@
     <string name="migrationListScreen.matchWithoutChapterToast">Keine Kapitel gefunden, dieser Eintrag konnte nicht für eine Migration verwendet werden</string>
     <string name="pref_display_images_description">Bilder in Mangabeschreibungen anzeigen</string>
     <string name="pref_disallow_non_ascii_filenames">Nicht-ASCII-Dateinamen nicht zulassen</string>
-    <string name="pref_disallow_non_ascii_filenames_details">Versichert Kompatibilität mit bestimmten Speichermedien, die Unicode nicht unterstützen. Ist diese Option aktiviert, müssen Quellen- und Manga-Ordner manuell umbenannt werden, indem Nicht-ASCII-Zeichen durch ihre UTF-8-Hexadezimaldarstellungen in Kleinbuchstaben ersetzt werden. Kapiteldateien müssen nicht umbenannt werden.</string>
+    <string name="pref_disallow_non_ascii_filenames_details">Versichert Kompatibilität mit bestimmten Speichermedien, die Unicode nicht unterstützen. Ist diese Option aktiviert, müssen Quellen- und Textbook-Ordner manuell umbenannt werden, indem Nicht-ASCII-Zeichen durch ihre UTF-8-Hexadezimaldarstellungen in Kleinbuchstaben ersetzt werden. Kapiteldateien müssen nicht umbenannt werden.</string>
     <string name="pref_download_concurrent_sources">Gleichzeitige Quellendownloads</string>
     <string name="pref_download_concurrent_pages">Gleichzeitige Seitendownloads</string>
     <string name="pref_download_concurrent_pages_summary">Pro Quelle gleichzeitig heruntergeladene Seiten</string>

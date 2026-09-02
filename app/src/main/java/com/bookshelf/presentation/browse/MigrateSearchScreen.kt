@@ -3,10 +3,10 @@ package com.bookshelf.presentation.browse
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import com.bookshelf.presentation.browse.components.GlobalSearchToolbar
-import com.bookshelf.com.bookshelf.source.Source
+import com.bookshelf.source.Source
 import com.bookshelf.ui.browse.source.globalsearch.SearchViewModel
 import com.bookshelf.ui.browse.source.globalsearch.SourceFilter
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.presentation.core.components.material.Scaffold
 
 @Composable
@@ -18,10 +18,10 @@ fun MigrateSearchScreen(
     onSearch: (String) -> Unit,
     onChangeSearchFilter: (SourceFilter) -> Unit,
     onToggleResults: () -> Unit,
-    getManga: @Composable (Manga) -> State<Manga>,
+    getManga: @Composable (Textbook) -> State<Textbook>,
     onClickSource: (Source) -> Unit,
-    onClickItem: (Manga) -> Unit,
-    onLongClickItem: (Manga) -> Unit,
+    onClickItem: (Textbook) -> Unit,
+    onLongClickItem: (Textbook) -> Unit,
 ) {
     Scaffold(
         topBar = { scrollBehavior ->

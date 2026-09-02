@@ -23,12 +23,12 @@ import kotlinx.coroutines.sync.withPermit
 import logcat.LogPriority
 import com.bookshelf.app.di.AppGraph
 import com.bookshelf.core.metro.metroGraph
-import com.bookshelf.domain.source.interactor.UpdateMangaFromRemote
+import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
 import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.library.model.LibraryManga
-import com.bookshelf.domain.manga.interactor.GetLibraryManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.library.model.LibraryTextbook
+import com.bookshelf.domain.textbook.interactor.GetLibraryTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.concurrent.atomics.AtomicInt
@@ -43,13 +43,13 @@ class MetadataUpdateJob(private val context: Context, workerParams: WorkerParame
 
     @Inject private lateinit var sourceManager: SourceManager
 
-    @Inject private lateinit var getLibraryManga: GetLibraryManga
+    @Inject private lateinit var getLibraryTextbook: GetLibraryTextbook
 
-    @Inject private lateinit var updateMangaFromRemote: UpdateMangaFromRemote
+    @Inject private lateinit var updateMangaFromRemote: UpdateTextbookFromRemote
 
     @Inject private lateinit var notifier: LibraryUpdateNotifier
 
-    private var mangaToUpdate: List<LibraryManga> = mutableListOf()
+    private var mangaToUpdate: List<LibraryTextbook> = mutableListOf()
 
     override suspend fun doWork(): Result {
         graph.inject(this)
@@ -92,23 +92,23 @@ class MetadataUpdateJob(private val context: Context, workerParams: WorkerParame
      * Adds list of manga to be updated.
      */
     private suspend fun addMangaToQueue() {
-        mangaToUpdate = getLibraryManga.await()
+        mangaToUpdate = getLibraryTextbook.await()
         notifier.showQueueSizeWarningNotificationIfNeeded(mangaToUpdate)
     }
 
     private suspend fun updateMetadata() {
         val semaphore = Semaphore(5)
         val progressCount = AtomicInt(0)
-        val currentlyUpdatingManga = CopyOnWriteArrayList<Manga>()
+        val currentlyUpdatingManga = CopyOnWriteArrayList<Textbook>()
 
         coroutineScope {
-            mangaToUpdate.groupBy { it.manga.source }
+            mangaToUpdate.groupBy { it.textbook.source }
                 .values
                 .map { mangaInSource ->
                     async {
                         semaphore.withPermit {
                             mangaInSource.forEach { libraryManga ->
-                                val manga = libraryManga.manga
+                                val manga = libraryManga.textbook
                                 ensureActive()
 
                                 withUpdateNotification(
@@ -139,9 +139,9 @@ class MetadataUpdateJob(private val context: Context, workerParams: WorkerParame
     }
 
     private suspend fun withUpdateNotification(
-        updatingManga: CopyOnWriteArrayList<Manga>,
+        updatingManga: CopyOnWriteArrayList<Textbook>,
         completed: AtomicInt,
-        manga: Manga,
+        manga: Textbook,
         block: suspend () -> Unit,
     ) = coroutineScope {
         ensureActive()

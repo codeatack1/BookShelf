@@ -9,8 +9,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import com.bookshelf.domain.manga.model.readerOrientation
-import com.bookshelf.domain.manga.model.readingMode
+import com.bookshelf.domain.textbook.model.readerOrientation
+import com.bookshelf.domain.textbook.model.readingMode
 import com.bookshelf.ui.reader.setting.ReaderOrientation
 import com.bookshelf.ui.reader.setting.ReaderPreferences
 import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel

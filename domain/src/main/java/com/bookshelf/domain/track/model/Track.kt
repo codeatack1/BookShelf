@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class Track(
     val id: Long,
-    val mangaId: Long,
+    val textbookId: Long,
     val trackerId: Long,
     val remoteId: Long,
     val libraryId: Long?,

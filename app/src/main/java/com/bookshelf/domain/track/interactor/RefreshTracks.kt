@@ -3,8 +3,8 @@ package com.bookshelf.domain.track.interactor
 import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.track.model.toDbTrack
 import com.bookshelf.domain.track.model.toDomainTrack
-import com.bookshelf.com.bookshelf.data.track.Tracker
-import com.bookshelf.com.bookshelf.data.track.TrackerManager
+import com.bookshelf.data.track.Tracker
+import com.bookshelf.data.track.TrackerManager
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
@@ -24,9 +24,9 @@ class RefreshTracks(
      *
      * @return Failed updates.
      */
-    suspend fun await(mangaId: Long): List<Pair<Tracker?, Throwable>> {
+    suspend fun await(textbookId: Long): List<Pair<Tracker?, Throwable>> {
         return supervisorScope {
-            return@supervisorScope getTracks.await(mangaId)
+            return@supervisorScope getTracks.await(textbookId)
                 .map { it to trackerManager.get(it.trackerId) }
                 .filter { (_, service) -> service?.isLoggedIn == true }
                 .map { (track, service) ->
@@ -34,7 +34,7 @@ class RefreshTracks(
                         return@async try {
                             val updatedTrack = service!!.refresh(track.toDbTrack()).toDomainTrack()!!
                             insertTrack.await(updatedTrack)
-                            syncChapterProgressWithTrack.await(mangaId, updatedTrack, service)
+                            syncChapterProgressWithTrack.await(textbookId, updatedTrack, service)
                             null
                         } catch (e: Throwable) {
                             service to e

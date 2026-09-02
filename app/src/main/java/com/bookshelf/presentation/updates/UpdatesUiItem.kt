@@ -33,9 +33,9 @@ import com.bookshelf.presentation.components.relativeDateText
 import com.bookshelf.presentation.manga.components.ChapterDownloadAction
 import com.bookshelf.presentation.manga.components.ChapterDownloadIndicator
 import com.bookshelf.presentation.manga.components.DotSeparatorText
-import com.bookshelf.presentation.manga.components.MangaCover
+import com.bookshelf.presentation.manga.components.TextbookCover
 import com.bookshelf.presentation.util.relativeTimeSpanString
-import com.bookshelf.com.bookshelf.data.download.model.Download
+import com.bookshelf.data.download.model.Download
 import com.bookshelf.ui.updates.UpdatesItem
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.roundedfilled.Bookmark
@@ -84,7 +84,7 @@ internal fun LazyListScope.updatesUiItems(
         key = {
             when (it) {
                 is UpdatesUiModel.Header -> "updatesHeader-${it.hashCode()}"
-                is UpdatesUiModel.Item -> "updates-${it.item.update.mangaId}-${it.item.update.chapterId}"
+                is UpdatesUiModel.Item -> "updates-${it.item.update.textbookId}-${it.item.update.chapterId}"
             }
         },
     ) { item ->
@@ -161,7 +161,7 @@ private fun UpdatesUiItem(
             .padding(horizontal = MaterialTheme.padding.medium),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        MangaCover.Square(
+        TextbookCover.Square(
             modifier = Modifier
                 .padding(vertical = 6.dp)
                 .fillMaxHeight(),
@@ -175,7 +175,7 @@ private fun UpdatesUiItem(
                 .weight(1f),
         ) {
             Text(
-                text = update.mangaTitle,
+                text = update.textbookTitle,
                 maxLines = 1,
                 style = MaterialTheme.typography.bodyMedium,
                 color = LocalContentColor.current.copy(alpha = textAlpha),

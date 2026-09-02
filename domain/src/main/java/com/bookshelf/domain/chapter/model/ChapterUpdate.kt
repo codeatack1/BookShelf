@@ -4,7 +4,7 @@ import kotlinx.serialization.json.JsonObject
 
 data class ChapterUpdate(
     val id: Long,
-    val mangaId: Long? = null,
+    val textbookId: Long? = null,
     val read: Boolean? = null,
     val bookmark: Boolean? = null,
     val lastPageRead: Long? = null,
@@ -22,7 +22,7 @@ data class ChapterUpdate(
 fun Chapter.toChapterUpdate(): ChapterUpdate {
     return ChapterUpdate(
         id,
-        mangaId,
+        textbookId,
         read,
         bookmark,
         lastPageRead,

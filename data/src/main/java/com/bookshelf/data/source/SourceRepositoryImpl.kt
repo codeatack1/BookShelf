@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import com.bookshelf.data.Database
 import com.bookshelf.data.subscribeToList
-import com.bookshelf.domain.manga.interactor.NetworkToLocalManga
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
 import com.bookshelf.domain.source.model.SourceWithCount
 import com.bookshelf.domain.source.model.StubSource
 import com.bookshelf.domain.source.repository.SourcePagingSource
@@ -26,7 +26,7 @@ import com.bookshelf.domain.source.model.Source as DomainSource
 class SourceRepositoryImpl(
     private val sourceManager: SourceManager,
     private val database: Database,
-    private val networkToLocalManga: NetworkToLocalManga,
+    private val networkToLocalManga: NetworkToLocalTextbook,
 ) : SourceRepository {
 
     override fun getSources(): Flow<List<DomainSource>> {
@@ -48,7 +48,7 @@ class SourceRepositoryImpl(
     }
 
     override fun getSourcesWithFavoriteCount(): Flow<List<Pair<DomainSource, Long>>> {
-        val sourceIdWithFavoriteCountFlow = database.mangasQueries
+        val sourceIdWithFavoriteCountFlow = database.textbooksQueries
             .getSourceIdWithFavoriteCount()
             .subscribeToList()
         return combine(sourceIdWithFavoriteCountFlow, sourceManager.sources) { sourceIdWithFavoriteCount, _ ->
@@ -65,9 +65,9 @@ class SourceRepositoryImpl(
             }
     }
 
-    override fun getSourcesWithNonLibraryManga(): Flow<List<SourceWithCount>> {
-        return database.mangasQueries
-            .getSourceIdsWithNonLibraryManga()
+    override fun getSourcesWithNonLibraryTextbook(): Flow<List<SourceWithCount>> {
+        return database.textbooksQueries
+            .getSourceIdsWithNonLibraryTextbook()
             .subscribeToList()
             .map { sourceId ->
                 sourceId.map { (sourceId, count) ->

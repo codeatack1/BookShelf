@@ -18,10 +18,10 @@ import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactoryKey
 import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.domain.chapter.model.toDbChapter
-import com.bookshelf.domain.manga.interactor.SetMangaViewerFlags
-import com.bookshelf.domain.manga.interactor.UpdateManga
-import com.bookshelf.domain.manga.model.readerOrientation
-import com.bookshelf.domain.manga.model.readingMode
+import com.bookshelf.domain.textbook.interactor.SetTextbookViewerFlags
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
+import com.bookshelf.domain.textbook.model.readerOrientation
+import com.bookshelf.domain.textbook.model.readingMode
 import com.bookshelf.domain.source.interactor.GetIncognitoState
 import com.bookshelf.domain.track.interactor.TrackChapter
 import com.bookshelf.domain.track.service.TrackPreferences
@@ -75,7 +75,7 @@ import com.bookshelf.core.common.util.lang.launchNonCancellable
 import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.core.common.util.lang.withUIContext
 import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.chapter.interactor.GetChaptersByMangaId
+import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.interactor.UpdateChapter
 import com.bookshelf.domain.chapter.model.ChapterUpdate
 import com.bookshelf.domain.chapter.service.getChapterSort
@@ -84,8 +84,8 @@ import com.bookshelf.domain.history.interactor.GetNextChapters
 import com.bookshelf.domain.history.interactor.UpsertHistory
 import com.bookshelf.domain.history.model.HistoryUpdate
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.source.local.image.LocalCoverManager
 import com.bookshelf.source.local.isLocal
@@ -108,16 +108,16 @@ class ReaderViewModel(
     private val downloadPreferences: DownloadPreferences,
     private val trackPreferences: TrackPreferences,
     private val trackChapter: TrackChapter,
-    private val getManga: GetManga,
-    private val getChaptersByMangaId: GetChaptersByMangaId,
+    private val getManga: GetTextbook,
+    private val getChaptersByTextbookId: GetChaptersByTextbookId,
     private val getNextChapters: GetNextChapters,
     private val upsertHistory: UpsertHistory,
     private val updateChapter: UpdateChapter,
-    private val setMangaViewerFlags: SetMangaViewerFlags,
+    private val setMangaViewerFlags: SetTextbookViewerFlags,
     private val getIncognitoState: GetIncognitoState,
     private val libraryPreferences: LibraryPreferences,
     private val coverManager: LocalCoverManager,
-    private val updateManga: UpdateManga,
+    private val updateManga: UpdateTextbook,
     private val coverCache: CoverCache,
     private val chapterCache: ChapterCache,
     private val downloadCache: DownloadCache,
@@ -140,10 +140,10 @@ class ReaderViewModel(
     /**
      * Ids of the manga and chapter the reader was launched with, taken from the activity intent.
      */
-    val mangaId = savedState.get<Long>("manga") ?: -1L
+    val textbookId = savedState.get<Long>("manga") ?: -1L
     private val initialChapterId = savedState.get<Long>("chapter") ?: -1L
 
-    val hasValidArgs = mangaId != -1L && initialChapterId != -1L
+    val hasValidArgs = textbookId != -1L && initialChapterId != -1L
 
     private val eventChannel = Channel<Event>()
     val eventFlow = eventChannel.receiveAsFlow()
@@ -151,7 +151,7 @@ class ReaderViewModel(
     /**
      * The manga loaded in the reader. It can be null when instantiated for a short time.
      */
-    val manga: Manga?
+    val manga: Textbook?
         get() = state.value.manga
 
     /**
@@ -192,7 +192,7 @@ class ReaderViewModel(
 
     private val unfilteredChapterList by lazy {
         val manga = manga!!
-        runBlocking { getChaptersByMangaId.await(manga.id, applyScanlatorFilter = false) }
+        runBlocking { getChaptersByTextbookId.await(manga.id, applyScanlatorFilter = false) }
     }
 
     /**
@@ -201,7 +201,7 @@ class ReaderViewModel(
      */
     private val chapterList by lazy {
         val manga = manga!!
-        val chapters = runBlocking { getChaptersByMangaId.await(manga.id, applyScanlatorFilter = true) }
+        val chapters = runBlocking { getChaptersByTextbookId.await(manga.id, applyScanlatorFilter = true) }
 
         val selectedChapter = chapters.find { it.id == chapterId }
             ?: error("Requested chapter of id $chapterId not found in chapter list")
@@ -212,10 +212,10 @@ class ReaderViewModel(
                     when {
                         readerPreferences.skipRead.get() && it.read -> true
                         readerPreferences.skipFiltered.get() -> {
-                            (manga.unreadFilterRaw == Manga.CHAPTER_SHOW_READ && !it.read) ||
-                                (manga.unreadFilterRaw == Manga.CHAPTER_SHOW_UNREAD && it.read) ||
+                            (manga.unreadFilterRaw == Textbook.CHAPTER_SHOW_READ && !it.read) ||
+                                (manga.unreadFilterRaw == Textbook.CHAPTER_SHOW_UNREAD && it.read) ||
                                 (
-                                    manga.downloadedFilterRaw == Manga.CHAPTER_SHOW_DOWNLOADED &&
+                                    manga.downloadedFilterRaw == Textbook.CHAPTER_SHOW_DOWNLOADED &&
                                         !downloadManager.isChapterDownloaded(
                                             it.name,
                                             it.scanlator,
@@ -225,7 +225,7 @@ class ReaderViewModel(
                                         )
                                     ) ||
                                 (
-                                    manga.downloadedFilterRaw == Manga.CHAPTER_SHOW_NOT_DOWNLOADED &&
+                                    manga.downloadedFilterRaw == Textbook.CHAPTER_SHOW_NOT_DOWNLOADED &&
                                         downloadManager.isChapterDownloaded(
                                             it.name,
                                             it.scanlator,
@@ -234,8 +234,8 @@ class ReaderViewModel(
                                             manga.source,
                                         )
                                     ) ||
-                                (manga.bookmarkedFilterRaw == Manga.CHAPTER_SHOW_BOOKMARKED && !it.bookmark) ||
-                                (manga.bookmarkedFilterRaw == Manga.CHAPTER_SHOW_NOT_BOOKMARKED && it.bookmark)
+                                (manga.bookmarkedFilterRaw == Textbook.CHAPTER_SHOW_BOOKMARKED && !it.bookmark) ||
+                                (manga.bookmarkedFilterRaw == Textbook.CHAPTER_SHOW_NOT_BOOKMARKED && it.bookmark)
                         }
                         else -> false
                     }
@@ -313,14 +313,14 @@ class ReaderViewModel(
     }
 
     /**
-     * Initializes this presenter with the [mangaId] and [initialChapterId] the reader was launched
+     * Initializes this presenter with the [textbookId] and [initialChapterId] the reader was launched
      * with. This method will fetch the manga from the database and initialize the initial chapter.
      * Failures are reported through [State.initError].
      */
     private suspend fun init() {
         withIOContext {
             try {
-                val manga = getManga.await(mangaId) ?: error("Requested manga of id $mangaId not found")
+                val manga = getManga.await(textbookId) ?: error("Requested manga of id $textbookId not found")
                 val source = sourceManager.getOrStub(manga.source)
                 incognitoMode = getIncognitoState.await(manga.source)
                 mutableState.update { it.copy(manga = manga, source = source) }
@@ -783,7 +783,7 @@ class ReaderViewModel(
      * Generate a filename for the given [manga] and [page]
      */
     private fun generateFilename(
-        manga: Manga,
+        manga: Textbook,
         page: ReaderPage,
     ): String {
         val chapter = page.chapter.chapter
@@ -978,7 +978,7 @@ class ReaderViewModel(
 
     @Immutable
     data class State(
-        val manga: Manga? = null,
+        val manga: Textbook? = null,
         val source: Source? = null,
         val initError: Throwable? = null,
         val viewerChapters: ViewerChapters? = null,

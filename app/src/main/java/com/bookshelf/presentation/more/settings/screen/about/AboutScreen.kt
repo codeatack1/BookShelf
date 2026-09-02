@@ -28,7 +28,7 @@ import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
 import com.bookshelf.presentation.util.LocalBackPress
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.BuildConfig
-import com.bookshelf.com.bookshelf.data.updater.RELEASE_URL
+import com.bookshelf.data.updater.RELEASE_URL
 import com.bookshelf.ui.more.NewUpdateScreen
 import com.bookshelf.util.lang.toDateTimestampString
 import com.bookshelf.util.system.copyToClipboard

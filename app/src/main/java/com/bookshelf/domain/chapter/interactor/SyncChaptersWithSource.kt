@@ -3,19 +3,19 @@ package com.bookshelf.domain.chapter.interactor
 import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.chapter.model.copyFromSChapter
 import com.bookshelf.domain.chapter.model.toSChapter
-import com.bookshelf.domain.manga.interactor.GetExcludedScanlators
-import com.bookshelf.domain.manga.interactor.UpdateManga
-import com.bookshelf.domain.manga.model.toSManga
-import com.bookshelf.com.bookshelf.data.download.DownloadManager
-import com.bookshelf.com.bookshelf.data.download.DownloadProvider
-import com.bookshelf.com.bookshelf.source.Source
-import com.bookshelf.com.bookshelf.source.model.SChapter
-import com.bookshelf.com.bookshelf.source.online.HttpSource
+import com.bookshelf.domain.textbook.interactor.GetExcludedScanlators
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
+import com.bookshelf.domain.textbook.model.toSTextbook
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.data.download.DownloadProvider
+import com.bookshelf.source.Source
+import com.bookshelf.source.model.SChapter
+import com.bookshelf.source.online.HttpSource
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import com.bookshelf.data.chapter.ChapterSanitizer
-import com.bookshelf.domain.chapter.interactor.GetChaptersByMangaId
+import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.interactor.ShouldUpdateDbChapter
 import com.bookshelf.domain.chapter.interactor.UpdateChapter
 import com.bookshelf.domain.chapter.model.Chapter
@@ -24,7 +24,7 @@ import com.bookshelf.domain.chapter.model.toChapterUpdate
 import com.bookshelf.domain.chapter.repository.ChapterRepository
 import com.bookshelf.domain.chapter.service.ChapterRecognition
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.source.local.isLocal
 import java.lang.Long.max
 import java.util.TreeSet
@@ -36,9 +36,9 @@ class SyncChaptersWithSource(
     private val downloadProvider: DownloadProvider,
     private val chapterRepository: ChapterRepository,
     private val shouldUpdateDbChapter: ShouldUpdateDbChapter,
-    private val updateManga: UpdateManga,
+    private val updateManga: UpdateTextbook,
     private val updateChapter: UpdateChapter,
-    private val getChaptersByMangaId: GetChaptersByMangaId,
+    private val getChaptersByTextbookId: GetChaptersByTextbookId,
     private val getExcludedScanlators: GetExcludedScanlators,
     private val libraryPreferences: LibraryPreferences,
 ) {
@@ -53,7 +53,7 @@ class SyncChaptersWithSource(
      */
     suspend fun await(
         rawSourceChapters: List<SChapter>,
-        manga: Manga,
+        manga: Textbook,
         source: Source,
         manualFetch: Boolean = false,
         fetchWindow: Pair<Long, Long> = Pair(0, 0),
@@ -72,10 +72,10 @@ class SyncChaptersWithSource(
                 Chapter.create()
                     .copyFromSChapter(sChapter)
                     .copy(name = with(ChapterSanitizer) { sChapter.name.sanitize(manga.title) })
-                    .copy(mangaId = manga.id, sourceOrder = i.toLong())
+                    .copy(textbookId = manga.id, sourceOrder = i.toLong())
             }
 
-        val dbChapters = getChaptersByMangaId.await(manga.id)
+        val dbChapters = getChaptersByTextbookId.await(manga.id)
 
         val newChapters = mutableListOf<Chapter>()
         val updatedChapters = mutableListOf<Chapter>()
@@ -96,7 +96,7 @@ class SyncChaptersWithSource(
             if (source is HttpSource) {
                 val sChapter = chapter.toSChapter()
                 @Suppress("DEPRECATION")
-                source.prepareNewChapter(sChapter, manga.toSManga())
+                source.prepareNewChapter(sChapter, manga.toSTextbook())
                 chapter = chapter.copyFromSChapter(sChapter)
             }
 

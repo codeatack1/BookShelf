@@ -5,7 +5,7 @@ import com.bookshelf.domain.track.model.Track
 object TrackMapper {
     fun mapTrack(
         id: Long,
-        mangaId: Long,
+        textbookId: Long,
         syncId: Long,
         remoteId: Long,
         libraryId: Long?,
@@ -20,7 +20,7 @@ object TrackMapper {
         private: Boolean,
     ): Track = Track(
         id = id,
-        mangaId = mangaId,
+        textbookId = textbookId,
         trackerId = syncId,
         remoteId = remoteId,
         libraryId = libraryId,

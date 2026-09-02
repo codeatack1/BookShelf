@@ -31,7 +31,7 @@ class ChapterRepositoryImpl(
             database.transactionWithResult {
                 chapters.map { chapter ->
                     val chapterId = database.chaptersQueries.insertReturningId(
-                        chapter.mangaId,
+                        chapter.textbookId,
                         chapter.url,
                         chapter.name,
                         chapter.scanlator,
@@ -67,7 +67,7 @@ class ChapterRepositoryImpl(
         database.transaction {
             chapterUpdates.forEach { chapterUpdate ->
                 database.chaptersQueries.update(
-                    mangaId = chapterUpdate.mangaId,
+                    textbookId = chapterUpdate.textbookId,
                     url = chapterUpdate.url,
                     name = chapterUpdate.name,
                     scanlator = chapterUpdate.scanlator,
@@ -95,27 +95,27 @@ class ChapterRepositoryImpl(
         }
     }
 
-    override suspend fun getChapterByMangaId(mangaId: Long, applyScanlatorFilter: Boolean): List<Chapter> {
+    override suspend fun getChapterByTextbookId(textbookId: Long, applyScanlatorFilter: Boolean): List<Chapter> {
         return database.chaptersQueries
-            .getChaptersByMangaId(mangaId, applyScanlatorFilter.toLong(), ::mapChapter)
+            .getChaptersByTextbookId(textbookId, applyScanlatorFilter.toLong(), ::mapChapter)
             .awaitAsList()
     }
 
-    override suspend fun getScanlatorsByMangaId(mangaId: Long): List<String> {
+    override suspend fun getScanlatorsByTextbookId(textbookId: Long): List<String> {
         return database.chaptersQueries
-            .getScanlatorsByMangaId(mangaId) { it.orEmpty() }
+            .getScanlatorsByTextbookId(textbookId) { it.orEmpty() }
             .awaitAsList()
     }
 
-    override fun getScanlatorsByMangaIdAsFlow(mangaId: Long): Flow<List<String>> {
+    override fun getScanlatorsByTextbookIdAsFlow(textbookId: Long): Flow<List<String>> {
         return database.chaptersQueries
-            .getScanlatorsByMangaId(mangaId) { it.orEmpty() }
+            .getScanlatorsByTextbookId(textbookId) { it.orEmpty() }
             .subscribeToList()
     }
 
-    override suspend fun getBookmarkedChaptersByMangaId(mangaId: Long): List<Chapter> {
+    override suspend fun getBookmarkedChaptersByTextbookId(textbookId: Long): List<Chapter> {
         return database.chaptersQueries
-            .getBookmarkedChaptersByMangaId(mangaId, ::mapChapter)
+            .getBookmarkedChaptersByTextbookId(textbookId, ::mapChapter)
             .awaitAsList()
     }
 
@@ -125,22 +125,22 @@ class ChapterRepositoryImpl(
             .awaitAsOneOrNull()
     }
 
-    override suspend fun getChapterByMangaIdAsFlow(mangaId: Long, applyScanlatorFilter: Boolean): Flow<List<Chapter>> {
+    override suspend fun getChapterByTextbookIdAsFlow(textbookId: Long, applyScanlatorFilter: Boolean): Flow<List<Chapter>> {
         return database.chaptersQueries
-            .getChaptersByMangaId(mangaId, applyScanlatorFilter.toLong(), ::mapChapter)
+            .getChaptersByTextbookId(textbookId, applyScanlatorFilter.toLong(), ::mapChapter)
             .subscribeToList()
     }
 
-    override suspend fun getChapterByUrlAndMangaId(url: String, mangaId: Long): Chapter? {
+    override suspend fun getChapterByUrlAndTextbookId(url: String, textbookId: Long): Chapter? {
         return database.chaptersQueries
-            .getChapterByUrlAndMangaId(url, mangaId, ::mapChapter)
+            .getChapterByUrlAndTextbookId(url, textbookId, ::mapChapter)
             .awaitAsOneOrNull()
     }
 
     @Suppress("UNUSED_PARAMETER")
     private fun mapChapter(
         id: Long,
-        mangaId: Long,
+        textbookId: Long,
         url: String,
         name: String,
         scanlator: String?,
@@ -157,7 +157,7 @@ class ChapterRepositoryImpl(
         memo: JsonObject,
     ): Chapter = Chapter(
         id = id,
-        mangaId = mangaId,
+        textbookId = textbookId,
         read = read,
         bookmark = bookmark,
         lastPageRead = lastPageRead,

@@ -22,7 +22,7 @@ import com.bookshelf.core.preference.PreferenceMutableState
 import com.bookshelf.ui.library.LibraryItem
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.library.model.LibraryDisplayMode
-import com.bookshelf.domain.library.model.LibraryManga
+import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.util.plus
@@ -39,9 +39,9 @@ fun LibraryPager(
     getDisplayMode: (Int) -> PreferenceMutableState<LibraryDisplayMode>,
     getColumnsForOrientation: (Boolean) -> PreferenceMutableState<Int>,
     getItemsForCategory: (Category) -> List<LibraryItem>,
-    onClickManga: (Category, LibraryManga) -> Unit,
-    onLongClickManga: (Category, LibraryManga) -> Unit,
-    onClickContinueReading: ((LibraryManga) -> Unit)?,
+    onClickManga: (Category, LibraryTextbook) -> Unit,
+    onLongClickManga: (Category, LibraryTextbook) -> Unit,
+    onClickContinueReading: ((LibraryTextbook) -> Unit)?,
 ) {
     HorizontalPager(
         modifier = Modifier.fillMaxSize(),
@@ -75,8 +75,8 @@ fun LibraryPager(
             remember { mutableIntStateOf(0) }
         }
 
-        val onClickManga: (LibraryManga) -> Unit = { onClickManga(category, it) }
-        val onLongClickManga: (LibraryManga) -> Unit = { onLongClickManga(category, it) }
+        val onClickManga: (LibraryTextbook) -> Unit = { onClickManga(category, it) }
+        val onLongClickManga: (LibraryTextbook) -> Unit = { onLongClickManga(category, it) }
 
         when (displayMode) {
             LibraryDisplayMode.List -> {

@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import dev.icerock.moko.resources.StringResource
-import com.bookshelf.domain.manga.model.readingMode
+import com.bookshelf.domain.textbook.model.readingMode
 import com.bookshelf.presentation.components.AdaptiveSheet
 import com.bookshelf.presentation.reader.components.ModeSelectionDialog
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme

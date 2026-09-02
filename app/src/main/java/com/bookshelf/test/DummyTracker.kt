@@ -2,8 +2,8 @@ package com.bookshelf.test
 
 import dev.icerock.moko.resources.StringResource
 import com.bookshelf.R
-import com.bookshelf.com.bookshelf.data.track.Tracker
-import com.bookshelf.com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.data.track.Tracker
+import com.bookshelf.data.track.model.TrackSearch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import okhttp3.OkHttpClient
@@ -60,20 +60,20 @@ data class DummyTracker(
         track.score.toString()
 
     override suspend fun update(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
+        track: com.bookshelf.data.database.models.Track,
         didReadChapter: Boolean,
-    ): com.bookshelf.com.bookshelf.data.database.models.Track = track
+    ): com.bookshelf.data.database.models.Track = track
 
     override suspend fun bind(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
+        track: com.bookshelf.data.database.models.Track,
         hasReadChapters: Boolean,
-    ): com.bookshelf.com.bookshelf.data.database.models.Track = track
+    ): com.bookshelf.data.database.models.Track = track
 
     override suspend fun search(query: String): List<TrackSearch> = valSearchResults
 
     override suspend fun refresh(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
-    ): com.bookshelf.com.bookshelf.data.database.models.Track = track
+        track: com.bookshelf.data.database.models.Track,
+    ): com.bookshelf.data.database.models.Track = track
 
     override suspend fun login(username: String, password: String) = Unit
 
@@ -90,37 +90,37 @@ data class DummyTracker(
     override fun saveCredentials(username: String, password: String) = Unit
 
     override suspend fun register(
-        item: com.bookshelf.com.bookshelf.data.database.models.Track,
-        mangaId: Long,
+        item: com.bookshelf.data.database.models.Track,
+        textbookId: Long,
     ) = Unit
 
     override suspend fun setRemoteStatus(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
+        track: com.bookshelf.data.database.models.Track,
         status: Long,
     ) = Unit
 
     override suspend fun setRemoteLastChapterRead(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
+        track: com.bookshelf.data.database.models.Track,
         chapterNumber: Int,
     ) = Unit
 
     override suspend fun setRemoteScore(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
+        track: com.bookshelf.data.database.models.Track,
         scoreString: String,
     ) = Unit
 
     override suspend fun setRemoteStartDate(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
+        track: com.bookshelf.data.database.models.Track,
         epochMillis: Long,
     ) = Unit
 
     override suspend fun setRemoteFinishDate(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
+        track: com.bookshelf.data.database.models.Track,
         epochMillis: Long,
     ) = Unit
 
     override suspend fun setRemotePrivate(
-        track: com.bookshelf.com.bookshelf.data.database.models.Track,
+        track: com.bookshelf.data.database.models.Track,
         private: Boolean,
     ) = Unit
 }

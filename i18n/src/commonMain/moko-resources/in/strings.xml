@@ -778,7 +778,7 @@
     <string name="upcoming_guide">Panduan Mendatang</string>
     <string name="upcoming_calendar_next">Bulan Depan</string>
     <string name="upcoming_calendar_prev">Bulan Kemarin</string>
-    <string name="manga_interval_expected_update_null">Manga ini sudah selesai, atau belum ada tanggal rilis yang diperkirakan.</string>
+    <string name="manga_interval_expected_update_null">Textbook ini sudah selesai, atau belum ada tanggal rilis yang diperkirakan.</string>
     <string name="file_picker_uri_permission_unsupported">Gagal mendapatkan akses folder yang terus-menerus. Aplikasi mungkin berperilaku tak terduga.</string>
     <string name="pref_flash_duration">Durasi lampu kilat</string>
     <string name="pref_flash_duration_summary">%1$s ms</string>

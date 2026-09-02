@@ -37,7 +37,7 @@ import com.bookshelf.ui.browse.BrowseTab
 import com.bookshelf.ui.download.DownloadQueueScreen
 import com.bookshelf.ui.history.HistoryTab
 import com.bookshelf.ui.library.LibraryTab
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.more.MoreTab
 import com.bookshelf.ui.updates.UpdatesTab
 import kotlinx.coroutines.channels.Channel
@@ -154,7 +154,7 @@ object HomeScreen : Screen() {
                         }
 
                         if (it is Tab.Library && it.mangaIdToOpen != null) {
-                            navigator.push(MangaScreen(it.mangaIdToOpen))
+                            navigator.push(TextbookScreen(it.mangaIdToOpen))
                         }
                         if (it is Tab.More && it.toDownloads) {
                             navigator.push(DownloadQueueScreen)

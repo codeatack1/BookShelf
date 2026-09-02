@@ -426,7 +426,7 @@
 \nBudete musieť nainštalovať všetky chýbajúce rozšírenia a potom sa prihlásiť do sledovacích služieb, aby ste ich mohli používať.</string>
     <string name="pref_reset_viewer_flags_error">Nepodarilo sa obnoviť nastavenia čítačky</string>
     <string name="pref_tablet_ui_mode">Používateľské rozhranie tabletu</string>
-    <string name="manga_from_library">Manga z knižnice</string>
+    <string name="manga_from_library">Textbook z knižnice</string>
     <string name="cancelled">Zrušené</string>
     <string name="on_hold_list">Zoznam pozastavených položiek</string>
     <string name="download_ahead">Stiahnuť dopredu</string>

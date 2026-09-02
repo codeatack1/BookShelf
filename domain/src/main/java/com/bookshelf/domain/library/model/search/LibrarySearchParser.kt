@@ -64,7 +64,7 @@ class LibrarySearchParser(private val tokens: List<LibrarySearchLexer.Token>) {
         return when (val nextToken = advance()) {
             is LibrarySearchLexer.Token.General -> GeneralQueryNode(nextToken.value, negated)
             is LibrarySearchLexer.Token.Field -> {
-                MangaField.fromString(nextToken.field)?.let {
+                TextbookField.fromString(nextToken.field)?.let {
                     FieldQueryNode(it, nextToken.value, negated)
                 } ?: GeneralQueryNode("${nextToken.field}:${nextToken.value}", negated)
             }

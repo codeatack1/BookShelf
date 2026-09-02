@@ -7,8 +7,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.FragmentActivity
 import com.bookshelf.presentation.more.settings.Preference
-import com.bookshelf.com.bookshelf.core.security.PrivacyPreferences
-import com.bookshelf.com.bookshelf.core.security.SecurityPreferences
+import com.bookshelf.core.security.PrivacyPreferences
+import com.bookshelf.core.security.SecurityPreferences
 import com.bookshelf.util.system.AuthenticatorUtil.authenticate
 import com.bookshelf.util.system.AuthenticatorUtil.isAuthenticationSupported
 import com.bookshelf.util.system.telemetryIncluded

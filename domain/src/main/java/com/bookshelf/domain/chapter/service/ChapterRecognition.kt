@@ -31,7 +31,7 @@ object ChapterRecognition {
     private val unwantedWhiteSpace = Regex("""\s(?=extra|special|omake)""")
 
     fun parseChapterNumber(
-        mangaTitle: String,
+        textbookTitle: String,
         chapterName: String,
         chapterNumber: Double? = null,
     ): Double {
@@ -43,7 +43,7 @@ object ChapterRecognition {
         // Get chapter title with lower case
         val cleanChapterName = chapterName.lowercase()
             // Remove manga title from chapter title.
-            .replace(mangaTitle.lowercase(), "").trim()
+            .replace(textbookTitle.lowercase(), "").trim()
             // Remove comma's or hyphens.
             .replace(',', '.')
             .replace('-', '.')

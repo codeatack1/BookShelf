@@ -2,10 +2,10 @@ package com.bookshelf.source.online
 
 import com.bookshelf.source.Source
 import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.model.SManga
+import com.bookshelf.source.model.STextbook
 
 /**
- * A source that may handle opening an SManga or SChapter for a given URI.
+ * A source that may handle opening an STextbook or SChapter for a given URI.
  *
  * @since extensions-lib 1.5
  */
@@ -20,12 +20,12 @@ interface ResolvableSource : Source {
     fun getUriType(uri: String): UriType
 
     /**
-     * Called if [getUriType] is [UriType.Manga].
-     * Returns the corresponding SManga, if possible.
+     * Called if [getUriType] is [UriType.Textbook].
+     * Returns the corresponding STextbook, if possible.
      *
      * @since extensions-lib 1.5
      */
-    suspend fun getManga(uri: String): SManga?
+    suspend fun getManga(uri: String): STextbook?
 
     /**
      * Called if [getUriType] is [UriType.Chapter].
@@ -37,7 +37,7 @@ interface ResolvableSource : Source {
 }
 
 sealed interface UriType {
-    data object Manga : UriType
+    data object Textbook : UriType
     data object Chapter : UriType
     data object Unknown : UriType
 }

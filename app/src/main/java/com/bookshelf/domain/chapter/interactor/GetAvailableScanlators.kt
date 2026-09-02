@@ -14,13 +14,13 @@ class GetAvailableScanlators(
         return mapNotNull { it.ifBlank { null } }.toSet()
     }
 
-    suspend fun await(mangaId: Long): Set<String> {
-        return repository.getScanlatorsByMangaId(mangaId)
+    suspend fun await(textbookId: Long): Set<String> {
+        return repository.getScanlatorsByTextbookId(textbookId)
             .cleanupAvailableScanlators()
     }
 
-    fun subscribe(mangaId: Long): Flow<Set<String>> {
-        return repository.getScanlatorsByMangaIdAsFlow(mangaId)
+    fun subscribe(textbookId: Long): Flow<Set<String>> {
+        return repository.getScanlatorsByTextbookIdAsFlow(textbookId)
             .map { it.cleanupAvailableScanlators() }
     }
 }

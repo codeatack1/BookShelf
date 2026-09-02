@@ -2,11 +2,11 @@ package com.bookshelf.domain.track.interactor
 
 import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.track.model.toDbTrack
-import com.bookshelf.com.bookshelf.data.track.EnhancedTracker
-import com.bookshelf.com.bookshelf.data.track.Tracker
+import com.bookshelf.data.track.EnhancedTracker
+import com.bookshelf.data.track.Tracker
 import logcat.LogPriority
 import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.chapter.interactor.GetChaptersByMangaId
+import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.interactor.UpdateChapter
 import com.bookshelf.domain.chapter.model.toChapterUpdate
 import com.bookshelf.domain.track.interactor.InsertTrack
@@ -17,11 +17,11 @@ import kotlin.math.max
 class SyncChapterProgressWithTrack(
     private val updateChapter: UpdateChapter,
     private val insertTrack: InsertTrack,
-    private val getChaptersByMangaId: GetChaptersByMangaId,
+    private val getChaptersByTextbookId: GetChaptersByTextbookId,
 ) {
 
     suspend fun await(
-        mangaId: Long,
+        textbookId: Long,
         remoteTrack: Track,
         tracker: Tracker,
     ) {
@@ -29,7 +29,7 @@ class SyncChapterProgressWithTrack(
             return
         }
 
-        val sortedChapters = getChaptersByMangaId.await(mangaId)
+        val sortedChapters = getChaptersByTextbookId.await(textbookId)
             .sortedBy { it.chapterNumber }
             .filter { it.isRecognizedNumber }
 

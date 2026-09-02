@@ -88,7 +88,7 @@ class DownloadNotifier(
                 addAction(
                     R.drawable.ic_book_24dp,
                     context.stringResource(MR.strings.action_show_manga),
-                    NotificationReceiver.openEntryPendingActivity(context, download.manga.id),
+                    NotificationReceiver.openEntryPendingActivity(context, download.textbook.id),
                 )
             }
 
@@ -102,7 +102,7 @@ class DownloadNotifier(
                 setContentTitle(downloadingProgressText)
                 setContentText(null)
             } else {
-                val title = download.manga.title.chop(15)
+                val title = download.textbook.title.chop(15)
                 val quotedTitle = Pattern.quote(title)
                 val chapter = download.chapter.name.replaceFirst(
                     "$quotedTitle[\\s]*[-]*[\\s]*".toRegex(RegexOption.IGNORE_CASE),
@@ -167,10 +167,10 @@ class DownloadNotifier(
      *
      * @param reason the text to show.
      * @param timeout duration after which to automatically dismiss the notification.
-     * @param mangaId the id of the entry being warned about
+     * @param textbookId the id of the entry being warned about
      * Only works on Android 8+.
      */
-    fun onWarning(reason: String, timeout: Long? = null, contentIntent: PendingIntent? = null, mangaId: Long? = null) {
+    fun onWarning(reason: String, timeout: Long? = null, contentIntent: PendingIntent? = null, textbookId: Long? = null) {
         with(errorNotificationBuilder) {
             setContentTitle(context.stringResource(MR.strings.download_notifier_downloader_title))
             setStyle(NotificationCompat.BigTextStyle().bigText(reason))
@@ -178,11 +178,11 @@ class DownloadNotifier(
             setAutoCancel(true)
             clearActions()
             setContentIntent(NotificationHandler.openDownloadManagerPendingActivity(context))
-            if (mangaId != null) {
+            if (textbookId != null) {
                 addAction(
                     R.drawable.ic_book_24dp,
                     context.stringResource(MR.strings.action_show_manga),
-                    NotificationReceiver.openEntryPendingActivity(context, mangaId),
+                    NotificationReceiver.openEntryPendingActivity(context, textbookId),
                 )
             }
             setProgress(0, 0, false)
@@ -202,23 +202,23 @@ class DownloadNotifier(
      *
      * @param error string containing error information.
      * @param chapter string containing chapter title.
-     * @param mangaId the id of the entry that the error occurred on
+     * @param textbookId the id of the entry that the error occurred on
      */
-    fun onError(error: String? = null, chapter: String? = null, mangaTitle: String? = null, mangaId: Long? = null) {
+    fun onError(error: String? = null, chapter: String? = null, textbookTitle: String? = null, textbookId: Long? = null) {
         // Create notification
         with(errorNotificationBuilder) {
             setContentTitle(
-                mangaTitle?.plus(": $chapter") ?: context.stringResource(MR.strings.download_notifier_downloader_title),
+                textbookTitle?.plus(": $chapter") ?: context.stringResource(MR.strings.download_notifier_downloader_title),
             )
             setContentText(error ?: context.stringResource(MR.strings.download_notifier_unknown_error))
             setSmallIcon(R.drawable.ic_warning_white_24dp)
             clearActions()
             setContentIntent(NotificationHandler.openDownloadManagerPendingActivity(context))
-            if (mangaId != null) {
+            if (textbookId != null) {
                 addAction(
                     R.drawable.ic_book_24dp,
                     context.stringResource(MR.strings.action_show_manga),
-                    NotificationReceiver.openEntryPendingActivity(context, mangaId),
+                    NotificationReceiver.openEntryPendingActivity(context, textbookId),
                 )
             }
             setProgress(0, 0, false)

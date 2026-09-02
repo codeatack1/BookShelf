@@ -12,10 +12,10 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.ui.browse.migration.search.MigrateSearchScreen
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.util.system.toast
 import com.bookshelf.feature.migration.list.components.MigrationExitDialog
-import com.bookshelf.feature.migration.list.components.MigrationMangaDialog
+import com.bookshelf.feature.migration.list.components.MigrationTextbookDialog
 import com.bookshelf.feature.migration.list.components.MigrationProgressDialog
 import com.bookshelf.i18n.MR
 
@@ -59,20 +59,20 @@ class MigrationListScreen(private val mangaIds: Collection<Long>, private val ex
             migrationComplete = state.migrationComplete,
             finishedCount = state.finishedCount,
             onItemClick = {
-                navigator.push(MangaScreen(it.id, true))
+                navigator.push(TextbookScreen(it.id, true))
             },
             onSearchManually = { migrationItem ->
                 navigator push MigrateSearchScreen(migrationItem.manga.id)
             },
             onSkip = { viewModel.removeManga(it) },
-            onMigrate = { viewModel.migrateNow(mangaId = it, replace = true) },
-            onCopy = { viewModel.migrateNow(mangaId = it, replace = false) },
+            onMigrate = { viewModel.migrateNow(textbookId = it, replace = true) },
+            onCopy = { viewModel.migrateNow(textbookId = it, replace = false) },
             openMigrationDialog = viewModel::showMigrateDialog,
         )
 
         when (val dialog = state.dialog) {
             is MigrationListViewModel.Dialog.Migrate -> {
-                MigrationMangaDialog(
+                MigrationTextbookDialog(
                     onDismissRequest = viewModel::dismissDialog,
                     copy = dialog.copy,
                     totalCount = dialog.totalCount,

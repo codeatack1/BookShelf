@@ -47,10 +47,10 @@ import com.bookshelf.presentation.more.settings.screen.data.StorageInfo
 import com.bookshelf.presentation.more.settings.widget.BasePreferenceWidget
 import com.bookshelf.presentation.more.settings.widget.PrefsHorizontalPadding
 import com.bookshelf.presentation.util.relativeTimeSpanString
-import com.bookshelf.com.bookshelf.data.backup.create.BackupCreateJob
-import com.bookshelf.com.bookshelf.data.backup.restore.BackupRestoreJob
-import com.bookshelf.com.bookshelf.data.export.LibraryExporter
-import com.bookshelf.com.bookshelf.data.export.LibraryExporter.ExportOptions
+import com.bookshelf.data.backup.create.BackupCreateJob
+import com.bookshelf.data.backup.restore.BackupRestoreJob
+import com.bookshelf.data.export.LibraryExporter
+import com.bookshelf.data.export.LibraryExporter.ExportOptions
 import com.bookshelf.util.system.DeviceUtil
 import com.bookshelf.util.system.toast
 import com.bookshelf.util.system.workManager
@@ -66,7 +66,7 @@ import com.bookshelf.core.common.util.lang.launchNonCancellable
 import com.bookshelf.core.common.util.lang.withUIContext
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.backup.service.BackupPreferences
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.storage.service.StoragePreferences
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.TextButton
@@ -340,7 +340,7 @@ object SettingsDataScreen : SearchableSettings {
         val context = LocalContext.current
         val scope = rememberCoroutineScope()
         val getFavorites = remember { context.appGraph.getFavorites }
-        var favorites by remember { mutableStateOf<List<Manga>>(emptyList()) }
+        var favorites by remember { mutableStateOf<List<Textbook>>(emptyList()) }
         LaunchedEffect(Unit) {
             favorites = getFavorites.await()
         }

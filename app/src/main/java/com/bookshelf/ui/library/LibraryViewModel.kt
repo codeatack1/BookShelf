@@ -16,14 +16,14 @@ import com.bookshelf.core.preference.asState
 import com.bookshelf.core.util.fastFilterNot
 import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.domain.chapter.interactor.SetReadStatus
-import com.bookshelf.domain.manga.interactor.UpdateManga
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
 import com.bookshelf.presentation.library.components.LibraryToolbarTitle
 import com.bookshelf.presentation.manga.DownloadAction
 import com.bookshelf.data.cache.CoverCache
 import com.bookshelf.data.download.DownloadCache
 import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.data.track.TrackerManager
-import com.bookshelf.source.model.SManga
+import com.bookshelf.source.model.STextbook
 import com.bookshelf.source.online.HttpSource
 import com.bookshelf.util.chapter.getNextUnread
 import com.bookshelf.util.removeCovers
@@ -51,23 +51,23 @@ import com.bookshelf.core.common.util.lang.compareToWithCollator
 import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.core.common.util.lang.launchNonCancellable
 import com.bookshelf.domain.category.interactor.GetCategories
-import com.bookshelf.domain.category.interactor.SetMangaCategories
+import com.bookshelf.domain.category.interactor.SetTextbookCategories
 import com.bookshelf.domain.category.model.Category
-import com.bookshelf.domain.chapter.interactor.GetBookmarkedChaptersByMangaId
-import com.bookshelf.domain.chapter.interactor.GetChaptersByMangaId
+import com.bookshelf.domain.chapter.interactor.GetBookmarkedChaptersByTextbookId
+import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.history.interactor.GetNextChapters
 import com.bookshelf.domain.library.model.LibraryDisplayMode
-import com.bookshelf.domain.library.model.LibraryManga
+import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.domain.library.model.LibrarySort
 import com.bookshelf.domain.library.model.sort
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.manga.interactor.GetLibraryManga
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.model.MangaUpdate
-import com.bookshelf.domain.manga.model.applyFilter
+import com.bookshelf.domain.textbook.interactor.GetLibraryTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.TextbookUpdate
+import com.bookshelf.domain.textbook.model.applyFilter
 import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.domain.track.interactor.GetTracksPerManga
+import com.bookshelf.domain.track.interactor.GetTracksPerTextbook
 import com.bookshelf.domain.track.model.Track
 import com.bookshelf.source.local.isLocal
 import kotlin.random.Random
@@ -77,15 +77,15 @@ import kotlin.time.Duration.Companion.seconds
 @ViewModelKey
 @ContributesIntoMap(AppScope::class, binding = binding<ViewModel>())
 class LibraryViewModel(
-    private val getLibraryManga: GetLibraryManga,
+    private val getLibraryTextbook: GetLibraryTextbook,
     private val getCategories: GetCategories,
-    private val getTracksPerManga: GetTracksPerManga,
+    private val getTracksPerManga: GetTracksPerTextbook,
     private val getNextChapters: GetNextChapters,
-    private val getChaptersByMangaId: GetChaptersByMangaId,
-    private val getBookmarkedChaptersByMangaId: GetBookmarkedChaptersByMangaId,
+    private val getChaptersByTextbookId: GetChaptersByTextbookId,
+    private val getBookmarkedChaptersByTextbookId: GetBookmarkedChaptersByTextbookId,
     private val setReadStatus: SetReadStatus,
-    private val updateManga: UpdateManga,
-    private val setMangaCategories: SetMangaCategories,
+    private val updateManga: UpdateTextbook,
+    private val setTextbookCategories: SetTextbookCategories,
     private val preferences: BasePreferences,
     private val libraryPreferences: LibraryPreferences,
     private val coverCache: CoverCache,
@@ -97,7 +97,7 @@ class LibraryViewModel(
 
     private val searchQuery = MutableStateFlow<String?>(null)
 
-    private val selection = MutableStateFlow(emptySet</* Manga */ Long>())
+    private val selection = MutableStateFlow(emptySet</* Textbook */ Long>())
 
     private val dialog = MutableStateFlow<Dialog?>(null)
 
@@ -238,12 +238,12 @@ class LibraryViewModel(
         }
 
         val filterFnCompleted: (LibraryItem) -> Boolean = {
-            applyFilter(filterCompleted) { it.libraryManga.manga.status.toInt() == SManga.COMPLETED }
+            applyFilter(filterCompleted) { it.libraryManga.textbook.status.toInt() == STextbook.COMPLETED }
         }
 
         val filterFnIntervalCustom: (LibraryItem) -> Boolean = {
             if (skipOutsideReleasePeriod) {
-                applyFilter(filterIntervalCustom) { it.libraryManga.manga.fetchInterval < 0 }
+                applyFilter(filterIntervalCustom) { it.libraryManga.textbook.fetchInterval < 0 }
             } else {
                 true
             }
@@ -291,8 +291,8 @@ class LibraryViewModel(
         loggedInTrackerIds: Set<Long>,
     ): Map<Category, List</* LibraryItem */ Long>> {
         val sortAlphabetically: (LibraryItem, LibraryItem) -> Int = { manga1, manga2 ->
-            val title1 = manga1.libraryManga.manga.title.lowercase()
-            val title2 = manga2.libraryManga.manga.title.lowercase()
+            val title1 = manga1.libraryManga.textbook.title.lowercase()
+            val title2 = manga2.libraryManga.textbook.title.lowercase()
             title1.compareToWithCollator(title2)
         }
 
@@ -319,7 +319,7 @@ class LibraryViewModel(
                     manga1.libraryManga.lastRead.compareTo(manga2.libraryManga.lastRead)
                 }
                 LibrarySort.Type.LastUpdate -> {
-                    manga1.libraryManga.manga.lastUpdate.compareTo(manga2.libraryManga.manga.lastUpdate)
+                    manga1.libraryManga.textbook.lastUpdate.compareTo(manga2.libraryManga.textbook.lastUpdate)
                 }
                 LibrarySort.Type.UnreadCount -> when {
                     // Ensure unread content comes first
@@ -338,7 +338,7 @@ class LibraryViewModel(
                     manga1.libraryManga.chapterFetchedAt.compareTo(manga2.libraryManga.chapterFetchedAt)
                 }
                 LibrarySort.Type.DateAdded -> {
-                    manga1.libraryManga.manga.dateAdded.compareTo(manga2.libraryManga.manga.dateAdded)
+                    manga1.libraryManga.textbook.dateAdded.compareTo(manga2.libraryManga.textbook.dateAdded)
                 }
                 LibrarySort.Type.TrackerMean -> {
                     val item1Score = trackerScores[manga1.id] ?: defaultTrackerScoreSortValue
@@ -372,7 +372,7 @@ class LibraryViewModel(
             libraryPreferences.unreadBadge.changes(),
             libraryPreferences.localBadge.changes(),
             libraryPreferences.languageBadge.changes(),
-            libraryPreferences.autoUpdateMangaRestrictions.changes(),
+            libraryPreferences.autoUpdateTextbookRestrictions.changes(),
 
             preferences.downloadedOnly.changes(),
             libraryPreferences.filterDownloaded.changes(),
@@ -401,21 +401,21 @@ class LibraryViewModel(
 
     private fun getFavoritesFlow(): Flow<List<LibraryItem>> {
         return combine(
-            getLibraryManga.subscribe(),
+            getLibraryTextbook.subscribe(),
             getLibraryItemPreferencesFlow(),
             downloadCache.changes,
         ) { libraryManga, preferences, _ ->
             libraryManga.map { manga ->
                 LibraryItem(
                     libraryManga = manga,
-                    downloadCount = downloadManager.getDownloadCount(manga.manga),
+                    downloadCount = downloadManager.getDownloadCount(manga.textbook),
                     unreadCount = manga.unreadCount,
-                    isLocal = manga.manga.isLocal(),
-                    sourceName = sourceManager.getOrStub(manga.manga.source).name.lowercase(),
-                    sourceLanguage = sourceManager.getOrStub(manga.manga.source).lang,
+                    isLocal = manga.textbook.isLocal(),
+                    sourceName = sourceManager.getOrStub(manga.textbook.source).name.lowercase(),
+                    sourceLanguage = sourceManager.getOrStub(manga.textbook.source).lang,
                     badges = LibraryItem.Badges(
                         downloadCount = if (preferences.downloadBadge) {
-                            downloadManager.getDownloadCount(manga.manga)
+                            downloadManager.getDownloadCount(manga.textbook)
                         } else {
                             0
                         },
@@ -425,12 +425,12 @@ class LibraryViewModel(
                             0
                         },
                         isLocal = if (preferences.localBadge) {
-                            manga.manga.isLocal()
+                            manga.textbook.isLocal()
                         } else {
                             false
                         },
                         sourceLanguage = if (preferences.languageBadge) {
-                            sourceManager.getOrStub(manga.manga.source).lang
+                            sourceManager.getOrStub(manga.textbook.source).lang
                         } else {
                             ""
                         },
@@ -463,15 +463,15 @@ class LibraryViewModel(
      *
      * @param mangas the list of manga.
      */
-    private suspend fun getCommonCategories(mangas: List<Manga>): Collection<Category> {
+    private suspend fun getCommonCategories(mangas: List<Textbook>): Collection<Category> {
         if (mangas.isEmpty()) return emptyList()
         return mangas
             .map { getCategories.await(it.id).toSet() }
             .reduce { set1, set2 -> set1.intersect(set2) }
     }
 
-    suspend fun getNextUnreadChapter(manga: Manga): Chapter? {
-        return getChaptersByMangaId.await(manga.id, applyScanlatorFilter = true).getNextUnread(manga, downloadManager)
+    suspend fun getNextUnreadChapter(manga: Textbook): Chapter? {
+        return getChaptersByTextbookId.await(manga.id, applyScanlatorFilter = true).getNextUnread(manga, downloadManager)
     }
 
     /**
@@ -479,7 +479,7 @@ class LibraryViewModel(
      *
      * @param mangas the list of manga.
      */
-    private suspend fun getMixCategories(mangas: List<Manga>): Collection<Category> {
+    private suspend fun getMixCategories(mangas: List<Textbook>): Collection<Category> {
         if (mangas.isEmpty()) return emptyList()
         val mangaCategories = mangas.map { getCategories.await(it.id).toSet() }
         val common = mangaCategories.reduce { set1, set2 -> set1.intersect(set2) }
@@ -527,7 +527,7 @@ class LibraryViewModel(
         val mangas = selectedManga
         viewModelScope.launchNonCancellable {
             mangas.forEach { manga ->
-                val chapters = getBookmarkedChaptersByMangaId.await(manga.id)
+                val chapters = getBookmarkedChaptersByTextbookId.await(manga.id)
                     .fastFilterNot { chapter ->
                         downloadManager.getQueuedDownloadOrNull(chapter.id) != null ||
                             downloadManager.isChapterDownloaded(
@@ -566,12 +566,12 @@ class LibraryViewModel(
      * @param deleteFromLibrary whether to delete manga from library.
      * @param deleteChapters whether to delete downloaded chapters.
      */
-    fun removeMangas(mangas: List<Manga>, deleteFromLibrary: Boolean, deleteChapters: Boolean) {
+    fun removeMangas(mangas: List<Textbook>, deleteFromLibrary: Boolean, deleteChapters: Boolean) {
         viewModelScope.launchNonCancellable {
             if (deleteFromLibrary) {
                 val toDelete = mangas.map {
                     it.removeCovers(coverCache)
-                    MangaUpdate(
+                    TextbookUpdate(
                         favorite = false,
                         id = it.id,
                     )
@@ -597,7 +597,7 @@ class LibraryViewModel(
      * @param addCategories the categories to add for all mangas.
      * @param removeCategories the categories to remove in all mangas.
      */
-    fun setMangaCategories(mangaList: List<Manga>, addCategories: List<Long>, removeCategories: List<Long>) {
+    fun setTextbookCategories(mangaList: List<Textbook>, addCategories: List<Long>, removeCategories: List<Long>) {
         viewModelScope.launchNonCancellable {
             mangaList.forEach { manga ->
                 val categoryIds = getCategories.await(manga.id)
@@ -606,7 +606,7 @@ class LibraryViewModel(
                     .plus(addCategories)
                     .toList()
 
-                setMangaCategories.await(manga.id, categoryIds)
+                setTextbookCategories.await(manga.id, categoryIds)
             }
         }
     }
@@ -635,10 +635,10 @@ class LibraryViewModel(
      * Reads from [selection] rather than [state], which is derived asynchronously and can still
      * hold the previous selection immediately after a toggle.
      */
-    private val selectedManga: List<Manga>
+    private val selectedManga: List<Textbook>
         get() {
             val favoritesById = state.value.libraryData.favoritesById
-            return selection.value.mapNotNull { favoritesById[it]?.libraryManga?.manga }
+            return selection.value.mapNotNull { favoritesById[it]?.libraryManga?.textbook }
         }
 
     fun clearSelection() {
@@ -646,7 +646,7 @@ class LibraryViewModel(
         selection.update { setOf() }
     }
 
-    fun toggleSelection(category: Category, manga: LibraryManga) {
+    fun toggleSelection(category: Category, manga: LibraryTextbook) {
         selection.update { selection ->
             val newSelection = selection.mutate { set ->
                 if (!set.remove(manga.id)) set.add(manga.id)
@@ -660,7 +660,7 @@ class LibraryViewModel(
      * Selects all mangas between and including the given manga and the last pressed manga from the
      * same category as the given manga
      */
-    fun toggleRangeSelection(category: Category, manga: LibraryManga) {
+    fun toggleRangeSelection(category: Category, manga: LibraryTextbook) {
         val state = state.value
         selection.update { selection ->
             val newSelection = selection.mutate { list ->
@@ -747,8 +747,8 @@ class LibraryViewModel(
         }
     }
 
-    fun openDeleteMangaDialog() {
-        dialog.update { Dialog.DeleteManga(selectedManga) }
+    fun openDeleteTextbookDialog() {
+        dialog.update { Dialog.DeleteTextbook(selectedManga) }
     }
 
     fun closeDialog() {
@@ -758,11 +758,11 @@ class LibraryViewModel(
     sealed interface Dialog {
         data object SettingsSheet : Dialog
         data class ChangeCategory(
-            val manga: List<Manga>,
+            val manga: List<Textbook>,
             val initialSelection: List<CheckboxState<Category>>,
         ) : Dialog
 
-        data class DeleteManga(val manga: List<Manga>) : Dialog
+        data class DeleteTextbook(val manga: List<Textbook>) : Dialog
     }
 
     @Immutable
@@ -788,7 +788,7 @@ class LibraryViewModel(
         val showSystemCategory: Boolean = false,
         val categories: List<Category> = emptyList(),
         val favorites: List<LibraryItem> = emptyList(),
-        val tracksMap: Map</* Manga */ Long, List<Track>> = emptyMap(),
+        val tracksMap: Map</* Textbook */ Long, List<Track>> = emptyMap(),
         val loggedInTrackerIds: Set<Long> = emptySet(),
     ) {
         val favoritesById by lazy { favorites.associateBy { it.id } }
@@ -799,7 +799,7 @@ class LibraryViewModel(
         val isInitialized: Boolean = false,
         val isLoading: Boolean = true,
         val searchQuery: String? = null,
-        val selection: Set</* Manga */ Long> = setOf(),
+        val selection: Set</* Textbook */ Long> = setOf(),
         val hasActiveFilters: Boolean = false,
         val showCategoryTabs: Boolean = false,
         val showMangaCount: Boolean = false,
@@ -822,7 +822,7 @@ class LibraryViewModel(
 
         val selectionMode = selection.isNotEmpty()
 
-        val selectedManga by lazy { selection.mapNotNull { libraryData.favoritesById[it]?.libraryManga?.manga } }
+        val selectedManga by lazy { selection.mapNotNull { libraryData.favoritesById[it]?.libraryManga?.textbook } }
 
         fun getItemsForCategoryId(categoryId: Long?): List<LibraryItem> {
             if (categoryId == null) return emptyList()

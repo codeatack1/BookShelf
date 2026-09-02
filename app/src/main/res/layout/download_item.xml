@@ -41,7 +41,7 @@
             app:layout_constraintEnd_toStartOf="@+id/download_progress_text"
             app:layout_constraintStart_toEndOf="@+id/reorder"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Manga title" />
+            tools:text="Textbook title" />
 
         <TextView
             android:id="@+id/chapter_title"

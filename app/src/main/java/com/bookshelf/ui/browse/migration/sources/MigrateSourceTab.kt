@@ -11,7 +11,7 @@ import dev.zacsweers.metrox.viewmodel.metroViewModel
 import com.bookshelf.presentation.browse.MigrateSourceScreen
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.TabContent
-import com.bookshelf.ui.browse.migration.manga.MigrateMangaScreen
+import com.bookshelf.ui.browse.migration.manga.MigrateTextbookScreen
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.Help
 import com.bookshelf.i18n.MR
@@ -40,7 +40,7 @@ fun Screen.migrateSourceTab(): TabContent {
                 state = state,
                 contentPadding = contentPadding,
                 onClickItem = { source ->
-                    navigator.push(MigrateMangaScreen(source.id))
+                    navigator.push(MigrateTextbookScreen(source.id))
                 },
                 onToggleSortingDirection = viewModel::toggleSortingDirection,
                 onToggleSortingMode = viewModel::toggleSortingMode,

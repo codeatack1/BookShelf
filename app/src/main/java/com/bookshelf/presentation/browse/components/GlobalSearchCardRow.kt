@@ -14,21 +14,21 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.library.components.CommonMangaItemDefaults
-import com.bookshelf.presentation.library.components.MangaComfortableGridItem
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.model.MangaCover
-import com.bookshelf.domain.manga.model.asMangaCover
+import com.bookshelf.presentation.library.components.CommonTextbookItemDefaults
+import com.bookshelf.presentation.library.components.TextbookComfortableGridItem
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.TextbookCover
+import com.bookshelf.domain.textbook.model.asTextbookCover
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 
 @Composable
 fun GlobalSearchCardRow(
-    titles: List<Manga>,
-    getManga: @Composable (Manga) -> State<Manga>,
-    onClick: (Manga) -> Unit,
-    onLongClick: (Manga) -> Unit,
+    titles: List<Textbook>,
+    getManga: @Composable (Textbook) -> State<Textbook>,
+    onClick: (Textbook) -> Unit,
+    onLongClick: (Textbook) -> Unit,
 ) {
     if (titles.isEmpty()) {
         EmptyResultItem()
@@ -43,7 +43,7 @@ fun GlobalSearchCardRow(
             val title by getManga(it)
             MangaItem(
                 title = title.title,
-                cover = title.asMangaCover(),
+                cover = title.asTextbookCover(),
                 isFavorite = title.favorite,
                 onClick = { onClick(title) },
                 onLongClick = { onLongClick(title) },
@@ -55,20 +55,20 @@ fun GlobalSearchCardRow(
 @Composable
 private fun MangaItem(
     title: String,
-    cover: MangaCover,
+    cover: TextbookCover,
     isFavorite: Boolean,
     onClick: () -> Unit,
     onLongClick: () -> Unit,
 ) {
     Box(modifier = Modifier.width(96.dp)) {
-        MangaComfortableGridItem(
+        TextbookComfortableGridItem(
             title = title,
             titleMaxLines = 3,
             coverData = cover,
             coverBadgeStart = {
                 InLibraryBadge(enabled = isFavorite)
             },
-            coverAlpha = if (isFavorite) CommonMangaItemDefaults.BrowseFavoriteCoverAlpha else 1f,
+            coverAlpha = if (isFavorite) CommonTextbookItemDefaults.BrowseFavoriteCoverAlpha else 1f,
             onClick = onClick,
             onLongClick = onLongClick,
         )

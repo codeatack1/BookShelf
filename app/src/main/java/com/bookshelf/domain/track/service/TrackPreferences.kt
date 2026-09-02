@@ -4,10 +4,10 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import com.bookshelf.domain.track.model.AutoTrackState
-import com.bookshelf.com.bookshelf.data.track.Tracker
-import com.bookshelf.com.bookshelf.data.track.anilist.Anilist
-import com.bookshelf.com.bookshelf.data.track.kitsu.Kitsu
-import com.bookshelf.com.bookshelf.data.track.mangabaka.MangaBaka
+import com.bookshelf.data.track.Tracker
+import com.bookshelf.data.track.anilist.Anilist
+import com.bookshelf.data.track.kitsu.Kitsu
+import com.bookshelf.data.track.mangabaka.MangaBaka
 import com.bookshelf.core.common.preference.Preference
 import com.bookshelf.core.common.preference.PreferenceStore
 import com.bookshelf.core.common.preference.getEnum

@@ -8,11 +8,11 @@ import dev.zacsweers.metro.SingleIn
 import com.bookshelf.source.Source
 import com.bookshelf.source.UnmeteredSource
 import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.model.MangasPage
+import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.model.SManga
-import com.bookshelf.source.model.SMangaUpdate
+import com.bookshelf.source.model.STextbook
+import com.bookshelf.source.model.STextbookUpdate
 import com.bookshelf.util.lang.compareToCaseInsensitiveNaturalOrder
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -36,7 +36,7 @@ import com.bookshelf.core.metadata.comicinfo.copyFromComicInfo
 import com.bookshelf.core.metadata.comicinfo.getComicInfo
 import com.bookshelf.core.metadata.tachiyomi.MangaDetails
 import com.bookshelf.domain.chapter.service.ChapterRecognition
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
 import com.bookshelf.source.local.filter.OrderBy
 import com.bookshelf.source.local.image.LocalCoverManager
@@ -78,11 +78,11 @@ class LocalSource(
     override val supportsLatest: Boolean = true
 
     // Browse related
-    override suspend fun getPopularManga(page: Int) = getSearchManga(page, "", PopularFilters)
+    override suspend fun getPopularTextbooks(page: Int) = getSearchTextbooks(page, "", PopularFilters)
 
-    override suspend fun getLatestUpdates(page: Int) = getSearchManga(page, "", LatestFilters)
+    override suspend fun getLatestTextbooks(page: Int) = getSearchTextbooks(page, "", LatestFilters)
 
-    override suspend fun getSearchManga(page: Int, query: String, filters: FilterList): MangasPage = withIOContext {
+    override suspend fun getSearchTextbooks(page: Int, query: String, filters: FilterList): TextbooksPage = withIOContext {
         val lastModifiedLimit = if (filters === LatestFilters) {
             System.currentTimeMillis() - LATEST_THRESHOLD
         } else {
@@ -128,7 +128,7 @@ class LocalSource(
         val mangas = mangaDirs
             .map { mangaDir ->
                 async {
-                    SManga.create().apply {
+                    STextbook.create().apply {
                         title = mangaDir.name.orEmpty()
                         url = mangaDir.name.orEmpty()
 
@@ -141,29 +141,29 @@ class LocalSource(
             }
             .awaitAll()
 
-        MangasPage(mangas, false)
+        TextbooksPage(mangas, false)
     }
 
-    override suspend fun getMangaUpdate(
-        manga: SManga,
+    override suspend fun getTextbookUpdate(
+        manga: STextbook,
         chapters: List<SChapter>,
         fetchDetails: Boolean,
         fetchChapters: Boolean,
-    ): SMangaUpdate = supervisorScope {
+    ): STextbookUpdate = supervisorScope {
         val asyncManga = if (fetchDetails) async { getMangaDetails(manga) } else null
         val asyncChapters = if (fetchChapters) async { getChapterList(manga) } else null
-        SMangaUpdate(asyncManga?.await() ?: manga, asyncChapters?.await() ?: chapters)
+        STextbookUpdate(asyncManga?.await() ?: manga, asyncChapters?.await() ?: chapters)
     }
 
-    // Manga details related
-    private suspend fun getMangaDetails(manga: SManga): SManga = withIOContext {
+    // Textbook details related
+    private suspend fun getMangaDetails(manga: STextbook): STextbook = withIOContext {
         coverManager.find(manga.url)?.let {
             manga.thumbnail_url = it.uri.toString()
         }
 
         // Augment manga details based on metadata files
         try {
-            val mangaDir = fileSystem.getMangaDirectory(manga.url) ?: error("${manga.url} is not a valid directory")
+            val mangaDir = fileSystem.getTextbookDirectory(manga.url) ?: error("${manga.url} is not a valid directory")
             val mangaDirFiles = mangaDir.listFiles().orEmpty()
 
             val comicInfoFile = mangaDirFiles
@@ -257,7 +257,7 @@ class LocalSource(
         }
     }
 
-    private fun setMangaDetailsFromComicInfoFile(stream: InputStream, manga: SManga) {
+    private fun setMangaDetailsFromComicInfoFile(stream: InputStream, manga: STextbook) {
         manga.copyFromComicInfo(parseComicInfo(stream))
     }
 
@@ -270,8 +270,8 @@ class LocalSource(
     }
 
     // Chapters
-    private suspend fun getChapterList(manga: SManga): List<SChapter> = withIOContext {
-        val chapters = fileSystem.getFilesInMangaDirectory(manga.url)
+    private suspend fun getChapterList(manga: STextbook): List<SChapter> = withIOContext {
+        val chapters = fileSystem.getFilesInTextbookDirectory(manga.url)
             // Only keep supported formats
             .filterNot { it.name.orEmpty().startsWith('.') }
             .filter { it.isDirectory || Archive.isSupported(it) || it.extension.equals("epub", true) }
@@ -335,7 +335,7 @@ class LocalSource(
         }
     }
 
-    private fun updateCover(chapter: SChapter, manga: SManga): UniFile? {
+    private fun updateCover(chapter: SChapter, manga: STextbook): UniFile? {
         return try {
             when (val format = getFormat(chapter)) {
                 is Format.Directory -> {
@@ -384,7 +384,7 @@ class LocalSource(
     }
 }
 
-fun Manga.isLocal(): Boolean = source == LocalSource.ID
+fun Textbook.isLocal(): Boolean = source == LocalSource.ID
 
 fun Source.isLocal(): Boolean = id == LocalSource.ID
 

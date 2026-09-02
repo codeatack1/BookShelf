@@ -216,7 +216,7 @@
     <string name="check_for_updates">Frissítések keresése</string>
     <string name="licenses">Nyílt forráskódú licenc</string>
     <string name="tabs_header">Lapok</string>
-    <string name="manga_from_library">Manga a könyvtárból</string>
+    <string name="manga_from_library">Textbook a könyvtárból</string>
     <string name="nav_zone_prev">Előző</string>
     <string name="notification_chapters_single">%1$s. fejezet</string>
     <string name="cover_updated">Borító frissítve</string>
@@ -250,7 +250,7 @@
     <string name="confirm_delete_chapters">Biztosan törölni akarja a kijelölt fejezeteket?</string>
     <string name="download_unread">Olvasatlan</string>
     <string name="chapter_paused">Szünetel</string>
-    <string name="snack_add_to_library">Manga könyvtárhoz adása?</string>
+    <string name="snack_add_to_library">Textbook könyvtárhoz adása?</string>
     <string name="source_not_installed">Forrás nincs telepítve: %1$s</string>
     <string name="ongoing">Folyamatban van</string>
     <string name="last_used_source">Utoljára használt</string>

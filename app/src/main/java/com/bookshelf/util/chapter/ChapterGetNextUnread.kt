@@ -2,14 +2,14 @@ package com.bookshelf.util.chapter
 
 import com.bookshelf.domain.chapter.model.applyFilters
 import com.bookshelf.data.download.DownloadManager
-import com.bookshelf.ui.manga.ChapterList
+import com.bookshelf.ui.textbook.ChapterList
 import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 
 /**
  * Gets next unread chapter with filters and sorting applied
  */
-fun List<Chapter>.getNextUnread(manga: Manga, downloadManager: DownloadManager): Chapter? {
+fun List<Chapter>.getNextUnread(manga: Textbook, downloadManager: DownloadManager): Chapter? {
     return applyFilters(manga, downloadManager).let { chapters ->
         if (manga.sortDescending()) {
             chapters.findLast { !it.read }
@@ -22,7 +22,7 @@ fun List<Chapter>.getNextUnread(manga: Manga, downloadManager: DownloadManager):
 /**
  * Gets next unread chapter with filters and sorting applied
  */
-fun List<ChapterList.Item>.getNextUnread(manga: Manga): Chapter? {
+fun List<ChapterList.Item>.getNextUnread(manga: Textbook): Chapter? {
     return applyFilters(manga).let { chapters ->
         if (manga.sortDescending()) {
             chapters.findLast { !it.chapter.read }

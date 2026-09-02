@@ -2,7 +2,7 @@
 <resources>
     <string name="name">Nimi</string>
     <string name="categories">Kategoriat</string>
-    <string name="manga">Manga</string>
+    <string name="manga">Textbook</string>
     <string name="track">Seuranta</string>
     <string name="history">Historia</string>
     <string name="label_settings">Asetukset</string>
@@ -415,7 +415,7 @@
     <string name="share_page_info">%1$s: %2$s, sivu %3$d</string>
     <string name="action_search_settings">Hakuasetukset</string>
     <string name="downloaded_chapters">Ladatut luvut</string>
-    <string name="manga_from_library">Manga kirjastosta</string>
+    <string name="manga_from_library">Textbook kirjastosta</string>
     <string name="pref_incognito_mode_summary">Keskeyttää lukuhistorian</string>
     <string name="pref_incognito_mode">Incognito-tila</string>
     <string name="pref_clear_history">Tyhjennä historia</string>

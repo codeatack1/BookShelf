@@ -9,18 +9,18 @@ import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import com.bookshelf.presentation.browse.MigrateSearchScreen
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.ui.browse.source.globalsearch.SearchViewModel
-import com.bookshelf.ui.manga.MangaScreen
-import com.bookshelf.feature.migration.dialog.MigrateMangaDialog
+import com.bookshelf.ui.textbook.TextbookScreen
+import com.bookshelf.feature.migration.dialog.MigrateTextbookDialog
 import com.bookshelf.feature.migration.list.MigrationListScreen
 
-class MigrateSearchScreen(private val mangaId: Long) : Screen() {
+class MigrateSearchScreen(private val textbookId: Long) : Screen() {
 
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
 
         val viewModel =
-            assistedMetroViewModel<MigrateSearchViewModel, MigrateSearchViewModel.Factory> { create(mangaId = mangaId) }
+            assistedMetroViewModel<MigrateSearchViewModel, MigrateSearchViewModel.Factory> { create(textbookId = textbookId) }
         val state by viewModel.state.collectAsState()
 
         MigrateSearchScreen(
@@ -39,30 +39,30 @@ class MigrateSearchScreen(private val mangaId: Long) : Screen() {
                     .lastOrNull()
 
                 if (migrateListScreen == null) {
-                    viewModel.setMigrateDialog(mangaId, it)
+                    viewModel.setMigrateDialog(textbookId, it)
                 } else {
-                    migrateListScreen.addMatchOverride(current = mangaId, target = it.id)
+                    migrateListScreen.addMatchOverride(current = textbookId, target = it.id)
                     navigator.popUntil { screen -> screen is MigrationListScreen }
                 }
             },
-            onLongClickItem = { navigator.push(MangaScreen(it.id, true)) },
+            onLongClickItem = { navigator.push(TextbookScreen(it.id, true)) },
         )
 
         when (val dialog = state.dialog) {
             is SearchViewModel.Dialog.Migrate -> {
-                MigrateMangaDialog(
+                MigrateTextbookDialog(
                     current = dialog.current,
                     target = dialog.target,
                     // Initiated from the context of [dialog.current] so we show [dialog.target].
-                    onClickTitle = { navigator.push(MangaScreen(dialog.target.id, true)) },
+                    onClickTitle = { navigator.push(TextbookScreen(dialog.target.id, true)) },
                     onDismissRequest = { viewModel.clearDialog() },
                     onComplete = {
-                        if (navigator.lastItem is MangaScreen) {
+                        if (navigator.lastItem is TextbookScreen) {
                             val lastItem = navigator.lastItem
                             navigator.popUntil { navigator.items.contains(lastItem) }
-                            navigator.push(MangaScreen(dialog.target.id))
+                            navigator.push(TextbookScreen(dialog.target.id))
                         } else {
-                            navigator.replace(MangaScreen(dialog.target.id))
+                            navigator.replace(TextbookScreen(dialog.target.id))
                         }
                     },
                 )

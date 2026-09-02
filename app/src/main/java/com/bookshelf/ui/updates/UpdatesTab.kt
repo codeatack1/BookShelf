@@ -23,7 +23,7 @@ import com.bookshelf.R
 import com.bookshelf.ui.download.DownloadQueueScreen
 import com.bookshelf.ui.home.HomeScreen
 import com.bookshelf.ui.main.MainActivity
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.ui.updates.UpdatesViewModel.Event
 import kotlinx.coroutines.flow.collectLatest
@@ -62,7 +62,7 @@ data object UpdatesTab : Tab {
             state = state,
             snackbarHostState = viewModel.snackbarHostState,
             lastUpdated = viewModel.lastUpdated,
-            onClickCover = { item -> navigator.push(MangaScreen(item.update.mangaId)) },
+            onClickCover = { item -> navigator.push(TextbookScreen(item.update.textbookId)) },
             onSelectAll = viewModel::toggleAllSelection,
             onInvertSelection = viewModel::invertSelection,
             onUpdateLibrary = viewModel::updateLibrary,
@@ -72,7 +72,7 @@ data object UpdatesTab : Tab {
             onMultiDeleteClicked = viewModel::showConfirmDeleteChapters,
             onUpdateSelected = viewModel::toggleSelection,
             onOpenChapter = {
-                val intent = ReaderActivity.newIntent(context, it.update.mangaId, it.update.chapterId)
+                val intent = ReaderActivity.newIntent(context, it.update.textbookId, it.update.chapterId)
                 context.startActivity(intent)
             },
             onCalendarClicked = { navigator.push(UpcomingScreen()) },

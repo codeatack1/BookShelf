@@ -10,7 +10,7 @@ import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.binding
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import com.bookshelf.core.util.insertSeparators
-import com.bookshelf.domain.manga.interactor.UpdateManga
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
 import com.bookshelf.domain.track.interactor.AddTracks
 import com.bookshelf.presentation.history.HistoryUiModel
 import com.bookshelf.util.lang.toLocalDate
@@ -38,7 +38,7 @@ import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.category.interactor.GetCategories
-import com.bookshelf.domain.category.interactor.SetMangaCategories
+import com.bookshelf.domain.category.interactor.SetTextbookCategories
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.history.interactor.GetHistory
@@ -46,10 +46,10 @@ import com.bookshelf.domain.history.interactor.GetNextChapters
 import com.bookshelf.domain.history.interactor.RemoveHistory
 import com.bookshelf.domain.history.model.HistoryWithRelations
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.manga.interactor.GetDuplicateLibraryManga
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.model.MangaWithChapterCount
+import com.bookshelf.domain.textbook.interactor.GetDuplicateLibraryTextbook
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
 import com.bookshelf.domain.source.service.SourceManager
 import kotlin.time.Duration.Companion.seconds
 
@@ -59,14 +59,14 @@ import kotlin.time.Duration.Companion.seconds
 class HistoryViewModel(
     private val addTracks: AddTracks,
     private val getCategories: GetCategories,
-    private val getDuplicateLibraryManga: GetDuplicateLibraryManga,
+    private val getDuplicateLibraryTextbook: GetDuplicateLibraryTextbook,
     private val getHistory: GetHistory,
-    private val getManga: GetManga,
+    private val getManga: GetTextbook,
     private val getNextChapters: GetNextChapters,
     private val libraryPreferences: LibraryPreferences,
     private val removeHistory: RemoveHistory,
-    private val setMangaCategories: SetMangaCategories,
-    private val updateManga: UpdateManga,
+    private val setTextbookCategories: SetTextbookCategories,
+    private val updateManga: UpdateTextbook,
     private val sourceManager: SourceManager,
 ) : ViewModel() {
 
@@ -118,9 +118,9 @@ class HistoryViewModel(
         return withIOContext { getNextChapters.await(onlyUnread = false).firstOrNull() }
     }
 
-    fun getNextChapterForManga(mangaId: Long, chapterId: Long) {
+    fun getNextChapterForManga(textbookId: Long, chapterId: Long) {
         viewModelScope.launchIO {
-            sendNextChapterEvent(getNextChapters.await(mangaId, chapterId, onlyUnread = false))
+            sendNextChapterEvent(getNextChapters.await(textbookId, chapterId, onlyUnread = false))
         }
     }
 
@@ -135,9 +135,9 @@ class HistoryViewModel(
         }
     }
 
-    fun removeAllFromHistory(mangaId: Long) {
+    fun removeAllFromHistory(textbookId: Long) {
         viewModelScope.launchIO {
-            removeHistory.await(mangaId)
+            removeHistory.await(textbookId)
         }
     }
 
@@ -166,18 +166,18 @@ class HistoryViewModel(
         return getCategories.await().filterNot { it.isSystemCategory }
     }
 
-    private fun moveMangaToCategory(mangaId: Long, categories: Category?) {
+    private fun moveMangaToCategory(textbookId: Long, categories: Category?) {
         val categoryIds = listOfNotNull(categories).map { it.id }
-        moveMangaToCategory(mangaId, categoryIds)
+        moveMangaToCategory(textbookId, categoryIds)
     }
 
-    private fun moveMangaToCategory(mangaId: Long, categoryIds: List<Long>) {
+    private fun moveMangaToCategory(textbookId: Long, categoryIds: List<Long>) {
         viewModelScope.launchIO {
-            setMangaCategories.await(mangaId, categoryIds)
+            setTextbookCategories.await(textbookId, categoryIds)
         }
     }
 
-    fun moveMangaToCategoriesAndAddToLibrary(manga: Manga, categories: List<Long>) {
+    fun moveMangaToCategoriesAndAddToLibrary(manga: Textbook, categories: List<Long>) {
         moveMangaToCategory(manga.id, categories)
         if (manga.favorite) return
 
@@ -186,18 +186,18 @@ class HistoryViewModel(
         }
     }
 
-    private suspend fun getMangaCategoryIds(manga: Manga): List<Long> {
+    private suspend fun getMangaCategoryIds(manga: Textbook): List<Long> {
         return getCategories.await(manga.id)
             .map { it.id }
     }
 
-    fun addFavorite(mangaId: Long) {
+    fun addFavorite(textbookId: Long) {
         viewModelScope.launchIO {
-            val manga = getManga.await(mangaId) ?: return@launchIO
+            val manga = getManga.await(textbookId) ?: return@launchIO
 
-            val duplicates = getDuplicateLibraryManga(manga)
+            val duplicates = getDuplicateLibraryTextbook(manga)
             if (duplicates.isNotEmpty()) {
-                dialog.update { Dialog.DuplicateManga(manga, duplicates) }
+                dialog.update { Dialog.DuplicateTextbook(manga, duplicates) }
                 return@launchIO
             }
 
@@ -205,7 +205,7 @@ class HistoryViewModel(
         }
     }
 
-    fun addFavorite(manga: Manga) {
+    fun addFavorite(manga: Textbook) {
         viewModelScope.launchIO {
             // Move to default category if applicable
             val categories = getCategories()
@@ -236,11 +236,11 @@ class HistoryViewModel(
         }
     }
 
-    fun showMigrateDialog(target: Manga, current: Manga) {
+    fun showMigrateDialog(target: Textbook, current: Textbook) {
         dialog.update { Dialog.Migrate(target = target, current = current) }
     }
 
-    fun showChangeCategoryDialog(manga: Manga) {
+    fun showChangeCategoryDialog(manga: Textbook) {
         viewModelScope.launch {
             val categories = getCategories()
             val selection = getMangaCategoryIds(manga)
@@ -263,12 +263,12 @@ class HistoryViewModel(
     sealed interface Dialog {
         data object DeleteAll : Dialog
         data class Delete(val history: HistoryWithRelations) : Dialog
-        data class DuplicateManga(val manga: Manga, val duplicates: List<MangaWithChapterCount>) : Dialog
+        data class DuplicateTextbook(val manga: Textbook, val duplicates: List<TextbookWithChapterCount>) : Dialog
         data class ChangeCategory(
-            val manga: Manga,
+            val manga: Textbook,
             val initialSelection: List<CheckboxState<Category>>,
         ) : Dialog
-        data class Migrate(val target: Manga, val current: Manga) : Dialog
+        data class Migrate(val target: Textbook, val current: Textbook) : Dialog
     }
 
     sealed interface Event {

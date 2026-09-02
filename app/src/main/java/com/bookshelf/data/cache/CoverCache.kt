@@ -5,7 +5,7 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import com.bookshelf.util.storage.DiskUtil
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
@@ -49,11 +49,11 @@ class CoverCache(private val context: Context) {
     /**
      * Returns the custom cover from cache.
      *
-     * @param mangaId the manga id.
+     * @param textbookId the manga id.
      * @return cover image.
      */
-    fun getCustomCoverFile(mangaId: Long?): File {
-        return File(customCoverCacheDir, DiskUtil.hashKeyForDisk(mangaId.toString()))
+    fun getCustomCoverFile(textbookId: Long?): File {
+        return File(customCoverCacheDir, DiskUtil.hashKeyForDisk(textbookId.toString()))
     }
 
     /**
@@ -64,7 +64,7 @@ class CoverCache(private val context: Context) {
      * @throws IOException if there's any error.
      */
     @Throws(IOException::class)
-    fun setCustomCoverToCache(manga: Manga, inputStream: InputStream) {
+    fun setCustomCoverToCache(manga: Textbook, inputStream: InputStream) {
         getCustomCoverFile(manga.id).outputStream().use {
             inputStream.copyTo(it)
         }
@@ -77,7 +77,7 @@ class CoverCache(private val context: Context) {
      * @param deleteCustomCover whether the custom cover should be deleted.
      * @return number of files that were deleted.
      */
-    fun deleteFromCache(manga: Manga, deleteCustomCover: Boolean = false): Int {
+    fun deleteFromCache(manga: Textbook, deleteCustomCover: Boolean = false): Int {
         var deleted = 0
 
         getCoverFile(manga.thumbnailUrl)?.let {
@@ -94,11 +94,11 @@ class CoverCache(private val context: Context) {
     /**
      * Delete custom cover of the manga from the cache
      *
-     * @param mangaId the manga id.
+     * @param textbookId the manga id.
      * @return whether the cover was deleted.
      */
-    fun deleteCustomCover(mangaId: Long?): Boolean {
-        return getCustomCoverFile(mangaId).let {
+    fun deleteCustomCover(textbookId: Long?): Boolean {
+        return getCustomCoverFile(textbookId).let {
             it.exists() && it.delete()
         }
     }

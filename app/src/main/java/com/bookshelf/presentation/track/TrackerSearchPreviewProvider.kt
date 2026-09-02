@@ -4,7 +4,7 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import com.bookshelf.com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.data.track.model.TrackSearch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

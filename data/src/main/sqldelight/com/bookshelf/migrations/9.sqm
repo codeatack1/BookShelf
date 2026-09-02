@@ -1,10 +1,10 @@
--- Add excluded_scanlators to updatesView
-DROP VIEW IF EXISTS updatesView;
+-- Add excluded_scanlators to updatesTextView
+DROP VIEW IF EXISTS updatesTextView;
 
-CREATE VIEW updatesView AS
+CREATE VIEW updatesTextView AS
 SELECT
-    mangas._id AS mangaId,
-    mangas.title AS mangaTitle,
+    textbooks._id AS textbookId,
+    textbooks.title AS textbookTitle,
     chapters._id AS chapterId,
     chapters.name AS chapterName,
     chapters.scanlator,
@@ -12,17 +12,17 @@ SELECT
     chapters.read,
     chapters.bookmark,
     chapters.last_page_read,
-    mangas.source,
-    mangas.favorite,
-    mangas.thumbnail_url AS thumbnailUrl,
-    mangas.cover_last_modified AS coverLastModified,
+    textbooks.source,
+    textbooks.favorite,
+    textbooks.thumbnail_url AS thumbnailUrl,
+    textbooks.cover_last_modified AS coverLastModified,
     chapters.date_upload AS dateUpload,
     chapters.date_fetch AS datefetch,
     excluded_scanlators.scanlator AS excludedScanlator
-FROM mangas JOIN chapters
-ON mangas._id = chapters.manga_id
+FROM textbooks JOIN chapters
+ON textbooks._id = chapters.textbook_id
 LEFT JOIN excluded_scanlators
-ON mangas._id = excluded_scanlators.manga_id
+ON textbooks._id = excluded_scanlators.textbook_id
 AND chapters.scanlator = excluded_scanlators.scanlator
 WHERE favorite = 1
 AND date_fetch > date_added

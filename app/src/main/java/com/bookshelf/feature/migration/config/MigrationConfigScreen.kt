@@ -76,7 +76,7 @@ import com.bookshelf.presentation.core.util.shouldExpandFAB
 
 class MigrationConfigScreen(private val mangaIds: Collection<Long>) : Screen() {
 
-    constructor(mangaId: Long) : this(listOf(mangaId))
+    constructor(textbookId: Long) : this(listOf(textbookId))
 
     @Composable
     override fun Content() {
@@ -88,15 +88,15 @@ class MigrationConfigScreen(private val mangaIds: Collection<Long>) : Screen() {
         var migrationSheetOpen by rememberSaveable { mutableStateOf(false) }
 
         fun continueMigration(openSheet: Boolean, extraSearchQuery: String?) {
-            val mangaId = mangaIds.singleOrNull()
-            if (mangaId == null && openSheet) {
+            val textbookId = mangaIds.singleOrNull()
+            if (textbookId == null && openSheet) {
                 migrationSheetOpen = true
                 return
             }
-            val screen = if (mangaId == null) {
+            val screen = if (textbookId == null) {
                 MigrationListScreen(mangaIds, extraSearchQuery)
             } else {
-                MigrateSearchScreen(mangaId)
+                MigrateSearchScreen(textbookId)
             }
             navigator.replace(screen)
         }

@@ -5,7 +5,7 @@ import com.bookshelf.core.common.extensions.EMPTY
 
 data class Chapter(
     val id: Long,
-    val mangaId: Long,
+    val textbookId: Long,
     val read: Boolean,
     val bookmark: Boolean,
     val lastPageRead: Long,
@@ -36,7 +36,7 @@ data class Chapter(
     companion object {
         fun create() = Chapter(
             id = -1,
-            mangaId = -1,
+            textbookId = -1,
             read = false,
             bookmark = false,
             lastPageRead = 0,

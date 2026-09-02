@@ -3,11 +3,11 @@ package com.bookshelf.domain.source.repository
 import androidx.paging.PagingSource
 import com.bookshelf.source.model.FilterList
 import kotlinx.coroutines.flow.Flow
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.domain.source.model.SourceWithCount
 
-typealias SourcePagingSource = PagingSource<Long, Manga>
+typealias SourcePagingSource = PagingSource<Long, Textbook>
 
 interface SourceRepository {
 
@@ -17,7 +17,7 @@ interface SourceRepository {
 
     fun getSourcesWithFavoriteCount(): Flow<List<Pair<Source, Long>>>
 
-    fun getSourcesWithNonLibraryManga(): Flow<List<SourceWithCount>>
+    fun getSourcesWithNonLibraryTextbook(): Flow<List<SourceWithCount>>
 
     fun search(sourceId: Long, query: String, filterList: FilterList): SourcePagingSource
 

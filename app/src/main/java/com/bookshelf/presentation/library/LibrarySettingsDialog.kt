@@ -79,7 +79,7 @@ private fun ColumnScope.FilterPage(
 ) {
     val filterDownloaded by viewModel.libraryPreferences.filterDownloaded.collectAsState()
     val downloadedOnly by viewModel.preferences.downloadedOnly.collectAsState()
-    val autoUpdateMangaRestrictions by viewModel.libraryPreferences.autoUpdateMangaRestrictions.collectAsState()
+    val autoUpdateTextbookRestrictions by viewModel.libraryPreferences.autoUpdateTextbookRestrictions.collectAsState()
 
     TriStateItem(
         label = stringResource(MR.strings.label_downloaded),
@@ -116,7 +116,7 @@ private fun ColumnScope.FilterPage(
         onClick = { viewModel.toggleFilter(LibraryPreferences::filterCompleted) },
     )
     // TODO: re-enable when custom intervals are ready for stable
-    if ((!isReleaseBuildType) && LibraryPreferences.MANGA_OUTSIDE_RELEASE_PERIOD in autoUpdateMangaRestrictions) {
+    if ((!isReleaseBuildType) && LibraryPreferences.MANGA_OUTSIDE_RELEASE_PERIOD in autoUpdateTextbookRestrictions) {
         val filterIntervalCustom by viewModel.libraryPreferences.filterIntervalCustom.collectAsState()
         TriStateItem(
             label = stringResource(MR.strings.action_filter_interval_custom),

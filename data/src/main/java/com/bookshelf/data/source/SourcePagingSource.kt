@@ -3,65 +3,65 @@ package com.bookshelf.data.source
 import androidx.paging.PagingState
 import com.bookshelf.source.Source
 import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.model.MangasPage
+import com.bookshelf.source.model.TextbooksPage
 import kotlinx.coroutines.CancellationException
-import com.bookshelf.domain.manga.model.toDomainManga
+import com.bookshelf.domain.textbook.model.toDomainTextbook
 import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.domain.manga.interactor.NetworkToLocalManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.repository.SourcePagingSource
 
 class SourceSearchPagingSource(
     source: suspend () -> Source,
     private val query: String,
     private val filters: FilterList,
-    networkToLocalManga: NetworkToLocalManga,
+    networkToLocalManga: NetworkToLocalTextbook,
 ) : BaseSourcePagingSource(source, networkToLocalManga) {
-    override suspend fun requestNextPage(source: Source, currentPage: Int): MangasPage {
-        return source.getSearchManga(currentPage, query, filters)
+    override suspend fun requestNextPage(source: Source, currentPage: Int): TextbooksPage {
+        return source.getSearchTextbooks(currentPage, query, filters)
     }
 }
 
 class SourcePopularPagingSource(
     source: suspend () -> Source,
-    networkToLocalManga: NetworkToLocalManga,
+    networkToLocalManga: NetworkToLocalTextbook,
 ) : BaseSourcePagingSource(source, networkToLocalManga) {
-    override suspend fun requestNextPage(source: Source, currentPage: Int): MangasPage {
-        return source.getPopularManga(currentPage)
+    override suspend fun requestNextPage(source: Source, currentPage: Int): TextbooksPage {
+        return source.getPopularTextbooks(currentPage)
     }
 }
 
 class SourceLatestPagingSource(
     source: suspend () -> Source,
-    networkToLocalManga: NetworkToLocalManga,
+    networkToLocalManga: NetworkToLocalTextbook,
 ) : BaseSourcePagingSource(source, networkToLocalManga) {
-    override suspend fun requestNextPage(source: Source, currentPage: Int): MangasPage {
-        return source.getLatestUpdates(currentPage)
+    override suspend fun requestNextPage(source: Source, currentPage: Int): TextbooksPage {
+        return source.getLatestTextbooks(currentPage)
     }
 }
 
 abstract class BaseSourcePagingSource(
     private val source: suspend () -> Source,
-    private val networkToLocalManga: NetworkToLocalManga,
+    private val networkToLocalManga: NetworkToLocalTextbook,
 ) : SourcePagingSource() {
 
     private val seenManga = hashSetOf<String>()
 
-    abstract suspend fun requestNextPage(source: Source, currentPage: Int): MangasPage
+    abstract suspend fun requestNextPage(source: Source, currentPage: Int): TextbooksPage
 
-    override suspend fun load(params: LoadParams<Long>): LoadResult<Long, Manga> {
+    override suspend fun load(params: LoadParams<Long>): LoadResult<Long, Textbook> {
         val page = params.key ?: 1
 
         return try {
             val source = source()
             val mangasPage = withIOContext {
                 requestNextPage(source, page.toInt())
-                    .takeIf { it.mangas.isNotEmpty() }
+                    .takeIf { it.textbooks.isNotEmpty() }
                     ?: throw NoResultsException()
             }
 
-            val manga = mangasPage.mangas
-                .map { it.toDomainManga(source.id) }
+            val manga = mangasPage.textbooks
+                .map { it.toDomainTextbook(source.id) }
                 .filter { seenManga.add(it.url) }
                 .let { networkToLocalManga(it) }
 
@@ -77,7 +77,7 @@ abstract class BaseSourcePagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Long, Manga>): Long? {
+    override fun getRefreshKey(state: PagingState<Long, Textbook>): Long? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey ?: anchorPage?.nextKey

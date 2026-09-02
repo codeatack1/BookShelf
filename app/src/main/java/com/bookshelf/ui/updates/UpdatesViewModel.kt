@@ -54,8 +54,8 @@ import com.bookshelf.domain.chapter.interactor.GetChapter
 import com.bookshelf.domain.chapter.interactor.UpdateChapter
 import com.bookshelf.domain.chapter.model.ChapterUpdate
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.model.applyFilter
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.model.applyFilter
 import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.domain.updates.interactor.GetUpdates
 import com.bookshelf.domain.updates.model.UpdatesWithRelations
@@ -74,7 +74,7 @@ class UpdatesViewModel(
     private val updateChapter: UpdateChapter,
     private val setReadStatus: SetReadStatus,
     private val getUpdates: GetUpdates,
-    private val getManga: GetManga,
+    private val getManga: GetTextbook,
     private val getChapter: GetChapter,
     private val libraryPreferences: LibraryPreferences,
     private val updatesPreferences: UpdatesPreferences,
@@ -218,7 +218,7 @@ class UpdatesViewModel(
                     update.chapterName,
                     update.scanlator,
                     update.chapterUrl,
-                    update.mangaTitle,
+                    update.textbookTitle,
                     update.sourceId,
                 )
                 val downloadState = when {
@@ -315,10 +315,10 @@ class UpdatesViewModel(
      */
     private fun downloadChapters(updatesItem: List<UpdatesItem>) {
         viewModelScope.launchNonCancellable {
-            val groupedUpdates = updatesItem.groupBy { it.update.mangaId }.values
+            val groupedUpdates = updatesItem.groupBy { it.update.textbookId }.values
             for (updates in groupedUpdates) {
-                val mangaId = updates.first().update.mangaId
-                val manga = getManga.await(mangaId) ?: continue
+                val textbookId = updates.first().update.textbookId
+                val manga = getManga.await(textbookId) ?: continue
                 // Don't download if source isn't available
                 sourceManager.get(manga.source) ?: continue
                 val chapters = updates.mapNotNull { getChapter.await(it.update.chapterId) }
@@ -335,10 +335,10 @@ class UpdatesViewModel(
     fun deleteChapters(updatesItem: List<UpdatesItem>) {
         viewModelScope.launchNonCancellable {
             updatesItem
-                .groupBy { it.update.mangaId }
+                .groupBy { it.update.textbookId }
                 .entries
-                .forEach { (mangaId, updates) ->
-                    val manga = getManga.await(mangaId) ?: return@forEach
+                .forEach { (textbookId, updates) ->
+                    val manga = getManga.await(textbookId) ?: return@forEach
                     val source = sourceManager.get(manga.source) ?: return@forEach
                     val chapters = updates.mapNotNull { getChapter.await(it.update.chapterId) }
                     downloadManager.deleteChapters(chapters, manga, source)

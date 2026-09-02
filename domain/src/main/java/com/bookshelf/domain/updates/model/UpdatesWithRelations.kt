@@ -1,10 +1,10 @@
 package com.bookshelf.domain.updates.model
 
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.textbook.model.TextbookCover
 
 data class UpdatesWithRelations(
-    val mangaId: Long,
-    val mangaTitle: String,
+    val textbookId: Long,
+    val textbookTitle: String,
     val chapterId: Long,
     val chapterName: String,
     val scanlator: String?,
@@ -14,5 +14,5 @@ data class UpdatesWithRelations(
     val lastPageRead: Long,
     val sourceId: Long,
     val dateFetch: Long,
-    val coverData: MangaCover,
+    val coverData: TextbookCover,
 )

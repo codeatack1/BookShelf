@@ -7,13 +7,13 @@ interface TrackRepository {
 
     suspend fun getTrackById(id: Long): Track?
 
-    suspend fun getTracksByMangaId(mangaId: Long): List<Track>
+    suspend fun getTracksByTextbookId(textbookId: Long): List<Track>
 
     fun getTracksAsFlow(): Flow<List<Track>>
 
-    fun getTracksByMangaIdAsFlow(mangaId: Long): Flow<List<Track>>
+    fun getTracksByTextbookIdAsFlow(textbookId: Long): Flow<List<Track>>
 
-    suspend fun delete(mangaId: Long, trackerId: Long)
+    suspend fun delete(textbookId: Long, trackerId: Long)
 
     suspend fun insert(track: Track)
 

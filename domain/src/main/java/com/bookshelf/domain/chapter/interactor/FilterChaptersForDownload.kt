@@ -2,21 +2,21 @@ package com.bookshelf.domain.chapter.interactor
 
 import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.category.interactor.GetCategories
-import com.bookshelf.domain.chapter.interactor.GetChaptersByMangaId
+import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.download.service.DownloadPreferences
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 
 /**
  * Interactor responsible for determining which chapters of a manga should be downloaded.
  *
- * @property getChaptersByMangaId Interactor for retrieving chapters by manga ID.
+ * @property getChaptersByTextbookId Interactor for retrieving chapters by manga ID.
  * @property downloadPreferences User preferences related to chapter downloads.
  * @property getCategories Interactor for retrieving categories associated with a manga.
  */
 @Inject
 class FilterChaptersForDownload(
-    private val getChaptersByMangaId: GetChaptersByMangaId,
+    private val getChaptersByTextbookId: GetChaptersByTextbookId,
     private val downloadPreferences: DownloadPreferences,
     private val getCategories: GetCategories,
 ) {
@@ -28,7 +28,7 @@ class FilterChaptersForDownload(
      * @param newChapters The list of new chapters available for the manga.
      * @return A list of chapters that should be downloaded
      */
-    suspend fun await(manga: Manga, newChapters: List<Chapter>): List<Chapter> {
+    suspend fun await(manga: Textbook, newChapters: List<Chapter>): List<Chapter> {
         if (
             newChapters.isEmpty() ||
             !downloadPreferences.downloadNewChapters.get() ||
@@ -39,7 +39,7 @@ class FilterChaptersForDownload(
 
         if (!downloadPreferences.downloadNewUnreadChaptersOnly.get()) return newChapters
 
-        val readChapterNumbers = getChaptersByMangaId.await(manga.id)
+        val readChapterNumbers = getChaptersByTextbookId.await(manga.id)
             .asSequence()
             .filter { it.read && it.isRecognizedNumber }
             .map { it.chapterNumber }
@@ -54,7 +54,7 @@ class FilterChaptersForDownload(
      *
      * @return `true` if chapters of the manga should be downloaded
      */
-    private suspend fun Manga.shouldDownloadNewChapters(): Boolean {
+    private suspend fun Textbook.shouldDownloadNewChapters(): Boolean {
         if (!favorite) return false
 
         val categories = getCategories.await(id).map { it.id }.ifEmpty { listOf(DEFAULT_CATEGORY_ID) }

@@ -6,8 +6,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bookshelf.ui.library.LibraryItem
-import com.bookshelf.domain.library.model.LibraryManga
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.library.model.LibraryTextbook
+import com.bookshelf.domain.textbook.model.TextbookCover
 
 @Composable
 internal fun LibraryComfortableGrid(
@@ -15,9 +15,9 @@ internal fun LibraryComfortableGrid(
     columns: Int,
     contentPadding: PaddingValues,
     selection: Set<Long>,
-    onClick: (LibraryManga) -> Unit,
-    onLongClick: (LibraryManga) -> Unit,
-    onClickContinueReading: ((LibraryManga) -> Unit)?,
+    onClick: (LibraryTextbook) -> Unit,
+    onLongClick: (LibraryTextbook) -> Unit,
+    onClickContinueReading: ((LibraryTextbook) -> Unit)?,
     searchQuery: String?,
     onGlobalSearchClicked: () -> Unit,
 ) {
@@ -32,14 +32,14 @@ internal fun LibraryComfortableGrid(
             items = items,
             contentType = { "library_comfortable_grid_item" },
         ) { libraryItem ->
-            val manga = libraryItem.libraryManga.manga
-            MangaComfortableGridItem(
+            val manga = libraryItem.libraryManga.textbook
+            TextbookComfortableGridItem(
                 isSelected = manga.id in selection,
                 title = manga.title,
-                coverData = MangaCover(
-                    mangaId = manga.id,
+                coverData = TextbookCover(
+                    textbookId = manga.id,
                     sourceId = manga.source,
-                    isMangaFavorite = manga.favorite,
+                    isFavorite = manga.favorite,
                     url = manga.thumbnailUrl,
                     lastModified = manga.coverLastModified,
                 ),

@@ -2,7 +2,7 @@ package com.bookshelf.presentation.track
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.bookshelf.ui.manga.track.TrackItem
+import com.bookshelf.ui.textbook.track.TrackItem
 import com.bookshelf.test.DummyTracker
 import com.bookshelf.domain.track.model.Track
 import java.time.format.DateTimeFormatter
@@ -13,7 +13,7 @@ internal class TrackInfoDialogHomePreviewProvider :
 
     private val aTrack = Track(
         id = 1L,
-        mangaId = 2L,
+        textbookId = 2L,
         trackerId = 3L,
         remoteId = 4L,
         libraryId = null,

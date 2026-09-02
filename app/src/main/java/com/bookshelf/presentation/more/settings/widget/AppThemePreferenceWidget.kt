@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import com.bookshelf.domain.ui.UiPreferences
 import com.bookshelf.domain.ui.model.AppTheme
-import com.bookshelf.presentation.manga.components.MangaCover
+import com.bookshelf.presentation.manga.components.TextbookCover
 import com.bookshelf.presentation.theme.BookShelfTheme
 import com.bookshelf.util.system.DeviceUtil
 import com.bookshelf.util.system.isDynamicColorAvailable
@@ -192,7 +192,7 @@ fun AppThemePreviewItem(
                     shape = MaterialTheme.shapes.small,
                 )
                 .fillMaxWidth(0.5f)
-                .aspectRatio(MangaCover.Book.ratio),
+                .aspectRatio(TextbookCover.Book.ratio),
         ) {
             Row(
                 modifier = Modifier

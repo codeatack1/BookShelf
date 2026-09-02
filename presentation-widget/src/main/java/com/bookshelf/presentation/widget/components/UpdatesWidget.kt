@@ -64,7 +64,7 @@ fun UpdatesWidget(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            coverRow.forEach { (mangaId, cover) ->
+                            coverRow.forEach { (textbookId, cover) ->
                                 Box(
                                     modifier = GlanceModifier
                                         .padding(horizontal = 3.dp),
@@ -75,14 +75,14 @@ fun UpdatesWidget(
                                         Class.forName(Constants.MAIN_ACTIVITY),
                                     ).apply {
                                         action = Constants.SHORTCUT_MANGA
-                                        putExtra(Constants.MANGA_EXTRA, mangaId)
+                                        putExtra(Constants.MANGA_EXTRA, textbookId)
                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
                                         // https://issuetracker.google.com/issues/238793260
-                                        addCategory(mangaId.toString())
+                                        addCategory(textbookId.toString())
                                     }
-                                    UpdatesMangaCover(
+                                    UpdatesTextbookCover(
                                         cover = cover,
                                         modifier = GlanceModifier.clickable(actionStartActivity(intent)),
                                     )

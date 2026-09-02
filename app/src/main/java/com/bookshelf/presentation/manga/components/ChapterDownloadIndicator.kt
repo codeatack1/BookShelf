@@ -29,7 +29,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.R
-import com.bookshelf.com.bookshelf.data.download.model.Download
+import com.bookshelf.data.download.model.Download
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.ArrowDownward
 import com.bookshelf.icons.materialsymbols.rounded.Error

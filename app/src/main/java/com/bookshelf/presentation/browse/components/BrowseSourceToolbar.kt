@@ -13,8 +13,8 @@ import com.bookshelf.presentation.components.AppBarTitle
 import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.components.RadioMenuItem
 import com.bookshelf.presentation.components.SearchToolbar
-import com.bookshelf.com.bookshelf.source.ConfigurableSource
-import com.bookshelf.com.bookshelf.source.Source
+import com.bookshelf.source.ConfigurableSource
+import com.bookshelf.source.Source
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.ViewList
 import com.bookshelf.icons.materialsymbols.rounded.ViewModule

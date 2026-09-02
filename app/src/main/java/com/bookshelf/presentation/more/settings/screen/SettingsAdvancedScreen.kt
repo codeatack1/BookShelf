@@ -26,7 +26,7 @@ import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.presentation.more.settings.Preference
 import com.bookshelf.presentation.more.settings.screen.advanced.ClearDatabaseScreen
 import com.bookshelf.presentation.more.settings.screen.debug.DebugInfoScreen
-import com.bookshelf.com.bookshelf.data.library.MetadataUpdateJob
+import com.bookshelf.data.library.MetadataUpdateJob
 import com.bookshelf.network.NetworkPreferences
 import com.bookshelf.network.PREF_DOH_360
 import com.bookshelf.network.PREF_DOH_ADGUARD

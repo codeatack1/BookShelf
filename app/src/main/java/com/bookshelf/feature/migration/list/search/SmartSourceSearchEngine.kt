@@ -1,27 +1,27 @@
 package com.bookshelf.feature.migration.list.search
 
 import com.bookshelf.source.Source
-import com.bookshelf.source.model.SManga
-import com.bookshelf.domain.manga.model.toDomainManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.source.model.STextbook
+import com.bookshelf.domain.textbook.model.toDomainTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 
-class SmartSourceSearchEngine(extraSearchParams: String?) : BaseSmartSearchEngine<SManga>(extraSearchParams) {
+class SmartSourceSearchEngine(extraSearchParams: String?) : BaseSmartSearchEngine<STextbook>(extraSearchParams) {
 
-    override fun getTitle(result: SManga) = result.title
+    override fun getTitle(result: STextbook) = result.title
 
-    suspend fun regularSearch(source: Source, title: String): Manga? {
+    suspend fun regularSearch(source: Source, title: String): Textbook? {
         return regularSearch(makeSearchAction(source), title).let {
-            it?.toDomainManga(source.id)
+            it?.toDomainTextbook(source.id)
         }
     }
 
-    suspend fun deepSearch(source: Source, title: String): Manga? {
+    suspend fun deepSearch(source: Source, title: String): Textbook? {
         return deepSearch(makeSearchAction(source), title).let {
-            it?.toDomainManga(source.id)
+            it?.toDomainTextbook(source.id)
         }
     }
 
-    private fun makeSearchAction(source: Source): SearchAction<SManga> = { query ->
-        source.getSearchManga(1, query, source.getFilterList()).mangas
+    private fun makeSearchAction(source: Source): SearchAction<STextbook> = { query ->
+        source.getSearchTextbooks(1, query, source.getFilterList()).textbooks
     }
 }

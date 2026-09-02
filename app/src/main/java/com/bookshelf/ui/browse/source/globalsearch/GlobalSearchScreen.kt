@@ -13,7 +13,7 @@ import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import com.bookshelf.presentation.browse.GlobalSearchScreen
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.ui.browse.source.browse.BrowseSourceScreen
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.presentation.core.screens.LoadingScreen
 
 class GlobalSearchScreen(
@@ -43,7 +43,7 @@ class GlobalSearchScreen(
                     is SearchItemResult.Success -> {
                         val manga = result.result.singleOrNull()
                         if (manga != null) {
-                            navigator.replace(MangaScreen(manga.id, true))
+                            navigator.replace(TextbookScreen(manga.id, true))
                         } else {
                             // Backoff to result screen
                             showSingleLoadingScreen = false
@@ -64,8 +64,8 @@ class GlobalSearchScreen(
                 onClickSource = {
                     navigator.push(BrowseSourceScreen(it.id, state.searchQuery))
                 },
-                onClickItem = { navigator.push(MangaScreen(it.id, true)) },
-                onLongClickItem = { navigator.push(MangaScreen(it.id, true)) },
+                onClickItem = { navigator.push(TextbookScreen(it.id, true)) },
+                onLongClickItem = { navigator.push(TextbookScreen(it.id, true)) },
             )
         }
     }

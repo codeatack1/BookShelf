@@ -10,7 +10,7 @@ import com.bookshelf.domain.library.model.search.ComparisonQueryNode
 import com.bookshelf.domain.library.model.search.EmptyQueryNode
 import com.bookshelf.domain.library.model.search.FieldQueryNode
 import com.bookshelf.domain.library.model.search.GeneralQueryNode
-import com.bookshelf.domain.library.model.search.MangaField
+import com.bookshelf.domain.library.model.search.TextbookField
 import com.bookshelf.domain.library.model.search.NotNode
 import com.bookshelf.domain.library.model.search.OrNode
 import com.bookshelf.domain.library.model.search.QueryNode
@@ -31,36 +31,36 @@ fun QueryNode.matches(item: LibraryItem): Boolean {
 }
 
 private fun GeneralQueryNode.matches(item: LibraryItem): Boolean {
-    val manga = item.libraryManga.manga
+    val manga = item.libraryManga.textbook
 
     // Use when so each added field has to be handled explicitly
-    val match = MangaField.entries.any { field ->
+    val match = TextbookField.entries.any { field ->
         if (field.fieldOnly) return@any false
 
         when (field) {
-            MangaField.TITLE -> manga.title.contains(value, ignoreCase = true)
-            MangaField.AUTHOR -> manga.author?.contains(value, ignoreCase = true) ?: false
-            MangaField.ARTIST -> manga.artist?.contains(value, ignoreCase = true) ?: false
-            MangaField.DESCRIPTION -> manga.description?.contains(value, ignoreCase = true) ?: false
-            MangaField.GENRE -> manga.genre?.any { it.contains(value, ignoreCase = true) } ?: false
-            MangaField.SOURCE -> {
+            TextbookField.TITLE -> manga.title.contains(value, ignoreCase = true)
+            TextbookField.AUTHOR -> manga.author?.contains(value, ignoreCase = true) ?: false
+            TextbookField.ARTIST -> manga.artist?.contains(value, ignoreCase = true) ?: false
+            TextbookField.DESCRIPTION -> manga.description?.contains(value, ignoreCase = true) ?: false
+            TextbookField.GENRE -> manga.genre?.any { it.contains(value, ignoreCase = true) } ?: false
+            TextbookField.SOURCE -> {
                 item.sourceName.contains(value, ignoreCase = true) ||
                     (value.equals("local", ignoreCase = true) && manga.source == LocalSource.ID)
             }
-            MangaField.NOTES -> manga.notes.contains(value, ignoreCase = true)
+            TextbookField.NOTES -> manga.notes.contains(value, ignoreCase = true)
 
             // field-only queries; unreachable; added here to make `when` exhaustive
-            MangaField.LANGUAGE, MangaField.SOURCE_ID -> error("How did we get here?")
+            TextbookField.LANGUAGE, TextbookField.SOURCE_ID -> error("How did we get here?")
         }
     }
     return if (negated) !match else match
 }
 
 private fun FieldQueryNode.matches(item: LibraryItem): Boolean {
-    val manga = item.libraryManga.manga
+    val manga = item.libraryManga.textbook
 
     val match = when (field) {
-        MangaField.GENRE -> {
+        TextbookField.GENRE -> {
             if (value.isEmpty()) {
                 manga.genre.isNullOrEmpty()
             } else {
@@ -68,7 +68,7 @@ private fun FieldQueryNode.matches(item: LibraryItem): Boolean {
             }
         }
 
-        MangaField.SOURCE -> {
+        TextbookField.SOURCE -> {
             if (value.isEmpty()) {
                 item.sourceName.isEmpty()
             } else {
@@ -77,21 +77,21 @@ private fun FieldQueryNode.matches(item: LibraryItem): Boolean {
             }
         }
 
-        MangaField.SOURCE_ID -> {
+        TextbookField.SOURCE_ID -> {
             value.toLongOrNull()?.let { it == manga.source } ?: false
         }
 
         else -> {
             val text = when (field) {
-                MangaField.TITLE -> manga.title
-                MangaField.AUTHOR -> manga.author
-                MangaField.ARTIST -> manga.artist
-                MangaField.DESCRIPTION -> manga.description
-                MangaField.NOTES -> manga.notes
-                MangaField.LANGUAGE -> item.sourceLanguage
+                TextbookField.TITLE -> manga.title
+                TextbookField.AUTHOR -> manga.author
+                TextbookField.ARTIST -> manga.artist
+                TextbookField.DESCRIPTION -> manga.description
+                TextbookField.NOTES -> manga.notes
+                TextbookField.LANGUAGE -> item.sourceLanguage
 
                 // unreachable; added here to make `when` exhaustive
-                MangaField.GENRE, MangaField.SOURCE, MangaField.SOURCE_ID -> error("How did we get here?")
+                TextbookField.GENRE, TextbookField.SOURCE, TextbookField.SOURCE_ID -> error("How did we get here?")
             }
 
             if (value.isEmpty()) {
@@ -106,7 +106,7 @@ private fun FieldQueryNode.matches(item: LibraryItem): Boolean {
 }
 
 private fun ComparisonQueryNode.matches(item: LibraryItem): Boolean {
-    val manga = item.libraryManga.manga
+    val manga = item.libraryManga.textbook
 
     fun compareDates(timestamp: Long, value: String): Boolean? {
         val inputDate = runCatching { LocalDate.parse(value) }.getOrNull() ?: return null

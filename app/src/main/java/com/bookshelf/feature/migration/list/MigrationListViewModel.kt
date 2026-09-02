@@ -29,18 +29,18 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import logcat.LogPriority
-import com.bookshelf.domain.migration.usecases.MigrateMangaUseCase
-import com.bookshelf.domain.source.interactor.UpdateMangaFromRemote
-import com.bookshelf.feature.migration.list.models.MigratingManga
-import com.bookshelf.feature.migration.list.models.MigratingManga.SearchResult
+import com.bookshelf.domain.migration.usecases.MigrateTextbookUseCase
+import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
+import com.bookshelf.feature.migration.list.models.MigratingTextbook
+import com.bookshelf.feature.migration.list.models.MigratingTextbook.SearchResult
 import com.bookshelf.feature.migration.list.search.SmartSourceSearchEngine
 import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.core.common.util.lang.withUIContext
 import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.chapter.interactor.GetChaptersByMangaId
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.interactor.NetworkToLocalManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 
 @AssistedInject
@@ -49,11 +49,11 @@ class MigrationListViewModel(
     @Assisted extraSearchQuery: String?,
     private val preferences: SourcePreferences,
     private val sourceManager: SourceManager,
-    private val getManga: GetManga,
-    private val networkToLocalManga: NetworkToLocalManga,
-    private val getChaptersByMangaId: GetChaptersByMangaId,
-    private val migrateManga: MigrateMangaUseCase,
-    private val updateMangaFromRemote: UpdateMangaFromRemote,
+    private val getManga: GetTextbook,
+    private val networkToLocalManga: NetworkToLocalTextbook,
+    private val getChaptersByTextbookId: GetChaptersByTextbookId,
+    private val migrateManga: MigrateTextbookUseCase,
+    private val updateMangaFromRemote: UpdateTextbookFromRemote,
 ) : ViewModel() {
 
     val state: StateFlow<MigrationListViewModel.State>
@@ -86,7 +86,7 @@ class MigrationListViewModel(
                     async {
                         val manga = getManga.await(it) ?: return@async null
                         val chapterInfo = getChapterInfo(it)
-                        MigratingManga(
+                        MigratingTextbook(
                             manga = manga,
                             chapterCount = chapterInfo.chapterCount,
                             latestChapter = chapterInfo.latestChapter,
@@ -102,14 +102,14 @@ class MigrationListViewModel(
         }
     }
 
-    private suspend fun getChapterInfo(id: Long) = getChaptersByMangaId.await(id).let { chapters ->
+    private suspend fun getChapterInfo(id: Long) = getChaptersByTextbookId.await(id).let { chapters ->
         ChapterInfo(
             latestChapter = chapters.maxOfOrNull { it.chapterNumber },
             chapterCount = chapters.size,
         )
     }
 
-    private suspend fun Manga.toSuccessSearchResult(): SearchResult.Success {
+    private suspend fun Textbook.toSuccessSearchResult(): SearchResult.Success {
         val chapterInfo = getChapterInfo(id)
         val source = sourceManager.getOrStub(source).getNameForMangaInfo()
         return SearchResult.Success(
@@ -120,7 +120,7 @@ class MigrationListViewModel(
         )
     }
 
-    private suspend fun runMigrations(mangas: List<MigratingManga>) {
+    private suspend fun runMigrations(mangas: List<MigratingTextbook>) {
         val prioritizeByChapters = preferences.migrationPrioritizeByChapters.get()
         val deepSearchMode = preferences.migrationDeepSearchMode.get()
 
@@ -129,7 +129,7 @@ class MigrationListViewModel(
 
         for (manga in mangas) {
             if (!currentCoroutineContext().isActive) break
-            if (manga.manga.id !in state.value.mangaIds) continue
+            if (manga.textbook.id !in state.value.mangaIds) continue
             if (manga.searchResult.value != SearchResult.Searching) continue
             if (!manga.migrationScope.isActive) continue
 
@@ -187,10 +187,10 @@ class MigrationListViewModel(
     }
 
     private suspend fun searchSource(
-        manga: Manga,
+        manga: Textbook,
         source: Source,
         deepSearchMode: Boolean,
-    ): Pair<Manga, ChapterInfo>? {
+    ): Pair<Textbook, ChapterInfo>? {
         return try {
             val searchResult = if (deepSearchMode) {
                 smartSearchEngine.deepSearch(source, manga.title)
@@ -307,26 +307,26 @@ class MigrationListViewModel(
         navigateBackChannel.send(Unit)
     }
 
-    fun migrateNow(mangaId: Long, replace: Boolean) {
+    fun migrateNow(textbookId: Long, replace: Boolean) {
         viewModelScope.launchIO {
-            val manga = items.find { it.manga.id == mangaId } ?: return@launchIO
+            val manga = items.find { it.manga.id == textbookId } ?: return@launchIO
             val target = (manga.searchResult.value as? SearchResult.Success)?.manga ?: return@launchIO
             migrateManga(current = manga.manga, target = target, replace = replace)
 
-            removeManga(mangaId)
+            removeManga(textbookId)
         }
     }
 
-    fun removeManga(mangaId: Long) {
+    fun removeManga(textbookId: Long) {
         viewModelScope.launchIO {
-            val item = items.find { it.manga.id == mangaId } ?: return@launchIO
+            val item = items.find { it.manga.id == textbookId } ?: return@launchIO
             removeManga(item)
             item.migrationScope.cancel()
             updateMigrationProgress()
         }
     }
 
-    private fun removeManga(item: MigratingManga) {
+    private fun removeManga(item: MigratingTextbook) {
         state.update { it.copy(items = items.toMutableList().apply { remove(item) }) }
     }
 
@@ -370,7 +370,7 @@ class MigrationListViewModel(
     }
 
     data class State(
-        val items: List<MigratingManga> = listOf(),
+        val items: List<MigratingTextbook> = listOf(),
         val finishedCount: Int = 0,
         val migrationComplete: Boolean = false,
         val dialog: Dialog? = null,

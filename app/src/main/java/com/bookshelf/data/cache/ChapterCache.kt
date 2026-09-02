@@ -204,7 +204,7 @@ class ChapterCache(
     }
 
     private fun getKey(chapter: Chapter): String {
-        return "${chapter.mangaId}${chapter.url}"
+        return "${chapter.textbookId}${chapter.url}"
     }
 }
 

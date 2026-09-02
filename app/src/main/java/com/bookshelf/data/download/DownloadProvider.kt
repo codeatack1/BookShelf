@@ -14,7 +14,7 @@ import com.bookshelf.core.common.storage.displayablePath
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.storage.service.StorageManager
 import com.bookshelf.i18n.MR
 import java.io.IOException
@@ -39,10 +39,10 @@ class DownloadProvider(
     /**
      * Returns the download directory for a manga. For internal use only.
      *
-     * @param mangaTitle the title of the manga to query.
+     * @param textbookTitle the title of the manga to query.
      * @param source the source of the manga.
      */
-    internal fun getMangaDir(mangaTitle: String, source: Source): Result<UniFile> {
+    internal fun getMangaDir(textbookTitle: String, source: Source): Result<UniFile> {
         val downloadsDir = downloadsDir
         if (downloadsDir == null) {
             logcat(LogPriority.ERROR) { "Failed to create download directory" }
@@ -61,7 +61,7 @@ class DownloadProvider(
             )
         }
 
-        val mangaDirName = getMangaDirName(mangaTitle)
+        val mangaDirName = getMangaDirName(textbookTitle)
         val mangaDir = sourceDir.createDirectory(mangaDirName)
         if (mangaDir == null) {
             val displayablePath = sourceDir.displayablePath + "/$mangaDirName"
@@ -86,12 +86,12 @@ class DownloadProvider(
     /**
      * Returns the download directory for a manga if it exists.
      *
-     * @param mangaTitle the title of the manga to query.
+     * @param textbookTitle the title of the manga to query.
      * @param source the source of the manga.
      */
-    fun findMangaDir(mangaTitle: String, source: Source): UniFile? {
+    fun findMangaDir(textbookTitle: String, source: Source): UniFile? {
         val sourceDir = findSourceDir(source)
-        return sourceDir?.findFile(getMangaDirName(mangaTitle))
+        return sourceDir?.findFile(getMangaDirName(textbookTitle))
     }
 
     /**
@@ -99,17 +99,17 @@ class DownloadProvider(
      *
      * @param chapterName the name of the chapter to query.
      * @param chapterScanlator scanlator of the chapter to query
-     * @param mangaTitle the title of the manga to query.
+     * @param textbookTitle the title of the manga to query.
      * @param source the source of the chapter.
      */
     fun findChapterDir(
         chapterName: String,
         chapterScanlator: String?,
         chapterUrl: String,
-        mangaTitle: String,
+        textbookTitle: String,
         source: Source,
     ): UniFile? {
-        val mangaDir = findMangaDir(mangaTitle, source)
+        val mangaDir = findMangaDir(textbookTitle, source)
         return getValidChapterDirNames(chapterName, chapterScanlator, chapterUrl).asSequence()
             .mapNotNull { mangaDir?.findFile(it) }
             .firstOrNull()
@@ -122,7 +122,7 @@ class DownloadProvider(
      * @param manga the manga of the chapter.
      * @param source the source of the chapter.
      */
-    fun findChapterDirs(chapters: List<Chapter>, manga: Manga, source: Source): Pair<UniFile?, List<UniFile>> {
+    fun findChapterDirs(chapters: List<Chapter>, manga: Textbook, source: Source): Pair<UniFile?, List<UniFile>> {
         val mangaDir = findMangaDir(manga.title, source) ?: return null to emptyList()
         return mangaDir to chapters.mapNotNull { chapter ->
             getValidChapterDirNames(chapter.name, chapter.scanlator, chapter.url).asSequence()
@@ -146,11 +146,11 @@ class DownloadProvider(
     /**
      * Returns the download directory name for a manga.
      *
-     * @param mangaTitle the title of the manga to query.
+     * @param textbookTitle the title of the manga to query.
      */
-    fun getMangaDirName(mangaTitle: String): String {
+    fun getMangaDirName(textbookTitle: String): String {
         return DiskUtil.buildValidFilename(
-            mangaTitle,
+            textbookTitle,
             disallowNonAscii = libraryPreferences.disallowNonAsciiFilenames.get(),
         )
     }

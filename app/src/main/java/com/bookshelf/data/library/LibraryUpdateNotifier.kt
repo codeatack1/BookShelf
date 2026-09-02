@@ -34,8 +34,8 @@ import com.bookshelf.core.common.i18n.pluralStringResource
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.util.lang.launchUI
 import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.library.model.LibraryManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.library.model.LibraryTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.i18n.MR
 import java.math.RoundingMode
@@ -88,7 +88,7 @@ class LibraryUpdateNotifier(
      * @param current the current progress.
      * @param total the total progress.
      */
-    fun showProgressNotification(manga: List<Manga>, current: Int, total: Int) {
+    fun showProgressNotification(manga: List<Textbook>, current: Int, total: Int) {
         progressNotificationBuilder
             .setContentTitle(
                 context.stringResource(
@@ -113,9 +113,9 @@ class LibraryUpdateNotifier(
     /**
      * Warn when excessively checking any single source.
      */
-    suspend fun showQueueSizeWarningNotificationIfNeeded(mangaToUpdate: List<LibraryManga>) {
+    suspend fun showQueueSizeWarningNotificationIfNeeded(mangaToUpdate: List<LibraryTextbook>) {
         val maxUpdatesFromSource = mangaToUpdate
-            .groupBy { it.manga.source }
+            .groupBy { it.textbook.source }
             .filter { (sourceId, _) -> sourceManager.get(sourceId) !is UnmeteredSource }
             .maxOfOrNull { it.value.size } ?: 0
 
@@ -165,7 +165,7 @@ class LibraryUpdateNotifier(
      *
      * @param updates a list of manga with new updates.
      */
-    fun showUpdateNotifications(updates: List<Pair<Manga, Array<Chapter>>>) {
+    fun showUpdateNotifications(updates: List<Pair<Textbook, Array<Chapter>>>) {
         // Parent group notification
         context.notify(
             Notifications.ID_NEW_CHAPTERS,
@@ -221,7 +221,7 @@ class LibraryUpdateNotifier(
         }
     }
 
-    private suspend fun createNewChaptersNotification(manga: Manga, chapters: Array<Chapter>): Notification {
+    private suspend fun createNewChaptersNotification(manga: Textbook, chapters: Array<Chapter>): Notification {
         val icon = getMangaIcon(manga)
         return context.notificationBuilder(Notifications.CHANNEL_NEW_CHAPTERS) {
             setContentTitle(manga.title)
@@ -289,7 +289,7 @@ class LibraryUpdateNotifier(
         context.cancelNotification(Notifications.ID_LIBRARY_PROGRESS)
     }
 
-    private suspend fun getMangaIcon(manga: Manga): Bitmap? {
+    private suspend fun getMangaIcon(manga: Textbook): Bitmap? {
         val request = ImageRequest.Builder(context)
             .data(manga)
             .transformations(CircleCropTransformation())

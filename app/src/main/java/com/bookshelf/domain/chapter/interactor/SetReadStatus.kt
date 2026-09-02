@@ -9,14 +9,14 @@ import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.model.ChapterUpdate
 import com.bookshelf.domain.chapter.repository.ChapterRepository
 import com.bookshelf.domain.download.service.DownloadPreferences
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.repository.MangaRepository
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.repository.TextbookRepository
 
 @Inject
 class SetReadStatus(
     private val downloadPreferences: DownloadPreferences,
     private val deleteDownload: DeleteDownload,
-    private val mangaRepository: MangaRepository,
+    private val mangaRepository: TextbookRepository,
     private val chapterRepository: ChapterRepository,
 ) {
 
@@ -50,10 +50,10 @@ class SetReadStatus(
 
         if (read && downloadPreferences.removeAfterMarkedAsRead.get()) {
             chaptersToUpdate
-                .groupBy { it.mangaId }
-                .forEach { (mangaId, chapters) ->
+                .groupBy { it.textbookId }
+                .forEach { (textbookId, chapters) ->
                     deleteDownload.awaitAll(
-                        manga = mangaRepository.getMangaById(mangaId),
+                        manga = mangaRepository.getTextbookById(textbookId),
                         chapters = chapters.toTypedArray(),
                     )
                 }
@@ -62,16 +62,16 @@ class SetReadStatus(
         Result.Success
     }
 
-    suspend fun await(mangaId: Long, read: Boolean): Result = withNonCancellableContext {
+    suspend fun await(textbookId: Long, read: Boolean): Result = withNonCancellableContext {
         await(
             read = read,
             chapters = chapterRepository
-                .getChapterByMangaId(mangaId)
+                .getChapterByTextbookId(textbookId)
                 .toTypedArray(),
         )
     }
 
-    suspend fun await(manga: Manga, read: Boolean) =
+    suspend fun await(manga: Textbook, read: Boolean) =
         await(manga.id, read)
 
     sealed interface Result {

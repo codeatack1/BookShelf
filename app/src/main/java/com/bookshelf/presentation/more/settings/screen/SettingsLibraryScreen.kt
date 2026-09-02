@@ -18,7 +18,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.bookshelf.presentation.category.visualName
 import com.bookshelf.presentation.more.settings.Preference
 import com.bookshelf.presentation.more.settings.widget.TriStateListDialog
-import com.bookshelf.com.bookshelf.data.library.LibraryUpdateJob
+import com.bookshelf.data.library.LibraryUpdateJob
 import com.bookshelf.ui.category.CategoryScreen
 import kotlinx.coroutines.launch
 import com.bookshelf.app.di.appGraph
@@ -192,7 +192,7 @@ object SettingsLibraryScreen : SearchableSettings {
                     subtitle = stringResource(MR.strings.pref_library_update_refresh_metadata_summary),
                 ),
                 Preference.PreferenceItem.MultiSelectListPreference(
-                    preference = libraryPreferences.autoUpdateMangaRestrictions,
+                    preference = libraryPreferences.autoUpdateTextbookRestrictions,
                     entries = mapOf(
                         MANGA_HAS_UNREAD to stringResource(MR.strings.pref_update_only_completely_read),
                         MANGA_NON_READ to stringResource(MR.strings.pref_update_only_started),

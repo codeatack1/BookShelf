@@ -49,7 +49,7 @@ import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
 import com.bookshelf.presentation.more.settings.widget.TrailingWidgetBuffer
 import com.bookshelf.R
 import com.bookshelf.extension.model.Extension
-import com.bookshelf.com.bookshelf.source.ConfigurableSource
+import com.bookshelf.source.ConfigurableSource
 import com.bookshelf.ui.browse.extension.details.ExtensionDetailsViewModel
 import com.bookshelf.util.system.LocaleHelper
 import com.bookshelf.util.system.copyToClipboard

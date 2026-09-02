@@ -25,16 +25,16 @@ import com.bookshelf.source.online.HttpSource
 import com.bookshelf.ui.browse.source.browse.BrowseSourceViewModel
 import com.bookshelf.ui.browse.source.browse.SourceFilterDialog
 import com.bookshelf.ui.home.HomeScreen
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.webview.WebViewScreen
 import kotlinx.coroutines.launch
-import com.bookshelf.feature.migration.dialog.MigrateMangaDialog
+import com.bookshelf.feature.migration.dialog.MigrateTextbookDialog
 import com.bookshelf.feature.migration.list.MigrationListScreen
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.FilterList
 import com.bookshelf.presentation.core.util.collectAsLazyPagingItems
 import com.bookshelf.core.common.Constants
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
@@ -42,7 +42,7 @@ import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.source.local.LocalSource
 
 data class MigrateSourceSearchScreen(
-    private val currentManga: Manga,
+    private val currentManga: Textbook,
     private val sourceId: Long,
     private val query: String?,
 ) : Screen() {
@@ -90,7 +90,7 @@ data class MigrateSourceSearchScreen(
             },
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         ) { paddingValues ->
-            val openMigrateDialog: (Manga) -> Unit = {
+            val openMigrateDialog: (Textbook) -> Unit = {
                 val migrateListScreen = navigator.items
                     .filterIsInstance<MigrationListScreen>()
                     .lastOrNull()
@@ -122,7 +122,7 @@ data class MigrateSourceSearchScreen(
                 onHelpClick = { uriHandler.openUri(Constants.URL_HELP) },
                 onLocalSourceHelpClick = { uriHandler.openUri(LocalSource.HELP_URL) },
                 onMangaClick = openMigrateDialog,
-                onMangaLongClick = { navigator.push(MangaScreen(it.id, true)) },
+                onMangaLongClick = { navigator.push(TextbookScreen(it.id, true)) },
             )
         }
 
@@ -138,17 +138,17 @@ data class MigrateSourceSearchScreen(
                 )
             }
             is BrowseSourceViewModel.Dialog.Migrate -> {
-                MigrateMangaDialog(
+                MigrateTextbookDialog(
                     current = currentManga,
                     target = dialog.target,
                     // Initiated from the context of [currentManga] so we show [dialog.target].
-                    onClickTitle = { navigator.push(MangaScreen(dialog.target.id)) },
+                    onClickTitle = { navigator.push(TextbookScreen(dialog.target.id)) },
                     onDismissRequest = onDismissRequest,
                     onComplete = {
                         scope.launch {
                             navigator.popUntilRoot()
                             HomeScreen.openTab(HomeScreen.Tab.Browse())
-                            navigator.push(MangaScreen(dialog.target.id))
+                            navigator.push(TextbookScreen(dialog.target.id))
                         }
                     },
                 )

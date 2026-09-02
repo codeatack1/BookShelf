@@ -37,15 +37,15 @@ class CategoryRepositoryImpl(
             .subscribeToList()
     }
 
-    override suspend fun getCategoriesByMangaId(mangaId: Long): List<Category> {
+    override suspend fun getCategoriesByTextbookId(textbookId: Long): List<Category> {
         return database.categoriesQueries
-            .getCategoriesByMangaId(mangaId, ::mapCategory)
+            .getCategoriesByTextbookId(textbookId, ::mapCategory)
             .awaitAsList()
     }
 
-    override fun getCategoriesByMangaIdAsFlow(mangaId: Long): Flow<List<Category>> {
+    override fun getCategoriesByTextbookIdAsFlow(textbookId: Long): Flow<List<Category>> {
         return database.categoriesQueries
-            .getCategoriesByMangaId(mangaId, ::mapCategory)
+            .getCategoriesByTextbookId(textbookId, ::mapCategory)
             .subscribeToList()
     }
 

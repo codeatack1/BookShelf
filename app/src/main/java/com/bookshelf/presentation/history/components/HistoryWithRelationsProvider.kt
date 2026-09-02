@@ -9,15 +9,15 @@ internal class HistoryWithRelationsProvider : PreviewParameterProvider<HistoryWi
     private val simple = HistoryWithRelations(
         id = 1L,
         chapterId = 2L,
-        mangaId = 3L,
+        textbookId = 3L,
         title = "Test Title",
         chapterNumber = 10.2,
         readAt = Date(1697247357L),
         readDuration = 123L,
-        coverData = com.bookshelf.domain.manga.model.MangaCover(
-            mangaId = 3L,
+        coverData = com.bookshelf.domain.textbook.model.TextbookCover(
+            textbookId = 3L,
             sourceId = 4L,
-            isMangaFavorite = false,
+            isFavorite = false,
             url = "https://example.com/cover.png",
             lastModified = 5L,
         ),
@@ -26,15 +26,15 @@ internal class HistoryWithRelationsProvider : PreviewParameterProvider<HistoryWi
     private val historyWithoutReadAt = HistoryWithRelations(
         id = 1L,
         chapterId = 2L,
-        mangaId = 3L,
+        textbookId = 3L,
         title = "Test Title",
         chapterNumber = 10.2,
         readAt = null,
         readDuration = 123L,
-        coverData = com.bookshelf.domain.manga.model.MangaCover(
-            mangaId = 3L,
+        coverData = com.bookshelf.domain.textbook.model.TextbookCover(
+            textbookId = 3L,
             sourceId = 4L,
-            isMangaFavorite = false,
+            isFavorite = false,
             url = "https://example.com/cover.png",
             lastModified = 5L,
         ),
@@ -43,15 +43,15 @@ internal class HistoryWithRelationsProvider : PreviewParameterProvider<HistoryWi
     private val historyWithNegativeChapterNumber = HistoryWithRelations(
         id = 1L,
         chapterId = 2L,
-        mangaId = 3L,
+        textbookId = 3L,
         title = "Test Title",
         chapterNumber = -2.0,
         readAt = Date(1697247357L),
         readDuration = 123L,
-        coverData = com.bookshelf.domain.manga.model.MangaCover(
-            mangaId = 3L,
+        coverData = com.bookshelf.domain.textbook.model.TextbookCover(
+            textbookId = 3L,
             sourceId = 4L,
-            isMangaFavorite = false,
+            isFavorite = false,
             url = "https://example.com/cover.png",
             lastModified = 5L,
         ),

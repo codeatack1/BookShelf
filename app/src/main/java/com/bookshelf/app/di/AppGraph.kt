@@ -46,8 +46,8 @@ import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.category.interactor.ResetCategoryFlags
 import com.bookshelf.domain.download.service.DownloadPreferences
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.manga.interactor.GetFavorites
-import com.bookshelf.domain.manga.interactor.ResetViewerFlags
+import com.bookshelf.domain.textbook.interactor.GetFavoriteTextbooks
+import com.bookshelf.domain.textbook.interactor.ResetViewerFlags
 import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.domain.storage.service.StoragePreferences
 import com.bookshelf.domain.track.interactor.InsertTrack
@@ -106,7 +106,7 @@ interface AppGraph : ViewModelGraph {
     val json: Json
     val networkHelper: NetworkHelper
 
-    val getFavorites: GetFavorites
+    val getFavorites: GetFavoriteTextbooks
     val getCategories: GetCategories
     val resetViewerFlags: ResetViewerFlags
     val resetCategoryFlags: ResetCategoryFlags

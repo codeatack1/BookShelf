@@ -46,7 +46,7 @@ private val readerBarsFadeAnimationSpec = tween<Float>(150)
 fun ReaderAppBars(
     visible: Boolean,
 
-    mangaTitle: String?,
+    textbookTitle: String?,
     chapterTitle: String?,
     navigateUp: () -> Unit,
     onClickTopAppBar: () -> Unit,
@@ -89,7 +89,7 @@ fun ReaderAppBars(
                 modifier = Modifier
                     .background(backgroundColor)
                     .clickable(onClick = onClickTopAppBar),
-                mangaTitle = mangaTitle,
+                textbookTitle = textbookTitle,
                 chapterTitle = chapterTitle,
                 navigateUp = navigateUp,
                 bookmarked = bookmarked,

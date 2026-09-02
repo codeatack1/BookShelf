@@ -20,12 +20,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.bookshelf.domain.manga.model.toDomainManga
+import com.bookshelf.domain.textbook.model.toDomainTextbook
 import com.bookshelf.core.common.preference.toggle
 import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.interactor.NetworkToLocalManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 import java.util.concurrent.Executors
 
@@ -34,8 +34,8 @@ abstract class SearchViewModel(
     sourcePreferences: SourcePreferences,
     private val sourceManager: SourceManager,
     private val extensionManager: ExtensionManager,
-    private val networkToLocalManga: NetworkToLocalManga,
-    private val getManga: GetManga,
+    private val networkToLocalManga: NetworkToLocalTextbook,
+    private val getManga: GetTextbook,
     private val preferences: SourcePreferences,
 ) : ViewModel() {
 
@@ -77,7 +77,7 @@ abstract class SearchViewModel(
     }
 
     @Composable
-    fun getManga(initialManga: Manga): androidx.compose.runtime.State<Manga> {
+    fun getManga(initialManga: Textbook): androidx.compose.runtime.State<Textbook> {
         return produceState(initialValue = initialManga) {
             getManga.subscribe(initialManga.url, initialManga.source)
                 .filterNotNull()
@@ -164,11 +164,11 @@ abstract class SearchViewModel(
 
                     try {
                         val page = withContext(coroutineDispatcher) {
-                            source.getSearchManga(1, query, source.getFilterList())
+                            source.getSearchTextbooks(1, query, source.getFilterList())
                         }
 
-                        val titles = page.mangas
-                            .map { it.toDomainManga(source.id) }
+                        val titles = page.textbooks
+                            .map { it.toDomainTextbook(source.id) }
                             .distinctBy { it.url }
                             .let { networkToLocalManga(it) }
 
@@ -199,7 +199,7 @@ abstract class SearchViewModel(
         updateItems(state.value.items + (source to result))
     }
 
-    fun setMigrateDialog(currentId: Long, target: Manga) {
+    fun setMigrateDialog(currentId: Long, target: Textbook) {
         viewModelScope.launchIO {
             val current = getManga.await(currentId) ?: return@launchIO
             state.update { it.copy(dialog = Dialog.Migrate(target, current)) }
@@ -212,7 +212,7 @@ abstract class SearchViewModel(
 
     @Immutable
     data class State(
-        val from: Manga? = null,
+        val from: Textbook? = null,
         val searchQuery: String? = null,
         val sourceFilter: SourceFilter = SourceFilter.PinnedOnly,
         val onlyShowHasResults: Boolean = false,
@@ -225,7 +225,7 @@ abstract class SearchViewModel(
     }
 
     sealed interface Dialog {
-        data class Migrate(val target: Manga, val current: Manga) : Dialog
+        data class Migrate(val target: Textbook, val current: Textbook) : Dialog
     }
 }
 
@@ -242,7 +242,7 @@ sealed interface SearchItemResult {
     ) : SearchItemResult
 
     data class Success(
-        val result: List<Manga>,
+        val result: List<Textbook>,
     ) : SearchItemResult {
         val isEmpty: Boolean
             get() = result.isEmpty()

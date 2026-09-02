@@ -85,7 +85,7 @@ import com.bookshelf.ui.browse.source.browse.BrowseSourceScreen
 import com.bookshelf.ui.browse.source.globalsearch.GlobalSearchScreen
 import com.bookshelf.ui.deeplink.DeepLinkScreen
 import com.bookshelf.ui.home.HomeScreen
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.more.NewUpdateScreen
 import com.bookshelf.ui.more.OnboardingScreen
 import com.bookshelf.ui.setting.SettingsScreen
@@ -257,7 +257,7 @@ class MainActivity : BaseActivity() {
                         .onEach {
                             val currentScreen = navigator.lastItem
                             if (currentScreen is BrowseSourceScreen ||
-                                (currentScreen is MangaScreen && currentScreen.fromSource)
+                                (currentScreen is TextbookScreen && currentScreen.fromSource)
                             ) {
                                 navigator.popUntilRoot()
                             }

@@ -17,22 +17,22 @@ import com.bookshelf.source.online.UriType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import com.bookshelf.domain.manga.model.toDomainManga
-import com.bookshelf.domain.source.interactor.UpdateMangaFromRemote
+import com.bookshelf.domain.textbook.model.toDomainTextbook
+import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
 import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.domain.chapter.interactor.GetChapterByUrlAndMangaId
+import com.bookshelf.domain.chapter.interactor.GetChapterByUrlAndTextbookId
 import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.manga.interactor.NetworkToLocalManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 
 @AssistedInject
 class DeepLinkViewModel(
     @Assisted query: String,
     private val sourceManager: SourceManager,
-    private val networkToLocalManga: NetworkToLocalManga,
-    private val getChapterByUrlAndMangaId: GetChapterByUrlAndMangaId,
-    private val updateMangaFromRemote: UpdateMangaFromRemote,
+    private val networkToLocalManga: NetworkToLocalTextbook,
+    private val getChapterByUrlAndTextbookId: GetChapterByUrlAndTextbookId,
+    private val updateMangaFromRemote: UpdateTextbookFromRemote,
 ) : ViewModel() {
 
     val state: StateFlow<DeepLinkViewModel.State>
@@ -52,7 +52,7 @@ class DeepLinkViewModel(
                 .firstOrNull { it.getUriType(query) != UriType.Unknown }
 
             val manga = source?.getManga(query)?.let {
-                networkToLocalManga(it.toDomainManga(source.id))
+                networkToLocalManga(it.toDomainTextbook(source.id))
             }
 
             val chapter = if (source?.getUriType(query) == UriType.Chapter && manga != null) {
@@ -75,8 +75,8 @@ class DeepLinkViewModel(
         }
     }
 
-    private suspend fun getChapterFromSChapter(sChapter: SChapter, manga: Manga, source: Source): Chapter? {
-        val localChapter = getChapterByUrlAndMangaId.await(sChapter.url, manga.id)
+    private suspend fun getChapterFromSChapter(sChapter: SChapter, manga: Textbook, source: Source): Chapter? {
+        val localChapter = getChapterByUrlAndTextbookId.await(sChapter.url, manga.id)
 
         return localChapter
             ?: updateMangaFromRemote(manga, fetchChapters = true)
@@ -93,6 +93,6 @@ class DeepLinkViewModel(
         data object NoResults : State
 
         @Immutable
-        data class Result(val manga: Manga, val chapterId: Long? = null) : State
+        data class Result(val manga: Textbook, val chapterId: Long? = null) : State
     }
 }

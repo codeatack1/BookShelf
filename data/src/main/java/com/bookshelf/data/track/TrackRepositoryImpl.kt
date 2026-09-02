@@ -20,32 +20,32 @@ class TrackRepositoryImpl(
 ) : TrackRepository {
 
     override suspend fun getTrackById(id: Long): Track? {
-        return database.manga_syncQueries
+        return database.textbook_syncQueries
             .getTrackById(id, TrackMapper::mapTrack)
             .awaitAsOneOrNull()
     }
 
-    override suspend fun getTracksByMangaId(mangaId: Long): List<Track> {
-        return database.manga_syncQueries
-            .getTracksByMangaId(mangaId, TrackMapper::mapTrack)
+    override suspend fun getTracksByTextbookId(textbookId: Long): List<Track> {
+        return database.textbook_syncQueries
+            .getTracksByTextbookId(textbookId, TrackMapper::mapTrack)
             .awaitAsList()
     }
 
     override fun getTracksAsFlow(): Flow<List<Track>> {
-        return database.manga_syncQueries
+        return database.textbook_syncQueries
             .getTracks(TrackMapper::mapTrack)
             .subscribeToList()
     }
 
-    override fun getTracksByMangaIdAsFlow(mangaId: Long): Flow<List<Track>> {
-        return database.manga_syncQueries
-            .getTracksByMangaId(mangaId, TrackMapper::mapTrack)
+    override fun getTracksByTextbookIdAsFlow(textbookId: Long): Flow<List<Track>> {
+        return database.textbook_syncQueries
+            .getTracksByTextbookId(textbookId, TrackMapper::mapTrack)
             .subscribeToList()
     }
 
-    override suspend fun delete(mangaId: Long, trackerId: Long) {
-        database.manga_syncQueries.delete(
-            mangaId = mangaId,
+    override suspend fun delete(textbookId: Long, trackerId: Long) {
+        database.textbook_syncQueries.delete(
+            textbookId = textbookId,
             syncId = trackerId,
         )
     }
@@ -61,8 +61,8 @@ class TrackRepositoryImpl(
     private suspend fun insertValues(vararg tracks: Track) {
         database.transaction {
             tracks.forEach { mangaTrack ->
-                database.manga_syncQueries.insert(
-                    mangaId = mangaTrack.mangaId,
+                database.textbook_syncQueries.insert(
+                    textbookId = mangaTrack.textbookId,
                     syncId = mangaTrack.trackerId,
                     remoteId = mangaTrack.remoteId,
                     libraryId = mangaTrack.libraryId,

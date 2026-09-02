@@ -10,13 +10,13 @@ import com.bookshelf.BuildConfig
 import com.bookshelf.data.backup.BackupFileValidator
 import com.bookshelf.data.backup.create.creators.CategoriesBackupCreator
 import com.bookshelf.data.backup.create.creators.ExtensionStoresBackupCreator
-import com.bookshelf.data.backup.create.creators.MangaBackupCreator
+import com.bookshelf.data.backup.create.creators.TextbookBackupCreator
 import com.bookshelf.data.backup.create.creators.PreferenceBackupCreator
 import com.bookshelf.data.backup.create.creators.SourcesBackupCreator
 import com.bookshelf.data.backup.models.Backup
 import com.bookshelf.data.backup.models.BackupCategory
 import com.bookshelf.data.backup.models.BackupExtensionStore
-import com.bookshelf.data.backup.models.BackupManga
+import com.bookshelf.data.backup.models.BackupTextbook
 import com.bookshelf.data.backup.models.BackupPreference
 import com.bookshelf.data.backup.models.BackupSource
 import com.bookshelf.data.backup.models.BackupSourcePreferences
@@ -28,9 +28,9 @@ import okio.sink
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.backup.service.BackupPreferences
-import com.bookshelf.domain.manga.interactor.GetFavorites
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.repository.MangaRepository
+import com.bookshelf.domain.textbook.interactor.GetFavoriteTextbooks
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.repository.TextbookRepository
 import com.bookshelf.i18n.MR
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -43,11 +43,11 @@ class BackupCreator(
     @Assisted private val isAutoBackup: Boolean,
     private val context: Context,
     private val parser: ProtoBuf,
-    private val getFavorites: GetFavorites,
+    private val getFavorites: GetFavoriteTextbooks,
     private val backupPreferences: BackupPreferences,
-    private val mangaRepository: MangaRepository,
+    private val mangaRepository: TextbookRepository,
     private val categoriesBackupCreator: CategoriesBackupCreator,
-    private val mangaBackupCreator: MangaBackupCreator,
+    private val mangaBackupCreator: TextbookBackupCreator,
     private val preferenceBackupCreator: PreferenceBackupCreator,
     private val extensionStoresBackupCreator: ExtensionStoresBackupCreator,
     private val sourcesBackupCreator: SourcesBackupCreator,
@@ -130,13 +130,13 @@ class BackupCreator(
         return categoriesBackupCreator()
     }
 
-    private suspend fun backupMangas(mangas: List<Manga>, options: BackupOptions): List<BackupManga> {
+    private suspend fun backupMangas(mangas: List<Textbook>, options: BackupOptions): List<BackupTextbook> {
         if (!options.libraryEntries) return emptyList()
 
         return mangaBackupCreator(mangas, options)
     }
 
-    private suspend fun backupSources(mangas: List<BackupManga>): List<BackupSource> {
+    private suspend fun backupSources(mangas: List<BackupTextbook>): List<BackupSource> {
         return sourcesBackupCreator(mangas)
     }
 

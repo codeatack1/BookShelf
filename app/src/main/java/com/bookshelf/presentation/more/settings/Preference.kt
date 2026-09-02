@@ -4,7 +4,7 @@ import androidx.annotation.IntRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.bookshelf.com.bookshelf.data.track.Tracker
+import com.bookshelf.data.track.Tracker
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.core.common.preference.Preference as PreferenceData

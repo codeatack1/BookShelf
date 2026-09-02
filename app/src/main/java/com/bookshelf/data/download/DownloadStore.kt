@@ -10,8 +10,8 @@ import com.bookshelf.source.online.HttpSource
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import com.bookshelf.domain.chapter.interactor.GetChapter
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 
 /**
@@ -23,7 +23,7 @@ class DownloadStore(
     context: Context,
     private val sourceManager: SourceManager,
     private val json: Json,
-    private val getManga: GetManga,
+    private val getManga: GetTextbook,
     private val getChapter: GetChapter,
 ) {
 
@@ -99,10 +99,10 @@ class DownloadStore(
 
         val downloads = mutableListOf<Download>()
         if (objs.isNotEmpty()) {
-            val cachedManga = mutableMapOf<Long, Manga?>()
-            for ((mangaId, chapterId) in objs) {
-                val manga = cachedManga.getOrPut(mangaId) {
-                    getManga.await(mangaId)
+            val cachedManga = mutableMapOf<Long, Textbook?>()
+            for ((textbookId, chapterId) in objs) {
+                val manga = cachedManga.getOrPut(textbookId) {
+                    getManga.await(textbookId)
                 } ?: continue
                 val source = sourceManager.get(manga.source) as? HttpSource ?: continue
                 val chapter = getChapter.await(chapterId) ?: continue
@@ -121,7 +121,7 @@ class DownloadStore(
      * @param download the download to serialize.
      */
     private fun serialize(download: Download): String {
-        val obj = DownloadObject(download.manga.id, download.chapter.id, counter++)
+        val obj = DownloadObject(download.textbook.id, download.chapter.id, counter++)
         return json.encodeToString(obj)
     }
 
@@ -142,9 +142,9 @@ class DownloadStore(
 /**
  * Class used for download serialization
  *
- * @param mangaId the id of the manga.
+ * @param textbookId the id of the manga.
  * @param chapterId the id of the chapter.
  * @param order the order of the download in the queue.
  */
 @Serializable
-private data class DownloadObject(val mangaId: Long, val chapterId: Long, val order: Int)
+private data class DownloadObject(val textbookId: Long, val chapterId: Long, val order: Int)

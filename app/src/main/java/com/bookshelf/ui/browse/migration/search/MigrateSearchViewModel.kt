@@ -14,17 +14,17 @@ import com.bookshelf.source.Source
 import com.bookshelf.ui.browse.source.globalsearch.SearchItemResult
 import com.bookshelf.ui.browse.source.globalsearch.SearchViewModel
 import kotlinx.coroutines.launch
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.interactor.NetworkToLocalManga
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
 import com.bookshelf.domain.source.service.SourceManager
 
 @AssistedInject
 class MigrateSearchViewModel(
-    @Assisted val mangaId: Long,
+    @Assisted val textbookId: Long,
     sourcePreferences: SourcePreferences,
     extensionManager: ExtensionManager,
-    networkToLocalManga: NetworkToLocalManga,
-    getManga: GetManga,
+    networkToLocalManga: NetworkToLocalTextbook,
+    getManga: GetTextbook,
     preferences: SourcePreferences,
     private val sourceManager: SourceManager,
 ) : SearchViewModel(
@@ -39,7 +39,7 @@ class MigrateSearchViewModel(
     @ManualViewModelAssistedFactoryKey
     @ContributesIntoMap(AppScope::class)
     interface Factory : ManualViewModelAssistedFactory {
-        fun create(mangaId: Long): MigrateSearchViewModel
+        fun create(textbookId: Long): MigrateSearchViewModel
     }
 
     private val migrationSources by lazy { sourcePreferences.migrationSources.get() }
@@ -53,7 +53,7 @@ class MigrateSearchViewModel(
 
     init {
         viewModelScope.launch {
-            val manga = getManga.await(mangaId)!!
+            val manga = getManga.await(textbookId)!!
             updateState {
                 it.copy(
                     from = manga,

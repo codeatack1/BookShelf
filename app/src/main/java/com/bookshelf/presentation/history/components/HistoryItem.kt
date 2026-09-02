@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.manga.components.MangaCover
+import com.bookshelf.presentation.manga.components.TextbookCover
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.presentation.util.formatChapterNumber
 import com.bookshelf.util.lang.toTimestampString
@@ -50,7 +50,7 @@ fun HistoryItem(
             .padding(horizontal = MaterialTheme.padding.medium, vertical = MaterialTheme.padding.small),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        MangaCover.Book(
+        TextbookCover.Book(
             modifier = Modifier.fillMaxHeight(),
             data = history.coverData,
             onClick = onClickCover,
@@ -84,7 +84,7 @@ fun HistoryItem(
             )
         }
 
-        if (!history.coverData.isMangaFavorite) {
+        if (!history.coverData.isFavorite) {
             IconButton(onClick = onClickFavorite) {
                 Icon(
                     imageVector = MaterialSymbols.Rounded.Favorite,

@@ -21,7 +21,7 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import com.bookshelf.core.preference.asState
-import com.bookshelf.domain.manga.interactor.UpdateManga
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
 import com.bookshelf.domain.source.interactor.GetIncognitoState
 import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.domain.track.interactor.AddTracks
@@ -44,16 +44,16 @@ import com.bookshelf.core.common.preference.CheckboxState
 import com.bookshelf.core.common.preference.mapAsCheckboxState
 import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.domain.category.interactor.GetCategories
-import com.bookshelf.domain.category.interactor.SetMangaCategories
+import com.bookshelf.domain.category.interactor.SetTextbookCategories
 import com.bookshelf.domain.category.model.Category
-import com.bookshelf.domain.chapter.interactor.SetMangaDefaultChapterFlags
+import com.bookshelf.domain.chapter.interactor.SetTextbookDefaultChapterFlags
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.manga.interactor.GetDuplicateLibraryManga
-import com.bookshelf.domain.manga.interactor.GetManga
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.model.MangaWithChapterCount
-import com.bookshelf.domain.manga.model.toMangaUpdate
-import com.bookshelf.domain.source.interactor.GetRemoteManga
+import com.bookshelf.domain.textbook.interactor.GetDuplicateLibraryTextbook
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
+import com.bookshelf.domain.textbook.model.toTextbookUpdate
+import com.bookshelf.domain.source.interactor.GetRemoteTextbook
 import com.bookshelf.domain.source.service.SourceManager
 import kotlin.time.Clock
 import com.bookshelf.source.model.Filter as SourceModelFilter
@@ -66,13 +66,13 @@ class BrowseSourceViewModel(
     sourcePreferences: SourcePreferences,
     private val libraryPreferences: LibraryPreferences,
     private val coverCache: CoverCache,
-    private val getRemoteManga: GetRemoteManga,
-    private val getDuplicateLibraryManga: GetDuplicateLibraryManga,
+    private val getRemoteManga: GetRemoteTextbook,
+    private val getDuplicateLibraryTextbook: GetDuplicateLibraryTextbook,
     private val getCategories: GetCategories,
-    private val setMangaCategories: SetMangaCategories,
-    private val setMangaDefaultChapterFlags: SetMangaDefaultChapterFlags,
-    private val getManga: GetManga,
-    private val updateManga: UpdateManga,
+    private val setTextbookCategories: SetTextbookCategories,
+    private val setMangaDefaultChapterFlags: SetTextbookDefaultChapterFlags,
+    private val getManga: GetTextbook,
+    private val updateManga: UpdateTextbook,
     private val addTracks: AddTracks,
     getIncognitoState: GetIncognitoState,
 ) : ViewModel() {
@@ -231,7 +231,7 @@ class BrowseSourceViewModel(
      *
      * @param manga the manga to update.
      */
-    fun changeMangaFavorite(manga: Manga) {
+    fun changeMangaFavorite(manga: Textbook) {
         viewModelScope.launch {
             var new = manga.copy(
                 favorite = !manga.favorite,
@@ -248,11 +248,11 @@ class BrowseSourceViewModel(
                 addTracks.bindEnhancedTrackers(manga, sourceManager.getOrStub(manga.source))
             }
 
-            updateManga.await(new.toMangaUpdate())
+            updateManga.await(new.toTextbookUpdate())
         }
     }
 
-    fun addFavorite(manga: Manga) {
+    fun addFavorite(manga: Textbook) {
         viewModelScope.launch {
             val categories = getCategories()
             val defaultCategoryId = libraryPreferences.defaultCategory.get()
@@ -277,7 +277,7 @@ class BrowseSourceViewModel(
                 else -> {
                     val preselectedIds = getCategories.await(manga.id).map { it.id }
                     setDialog(
-                        Dialog.ChangeMangaCategory(
+                        Dialog.ChangeTextbookCategory(
                             manga,
                             categories.mapAsCheckboxState { it.id in preselectedIds },
                         ),
@@ -299,18 +299,18 @@ class BrowseSourceViewModel(
             .orEmpty()
     }
 
-    suspend fun getDuplicateLibraryManga(manga: Manga): List<MangaWithChapterCount> {
-        return getDuplicateLibraryManga.invoke(manga)
+    suspend fun getDuplicateLibraryTextbook(manga: Textbook): List<TextbookWithChapterCount> {
+        return getDuplicateLibraryTextbook.invoke(manga)
     }
 
-    private fun moveMangaToCategories(manga: Manga, vararg categories: Category) {
+    private fun moveMangaToCategories(manga: Textbook, vararg categories: Category) {
         moveMangaToCategories(manga, categories.filter { it.id != 0L }.map { it.id })
     }
 
-    fun moveMangaToCategories(manga: Manga, categoryIds: List<Long>) {
+    fun moveMangaToCategories(manga: Textbook, categoryIds: List<Long>) {
         viewModelScope.launchIO {
-            setMangaCategories.await(
-                mangaId = manga.id,
+            setTextbookCategories.await(
+                textbookId = manga.id,
                 categoryIds = categoryIds.toList(),
             )
         }
@@ -329,8 +329,8 @@ class BrowseSourceViewModel(
     }
 
     sealed class Listing(open val query: String?, open val filters: FilterList) {
-        data object Popular : Listing(query = GetRemoteManga.QUERY_POPULAR, filters = FilterList())
-        data object Latest : Listing(query = GetRemoteManga.QUERY_LATEST, filters = FilterList())
+        data object Popular : Listing(query = GetRemoteTextbook.QUERY_POPULAR, filters = FilterList())
+        data object Latest : Listing(query = GetRemoteTextbook.QUERY_LATEST, filters = FilterList())
         data class Search(
             override val query: String?,
             override val filters: FilterList,
@@ -339,8 +339,8 @@ class BrowseSourceViewModel(
         companion object {
             fun valueOf(query: String?): Listing {
                 return when (query) {
-                    GetRemoteManga.QUERY_POPULAR -> Popular
-                    GetRemoteManga.QUERY_LATEST -> Latest
+                    GetRemoteTextbook.QUERY_POPULAR -> Popular
+                    GetRemoteTextbook.QUERY_LATEST -> Latest
                     else -> Search(query = query, filters = FilterList()) // filters are filled in later
                 }
             }
@@ -349,13 +349,13 @@ class BrowseSourceViewModel(
 
     sealed interface Dialog {
         data object Filter : Dialog
-        data class RemoveManga(val manga: Manga) : Dialog
-        data class AddDuplicateManga(val manga: Manga, val duplicates: List<MangaWithChapterCount>) : Dialog
-        data class ChangeMangaCategory(
-            val manga: Manga,
+        data class RemoveTextbook(val manga: Textbook) : Dialog
+        data class AddDuplicateTextbook(val manga: Textbook, val duplicates: List<TextbookWithChapterCount>) : Dialog
+        data class ChangeTextbookCategory(
+            val manga: Textbook,
             val initialSelection: List<CheckboxState.State<Category>>,
         ) : Dialog
-        data class Migrate(val target: Manga, val current: Manga) : Dialog
+        data class Migrate(val target: Textbook, val current: Textbook) : Dialog
     }
 
     @Immutable

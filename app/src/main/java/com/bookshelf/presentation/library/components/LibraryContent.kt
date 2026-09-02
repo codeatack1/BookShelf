@@ -21,7 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.library.model.LibraryDisplayMode
-import com.bookshelf.domain.library.model.LibraryManga
+import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.presentation.core.components.material.PullRefresh
 import kotlin.time.Duration.Companion.seconds
 
@@ -36,9 +36,9 @@ fun LibraryContent(
     showPageTabs: Boolean,
     onChangeCurrentPage: (Int) -> Unit,
     onClickManga: (Long) -> Unit,
-    onContinueReadingClicked: ((LibraryManga) -> Unit)?,
-    onToggleSelection: (Category, LibraryManga) -> Unit,
-    onToggleRangeSelection: (Category, LibraryManga) -> Unit,
+    onContinueReadingClicked: ((LibraryTextbook) -> Unit)?,
+    onToggleSelection: (Category, LibraryTextbook) -> Unit,
+    onToggleRangeSelection: (Category, LibraryTextbook) -> Unit,
     onRefresh: () -> Boolean,
     onGlobalSearchClicked: () -> Unit,
     getItemCountForCategory: (Category) -> Int?,
@@ -105,7 +105,7 @@ fun LibraryContent(
                     if (selection.isNotEmpty()) {
                         onToggleSelection(category, manga)
                     } else {
-                        onClickManga(manga.manga.id)
+                        onClickManga(manga.textbook.id)
                     }
                 },
                 onLongClickManga = onToggleRangeSelection,

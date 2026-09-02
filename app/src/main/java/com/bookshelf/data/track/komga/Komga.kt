@@ -9,7 +9,7 @@ import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.source.Source
 import okhttp3.Dns
 import okhttp3.OkHttpClient
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
 import com.bookshelf.domain.track.model.Track as DomainTrack
 
@@ -91,17 +91,17 @@ class Komga(id: Long) : BaseTracker(id, "Komga"), EnhancedTracker {
 
     override fun getAcceptedSources() = listOf("com.bookshelf.extension.all.komga.Komga")
 
-    override suspend fun match(manga: Manga): TrackSearch? =
+    override suspend fun match(manga: Textbook): TrackSearch? =
         try {
             api.getTrackSearch(manga.url)
         } catch (e: Exception) {
             null
         }
 
-    override fun isTrackFrom(track: DomainTrack, manga: Manga, source: Source?): Boolean =
+    override fun isTrackFrom(track: DomainTrack, manga: Textbook, source: Source?): Boolean =
         track.remoteUrl == manga.url && source?.let { accept(it) } == true
 
-    override fun migrateTrack(track: DomainTrack, manga: Manga, newSource: Source): DomainTrack? =
+    override fun migrateTrack(track: DomainTrack, manga: Textbook, newSource: Source): DomainTrack? =
         if (accept(newSource)) {
             track.copy(remoteUrl = manga.url)
         } else {

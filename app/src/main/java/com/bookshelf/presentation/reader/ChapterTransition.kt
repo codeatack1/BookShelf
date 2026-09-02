@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
-import com.bookshelf.com.bookshelf.data.database.models.toDomainChapter
+import com.bookshelf.data.database.models.toDomainChapter
 import com.bookshelf.ui.reader.model.ChapterTransition
 import com.bookshelf.ui.reader.model.ReaderChapter
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
@@ -276,7 +276,7 @@ private const val DOWNLOADED_ICON_ID = "downloaded"
 
 private fun previewChapter(name: String, scanlator: String, chapterNumber: Double) = Chapter.create().copy(
     id = 0L,
-    mangaId = 0L,
+    textbookId = 0L,
     url = "",
     name = name,
     scanlator = scanlator,
@@ -293,7 +293,7 @@ private val FakeGapChapter = previewChapter(
     chapterNumber = 44.0,
 )
 private val FakeChapterLongTitle = previewChapter(
-    name = "Vol.1, Ch.0 - The Mundane Musings of a Metafictional Manga: A Chapter About a Chapter, Featuring" +
+    name = "Vol.1, Ch.0 - The Mundane Musings of a Metafictional Textbook: A Chapter About a Chapter, Featuring" +
         " an Absurdly Long Title and a Surprisingly Normal Day in the Lives of Our Heroes, as They Grapple with the " +
         "Daily Challenges of Existence, from Paying Rent to Finding Love, All While Navigating the Strange World of " +
         "Fictional Realities and Reality-Bending Fiction, Where the Fourth Wall is Always in Danger of Being Broken " +

@@ -7,10 +7,10 @@ import com.bookshelf.network.awaitSuccess
 import com.bookshelf.network.newCachelessCallWithProgress
 import com.bookshelf.source.CatalogueSource
 import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.model.MangasPage
+import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.model.SManga
+import com.bookshelf.source.model.STextbook
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -120,12 +120,12 @@ abstract class HttpSource : CatalogueSource {
      * @param page the page number to retrieve.
      */
     @Suppress("DEPRECATION")
-    @Deprecated("Use the suspend API instead", ReplaceWith("getPopularManga"))
-    override fun fetchPopularManga(page: Int): Observable<MangasPage> {
-        return client.newCall(popularMangaRequest(page))
+    @Deprecated("Use the suspend API instead", ReplaceWith("getPopularTextbooks"))
+    override fun fetchPopularTextbooks(page: Int): Observable<TextbooksPage> {
+        return client.newCall(popularTextbooksRequest(page))
             .asObservableSuccess()
             .map { response ->
-                popularMangaParse(response)
+                popularTextbooksParse(response)
             }
     }
 
@@ -138,10 +138,10 @@ abstract class HttpSource : CatalogueSource {
         message = "The helper functions are inherently limiting and hides the underlying implementation. " +
             "Source developers should make their own implementation according to their needs.",
     )
-    protected open fun popularMangaRequest(page: Int): Request = throw UnsupportedOperationException()
+    protected open fun popularTextbooksRequest(page: Int): Request = throw UnsupportedOperationException()
 
     /**
-     * Parses the response from the site and returns a [MangasPage] object.
+     * Parses the response from the site and returns a [TextbooksPage] object.
      *
      * @param response the response from the site.
      */
@@ -149,7 +149,7 @@ abstract class HttpSource : CatalogueSource {
         message = "The helper functions are inherently limiting and hides the underlying implementation. " +
             "Source developers should make their own implementation according to their needs.",
     )
-    protected open fun popularMangaParse(response: Response): MangasPage = throw UnsupportedOperationException()
+    protected open fun popularTextbooksParse(response: Response): TextbooksPage = throw UnsupportedOperationException()
 
     /**
      * Returns an observable containing a page with a list of manga. Normally it's not needed to
@@ -160,12 +160,12 @@ abstract class HttpSource : CatalogueSource {
      * @param filters the list of filters to apply.
      */
     @Suppress("DEPRECATION")
-    @Deprecated("Use the suspend API instead", ReplaceWith("getSearchManga"))
-    override fun fetchSearchManga(page: Int, query: String, filters: FilterList): Observable<MangasPage> {
-        return client.newCall(searchMangaRequest(page, query, filters))
+    @Deprecated("Use the suspend API instead", ReplaceWith("getSearchTextbooks"))
+    override fun fetchSearchTextbooks(page: Int, query: String, filters: FilterList): Observable<TextbooksPage> {
+        return client.newCall(searchTextbooksRequest(page, query, filters))
             .asObservableSuccess()
             .map { response ->
-                searchMangaParse(response)
+                searchTextbooksParse(response)
             }
     }
 
@@ -180,14 +180,14 @@ abstract class HttpSource : CatalogueSource {
         message = "The helper functions are inherently limiting and hides the underlying implementation. " +
             "Source developers should make their own implementation according to their needs.",
     )
-    protected open fun searchMangaRequest(
+    protected open fun searchTextbooksRequest(
         page: Int,
         query: String,
         filters: FilterList,
     ): Request = throw UnsupportedOperationException()
 
     /**
-     * Parses the response from the site and returns a [MangasPage] object.
+     * Parses the response from the site and returns a [TextbooksPage] object.
      *
      * @param response the response from the site.
      */
@@ -195,7 +195,7 @@ abstract class HttpSource : CatalogueSource {
         message = "The helper functions are inherently limiting and hides the underlying implementation. " +
             "Source developers should make their own implementation according to their needs.",
     )
-    protected open fun searchMangaParse(response: Response): MangasPage = throw UnsupportedOperationException()
+    protected open fun searchTextbooksParse(response: Response): TextbooksPage = throw UnsupportedOperationException()
 
     /**
      * Returns an observable containing a page with a list of latest manga updates.
@@ -203,8 +203,8 @@ abstract class HttpSource : CatalogueSource {
      * @param page the page number to retrieve.
      */
     @Suppress("DEPRECATION")
-    @Deprecated("Use the suspend API instead", ReplaceWith("getLatestUpdates"))
-    override fun fetchLatestUpdates(page: Int): Observable<MangasPage> {
+    @Deprecated("Use the suspend API instead", ReplaceWith("getLatestTextbooks"))
+    override fun fetchLatestTextbooks(page: Int): Observable<TextbooksPage> {
         return client.newCall(latestUpdatesRequest(page))
             .asObservableSuccess()
             .map { response ->
@@ -224,7 +224,7 @@ abstract class HttpSource : CatalogueSource {
     protected open fun latestUpdatesRequest(page: Int): Request = throw UnsupportedOperationException()
 
     /**
-     * Parses the response from the site and returns a [MangasPage] object.
+     * Parses the response from the site and returns a [TextbooksPage] object.
      *
      * @param response the response from the site.
      */
@@ -232,7 +232,7 @@ abstract class HttpSource : CatalogueSource {
         message = "The helper functions are inherently limiting and hides the underlying implementation. " +
             "Source developers should make their own implementation according to their needs.",
     )
-    protected open fun latestUpdatesParse(response: Response): MangasPage = throw UnsupportedOperationException()
+    protected open fun latestUpdatesParse(response: Response): TextbooksPage = throw UnsupportedOperationException()
 
     /**
      * Returns an observable with the updated details for a manga. Normally it's not needed to
@@ -241,12 +241,12 @@ abstract class HttpSource : CatalogueSource {
      * @param manga the manga to be updated.
      */
     @Suppress("DEPRECATION")
-    @Deprecated("Use the combined suspend API instead", replaceWith = ReplaceWith("getMangaUpdate"))
-    override fun fetchMangaDetails(manga: SManga): Observable<SManga> {
-        return client.newCall(mangaDetailsRequest(manga))
+    @Deprecated("Use the combined suspend API instead", replaceWith = ReplaceWith("getTextbookUpdate"))
+    override fun fetchTextbookDetails(manga: STextbook): Observable<STextbook> {
+        return client.newCall(textbookDetailsRequest(manga))
             .asObservableSuccess()
             .map { response ->
-                mangaDetailsParse(response).apply { initialized = true }
+                textbookDetailsParse(response).apply { initialized = true }
             }
     }
 
@@ -260,7 +260,7 @@ abstract class HttpSource : CatalogueSource {
         message = "The helper functions are inherently limiting and hides the underlying implementation. " +
             "Source developers should make their own implementation according to their needs.",
     )
-    open fun mangaDetailsRequest(manga: SManga): Request {
+    open fun textbookDetailsRequest(manga: STextbook): Request {
         return GET(baseUrl + manga.url, headers)
     }
 
@@ -273,7 +273,7 @@ abstract class HttpSource : CatalogueSource {
         message = "The helper functions are inherently limiting and hides the underlying implementation. " +
             "Source developers should make their own implementation according to their needs.",
     )
-    protected open fun mangaDetailsParse(response: Response): SManga = throw UnsupportedOperationException()
+    protected open fun textbookDetailsParse(response: Response): STextbook = throw UnsupportedOperationException()
 
     /**
      * Returns an observable with the updated chapter list for a manga. Normally it's not needed to
@@ -282,8 +282,8 @@ abstract class HttpSource : CatalogueSource {
      * @param manga the manga to look for chapters.
      */
     @Suppress("DEPRECATION")
-    @Deprecated("Use the combined suspend API instead", replaceWith = ReplaceWith("getMangaUpdate"))
-    override fun fetchChapterList(manga: SManga): Observable<List<SChapter>> {
+    @Deprecated("Use the combined suspend API instead", replaceWith = ReplaceWith("getTextbookUpdate"))
+    override fun fetchChapterList(manga: STextbook): Observable<List<SChapter>> {
         return client.newCall(chapterListRequest(manga))
             .asObservableSuccess()
             .map { response ->
@@ -301,7 +301,7 @@ abstract class HttpSource : CatalogueSource {
         message = "The helper functions are inherently limiting and hides the underlying implementation. " +
             "Source developers should make their own implementation according to their needs.",
     )
-    protected open fun chapterListRequest(manga: SManga): Request {
+    protected open fun chapterListRequest(manga: STextbook): Request {
         return GET(baseUrl + manga.url, headers)
     }
 
@@ -437,7 +437,7 @@ abstract class HttpSource : CatalogueSource {
      * @param url the full url to the manga.
      */
     @Suppress("Unused")
-    fun SManga.setUrlWithoutDomain(url: String) {
+    fun STextbook.setUrlWithoutDomain(url: String) {
         this.url = getUrlWithoutDomain(url)
     }
 
@@ -470,8 +470,8 @@ abstract class HttpSource : CatalogueSource {
      * @return url of the manga
      */
     @Suppress("DEPRECATION")
-    open fun getMangaUrl(manga: SManga): String {
-        return mangaDetailsRequest(manga).url.toString()
+    open fun getTextbookUrl(manga: STextbook): String {
+        return textbookDetailsRequest(manga).url.toString()
     }
 
     /**
@@ -494,5 +494,5 @@ abstract class HttpSource : CatalogueSource {
      * @param manga the manga of the chapter.
      */
     @Deprecated("All modifications should be done when constructing the chapter")
-    open fun prepareNewChapter(chapter: SChapter, manga: SManga) {}
+    open fun prepareNewChapter(chapter: SChapter, manga: STextbook) {}
 }

@@ -3,7 +3,7 @@ import kotlinx.serialization.json.JsonObject;
 
 CREATE TABLE chapters(
     _id INTEGER NOT NULL PRIMARY KEY,
-    manga_id INTEGER NOT NULL,
+    textbook_id INTEGER NOT NULL,
     url TEXT NOT NULL,
     name TEXT NOT NULL,
     scanlator TEXT,
@@ -18,12 +18,12 @@ CREATE TABLE chapters(
     version INTEGER NOT NULL DEFAULT 0,
     is_syncing INTEGER NOT NULL DEFAULT 0,
     memo BLOB AS JsonObject NOT NULL DEFAULT '{}',
-    FOREIGN KEY(manga_id) REFERENCES mangas (_id)
+    FOREIGN KEY(textbook_id) REFERENCES textbooks (_id)
     ON DELETE CASCADE
 );
 
-CREATE INDEX chapters_manga_id_index ON chapters(manga_id);
-CREATE INDEX chapters_unread_by_manga_index ON chapters(manga_id, read) WHERE read = 0;
+CREATE INDEX chapters_textbook_id_index ON chapters(textbook_id);
+CREATE INDEX chapters_unread_by_textbook_index ON chapters(textbook_id, read) WHERE read = 0;
 CREATE INDEX idx_chapters_url ON chapters(url);
 
 CREATE TRIGGER update_last_modified_at_chapters
@@ -35,7 +35,7 @@ BEGIN
   WHERE _id = new._id;
 END;
 
-CREATE TRIGGER update_chapter_and_manga_version AFTER UPDATE ON chapters
+CREATE TRIGGER update_chapter_and_textbook_version AFTER UPDATE ON chapters
 WHEN new.is_syncing = 0 AND (
     new.read != old.read OR
     new.bookmark != old.bookmark OR
@@ -47,8 +47,8 @@ BEGIN
     WHERE _id = new._id;
 
     -- Update the manga version
-    UPDATE mangas SET version = version + 1
-    WHERE _id = new.manga_id AND (SELECT is_syncing FROM mangas WHERE _id = new.manga_id) = 0;
+    UPDATE textbooks SET version = version + 1
+    WHERE _id = new.textbook_id AND (SELECT is_syncing FROM textbooks WHERE _id = new.textbook_id) = 0;
 END;
 
 getChapterById:
@@ -56,39 +56,39 @@ SELECT *
 FROM chapters
 WHERE _id = :id;
 
-getChaptersByMangaId:
+getChaptersByTextbookId:
 SELECT C.*
 FROM chapters C
 LEFT JOIN excluded_scanlators ES
-ON C.manga_id = ES.manga_id
+ON C.textbook_id = ES.textbook_id
 AND C.scanlator = ES.scanlator
-WHERE C.manga_id = :mangaId
+WHERE C.textbook_id = :textbookId
 AND (
     :applyScanlatorFilter = 0
     OR ES.scanlator IS NULL
 );
 
-getScanlatorsByMangaId:
+getScanlatorsByTextbookId:
 SELECT scanlator
 FROM chapters
-WHERE manga_id = :mangaId;
+WHERE textbook_id = :textbookId;
 
-getBookmarkedChaptersByMangaId:
+getBookmarkedChaptersByTextbookId:
 SELECT *
 FROM chapters
 WHERE bookmark
-AND manga_id = :mangaId;
+AND textbook_id = :textbookId;
 
 getChapterByUrl:
 SELECT *
 FROM chapters
 WHERE url = :chapterUrl;
 
-getChapterByUrlAndMangaId:
+getChapterByUrlAndTextbookId:
 SELECT *
 FROM chapters
 WHERE url = :chapterUrl
-AND manga_id = :mangaId
+AND textbook_id = :textbookId
 LIMIT 1;
 
 removeChaptersWithIds:
@@ -101,17 +101,17 @@ SET is_syncing = 0
 WHERE is_syncing = 1;
 
 insert:
-INSERT INTO chapters(manga_id, url, name, scanlator, read, bookmark, last_page_read, chapter_number, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo)
-VALUES (:mangaId, :url, :name, :scanlator, :read, :bookmark, :lastPageRead, :chapterNumber, :sourceOrder, :dateFetch, :dateUpload, 0, :version, 0, :memo);
+INSERT INTO chapters(textbook_id, url, name, scanlator, read, bookmark, last_page_read, chapter_number, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo)
+VALUES (:textbookId, :url, :name, :scanlator, :read, :bookmark, :lastPageRead, :chapterNumber, :sourceOrder, :dateFetch, :dateUpload, 0, :version, 0, :memo);
 
 insertReturningId:
-INSERT INTO chapters(manga_id, url, name, scanlator, read, bookmark, last_page_read, chapter_number, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo)
-VALUES (:mangaId, :url, :name, :scanlator, :read, :bookmark, :lastPageRead, :chapterNumber, :sourceOrder, :dateFetch, :dateUpload, 0, :version, 0, :memo)
+INSERT INTO chapters(textbook_id, url, name, scanlator, read, bookmark, last_page_read, chapter_number, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo)
+VALUES (:textbookId, :url, :name, :scanlator, :read, :bookmark, :lastPageRead, :chapterNumber, :sourceOrder, :dateFetch, :dateUpload, 0, :version, 0, :memo)
 RETURNING _id;
 
 update:
 UPDATE chapters
-SET manga_id = coalesce(:mangaId, manga_id),
+SET textbook_id = coalesce(:textbookId, textbook_id),
     url = coalesce(:url, url),
     name = coalesce(:name, name),
     scanlator = coalesce(:scanlator, scanlator),

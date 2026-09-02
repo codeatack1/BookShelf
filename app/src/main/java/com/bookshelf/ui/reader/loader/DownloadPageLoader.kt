@@ -11,7 +11,7 @@ import com.bookshelf.source.model.Page
 import com.bookshelf.ui.reader.model.ReaderChapter
 import com.bookshelf.ui.reader.model.ReaderPage
 import com.bookshelf.core.archive.archiveReader
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import uy.kohesive.injekt.injectLazy
 
 /**
@@ -19,7 +19,7 @@ import uy.kohesive.injekt.injectLazy
  */
 internal class DownloadPageLoader(
     private val chapter: ReaderChapter,
-    private val manga: Manga,
+    private val manga: Textbook,
     private val source: Source,
     private val downloadManager: DownloadManager,
     private val downloadProvider: DownloadProvider,

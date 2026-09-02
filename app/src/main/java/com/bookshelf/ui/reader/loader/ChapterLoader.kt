@@ -12,7 +12,7 @@ import com.bookshelf.core.archive.epubReader
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.model.StubSource
 import com.bookshelf.i18n.MR
 import com.bookshelf.source.local.LocalSource
@@ -26,7 +26,7 @@ class ChapterLoader(
     private val downloadManager: DownloadManager,
     private val downloadProvider: DownloadProvider,
     private val chapterCache: ChapterCache,
-    private val manga: Manga,
+    private val manga: Textbook,
     private val source: Source,
 ) {
 

@@ -875,7 +875,7 @@
     <string name="migrationListScreen.exitDialogTitle">Taşımayı durdur?</string>
     <string name="migrationListScreen.exitDialog.stopLabel">Durdur</string>
     <string name="pref_hide_missing_chapter_indicators">Eksik bölüm göstergelerini gizle</string>
-    <string name="pref_display_images_description">Manga açıklamalarında bulunan görselleri göster</string>
+    <string name="pref_display_images_description">Textbook açıklamalarında bulunan görselleri göster</string>
     <string name="pref_disallow_non_ascii_filenames">ASCII olmayan dosya isimlerine izin verme</string>
     <string name="pref_disallow_non_ascii_filenames_details">Unicode desteklemeyen bazı depolama sistemleri için uyumluluk sağlar. Etkinleştirildiğinde kaynak ve manga klasörlerini manuel olarak yeniden adlandırıp ASCII olmayan karakterleri küçük UTF-8 heksadesimal karşılıklarıyla değiştirmeniz gerekir. Bölüm dosyalarının yeniden adlandırılması gerekli değildir.</string>
     <string name="pref_download_concurrent_pages">Tek seferde indirilen sayfa sayısı</string>

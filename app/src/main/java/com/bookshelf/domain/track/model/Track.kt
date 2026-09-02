@@ -1,7 +1,7 @@
 package com.bookshelf.domain.track.model
 
 import com.bookshelf.domain.track.model.Track
-import com.bookshelf.com.bookshelf.data.database.models.Track as DbTrack
+import com.bookshelf.data.database.models.Track as DbTrack
 
 fun Track.copyPersonalFrom(other: Track): Track {
     return this.copy(
@@ -16,7 +16,7 @@ fun Track.copyPersonalFrom(other: Track): Track {
 
 fun Track.toDbTrack(): DbTrack = DbTrack.create(trackerId).also {
     it.id = id
-    it.manga_id = mangaId
+    it.manga_id = textbookId
     it.remote_id = remoteId
     it.library_id = libraryId
     it.title = title
@@ -34,7 +34,7 @@ fun DbTrack.toDomainTrack(idRequired: Boolean = true): Track? {
     val trackId = id ?: if (!idRequired) -1 else return null
     return Track(
         id = trackId,
-        mangaId = manga_id,
+        textbookId = manga_id,
         trackerId = tracker_id,
         remoteId = remote_id,
         libraryId = library_id,

@@ -33,9 +33,9 @@ import com.bookshelf.crash.GlobalExceptionHandler
 import com.bookshelf.data.cache.CoverCache
 import com.bookshelf.data.coil.BufferedSourceFetcher
 import com.bookshelf.data.coil.ImageDecoder
-import com.bookshelf.data.coil.MangaCoverFetcher
-import com.bookshelf.data.coil.MangaCoverKeyer
-import com.bookshelf.data.coil.MangaKeyer
+import com.bookshelf.data.coil.TextbookCoverFetcher
+import com.bookshelf.data.coil.TextbookCoverKeyer
+import com.bookshelf.data.coil.TextbookKeyer
 import com.bookshelf.data.notification.Notifications
 import com.bookshelf.network.NetworkHelper
 import com.bookshelf.network.NetworkPreferences
@@ -206,11 +206,11 @@ class App : Application(), DefaultLifecycleObserver, SingletonImageLoader.Factor
                 add(ImageDecoder.Factory())
                 // Fetcher.Factory
                 add(BufferedSourceFetcher.Factory())
-                add(MangaCoverFetcher.MangaCoverFactory(callFactoryLazy, coverCache, sourceManager))
-                add(MangaCoverFetcher.MangaFactory(callFactoryLazy, coverCache, sourceManager))
+                add(TextbookCoverFetcher.TextbookCoverFactory(callFactoryLazy, coverCache, sourceManager))
+                add(TextbookCoverFetcher.TextbookFactory(callFactoryLazy, coverCache, sourceManager))
                 // Keyer
-                add(MangaCoverKeyer(coverCache))
-                add(MangaKeyer())
+                add(TextbookCoverKeyer(coverCache))
+                add(TextbookKeyer())
             }
 
             memoryCache(

@@ -5,7 +5,7 @@ import com.hippo.unifile.UniFile
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.source.model.SManga
+import com.bookshelf.source.model.STextbook
 import com.bookshelf.util.storage.DiskUtil
 import com.bookshelf.core.common.storage.nameWithoutExtension
 import com.bookshelf.core.common.util.system.ImageUtil
@@ -22,7 +22,7 @@ class LocalCoverManager(
 ) {
 
     fun find(mangaUrl: String): UniFile? {
-        return fileSystem.getFilesInMangaDirectory(mangaUrl)
+        return fileSystem.getFilesInTextbookDirectory(mangaUrl)
             // Get all file whose names start with "cover"
             .filter { it.isFile && it.nameWithoutExtension.equals("cover", ignoreCase = true) }
             // Get the first actual image
@@ -30,10 +30,10 @@ class LocalCoverManager(
     }
 
     fun update(
-        manga: SManga,
+        manga: STextbook,
         inputStream: InputStream,
     ): UniFile? {
-        val directory = fileSystem.getMangaDirectory(manga.url)
+        val directory = fileSystem.getTextbookDirectory(manga.url)
         if (directory == null) {
             inputStream.close()
             return null

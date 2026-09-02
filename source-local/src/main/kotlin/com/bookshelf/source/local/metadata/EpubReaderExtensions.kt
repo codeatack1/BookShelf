@@ -1,7 +1,7 @@
 package com.bookshelf.source.local.metadata
 
 import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.model.SManga
+import com.bookshelf.source.model.STextbook
 import com.bookshelf.core.archive.EpubReader
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -10,7 +10,7 @@ import java.util.Locale
 /**
  * Fills manga and chapter metadata using this epub file's metadata.
  */
-fun EpubReader.fillMetadata(manga: SManga, chapter: SChapter) {
+fun EpubReader.fillMetadata(manga: STextbook, chapter: SChapter) {
     val ref = getPackageHref()
     val doc = getPackageDocument(ref)
 

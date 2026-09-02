@@ -20,13 +20,13 @@ class LocalSourceFileSystem(
         return getBaseDirectory()?.listFiles().orEmpty().toList()
     }
 
-    fun getMangaDirectory(name: String): UniFile? {
+    fun getTextbookDirectory(name: String): UniFile? {
         return getBaseDirectory()
             ?.findFile(name)
             ?.takeIf { it.isDirectory }
     }
 
-    fun getFilesInMangaDirectory(name: String): List<UniFile> {
-        return getMangaDirectory(name)?.listFiles().orEmpty().toList()
+    fun getFilesInTextbookDirectory(name: String): List<UniFile> {
+        return getTextbookDirectory(name)?.listFiles().orEmpty().toList()
     }
 }

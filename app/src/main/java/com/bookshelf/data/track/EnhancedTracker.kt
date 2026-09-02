@@ -2,7 +2,7 @@ package com.bookshelf.data.track
 
 import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.source.Source
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.track.model.Track
 
 /**
@@ -28,15 +28,15 @@ interface EnhancedTracker {
     /**
      * Similar to [Tracker].search, but only returns zero or one match.
      */
-    suspend fun match(manga: Manga): TrackSearch?
+    suspend fun match(manga: Textbook): TrackSearch?
 
     /**
      * Checks whether the provided source/track/manga triplet is from this [Tracker]
      */
-    fun isTrackFrom(track: Track, manga: Manga, source: Source?): Boolean
+    fun isTrackFrom(track: Track, manga: Textbook, source: Source?): Boolean
 
     /**
      * Migrates the given track for the manga to the newSource, if possible
      */
-    fun migrateTrack(track: Track, manga: Manga, newSource: Source): Track?
+    fun migrateTrack(track: Track, manga: Textbook, newSource: Source): Track?
 }

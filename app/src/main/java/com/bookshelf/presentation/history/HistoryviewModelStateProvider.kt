@@ -5,7 +5,7 @@ import com.bookshelf.ui.history.HistoryViewModel
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import com.bookshelf.domain.history.model.HistoryWithRelations
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.textbook.model.TextbookCover
 import java.util.Date
 import kotlin.random.Random
 import kotlin.time.Clock
@@ -96,15 +96,15 @@ class HistoryviewModelStateProvider : PreviewParameterProvider<HistoryViewModel.
                     HistoryWithRelations(
                         id = Random.nextLong(),
                         chapterId = Random.nextLong(),
-                        mangaId = Random.nextLong(),
+                        textbookId = Random.nextLong(),
                         title = "Test Title",
                         chapterNumber = Random.nextDouble(),
                         readAt = Date.from(Clock.System.now().toJavaInstant()),
                         readDuration = Random.nextLong(),
-                        coverData = MangaCover(
-                            mangaId = Random.nextLong(),
+                        coverData = TextbookCover(
+                            textbookId = Random.nextLong(),
                             sourceId = Random.nextLong(),
-                            isMangaFavorite = Random.nextBoolean(),
+                            isFavorite = Random.nextBoolean(),
                             url = "https://example.com/cover.png",
                             lastModified = Random.nextLong(),
                         ),

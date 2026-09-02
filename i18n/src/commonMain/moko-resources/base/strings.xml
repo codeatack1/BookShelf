@@ -729,7 +729,7 @@
     <string name="local_filter_order_by">Order by</string>
     <string name="date">Date</string>
 
-    <!-- Manga info -->
+    <!-- Textbook info -->
     <string name="ongoing">Ongoing</string>
     <string name="unknown">Unknown</string>
     <string name="unknown_author">Unknown author</string>
@@ -760,7 +760,7 @@
     <string name="snack_add_to_library">Add to library?</string>
     <string name="description_placeholder">No description</string>
 
-    <!-- Manga chapters -->
+    <!-- Textbook chapters -->
     <string name="display_mode_chapter">Chapter %1$s</string>
     <string name="manga_display_interval_title">Estimate every</string>
     <string name="manga_display_modified_interval_title">Set to update every</string>

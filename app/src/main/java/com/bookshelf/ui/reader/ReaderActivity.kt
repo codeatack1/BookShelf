@@ -107,9 +107,9 @@ class ReaderActivity : BaseActivity() {
     private val graph: AppGraph by lazy { metroGraph() }
 
     companion object {
-        fun newIntent(context: Context, mangaId: Long?, chapterId: Long?): Intent {
+        fun newIntent(context: Context, textbookId: Long?, chapterId: Long?): Intent {
             return Intent(context, ReaderActivity::class.java).apply {
-                putExtra("manga", mangaId)
+                putExtra("manga", textbookId)
                 putExtra("chapter", chapterId)
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             }
@@ -177,7 +177,7 @@ class ReaderActivity : BaseActivity() {
 
         NotificationReceiver.dismissNotification(
             this,
-            viewModel.mangaId.hashCode(),
+            viewModel.textbookId.hashCode(),
             Notifications.ID_NEW_CHAPTERS,
         )
 
@@ -465,10 +465,10 @@ class ReaderActivity : BaseActivity() {
         ReaderAppBars(
             visible = state.menuVisible,
 
-            mangaTitle = state.manga?.title,
+            textbookTitle = state.manga?.title,
             chapterTitle = state.currentChapter?.chapter?.name,
             navigateUp = onBackPressedDispatcher::onBackPressed,
-            onClickTopAppBar = ::openMangaScreen,
+            onClickTopAppBar = ::openTextbookScreen,
             bookmarked = state.bookmarked,
             onToggleBookmarked = viewModel::toggleChapterBookmark,
             onOpenInWebView = ::openChapterInWebView.takeIf { isHttpSource },
@@ -568,7 +568,7 @@ class ReaderActivity : BaseActivity() {
         startPostponedEnterTransition()
     }
 
-    private fun openMangaScreen() {
+    private fun openTextbookScreen() {
         viewModel.manga?.id?.let { id ->
             startActivity(
                 Intent(this, MainActivity::class.java).apply {

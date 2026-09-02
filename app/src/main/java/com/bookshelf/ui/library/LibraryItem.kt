@@ -1,9 +1,9 @@
 package com.bookshelf.ui.library
 
-import com.bookshelf.domain.library.model.LibraryManga
+import com.bookshelf.domain.library.model.LibraryTextbook
 
 data class LibraryItem(
-    val libraryManga: LibraryManga,
+    val libraryManga: LibraryTextbook,
     val downloadCount: Int,
     val unreadCount: Long,
     val isLocal: Boolean,

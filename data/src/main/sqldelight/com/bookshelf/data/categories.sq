@@ -31,16 +31,16 @@ flags
 FROM categories
 ORDER BY sort;
 
-getCategoriesByMangaId:
+getCategoriesByTextbookId:
 SELECT
 C._id AS id,
 C.name,
 C.sort AS `order`,
 C.flags
 FROM categories C
-JOIN mangas_categories MC
+JOIN textbooks_categories MC
 ON C._id = MC.category_id
-WHERE MC.manga_id = :mangaId;
+WHERE MC.textbook_id = :textbookId;
 
 insert:
 INSERT INTO categories(name, sort, flags)

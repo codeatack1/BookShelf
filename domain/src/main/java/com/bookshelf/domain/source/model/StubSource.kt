@@ -2,11 +2,11 @@ package com.bookshelf.domain.source.model
 
 import com.bookshelf.source.Source
 import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.model.MangasPage
+import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.model.SManga
-import com.bookshelf.source.model.SMangaUpdate
+import com.bookshelf.source.model.STextbook
+import com.bookshelf.source.model.STextbookUpdate
 
 class StubSource(
     override val id: Long,
@@ -18,19 +18,19 @@ class StubSource(
 
     override val supportsLatest: Boolean = false
 
-    override suspend fun getPopularManga(page: Int): MangasPage = throw SourceNotInstalledException()
+    override suspend fun getPopularTextbooks(page: Int): TextbooksPage = throw SourceNotInstalledException()
 
-    override suspend fun getLatestUpdates(page: Int): MangasPage = throw SourceNotInstalledException()
+    override suspend fun getLatestTextbooks(page: Int): TextbooksPage = throw SourceNotInstalledException()
 
-    override suspend fun getSearchManga(page: Int, query: String, filters: FilterList): MangasPage =
+    override suspend fun getSearchTextbooks(page: Int, query: String, filters: FilterList): TextbooksPage =
         throw SourceNotInstalledException()
 
-    override suspend fun getMangaUpdate(
-        manga: SManga,
+    override suspend fun getTextbookUpdate(
+        manga: STextbook,
         chapters: List<SChapter>,
         fetchDetails: Boolean,
         fetchChapters: Boolean,
-    ): SMangaUpdate = throw SourceNotInstalledException()
+    ): STextbookUpdate = throw SourceNotInstalledException()
 
     override suspend fun getPageList(chapter: SChapter): List<Page> =
         throw SourceNotInstalledException()

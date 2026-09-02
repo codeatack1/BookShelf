@@ -33,7 +33,7 @@ data class BackupTracking(
     fun getTrackImpl(): Track {
         return Track(
             id = -1,
-            mangaId = -1,
+            textbookId = -1,
             trackerId = this@BackupTracking.syncId.toLong(),
             remoteId = if (this@BackupTracking.mediaIdInt != 0) {
                 this@BackupTracking.mediaIdInt.toLong()

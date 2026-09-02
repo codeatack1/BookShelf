@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 
 object LibraryExporter {
 
@@ -17,7 +17,7 @@ object LibraryExporter {
     suspend fun exportToCsv(
         context: Context,
         uri: Uri,
-        favorites: List<Manga>,
+        favorites: List<Textbook>,
         options: ExportOptions,
         onExportComplete: () -> Unit,
     ) {
@@ -32,7 +32,7 @@ object LibraryExporter {
 
     private val escapeRequired = listOf("\r", "\n", "\"", ",")
 
-    private fun generateCsvData(favorites: List<Manga>, options: ExportOptions): String {
+    private fun generateCsvData(favorites: List<Textbook>, options: ExportOptions): String {
         val columnSize = listOf(
             options.includeTitle,
             options.includeAuthor,

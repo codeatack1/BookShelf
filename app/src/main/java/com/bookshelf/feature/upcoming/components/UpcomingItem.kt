@@ -14,16 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.manga.components.MangaCover
-import com.bookshelf.domain.manga.model.Manga
-import com.bookshelf.domain.manga.model.asMangaCover
+import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.asTextbookCover
 import com.bookshelf.presentation.core.components.material.padding
 
 private val UpcomingItemHeight = 96.dp
 
 @Composable
 fun UpcomingItem(
-    upcoming: Manga,
+    upcoming: Textbook,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -38,9 +38,9 @@ fun UpcomingItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.padding.large),
     ) {
-        MangaCover.Book(
+        TextbookCover.Book(
             modifier = Modifier.fillMaxHeight(),
-            data = upcoming.asMangaCover(),
+            data = upcoming.asTextbookCover(),
         )
         Text(
             modifier = Modifier.weight(1f),

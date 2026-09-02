@@ -17,7 +17,7 @@ import com.bookshelf.presentation.browse.components.BrowseSourceCompactGrid
 import com.bookshelf.presentation.browse.components.BrowseSourceList
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.util.formattedMessage
-import com.bookshelf.com.bookshelf.source.Source
+import com.bookshelf.source.Source
 import kotlinx.coroutines.flow.StateFlow
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.Help
@@ -25,7 +25,7 @@ import com.bookshelf.icons.materialsymbols.rounded.Public
 import com.bookshelf.icons.materialsymbols.rounded.Refresh
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.domain.library.model.LibraryDisplayMode
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.model.StubSource
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.Scaffold
@@ -38,7 +38,7 @@ import com.bookshelf.source.local.LocalSource
 @Composable
 fun BrowseSourceContent(
     source: Source?,
-    mangaList: LazyPagingItems<StateFlow<Manga>>,
+    mangaList: LazyPagingItems<StateFlow<Textbook>>,
     columns: GridCells,
     displayMode: LibraryDisplayMode,
     snackbarHostState: SnackbarHostState,
@@ -46,8 +46,8 @@ fun BrowseSourceContent(
     onWebViewClick: () -> Unit,
     onHelpClick: () -> Unit,
     onLocalSourceHelpClick: () -> Unit,
-    onMangaClick: (Manga) -> Unit,
-    onMangaLongClick: (Manga) -> Unit,
+    onMangaClick: (Textbook) -> Unit,
+    onMangaLongClick: (Textbook) -> Unit,
 ) {
     val context = LocalContext.current
 

@@ -12,7 +12,7 @@ CREATE TABLE history(
 CREATE INDEX history_history_chapter_id_index ON history(chapter_id);
 CREATE INDEX idx_history_last_read ON history(last_read);
 
-getHistoryByMangaId:
+getHistoryByTextbookId:
 SELECT
 H._id,
 H.chapter_id,
@@ -21,9 +21,9 @@ H.time_read
 FROM history H
 JOIN chapters C
 ON H.chapter_id = C._id
-WHERE C.manga_id = :mangaId AND C._id = H.chapter_id;
+WHERE C.textbook_id = :textbookId AND C._id = H.chapter_id;
 
-getHistoryByChapterUrlAndMangaId:
+getHistoryByChapterUrlAndTextbookId:
 SELECT
 H._id,
 H.chapter_id,
@@ -32,7 +32,7 @@ H.time_read
 FROM history H
 JOIN chapters C
 ON H.chapter_id = C._id
-WHERE C.url = :chapterUrl AND C.manga_id = :mangaId AND C._id = H.chapter_id
+WHERE C.url = :chapterUrl AND C.textbook_id = :textbookId AND C._id = H.chapter_id
 LIMIT 1;
 
 resetHistoryById:
@@ -40,17 +40,17 @@ UPDATE history
 SET last_read = 0
 WHERE _id = :historyId;
 
-resetHistoryByMangaId:
+resetHistoryByTextbookId:
 UPDATE history
 SET last_read = 0
 WHERE _id IN (
     SELECT H._id
-    FROM mangas M
+    FROM textbooks M
     INNER JOIN chapters C
-    ON M._id = C.manga_id
+    ON M._id = C.textbook_id
     INNER JOIN history H
     ON C._id = H.chapter_id
-    WHERE M._id = :mangaId
+    WHERE M._id = :textbookId
 );
 
 removeAllHistory:

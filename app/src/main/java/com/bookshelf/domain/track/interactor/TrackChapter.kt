@@ -6,7 +6,7 @@ import com.bookshelf.domain.track.model.toDbTrack
 import com.bookshelf.domain.track.model.toDomainTrack
 import com.bookshelf.domain.track.service.DelayedTrackingUpdateJob
 import com.bookshelf.domain.track.store.DelayedTrackingStore
-import com.bookshelf.com.bookshelf.data.track.TrackerManager
+import com.bookshelf.data.track.TrackerManager
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import logcat.LogPriority
@@ -23,9 +23,9 @@ class TrackChapter(
     private val delayedTrackingStore: DelayedTrackingStore,
 ) {
 
-    suspend fun await(context: Context, mangaId: Long, chapterNumber: Double, setupJobOnFailure: Boolean = true) {
+    suspend fun await(context: Context, textbookId: Long, chapterNumber: Double, setupJobOnFailure: Boolean = true) {
         withNonCancellableContext {
-            val tracks = getTracks.await(mangaId)
+            val tracks = getTracks.await(textbookId)
             if (tracks.isEmpty()) return@withNonCancellableContext
 
             tracks.mapNotNull { track ->

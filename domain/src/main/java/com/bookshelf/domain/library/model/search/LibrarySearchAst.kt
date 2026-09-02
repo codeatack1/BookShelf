@@ -1,6 +1,6 @@
 package com.bookshelf.domain.library.model.search
 
-enum class MangaField(vararg val aliases: String, val fieldOnly: Boolean = false) {
+enum class TextbookField(vararg val aliases: String, val fieldOnly: Boolean = false) {
     TITLE("title"),
     AUTHOR("author"),
     ARTIST("artist"),
@@ -17,7 +17,7 @@ enum class MangaField(vararg val aliases: String, val fieldOnly: Boolean = false
             field.aliases.map { it.lowercase() to field }
         }.toMap()
 
-        fun fromString(value: String): MangaField? = lookup[value.lowercase()]
+        fun fromString(value: String): TextbookField? = lookup[value.lowercase()]
     }
 }
 
@@ -82,7 +82,7 @@ object EmptyQueryNode : QueryNode
 
 data class GeneralQueryNode(val value: String, val negated: Boolean) : QueryNode
 
-data class FieldQueryNode(val field: MangaField, val value: String, val negated: Boolean) : QueryNode
+data class FieldQueryNode(val field: TextbookField, val value: String, val negated: Boolean) : QueryNode
 
 data class ComparisonQueryNode(
     val field: ComparisonField,

@@ -66,9 +66,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.bookshelf.presentation.components.DropdownMenu
-import com.bookshelf.presentation.manga.components.MangaCover
+import com.bookshelf.presentation.manga.components.TextbookCover
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
-import com.bookshelf.com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.util.system.openInBrowser
 import kotlinx.coroutines.launch
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
@@ -282,7 +282,7 @@ private fun SearchResultItem(
         }
         Column {
             Row {
-                MangaCover.Book(
+                TextbookCover.Book(
                     data = trackSearch.cover_url,
                     modifier = Modifier.height(96.dp),
                 )

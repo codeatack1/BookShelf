@@ -1,7 +1,7 @@
 package com.bookshelf.data.backup.create.creators
 
 import dev.zacsweers.metro.Inject
-import com.bookshelf.data.backup.models.BackupManga
+import com.bookshelf.data.backup.models.BackupTextbook
 import com.bookshelf.data.backup.models.BackupSource
 import com.bookshelf.source.Source
 import com.bookshelf.domain.source.service.SourceManager
@@ -11,9 +11,9 @@ class SourcesBackupCreator(
     private val sourceManager: SourceManager,
 ) {
 
-    suspend operator fun invoke(mangas: List<BackupManga>): List<BackupSource> {
+    suspend operator fun invoke(mangas: List<BackupTextbook>): List<BackupSource> {
         return mangas
-            .map(BackupManga::source)
+            .map(BackupTextbook::source)
             .distinct()
             .map { sourceManager.getOrStub(it).toBackupSource() }
     }

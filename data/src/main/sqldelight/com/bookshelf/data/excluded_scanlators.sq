@@ -1,23 +1,23 @@
 CREATE TABLE excluded_scanlators(
-    manga_id INTEGER NOT NULL,
+    textbook_id INTEGER NOT NULL,
     scanlator TEXT NOT NULL,
-    FOREIGN KEY(manga_id) REFERENCES mangas (_id)
+    FOREIGN KEY(textbook_id) REFERENCES textbooks (_id)
     ON DELETE CASCADE
 );
 
-CREATE INDEX excluded_scanlators_manga_id_index ON excluded_scanlators(manga_id);
+CREATE INDEX excluded_scanlators_textbook_id_index ON excluded_scanlators(textbook_id);
 CREATE INDEX idx_excluded_scanlators_scanlator ON excluded_scanlators(scanlator);
 
 insert:
-INSERT INTO excluded_scanlators(manga_id, scanlator)
-VALUES (:mangaId, :scanlator);
+INSERT INTO excluded_scanlators(textbook_id, scanlator)
+VALUES (:textbookId, :scanlator);
 
 remove:
 DELETE FROM excluded_scanlators
-WHERE manga_id = :mangaId
+WHERE textbook_id = :textbookId
 AND scanlator IN :scanlators;
 
-getExcludedScanlatorsByMangaId:
+getExcludedScanlatorsByTextbookId:
 SELECT scanlator
 FROM excluded_scanlators
-WHERE manga_id = :mangaId;
+WHERE textbook_id = :textbookId;

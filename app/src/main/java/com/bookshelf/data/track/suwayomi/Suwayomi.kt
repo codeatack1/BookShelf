@@ -8,7 +8,7 @@ import com.bookshelf.data.track.EnhancedTracker
 import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.source.Source
 import com.bookshelf.i18n.MR
-import com.bookshelf.domain.manga.model.Manga as DomainManga
+import com.bookshelf.domain.textbook.model.Textbook as DomainTextbook
 import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class Suwayomi(id: Long) : BaseTracker(id, "Suwayomi"), EnhancedTracker {
@@ -84,17 +84,17 @@ class Suwayomi(id: Long) : BaseTracker(id, "Suwayomi"), EnhancedTracker {
 
     override fun getAcceptedSources(): List<String> = listOf("com.bookshelf.extension.all.tachidesk.Tachidesk")
 
-    override suspend fun match(manga: DomainManga): TrackSearch? =
+    override suspend fun match(manga: DomainTextbook): TrackSearch? =
         try {
             api.getTrackSearch(manga.url.getMangaId())
         } catch (e: Exception) {
             null
         }
 
-    override fun isTrackFrom(track: DomainTrack, manga: DomainManga, source: Source?): Boolean =
+    override fun isTrackFrom(track: DomainTrack, manga: DomainTextbook, source: Source?): Boolean =
         track.remoteUrl == manga.url && source?.let { accept(it) } == true
 
-    override fun migrateTrack(track: DomainTrack, manga: DomainManga, newSource: Source): DomainTrack? =
+    override fun migrateTrack(track: DomainTrack, manga: DomainTextbook, newSource: Source): DomainTrack? =
         if (accept(newSource)) {
             track.copy(remoteUrl = manga.url)
         } else {

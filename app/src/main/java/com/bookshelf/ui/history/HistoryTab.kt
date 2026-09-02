@@ -20,17 +20,17 @@ import com.bookshelf.presentation.category.components.ChangeCategoryDialog
 import com.bookshelf.presentation.history.HistoryScreen
 import com.bookshelf.presentation.history.components.HistoryDeleteAllDialog
 import com.bookshelf.presentation.history.components.HistoryDeleteDialog
-import com.bookshelf.presentation.manga.DuplicateMangaDialog
+import com.bookshelf.presentation.manga.DuplicateTextbookDialog
 import com.bookshelf.presentation.util.Tab
 import com.bookshelf.R
 import com.bookshelf.ui.category.CategoryScreen
 import com.bookshelf.ui.main.MainActivity
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.reader.ReaderActivity
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
-import com.bookshelf.feature.migration.dialog.MigrateMangaDialog
+import com.bookshelf.feature.migration.dialog.MigrateTextbookDialog
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.i18n.MR
@@ -69,7 +69,7 @@ data object HistoryTab : Tab {
             state = state,
             snackbarHostState = snackbarHostState,
             onSearchQueryChange = viewModel::updateSearchQuery,
-            onClickCover = { navigator.push(MangaScreen(it)) },
+            onClickCover = { navigator.push(TextbookScreen(it)) },
             onClickResume = viewModel::getNextChapterForManga,
             onDialogChange = viewModel::setDialog,
             onClickFavorite = viewModel::addFavorite,
@@ -82,7 +82,7 @@ data object HistoryTab : Tab {
                     onDismissRequest = onDismissRequest,
                     onDelete = { all ->
                         if (all) {
-                            viewModel.removeAllFromHistory(dialog.history.mangaId)
+                            viewModel.removeAllFromHistory(dialog.history.textbookId)
                         } else {
                             viewModel.removeFromHistory(dialog.history)
                         }
@@ -95,12 +95,12 @@ data object HistoryTab : Tab {
                     onDelete = viewModel::removeAllHistory,
                 )
             }
-            is HistoryViewModel.Dialog.DuplicateManga -> {
-                DuplicateMangaDialog(
+            is HistoryViewModel.Dialog.DuplicateTextbook -> {
+                DuplicateTextbookDialog(
                     duplicates = dialog.duplicates,
                     onDismissRequest = onDismissRequest,
                     onConfirm = { viewModel.addFavorite(dialog.manga) },
-                    onOpenManga = { navigator.push(MangaScreen(it.id)) },
+                    onOpenManga = { navigator.push(TextbookScreen(it.id)) },
                     onMigrate = { viewModel.showMigrateDialog(dialog.manga, it) },
                 )
             }
@@ -115,11 +115,11 @@ data object HistoryTab : Tab {
                 )
             }
             is HistoryViewModel.Dialog.Migrate -> {
-                MigrateMangaDialog(
+                MigrateTextbookDialog(
                     current = dialog.current,
                     target = dialog.target,
                     // Initiated from the context of [dialog.target] so we show [dialog.current].
-                    onClickTitle = { navigator.push(MangaScreen(dialog.current.id)) },
+                    onClickTitle = { navigator.push(TextbookScreen(dialog.current.id)) },
                     onDismissRequest = onDismissRequest,
                 )
             }
@@ -153,7 +153,7 @@ data object HistoryTab : Tab {
 
     private suspend fun openChapter(context: Context, chapter: Chapter?) {
         if (chapter != null) {
-            val intent = ReaderActivity.newIntent(context, chapter.mangaId, chapter.id)
+            val intent = ReaderActivity.newIntent(context, chapter.textbookId, chapter.id)
             context.startActivity(intent)
         } else {
             snackbarHostState.showSnackbar(context.stringResource(MR.strings.no_next_chapter))

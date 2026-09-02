@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.bookshelf.ui.library.LibraryItem
-import com.bookshelf.domain.library.model.LibraryManga
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.library.model.LibraryTextbook
+import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.presentation.core.components.FastScrollLazyColumn
 import com.bookshelf.presentation.core.util.plus
 
@@ -18,9 +18,9 @@ internal fun LibraryList(
     items: List<LibraryItem>,
     contentPadding: PaddingValues,
     selection: Set<Long>,
-    onClick: (LibraryManga) -> Unit,
-    onLongClick: (LibraryManga) -> Unit,
-    onClickContinueReading: ((LibraryManga) -> Unit)?,
+    onClick: (LibraryTextbook) -> Unit,
+    onLongClick: (LibraryTextbook) -> Unit,
+    onClickContinueReading: ((LibraryTextbook) -> Unit)?,
     searchQuery: String?,
     onGlobalSearchClicked: () -> Unit,
 ) {
@@ -42,14 +42,14 @@ internal fun LibraryList(
             items = items,
             contentType = { "library_list_item" },
         ) { libraryItem ->
-            val manga = libraryItem.libraryManga.manga
-            MangaListItem(
+            val manga = libraryItem.libraryManga.textbook
+            TextbookListItem(
                 isSelected = manga.id in selection,
                 title = manga.title,
-                coverData = MangaCover(
-                    mangaId = manga.id,
+                coverData = TextbookCover(
+                    textbookId = manga.id,
                     sourceId = manga.source,
-                    isMangaFavorite = manga.favorite,
+                    isFavorite = manga.favorite,
                     url = manga.thumbnailUrl,
                     lastModified = manga.coverLastModified,
                 ),

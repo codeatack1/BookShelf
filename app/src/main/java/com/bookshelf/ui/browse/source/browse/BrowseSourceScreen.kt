@@ -34,21 +34,21 @@ import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import com.bookshelf.presentation.browse.BrowseSourceContent
 import com.bookshelf.presentation.browse.MissingSourceScreen
 import com.bookshelf.presentation.browse.components.BrowseSourceToolbar
-import com.bookshelf.presentation.browse.components.RemoveMangaDialog
+import com.bookshelf.presentation.browse.components.RemoveTextbookDialog
 import com.bookshelf.presentation.category.components.ChangeCategoryDialog
-import com.bookshelf.presentation.manga.DuplicateMangaDialog
+import com.bookshelf.presentation.manga.DuplicateTextbookDialog
 import com.bookshelf.presentation.util.AssistContentScreen
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.source.online.HttpSource
 import com.bookshelf.ui.browse.extension.details.SourcePreferencesScreen
 import com.bookshelf.ui.browse.source.browse.BrowseSourceViewModel.Listing
 import com.bookshelf.ui.category.CategoryScreen
-import com.bookshelf.ui.manga.MangaScreen
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.webview.WebViewScreen
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
-import com.bookshelf.feature.migration.dialog.MigrateMangaDialog
+import com.bookshelf.feature.migration.dialog.MigrateTextbookDialog
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.FilterList
 import com.bookshelf.icons.materialsymbols.rounded.NewReleases
@@ -222,14 +222,14 @@ data class BrowseSourceScreen(
                 onWebViewClick = onWebViewClick,
                 onHelpClick = { uriHandler.openUri(Constants.URL_HELP) },
                 onLocalSourceHelpClick = onHelpClick,
-                onMangaClick = { navigator.push((MangaScreen(it.id, true))) },
+                onMangaClick = { navigator.push((TextbookScreen(it.id, true))) },
                 onMangaLongClick = { manga ->
                     scope.launchIO {
-                        val duplicates = viewModel.getDuplicateLibraryManga(manga)
+                        val duplicates = viewModel.getDuplicateLibraryTextbook(manga)
                         when {
-                            manga.favorite -> viewModel.setDialog(BrowseSourceViewModel.Dialog.RemoveManga(manga))
+                            manga.favorite -> viewModel.setDialog(BrowseSourceViewModel.Dialog.RemoveTextbook(manga))
                             duplicates.isNotEmpty() -> viewModel.setDialog(
-                                BrowseSourceViewModel.Dialog.AddDuplicateManga(manga, duplicates),
+                                BrowseSourceViewModel.Dialog.AddDuplicateTextbook(manga, duplicates),
                             )
                             else -> viewModel.addFavorite(manga)
                         }
@@ -250,27 +250,27 @@ data class BrowseSourceScreen(
                     onUpdate = viewModel::setFilters,
                 )
             }
-            is BrowseSourceViewModel.Dialog.AddDuplicateManga -> {
-                DuplicateMangaDialog(
+            is BrowseSourceViewModel.Dialog.AddDuplicateTextbook -> {
+                DuplicateTextbookDialog(
                     duplicates = dialog.duplicates,
                     onDismissRequest = onDismissRequest,
                     onConfirm = { viewModel.addFavorite(dialog.manga) },
-                    onOpenManga = { navigator.push(MangaScreen(it.id)) },
+                    onOpenManga = { navigator.push(TextbookScreen(it.id)) },
                     onMigrate = { viewModel.setDialog(BrowseSourceViewModel.Dialog.Migrate(dialog.manga, it)) },
                 )
             }
 
             is BrowseSourceViewModel.Dialog.Migrate -> {
-                MigrateMangaDialog(
+                MigrateTextbookDialog(
                     current = dialog.current,
                     target = dialog.target,
                     // Initiated from the context of [dialog.target] so we show [dialog.current].
-                    onClickTitle = { navigator.push(MangaScreen(dialog.current.id)) },
+                    onClickTitle = { navigator.push(TextbookScreen(dialog.current.id)) },
                     onDismissRequest = onDismissRequest,
                 )
             }
-            is BrowseSourceViewModel.Dialog.RemoveManga -> {
-                RemoveMangaDialog(
+            is BrowseSourceViewModel.Dialog.RemoveTextbook -> {
+                RemoveTextbookDialog(
                     onDismissRequest = onDismissRequest,
                     onConfirm = {
                         viewModel.changeMangaFavorite(dialog.manga)
@@ -278,7 +278,7 @@ data class BrowseSourceScreen(
                     mangaToRemove = dialog.manga,
                 )
             }
-            is BrowseSourceViewModel.Dialog.ChangeMangaCategory -> {
+            is BrowseSourceViewModel.Dialog.ChangeTextbookCategory -> {
                 ChangeCategoryDialog(
                     initialSelection = dialog.initialSelection,
                     onDismissRequest = onDismissRequest,

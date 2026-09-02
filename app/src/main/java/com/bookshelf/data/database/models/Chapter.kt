@@ -34,7 +34,7 @@ fun Chapter.toDomainChapter(): DomainChapter? {
     if (id == null || manga_id == null) return null
     return DomainChapter(
         id = id!!,
-        mangaId = manga_id!!,
+        textbookId = manga_id!!,
         read = read,
         bookmark = bookmark,
         lastPageRead = last_page_read.toLong(),

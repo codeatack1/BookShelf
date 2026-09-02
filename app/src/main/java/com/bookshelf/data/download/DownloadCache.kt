@@ -46,7 +46,7 @@ import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.core.common.util.lang.launchNonCancellable
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.domain.storage.service.StorageManager
 import uy.kohesive.injekt.Injekt
@@ -130,21 +130,21 @@ class DownloadCache(
      * @param chapterName the name of the chapter to query.
      * @param chapterScanlator scanlator of the chapter to query
      * @param chapterUrl the url of the chapter to query
-     * @param mangaTitle the title of the manga to query.
+     * @param textbookTitle the title of the manga to query.
      * @param sourceId the id of the source of the chapter.
      */
     fun isChapterDownloaded(
         chapterName: String,
         chapterScanlator: String?,
         chapterUrl: String,
-        mangaTitle: String,
+        textbookTitle: String,
         sourceId: Long,
     ): Boolean {
         renewCache()
 
         val sourceDir = rootDownloadsDir.sourceDirs[sourceId]
         if (sourceDir != null) {
-            val mangaDir = sourceDir.mangaDirs[provider.getMangaDirName(mangaTitle)]
+            val mangaDir = sourceDir.mangaDirs[provider.getMangaDirName(textbookTitle)]
             if (mangaDir != null) {
                 return provider.getValidChapterDirNames(
                     chapterName,
@@ -174,7 +174,7 @@ class DownloadCache(
      *
      * @param manga the manga to check.
      */
-    fun getDownloadCount(manga: Manga): Int {
+    fun getDownloadCount(manga: Textbook): Int {
         renewCache()
 
         val sourceDir = rootDownloadsDir.sourceDirs[manga.source]
@@ -194,7 +194,7 @@ class DownloadCache(
      * @param mangaUniFile the directory of the manga.
      * @param manga the manga of the chapter.
      */
-    suspend fun addChapter(chapterDirName: String, mangaUniFile: UniFile, manga: Manga) {
+    suspend fun addChapter(chapterDirName: String, mangaUniFile: UniFile, manga: Textbook) {
         rootDownloadsDirMutex.withLock {
             // Retrieve the cached source directory or cache a new one
             var sourceDir = rootDownloadsDir.sourceDirs[manga.source]
@@ -209,7 +209,7 @@ class DownloadCache(
             val mangaDirName = provider.getMangaDirName(manga.title)
             var mangaDir = sourceDir.mangaDirs[mangaDirName]
             if (mangaDir == null) {
-                mangaDir = MangaDirectory(mangaUniFile)
+                mangaDir = TextbookDirectory(mangaUniFile)
                 sourceDir.mangaDirs += mangaDirName to mangaDir
             }
 
@@ -226,7 +226,7 @@ class DownloadCache(
      * @param chapter the chapter to remove.
      * @param manga the manga of the chapter.
      */
-    suspend fun removeChapter(chapter: Chapter, manga: Manga) {
+    suspend fun removeChapter(chapter: Chapter, manga: Textbook) {
         rootDownloadsDirMutex.withLock {
             val sourceDir = rootDownloadsDir.sourceDirs[manga.source] ?: return
             val mangaDir = sourceDir.mangaDirs[provider.getMangaDirName(manga.title)] ?: return
@@ -246,7 +246,7 @@ class DownloadCache(
      * @param chapters the list of chapter to remove.
      * @param manga the manga of the chapter.
      */
-    suspend fun removeChapters(chapters: List<Chapter>, manga: Manga) {
+    suspend fun removeChapters(chapters: List<Chapter>, manga: Textbook) {
         rootDownloadsDirMutex.withLock {
             val sourceDir = rootDownloadsDir.sourceDirs[manga.source] ?: return
             val mangaDir = sourceDir.mangaDirs[provider.getMangaDirName(manga.title)] ?: return
@@ -267,7 +267,7 @@ class DownloadCache(
      *
      * @param manga the manga to remove.
      */
-    suspend fun removeManga(manga: Manga) {
+    suspend fun removeManga(manga: Textbook) {
         rootDownloadsDirMutex.withLock {
             val sourceDir = rootDownloadsDir.sourceDirs[manga.source] ?: return
             val mangaDirName = provider.getMangaDirName(manga.title)
@@ -286,7 +286,7 @@ class DownloadCache(
      * @param mangaUniFile the manga's new directory.
      * @param newTitle the manga's new title.
      */
-    suspend fun renameManga(manga: Manga, mangaUniFile: UniFile, newTitle: String) {
+    suspend fun renameManga(manga: Textbook, mangaUniFile: UniFile, newTitle: String) {
         rootDownloadsDirMutex.withLock {
             val sourceDir = rootDownloadsDir.sourceDirs[manga.source] ?: return
             val oldMangaDirName = provider.getMangaDirName(manga.title)
@@ -301,7 +301,7 @@ class DownloadCache(
             val newMangaDirName = provider.getMangaDirName(newTitle)
             var mangaDir = sourceDir.mangaDirs[newMangaDirName]
             if (mangaDir == null) {
-                mangaDir = MangaDirectory(mangaUniFile)
+                mangaDir = TextbookDirectory(mangaUniFile)
                 sourceDir.mangaDirs += newMangaDirName to mangaDir
             }
 
@@ -366,7 +366,7 @@ class DownloadCache(
                     async {
                         sourceDir.mangaDirs = sourceDir.dir?.listFiles().orEmpty()
                             .filter { it.isDirectory && !it.name.isNullOrBlank() }
-                            .associate { it.name!! to MangaDirectory(it) }
+                            .associate { it.name!! to TextbookDirectory(it) }
 
                         sourceDir.mangaDirs.values.forEach { mangaDir ->
                             val chapterDirs = mangaDir.dir?.listFiles().orEmpty()
@@ -457,14 +457,14 @@ private class RootDirectory(
 private class SourceDirectory(
     @Serializable(with = UniFileAsStringSerializer::class)
     val dir: UniFile?,
-    var mangaDirs: Map<String, MangaDirectory> = mapOf(),
+    var mangaDirs: Map<String, TextbookDirectory> = mapOf(),
 )
 
 /**
  * Class to store the files under a manga directory.
  */
 @Serializable
-private class MangaDirectory(
+private class TextbookDirectory(
     @Serializable(with = UniFileAsStringSerializer::class)
     val dir: UniFile?,
     var chapterDirs: MutableSet<String> = mutableSetOf(),

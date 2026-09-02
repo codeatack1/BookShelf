@@ -9,12 +9,12 @@ import com.bookshelf.data.backup.BackupDecoder
 import com.bookshelf.data.backup.BackupNotifier
 import com.bookshelf.data.backup.models.BackupCategory
 import com.bookshelf.data.backup.models.BackupExtensionStore
-import com.bookshelf.data.backup.models.BackupManga
+import com.bookshelf.data.backup.models.BackupTextbook
 import com.bookshelf.data.backup.models.BackupPreference
 import com.bookshelf.data.backup.models.BackupSourcePreferences
 import com.bookshelf.data.backup.restore.restorers.CategoriesRestorer
 import com.bookshelf.data.backup.restore.restorers.ExtensionStoreRestorer
-import com.bookshelf.data.backup.restore.restorers.MangaRestorer
+import com.bookshelf.data.backup.restore.restorers.TextbookRestorer
 import com.bookshelf.data.backup.restore.restorers.PreferenceRestorer
 import com.bookshelf.data.download.DownloadCache
 import com.bookshelf.util.system.createFileInCacheDir
@@ -47,7 +47,7 @@ class BackupRestorer(
     private val categoriesRestorer: CategoriesRestorer,
     private val preferenceRestorer: PreferenceRestorer,
     private val extensionStoreRestorer: ExtensionStoreRestorer,
-    private val mangaRestorer: MangaRestorer,
+    private val mangaRestorer: TextbookRestorer,
     private val backupDecoder: BackupDecoder,
 ) {
 
@@ -150,7 +150,7 @@ class BackupRestorer(
     }
 
     private fun CoroutineScope.restoreManga(
-        backupMangas: List<BackupManga>,
+        backupMangas: List<BackupTextbook>,
         backupCategories: List<BackupCategory>,
     ) = launch {
         mangaRestorer.sortByNew(backupMangas)

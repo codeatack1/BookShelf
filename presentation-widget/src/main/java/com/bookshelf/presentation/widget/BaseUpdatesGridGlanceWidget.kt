@@ -41,7 +41,7 @@ import kotlinx.datetime.minus
 import com.bookshelf.core.metro.metroGraph
 import com.bookshelf.presentation.widget.di.PresentationWidgetGraph
 import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.domain.updates.interactor.GetUpdates
 import com.bookshelf.domain.updates.model.UpdatesWithRelations
 import com.bookshelf.presentation.widget.components.CoverHeight
@@ -124,15 +124,15 @@ abstract class BaseUpdatesGridGlanceWidget : GlanceAppWidget() {
         val roundPx = context.resources.getDimension(R.dimen.appwidget_inner_radius)
         return withIOContext {
             this@prepareData
-                .distinctBy { it.mangaId }
+                .distinctBy { it.textbookId }
                 .take(rowCount * columnCount)
                 .map { updatesView ->
                     val request = ImageRequest.Builder(context)
                         .data(
-                            MangaCover(
-                                mangaId = updatesView.mangaId,
+                            TextbookCover(
+                                textbookId = updatesView.textbookId,
                                 sourceId = updatesView.sourceId,
-                                isMangaFavorite = true,
+                                isFavorite = true,
                                 url = updatesView.coverData.url,
                                 lastModified = updatesView.coverData.lastModified,
                             ),
@@ -153,7 +153,7 @@ abstract class BaseUpdatesGridGlanceWidget : GlanceAppWidget() {
                         .image
                         ?.asDrawable(context.resources)
                         ?.toBitmap()
-                    Pair(updatesView.mangaId, bitmap)
+                    Pair(updatesView.textbookId, bitmap)
                 }
         }
     }

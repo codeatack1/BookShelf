@@ -1,7 +1,7 @@
 package com.bookshelf.source.model
 
 /**
- * Define the update strategy for a single [SManga].
+ * Define the update strategy for a single [STextbook].
  * The strategy used will only take effect on the library update.
  *
  * @since extensions-lib 1.4

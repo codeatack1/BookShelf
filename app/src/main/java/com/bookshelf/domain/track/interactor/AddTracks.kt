@@ -3,35 +3,35 @@ package com.bookshelf.domain.track.interactor
 import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.track.model.toDbTrack
 import com.bookshelf.domain.track.model.toDomainTrack
-import com.bookshelf.com.bookshelf.data.database.models.Track
-import com.bookshelf.com.bookshelf.data.track.EnhancedTracker
-import com.bookshelf.com.bookshelf.data.track.Tracker
-import com.bookshelf.com.bookshelf.data.track.TrackerManager
-import com.bookshelf.com.bookshelf.source.Source
+import com.bookshelf.data.database.models.Track
+import com.bookshelf.data.track.EnhancedTracker
+import com.bookshelf.data.track.Tracker
+import com.bookshelf.data.track.TrackerManager
+import com.bookshelf.source.Source
 import com.bookshelf.util.lang.convertEpochMillisZone
 import kotlinx.datetime.TimeZone
 import logcat.LogPriority
 import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.core.common.util.lang.withNonCancellableContext
 import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.chapter.interactor.GetChaptersByMangaId
+import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.history.interactor.GetHistory
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.track.interactor.InsertTrack
 
 @Inject
 class AddTracks(
     private val insertTrack: InsertTrack,
     private val syncChapterProgressWithTrack: SyncChapterProgressWithTrack,
-    private val getChaptersByMangaId: GetChaptersByMangaId,
+    private val getChaptersByTextbookId: GetChaptersByTextbookId,
     private val trackerManager: TrackerManager,
     private val getHistory: GetHistory,
 ) {
 
     // TODO: update all trackers based on common data
-    suspend fun bind(tracker: Tracker, item: Track, mangaId: Long) = withNonCancellableContext {
+    suspend fun bind(tracker: Tracker, item: Track, textbookId: Long) = withNonCancellableContext {
         withIOContext {
-            val allChapters = getChaptersByMangaId.await(mangaId)
+            val allChapters = getChaptersByTextbookId.await(textbookId)
             val hasReadChapters = allChapters.any { it.read }
             tracker.bind(item, hasReadChapters)
 
@@ -56,7 +56,7 @@ class AddTracks(
                 }
 
                 if (track.startDate <= 0) {
-                    val firstReadChapterDate = getHistory.await(mangaId)
+                    val firstReadChapterDate = getHistory.await(textbookId)
                         .sortedBy { it.readAt }
                         .firstOrNull()
                         ?.readAt
@@ -74,11 +74,11 @@ class AddTracks(
                 }
             }
 
-            syncChapterProgressWithTrack.await(mangaId, track, tracker)
+            syncChapterProgressWithTrack.await(textbookId, track, tracker)
         }
     }
 
-    suspend fun bindEnhancedTrackers(manga: Manga, source: Source) = withNonCancellableContext {
+    suspend fun bindEnhancedTrackers(manga: Textbook, source: Source) = withNonCancellableContext {
         withIOContext {
             trackerManager.loggedInTrackers()
                 .filterIsInstance<EnhancedTracker>()

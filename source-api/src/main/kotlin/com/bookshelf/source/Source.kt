@@ -1,11 +1,11 @@
 package com.bookshelf.source
 
 import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.model.MangasPage
+import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.model.SManga
-import com.bookshelf.source.model.SMangaUpdate
+import com.bookshelf.source.model.STextbook
+import com.bookshelf.source.model.STextbookUpdate
 import rx.Observable
 
 /**
@@ -42,7 +42,7 @@ interface Source {
      * @since tachiyomix 1.6
      * @param page the page number to retrieve.
      */
-    suspend fun getPopularManga(page: Int): MangasPage
+    suspend fun getPopularTextbooks(page: Int): TextbooksPage
 
     /**
      * Get a page with a list of latest manga updates.
@@ -50,7 +50,7 @@ interface Source {
      * @since tachiyomix 1.6
      * @param page the page number to retrieve.
      */
-    suspend fun getLatestUpdates(page: Int): MangasPage
+    suspend fun getLatestTextbooks(page: Int): TextbooksPage
 
     /**
      * Get a page with a list of manga.
@@ -60,7 +60,7 @@ interface Source {
      * @param query the search query.
      * @param filters the list of filters to apply.
      */
-    suspend fun getSearchManga(page: Int, query: String, filters: FilterList): MangasPage
+    suspend fun getSearchTextbooks(page: Int, query: String, filters: FilterList): TextbooksPage
 
     /**
      * Fetches updated information for a manga.
@@ -78,12 +78,12 @@ interface Source {
      * @param fetchDetails Whether to fetch updated manga details.
      * @param fetchChapters Whether to fetch available chapters.
      */
-    suspend fun getMangaUpdate(
-        manga: SManga,
+    suspend fun getTextbookUpdate(
+        manga: STextbook,
         chapters: List<SChapter>,
         fetchDetails: Boolean,
         fetchChapters: Boolean,
-    ): SMangaUpdate
+    ): STextbookUpdate
 
     /**
      * Get the list of pages a chapter has. Pages should be returned
@@ -95,11 +95,11 @@ interface Source {
      */
     suspend fun getPageList(chapter: SChapter): List<Page>
 
-    @Deprecated("Use the combined suspend API instead", ReplaceWith("getMangaUpdate"))
-    fun fetchMangaDetails(manga: SManga): Observable<SManga> = throw UnsupportedOperationException()
+    @Deprecated("Use the combined suspend API instead", ReplaceWith("getTextbookUpdate"))
+    fun fetchTextbookDetails(manga: STextbook): Observable<STextbook> = throw UnsupportedOperationException()
 
-    @Deprecated("Use the combined suspend API instead", ReplaceWith("getMangaUpdate"))
-    fun fetchChapterList(manga: SManga): Observable<List<SChapter>> = throw UnsupportedOperationException()
+    @Deprecated("Use the combined suspend API instead", ReplaceWith("getTextbookUpdate"))
+    fun fetchChapterList(manga: STextbook): Observable<List<SChapter>> = throw UnsupportedOperationException()
 
     @Deprecated("Use the suspend API instead", ReplaceWith("getPageList"))
     fun fetchPageList(chapter: SChapter): Observable<List<Page>> = throw UnsupportedOperationException()

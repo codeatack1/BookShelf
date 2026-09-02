@@ -16,7 +16,7 @@ import com.bookshelf.presentation.theme.BookShelfTheme
 import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.source.Source
 import com.bookshelf.ui.reader.model.ChapterTransition
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.source.local.isLocal
 
 class ReaderTransitionView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
@@ -28,7 +28,7 @@ class ReaderTransitionView @JvmOverloads constructor(context: Context, attrs: At
         layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
     }
 
-    fun bind(transition: ChapterTransition, downloadManager: DownloadManager, manga: Manga?, source: Source?) {
+    fun bind(transition: ChapterTransition, downloadManager: DownloadManager, manga: Textbook?, source: Source?) {
         data = if (manga != null && source != null) {
             Data(
                 transition = transition,
@@ -39,7 +39,7 @@ class ReaderTransitionView @JvmOverloads constructor(context: Context, attrs: At
                             chapterName = goingToChapter.name,
                             chapterScanlator = goingToChapter.scanlator,
                             chapterUrl = goingToChapter.url,
-                            mangaTitle = manga.title,
+                            textbookTitle = manga.title,
                             source = source,
                         )
                     } ?: false,

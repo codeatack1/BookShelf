@@ -1,9 +1,9 @@
 package com.bookshelf.source.online
 
-import com.bookshelf.source.model.MangasPage
+import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.model.SManga
+import com.bookshelf.source.model.STextbook
 import com.bookshelf.util.asJsoup
 import okhttp3.Response
 import org.jsoup.nodes.Document
@@ -19,14 +19,14 @@ import org.jsoup.nodes.Element
 abstract class ParsedHttpSource : HttpSource() {
 
     /**
-     * Parses the response from the site and returns a [MangasPage] object.
+     * Parses the response from the site and returns a [TextbooksPage] object.
      *
      * @param response the response from the site.
      */
     @Deprecated(
         "The helper functions are inherently limiting and hides the underlying implementation. Source developers should make their own implementation according to their needs.",
     )
-    override fun popularMangaParse(response: Response): MangasPage {
+    override fun popularTextbooksParse(response: Response): TextbooksPage {
         val document = response.asJsoup()
 
         val mangas = document.select(popularMangaSelector()).map { element ->
@@ -37,7 +37,7 @@ abstract class ParsedHttpSource : HttpSource() {
             document.select(selector).first()
         } != null
 
-        return MangasPage(mangas, hasNextPage)
+        return TextbooksPage(mangas, hasNextPage)
     }
 
     /**
@@ -51,7 +51,7 @@ abstract class ParsedHttpSource : HttpSource() {
      *
      * @param element an element obtained from [popularMangaSelector].
      */
-    protected abstract fun popularMangaFromElement(element: Element): SManga
+    protected abstract fun popularMangaFromElement(element: Element): STextbook
 
     /**
      * Returns the Jsoup selector that returns the <a> tag linking to the next page, or null if
@@ -60,14 +60,14 @@ abstract class ParsedHttpSource : HttpSource() {
     protected abstract fun popularMangaNextPageSelector(): String?
 
     /**
-     * Parses the response from the site and returns a [MangasPage] object.
+     * Parses the response from the site and returns a [TextbooksPage] object.
      *
      * @param response the response from the site.
      */
     @Deprecated(
         "The helper functions are inherently limiting and hides the underlying implementation. Source developers should make their own implementation according to their needs.",
     )
-    override fun searchMangaParse(response: Response): MangasPage {
+    override fun searchTextbooksParse(response: Response): TextbooksPage {
         val document = response.asJsoup()
 
         val mangas = document.select(searchMangaSelector()).map { element ->
@@ -78,7 +78,7 @@ abstract class ParsedHttpSource : HttpSource() {
             document.select(selector).first()
         } != null
 
-        return MangasPage(mangas, hasNextPage)
+        return TextbooksPage(mangas, hasNextPage)
     }
 
     /**
@@ -92,7 +92,7 @@ abstract class ParsedHttpSource : HttpSource() {
      *
      * @param element an element obtained from [searchMangaSelector].
      */
-    protected abstract fun searchMangaFromElement(element: Element): SManga
+    protected abstract fun searchMangaFromElement(element: Element): STextbook
 
     /**
      * Returns the Jsoup selector that returns the <a> tag linking to the next page, or null if
@@ -101,14 +101,14 @@ abstract class ParsedHttpSource : HttpSource() {
     protected abstract fun searchMangaNextPageSelector(): String?
 
     /**
-     * Parses the response from the site and returns a [MangasPage] object.
+     * Parses the response from the site and returns a [TextbooksPage] object.
      *
      * @param response the response from the site.
      */
     @Deprecated(
         "The helper functions are inherently limiting and hides the underlying implementation. Source developers should make their own implementation according to their needs.",
     )
-    override fun latestUpdatesParse(response: Response): MangasPage {
+    override fun latestUpdatesParse(response: Response): TextbooksPage {
         val document = response.asJsoup()
 
         val mangas = document.select(latestUpdatesSelector()).map { element ->
@@ -119,7 +119,7 @@ abstract class ParsedHttpSource : HttpSource() {
             document.select(selector).first()
         } != null
 
-        return MangasPage(mangas, hasNextPage)
+        return TextbooksPage(mangas, hasNextPage)
     }
 
     /**
@@ -133,7 +133,7 @@ abstract class ParsedHttpSource : HttpSource() {
      *
      * @param element an element obtained from [latestUpdatesSelector].
      */
-    protected abstract fun latestUpdatesFromElement(element: Element): SManga
+    protected abstract fun latestUpdatesFromElement(element: Element): STextbook
 
     /**
      * Returns the Jsoup selector that returns the <a> tag linking to the next page, or null if
@@ -149,8 +149,8 @@ abstract class ParsedHttpSource : HttpSource() {
     @Deprecated(
         "The helper functions are inherently limiting and hides the underlying implementation. Source developers should make their own implementation according to their needs.",
     )
-    override fun mangaDetailsParse(response: Response): SManga {
-        return mangaDetailsParse(response.asJsoup())
+    override fun textbookDetailsParse(response: Response): STextbook {
+        return textbookDetailsParse(response.asJsoup())
     }
 
     /**
@@ -158,7 +158,7 @@ abstract class ParsedHttpSource : HttpSource() {
      *
      * @param document the parsed document.
      */
-    protected abstract fun mangaDetailsParse(document: Document): SManga
+    protected abstract fun textbookDetailsParse(document: Document): STextbook
 
     /**
      * Parses the response from the site and returns a list of chapters.

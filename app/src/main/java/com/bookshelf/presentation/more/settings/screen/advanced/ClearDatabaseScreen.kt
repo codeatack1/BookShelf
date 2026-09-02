@@ -54,7 +54,7 @@ import com.bookshelf.core.common.util.lang.launchUI
 import com.bookshelf.core.common.util.lang.toLong
 import com.bookshelf.core.common.util.lang.withNonCancellableContext
 import com.bookshelf.data.Database
-import com.bookshelf.domain.source.interactor.GetSourcesWithNonLibraryManga
+import com.bookshelf.domain.source.interactor.GetSourcesWithNonLibraryTextbook
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.domain.source.model.SourceWithCount
 import com.bookshelf.i18n.MR
@@ -230,7 +230,7 @@ class ClearDatabaseScreen : Screen() {
 @ContributesIntoMap(AppScope::class, binding = binding<ViewModel>())
 class ClearDatabaseViewModel(
     private val database: Database,
-    private val getSourcesWithNonLibraryManga: GetSourcesWithNonLibraryManga,
+    private val getSourcesWithNonLibraryTextbook: GetSourcesWithNonLibraryTextbook,
 ) : ViewModel() {
 
     val state: StateFlow<ClearDatabaseViewModel.State>
@@ -238,7 +238,7 @@ class ClearDatabaseViewModel(
 
     init {
         viewModelScope.launchIO {
-            getSourcesWithNonLibraryManga.subscribe()
+            getSourcesWithNonLibraryTextbook.subscribe()
                 .collectLatest { list ->
                     state.update { old ->
                         val items = list.sortedBy { it.name }
@@ -253,7 +253,7 @@ class ClearDatabaseViewModel(
 
     suspend fun removeMangaBySourceId(keepReadManga: Boolean) = withNonCancellableContext {
         val state = state.value as? State.Ready ?: return@withNonCancellableContext
-        database.mangasQueries.deleteNonLibraryManga(state.selection, keepReadManga.toLong())
+        database.textbooksQueries.deleteNonLibraryTextbook(state.selection, keepReadManga.toLong())
         database.historyQueries.removeResettedHistory()
     }
 

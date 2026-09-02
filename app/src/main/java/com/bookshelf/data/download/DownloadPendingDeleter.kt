@@ -8,7 +8,7 @@ import dev.zacsweers.metro.SingleIn
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.manga.model.Manga
+import com.bookshelf.domain.textbook.model.Textbook
 
 /**
  * Class used to keep a list of chapters for future deletion.
@@ -39,7 +39,7 @@ class DownloadPendingDeleter(
      * @param manga the manga of the chapters.
      */
     @Synchronized
-    fun addChapters(chapters: List<Chapter>, manga: Manga) {
+    fun addChapters(chapters: List<Chapter>, manga: Textbook) {
         val lastEntry = lastAddedEntry
 
         val newEntry = if (lastEntry != null && lastEntry.manga.id == manga.id) {
@@ -85,7 +85,7 @@ class DownloadPendingDeleter(
      * downloader, so don't use them for anything else.
      */
     @Synchronized
-    fun getPendingChapters(): Map<Manga, List<Chapter>> {
+    fun getPendingChapters(): Map<Textbook, List<Chapter>> {
         val entries = decodeAll()
         preferences.edit {
             clear()
@@ -126,7 +126,7 @@ class DownloadPendingDeleter(
     /**
      * Returns a manga entry from a manga model.
      */
-    private fun Manga.toEntry() = MangaEntry(id, url, title, source)
+    private fun Textbook.toEntry() = TextbookEntry(id, url, title, source)
 
     /**
      * Returns a chapter entry from a chapter model.
@@ -136,7 +136,7 @@ class DownloadPendingDeleter(
     /**
      * Returns a manga model from a manga entry.
      */
-    private fun MangaEntry.toModel() = Manga.create().copy(
+    private fun TextbookEntry.toModel() = Textbook.create().copy(
         url = url,
         title = title,
         source = source,
@@ -159,7 +159,7 @@ class DownloadPendingDeleter(
     @Serializable
     private data class Entry(
         val chapters: List<ChapterEntry>,
-        val manga: MangaEntry,
+        val manga: TextbookEntry,
     )
 
     /**
@@ -177,7 +177,7 @@ class DownloadPendingDeleter(
      * Class used to save an entry for a manga into preferences.
      */
     @Serializable
-    private data class MangaEntry(
+    private data class TextbookEntry(
         val id: Long,
         val url: String,
         val title: String,

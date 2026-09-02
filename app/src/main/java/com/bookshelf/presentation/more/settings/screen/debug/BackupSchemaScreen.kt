@@ -15,7 +15,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.util.Screen
-import com.bookshelf.com.bookshelf.data.backup.models.Backup
+import com.bookshelf.data.backup.models.Backup
 import com.bookshelf.util.system.copyToClipboard
 import kotlinx.serialization.protobuf.schema.ProtoBufSchemaGenerator
 import com.bookshelf.icons.materialsymbols.MaterialSymbols

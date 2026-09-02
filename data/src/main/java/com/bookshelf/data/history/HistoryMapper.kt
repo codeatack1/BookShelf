@@ -2,7 +2,7 @@ package com.bookshelf.data.history
 
 import com.bookshelf.domain.history.model.History
 import com.bookshelf.domain.history.model.HistoryWithRelations
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.textbook.model.TextbookCover
 import java.util.Date
 
 object HistoryMapper {
@@ -20,7 +20,7 @@ object HistoryMapper {
 
     fun mapHistoryWithRelations(
         historyId: Long,
-        mangaId: Long,
+        textbookId: Long,
         chapterId: Long,
         title: String,
         thumbnailUrl: String?,
@@ -33,15 +33,15 @@ object HistoryMapper {
     ): HistoryWithRelations = HistoryWithRelations(
         id = historyId,
         chapterId = chapterId,
-        mangaId = mangaId,
+        textbookId = textbookId,
         title = title,
         chapterNumber = chapterNumber,
         readAt = readAt,
         readDuration = readDuration,
-        coverData = MangaCover(
-            mangaId = mangaId,
+        coverData = TextbookCover(
+            textbookId = textbookId,
             sourceId = sourceId,
-            isMangaFavorite = isFavorite,
+            isFavorite = isFavorite,
             url = thumbnailUrl,
             lastModified = coverLastModified,
         ),

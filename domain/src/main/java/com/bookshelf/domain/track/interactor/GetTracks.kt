@@ -21,16 +21,16 @@ class GetTracks(
         }
     }
 
-    suspend fun await(mangaId: Long): List<Track> {
+    suspend fun await(textbookId: Long): List<Track> {
         return try {
-            trackRepository.getTracksByMangaId(mangaId)
+            trackRepository.getTracksByTextbookId(textbookId)
         } catch (e: Exception) {
             logcat(LogPriority.ERROR, e)
             emptyList()
         }
     }
 
-    fun subscribe(mangaId: Long): Flow<List<Track>> {
-        return trackRepository.getTracksByMangaIdAsFlow(mangaId)
+    fun subscribe(textbookId: Long): Flow<List<Track>> {
+        return trackRepository.getTracksByTextbookIdAsFlow(textbookId)
     }
 }

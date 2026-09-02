@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import com.bookshelf.core.common.util.lang.toLong
 import com.bookshelf.data.Database
 import com.bookshelf.data.subscribeToList
-import com.bookshelf.domain.manga.model.MangaCover
+import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.domain.updates.model.UpdatesWithRelations
 import com.bookshelf.domain.updates.repository.UpdatesRepository
 
@@ -25,7 +25,7 @@ class UpdatesRepositoryImpl(
         after: Long,
         limit: Long,
     ): List<UpdatesWithRelations> {
-        return database.updatesViewQueries
+        return database.updatesTextViewQueries
             .getUpdatesByReadStatus(
                 read = read,
                 after = after,
@@ -45,7 +45,7 @@ class UpdatesRepositoryImpl(
         includedCategories: List<Long>,
         excludedCategories: List<Long>,
     ): Flow<List<UpdatesWithRelations>> {
-        return database.updatesViewQueries
+        return database.updatesTextViewQueries
             .getRecentUpdatesWithFilters(
                 after = after,
                 limit = limit,
@@ -67,7 +67,7 @@ class UpdatesRepositoryImpl(
         after: Long,
         limit: Long,
     ): Flow<List<UpdatesWithRelations>> {
-        return database.updatesViewQueries
+        return database.updatesTextViewQueries
             .getUpdatesByReadStatus(
                 read = read,
                 after = after,
@@ -79,8 +79,8 @@ class UpdatesRepositoryImpl(
 
     @Suppress("UNUSED_PARAMETER")
     private fun mapUpdatesWithRelations(
-        mangaId: Long,
-        mangaTitle: String,
+        textbookId: Long,
+        textbookTitle: String,
         chapterId: Long,
         chapterName: String,
         scanlator: String?,
@@ -96,8 +96,8 @@ class UpdatesRepositoryImpl(
         dateFetch: Long,
         excludedScanlator: String?,
     ): UpdatesWithRelations = UpdatesWithRelations(
-        mangaId = mangaId,
-        mangaTitle = mangaTitle,
+        textbookId = textbookId,
+        textbookTitle = textbookTitle,
         chapterId = chapterId,
         chapterName = chapterName,
         scanlator = scanlator,
@@ -107,10 +107,10 @@ class UpdatesRepositoryImpl(
         lastPageRead = lastPageRead,
         sourceId = sourceId,
         dateFetch = dateFetch,
-        coverData = MangaCover(
-            mangaId = mangaId,
+        coverData = TextbookCover(
+            textbookId = textbookId,
             sourceId = sourceId,
-            isMangaFavorite = favorite,
+            isFavorite = favorite,
             url = thumbnailUrl,
             lastModified = coverLastModified,
         ),

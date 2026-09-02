@@ -1,9 +1,9 @@
 -- Add chapter urls to updates view
-DROP VIEW IF EXISTS updatesView;
-CREATE VIEW updatesView AS
+DROP VIEW IF EXISTS updatesTextView;
+CREATE VIEW updatesTextView AS
 SELECT
-    mangas._id AS mangaId,
-    mangas.title AS mangaTitle,
+    textbooks._id AS textbookId,
+    textbooks.title AS textbookTitle,
     chapters._id AS chapterId,
     chapters.name AS chapterName,
     chapters.scanlator,
@@ -11,14 +11,14 @@ SELECT
     chapters.read,
     chapters.bookmark,
     chapters.last_page_read,
-    mangas.source,
-    mangas.favorite,
-    mangas.thumbnail_url AS thumbnailUrl,
-    mangas.cover_last_modified AS coverLastModified,
+    textbooks.source,
+    textbooks.favorite,
+    textbooks.thumbnail_url AS thumbnailUrl,
+    textbooks.cover_last_modified AS coverLastModified,
     chapters.date_upload AS dateUpload,
     chapters.date_fetch AS datefetch
-FROM mangas JOIN chapters
-ON mangas._id = chapters.manga_id
+FROM textbooks JOIN chapters
+ON textbooks._id = chapters.textbook_id
 WHERE favorite = 1
 AND date_fetch > date_added
 ORDER BY date_fetch DESC;

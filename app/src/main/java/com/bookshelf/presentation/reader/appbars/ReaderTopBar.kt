@@ -13,7 +13,7 @@ import com.bookshelf.presentation.core.i18n.stringResource
 
 @Composable
 fun ReaderTopBar(
-    mangaTitle: String?,
+    textbookTitle: String?,
     chapterTitle: String?,
     navigateUp: () -> Unit,
     bookmarked: Boolean,
@@ -26,7 +26,7 @@ fun ReaderTopBar(
     AppBar(
         modifier = modifier,
         backgroundColor = Color.Transparent,
-        title = mangaTitle,
+        title = textbookTitle,
         subtitle = chapterTitle,
         navigateUp = navigateUp,
         actions = {
