@@ -3,6 +3,7 @@ package com.bookshelf.core.common.preference
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import androidx.core.content.edit
+import com.bookshelf.core.common.util.system.logcat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
-import com.bookshelf.core.common.util.system.logcat
 
 sealed class AndroidPreference<T>(
     private val preferences: SharedPreferences,

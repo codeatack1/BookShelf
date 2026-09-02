@@ -1,9 +1,9 @@
 package com.bookshelf.domain.extension.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.extension.model.Extension
 import com.bookshelf.source.Source
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

@@ -8,17 +8,17 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.i18n.MR
 import com.bookshelf.ui.reader.model.ChapterTransition
 import com.bookshelf.ui.reader.model.ReaderChapter
 import com.bookshelf.ui.reader.viewer.ReaderTransitionView
 import com.bookshelf.util.system.dpToPx
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.i18n.MR
 
 /**
  * Holder of the webtoon viewer that contains a chapter transition.

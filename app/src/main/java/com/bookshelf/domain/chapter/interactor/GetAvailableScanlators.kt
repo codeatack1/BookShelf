@@ -1,9 +1,9 @@
 package com.bookshelf.domain.chapter.interactor
 
+import com.bookshelf.domain.chapter.repository.ChapterRepository
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import com.bookshelf.domain.chapter.repository.ChapterRepository
 
 @Inject
 class GetAvailableScanlators(

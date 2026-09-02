@@ -3,14 +3,14 @@ package com.bookshelf.ui.security
 import android.os.Bundle
 import androidx.biometric.BiometricPrompt
 import androidx.fragment.app.FragmentActivity
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.i18n.MR
 import com.bookshelf.ui.base.activity.BaseActivity
 import com.bookshelf.ui.base.delegate.SecureActivityDelegate
 import com.bookshelf.util.system.AuthenticatorUtil
 import com.bookshelf.util.system.AuthenticatorUtil.startAuthentication
 import logcat.LogPriority
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.i18n.MR
 
 /**
  * Blank activity with a BiometricPrompt.

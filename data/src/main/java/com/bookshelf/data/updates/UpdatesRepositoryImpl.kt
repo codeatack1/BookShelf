@@ -1,17 +1,17 @@
 package com.bookshelf.data.updates
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesBinding
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.core.common.util.lang.toLong
 import com.bookshelf.data.Database
 import com.bookshelf.data.subscribeToList
 import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.domain.updates.model.UpdatesWithRelations
 import com.bookshelf.domain.updates.repository.UpdatesRepository
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
+import kotlinx.coroutines.flow.Flow
 
 @Inject
 @SingleIn(AppScope::class)

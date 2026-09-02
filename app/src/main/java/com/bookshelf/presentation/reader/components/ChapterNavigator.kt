@@ -41,13 +41,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
-import com.bookshelf.presentation.util.isTabletUi
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.SkipNext
 import com.bookshelf.icons.materialsymbols.rounded.SkipPrevious
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
+import com.bookshelf.presentation.util.isTabletUi
 import kotlin.math.roundToInt
 
 enum class ChapterNavigatorType {

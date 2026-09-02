@@ -1,11 +1,11 @@
 package com.bookshelf.domain.category.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.category.repository.CategoryRepository
 import com.bookshelf.domain.library.model.LibrarySort
 import com.bookshelf.domain.library.model.plus
 import com.bookshelf.domain.library.service.LibraryPreferences
+import dev.zacsweers.metro.Inject
 import kotlin.random.Random
 
 @Inject

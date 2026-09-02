@@ -1,8 +1,8 @@
 package com.bookshelf.feature.common.utils
 
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.domain.migration.models.MigrationFlag
 import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
 
 fun MigrationFlag.getLabel(): StringResource {
     return when (this) {

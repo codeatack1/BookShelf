@@ -1,29 +1,8 @@
 package com.bookshelf.source.local
 
 import android.content.Context
-import com.hippo.unifile.UniFile
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import com.bookshelf.source.Source
-import com.bookshelf.source.UnmeteredSource
-import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.model.TextbooksPage
-import com.bookshelf.source.model.Page
-import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.model.STextbook
-import com.bookshelf.source.model.STextbookUpdate
-import com.bookshelf.util.lang.compareToCaseInsensitiveNaturalOrder
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.supervisorScope
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
-import logcat.LogPriority
 import com.bookshelf.core.archive.archiveReader
 import com.bookshelf.core.archive.epubReader
-import nl.adaptivity.xmlutil.core.AndroidXmlReader
-import nl.adaptivity.xmlutil.serialization.XML
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.storage.extension
 import com.bookshelf.core.common.storage.nameWithoutExtension
@@ -36,19 +15,40 @@ import com.bookshelf.core.metadata.comicinfo.copyFromComicInfo
 import com.bookshelf.core.metadata.comicinfo.getComicInfo
 import com.bookshelf.core.metadata.tachiyomi.MangaDetails
 import com.bookshelf.domain.chapter.service.ChapterRecognition
+import com.bookshelf.domain.source.model.Source as DomainSource
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
+import com.bookshelf.source.Source
+import com.bookshelf.source.UnmeteredSource
 import com.bookshelf.source.local.filter.OrderBy
 import com.bookshelf.source.local.image.LocalCoverManager
 import com.bookshelf.source.local.io.Archive
 import com.bookshelf.source.local.io.Format
 import com.bookshelf.source.local.io.LocalSourceFileSystem
 import com.bookshelf.source.local.metadata.fillMetadata
-import uy.kohesive.injekt.injectLazy
+import com.bookshelf.source.model.FilterList
+import com.bookshelf.source.model.Page
+import com.bookshelf.source.model.SChapter
+import com.bookshelf.source.model.STextbook
+import com.bookshelf.source.model.STextbookUpdate
+import com.bookshelf.source.model.TextbooksPage
+import com.bookshelf.util.lang.compareToCaseInsensitiveNaturalOrder
+import com.hippo.unifile.UniFile
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
 import kotlin.time.Duration.Companion.days
-import com.bookshelf.domain.source.model.Source as DomainSource
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.supervisorScope
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import logcat.LogPriority
+import nl.adaptivity.xmlutil.core.AndroidXmlReader
+import nl.adaptivity.xmlutil.serialization.XML
+import uy.kohesive.injekt.injectLazy
 
 @Inject
 @SingleIn(AppScope::class)

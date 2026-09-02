@@ -1,34 +1,34 @@
 package com.bookshelf.domain.chapter.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.chapter.model.copyFromSChapter
-import com.bookshelf.domain.chapter.model.toSChapter
-import com.bookshelf.domain.textbook.interactor.GetExcludedScanlators
-import com.bookshelf.domain.textbook.interactor.UpdateTextbook
-import com.bookshelf.domain.textbook.model.toSTextbook
+import com.bookshelf.data.chapter.ChapterSanitizer
 import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.data.download.DownloadProvider
-import com.bookshelf.source.Source
-import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.online.HttpSource
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
-import com.bookshelf.data.chapter.ChapterSanitizer
 import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.interactor.ShouldUpdateDbChapter
 import com.bookshelf.domain.chapter.interactor.UpdateChapter
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.model.NoChaptersException
+import com.bookshelf.domain.chapter.model.copyFromSChapter
 import com.bookshelf.domain.chapter.model.toChapterUpdate
+import com.bookshelf.domain.chapter.model.toSChapter
 import com.bookshelf.domain.chapter.repository.ChapterRepository
 import com.bookshelf.domain.chapter.service.ChapterRecognition
 import com.bookshelf.domain.library.service.LibraryPreferences
+import com.bookshelf.domain.textbook.interactor.GetExcludedScanlators
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
 import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.toSTextbook
+import com.bookshelf.source.Source
 import com.bookshelf.source.local.isLocal
+import com.bookshelf.source.model.SChapter
+import com.bookshelf.source.online.HttpSource
+import dev.zacsweers.metro.Inject
 import java.lang.Long.max
 import java.util.TreeSet
 import kotlin.time.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 
 @Inject
 class SyncChaptersWithSource(

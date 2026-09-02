@@ -23,19 +23,19 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
-import com.bookshelf.presentation.util.Screen
+import com.bookshelf.core.common.Constants
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.OpenInNew
 import com.bookshelf.icons.simpleicons.Discord
 import com.bookshelf.icons.simpleicons.OpenCollective
 import com.bookshelf.icons.simpleicons.Patreon
 import com.bookshelf.icons.simpleicons.SimpleIcons
-import com.bookshelf.core.common.Constants
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
+import com.bookshelf.presentation.util.Screen
 
 class SupportUsScreen : Screen() {
 

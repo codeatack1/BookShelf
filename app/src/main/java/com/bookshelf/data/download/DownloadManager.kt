@@ -1,13 +1,26 @@
 package com.bookshelf.data.download
 
 import android.content.Context
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.storage.extension
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.system.ImageUtil
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.download.model.Download
+import com.bookshelf.domain.category.interactor.GetCategories
+import com.bookshelf.domain.chapter.interactor.GetChapter
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.download.service.DownloadPreferences
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.i18n.MR
 import com.bookshelf.source.Source
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.online.HttpSource
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.drop
@@ -18,19 +31,6 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.runBlocking
 import logcat.LogPriority
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.storage.extension
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.system.ImageUtil
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.category.interactor.GetCategories
-import com.bookshelf.domain.chapter.interactor.GetChapter
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.download.service.DownloadPreferences
-import com.bookshelf.domain.textbook.interactor.GetTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.i18n.MR
 
 /**
  * This class is used to manage chapter downloads in the application. It must be instantiated once

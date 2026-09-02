@@ -1,15 +1,15 @@
 package com.bookshelf.data.source
 
 import androidx.paging.PagingState
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.domain.source.repository.SourcePagingSource
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.toDomainTextbook
 import com.bookshelf.source.Source
 import com.bookshelf.source.model.FilterList
 import com.bookshelf.source.model.TextbooksPage
 import kotlinx.coroutines.CancellationException
-import com.bookshelf.domain.textbook.model.toDomainTextbook
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.repository.SourcePagingSource
 
 class SourceSearchPagingSource(
     source: suspend () -> Source,

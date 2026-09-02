@@ -9,10 +9,14 @@ import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.core.net.toUri
-import dev.zacsweers.metro.Inject
-import com.bookshelf.presentation.webview.WebViewScreenContent
 import com.bookshelf.R
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.i18n.MR
 import com.bookshelf.network.NetworkHelper
+import com.bookshelf.presentation.core.screens.LoadingScreen
+import com.bookshelf.presentation.webview.WebViewScreenContent
 import com.bookshelf.source.online.HttpSource
 import com.bookshelf.ui.base.activity.BaseActivity
 import com.bookshelf.util.system.WebViewUtil
@@ -20,13 +24,9 @@ import com.bookshelf.util.system.openInBrowser
 import com.bookshelf.util.system.toShareIntent
 import com.bookshelf.util.system.toast
 import com.bookshelf.util.view.setComposeContent
+import dev.zacsweers.metro.Inject
 import logcat.LogPriority
-import com.bookshelf.app.di.appGraph
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.screens.LoadingScreen
 
 class WebViewActivity : BaseActivity() {
 

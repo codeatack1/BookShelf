@@ -5,8 +5,8 @@ import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
 import androidx.core.content.getSystemService
-import logcat.LogPriority
 import com.bookshelf.core.common.util.system.logcat
+import logcat.LogPriority
 
 object DeviceUtil {
 

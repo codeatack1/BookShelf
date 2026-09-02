@@ -17,17 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import com.bookshelf.domain.source.interactor.SetMigrateSorting
-import com.bookshelf.presentation.browse.components.BaseSourceItem
-import com.bookshelf.presentation.browse.components.SourceIcon
-import com.bookshelf.ui.browse.migration.sources.MigrateSourceViewModel
-import com.bookshelf.util.system.copyToClipboard
+import com.bookshelf.domain.source.model.Source
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.ArrowDownward
 import com.bookshelf.icons.materialsymbols.rounded.ArrowUpward
 import com.bookshelf.icons.materialsymbols.rounded.Numbers
 import com.bookshelf.icons.materialsymbols.rounded.SortByAlpha
-import com.bookshelf.domain.source.model.Source
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.browse.components.BaseSourceItem
+import com.bookshelf.presentation.browse.components.SourceIcon
 import com.bookshelf.presentation.core.components.Badge
 import com.bookshelf.presentation.core.components.BadgeGroup
 import com.bookshelf.presentation.core.components.ScrollbarLazyColumn
@@ -40,6 +38,8 @@ import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.theme.header
 import com.bookshelf.presentation.core.util.plus
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.ui.browse.migration.sources.MigrateSourceViewModel
+import com.bookshelf.util.system.copyToClipboard
 
 @Composable
 fun MigrateSourceScreen(

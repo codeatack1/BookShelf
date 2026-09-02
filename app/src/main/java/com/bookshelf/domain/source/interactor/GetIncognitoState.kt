@@ -1,9 +1,9 @@
 package com.bookshelf.domain.source.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.extension.ExtensionManager
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged

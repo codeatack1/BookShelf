@@ -3,6 +3,18 @@ package com.bookshelf.ui.deeplink
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.domain.chapter.interactor.GetChapterByUrlAndTextbookId
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.toDomainTextbook
+import com.bookshelf.source.Source
+import com.bookshelf.source.model.SChapter
+import com.bookshelf.source.online.ResolvableSource
+import com.bookshelf.source.online.UriType
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
@@ -10,21 +22,9 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
-import com.bookshelf.source.Source
-import com.bookshelf.source.model.SChapter
-import com.bookshelf.source.online.ResolvableSource
-import com.bookshelf.source.online.UriType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import com.bookshelf.domain.textbook.model.toDomainTextbook
-import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.domain.chapter.interactor.GetChapterByUrlAndTextbookId
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
 
 @AssistedInject
 class DeepLinkViewModel(

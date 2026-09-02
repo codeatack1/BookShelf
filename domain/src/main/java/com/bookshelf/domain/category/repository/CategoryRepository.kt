@@ -1,7 +1,7 @@
 package com.bookshelf.domain.category.repository
 
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.category.model.Category
+import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
 

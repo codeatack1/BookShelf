@@ -2,8 +2,8 @@
 
 package com.bookshelf.source.model
 
-import kotlinx.serialization.json.JsonObject
 import com.bookshelf.core.common.extensions.EMPTY
+import kotlinx.serialization.json.JsonObject
 
 class STextbookImpl : STextbook {
 

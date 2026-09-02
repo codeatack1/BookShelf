@@ -5,19 +5,19 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.IBinder
-import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.R
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.notification.Notifications
+import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.extension.installer.Installer
 import com.bookshelf.extension.installer.PackageInstallerInstaller
 import com.bookshelf.extension.installer.ShizukuInstaller
 import com.bookshelf.extension.util.ExtensionInstaller.Companion.EXTRA_DOWNLOAD_ID
+import com.bookshelf.i18n.MR
 import com.bookshelf.util.system.getSerializableExtraCompat
 import com.bookshelf.util.system.notificationBuilder
 import logcat.LogPriority
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.i18n.MR
 
 class ExtensionInstallService : Service() {
 

@@ -30,17 +30,9 @@ import coil3.request.transformations
 import coil3.size.Precision
 import coil3.size.Scale
 import coil3.transform.RoundedCornersTransformation
-import dev.zacsweers.metro.HasMemberInjections
-import dev.zacsweers.metro.Inject
-import com.bookshelf.core.security.SecurityPreferences
-import com.bookshelf.util.system.dpToPx
-import kotlinx.coroutines.flow.map
-import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
-import com.bookshelf.core.metro.metroGraph
-import com.bookshelf.presentation.widget.di.PresentationWidgetGraph
 import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.metro.metroGraph
+import com.bookshelf.core.security.SecurityPreferences
 import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.domain.updates.interactor.GetUpdates
 import com.bookshelf.domain.updates.model.UpdatesWithRelations
@@ -48,10 +40,18 @@ import com.bookshelf.presentation.widget.components.CoverHeight
 import com.bookshelf.presentation.widget.components.CoverWidth
 import com.bookshelf.presentation.widget.components.LockedWidget
 import com.bookshelf.presentation.widget.components.UpdatesWidget
+import com.bookshelf.presentation.widget.di.PresentationWidgetGraph
 import com.bookshelf.presentation.widget.util.appWidgetBackgroundRadius
 import com.bookshelf.presentation.widget.util.calculateRowAndColumnCount
+import com.bookshelf.util.system.dpToPx
+import dev.zacsweers.metro.HasMemberInjections
+import dev.zacsweers.metro.Inject
 import kotlin.time.Clock
 import kotlin.time.Instant
+import kotlinx.coroutines.flow.map
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.minus
 
 @HasMemberInjections
 abstract class BaseUpdatesGridGlanceWidget : GlanceAppWidget() {

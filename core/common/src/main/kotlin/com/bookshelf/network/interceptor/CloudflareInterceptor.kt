@@ -9,18 +9,18 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.i18n.MR
 import com.bookshelf.network.AndroidCookieJar
 import com.bookshelf.util.system.isOutdated
 import com.bookshelf.util.system.toast
+import java.io.IOException
+import java.util.concurrent.CountDownLatch
 import okhttp3.Cookie
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.i18n.MR
-import java.io.IOException
-import java.util.concurrent.CountDownLatch
 
 class CloudflareInterceptor(
     private val context: Context,

@@ -1,9 +1,9 @@
 package com.bookshelf.domain.source.interactor
 
-import dev.zacsweers.metro.Inject
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.source.model.SourceWithCount
 import com.bookshelf.domain.source.repository.SourceRepository
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
 
 @Inject
 class GetSourcesWithNonLibraryTextbook(

@@ -31,18 +31,18 @@ import androidx.preference.forEach
 import androidx.preference.getOnBindEditTextListener
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.util.Screen
 import com.bookshelf.R
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.data.preference.SharedPreferencesDataStore
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.core.components.material.Scaffold
+import com.bookshelf.presentation.core.screens.LoadingScreen
+import com.bookshelf.presentation.util.Screen
 import com.bookshelf.source.ConfigurableSource
 import com.bookshelf.source.Source
 import com.bookshelf.source.sourcePreferences
 import com.bookshelf.widget.TachiyomiTextInputEditText.Companion.setIncognito
 import kotlinx.coroutines.launch
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.presentation.core.components.material.Scaffold
-import com.bookshelf.presentation.core.screens.LoadingScreen
 
 class SourcePreferencesScreen(val sourceId: Long) : Screen() {
 

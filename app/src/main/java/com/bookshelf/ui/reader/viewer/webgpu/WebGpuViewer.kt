@@ -29,10 +29,8 @@ import ca.mpreg.webgpuviewer.transition.TransitionStackLeft
 import ca.mpreg.webgpuviewer.transition.TransitionStackRight
 import ca.mpreg.webgpuviewer.transition.TransitionStackUp
 import ca.mpreg.webgpuviewer.viewer.ImagePage
-import com.google.android.material.color.MaterialColors
-import de.stefan_oltmann.kim.Kim
-import de.stefan_oltmann.kim.android.readMetadata
-import de.stefan_oltmann.kim.format.tiff.constant.TiffTag
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.source.model.Page
 import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.ui.reader.model.ReaderChapter
@@ -45,6 +43,14 @@ import com.bookshelf.ui.reader.viewer.Viewer
 import com.bookshelf.ui.reader.viewer.ViewerNavigation.NavigationRegion
 import com.bookshelf.util.system.createReaderThemeContext
 import com.bookshelf.util.system.readerBackgroundColor
+import com.google.android.material.color.MaterialColors
+import de.stefan_oltmann.kim.Kim
+import de.stefan_oltmann.kim.android.readMetadata
+import de.stefan_oltmann.kim.format.tiff.constant.TiffTag
+import java.util.concurrent.Executors
+import kotlin.math.abs
+import kotlin.math.min
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -53,12 +59,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 import logcat.LogPriority
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.core.common.util.system.logcat
-import java.util.concurrent.Executors
-import kotlin.math.abs
-import kotlin.math.min
-import kotlin.time.Duration.Companion.milliseconds
 
 open class WebGpuViewer(
     val activity: ReaderActivity,

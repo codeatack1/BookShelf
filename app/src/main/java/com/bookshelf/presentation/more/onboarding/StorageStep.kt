@@ -18,14 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.more.settings.screen.SettingsDataScreen
-import com.bookshelf.util.system.toast
-import kotlinx.coroutines.flow.collectLatest
 import com.bookshelf.app.di.appGraph
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.Button
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.more.settings.screen.SettingsDataScreen
+import com.bookshelf.util.system.toast
+import kotlinx.coroutines.flow.collectLatest
 
 internal class StorageStep : OnboardingStep {
 

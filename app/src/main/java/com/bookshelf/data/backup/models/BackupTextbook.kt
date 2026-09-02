@@ -1,11 +1,11 @@
 package com.bookshelf.data.backup.models
 
-import com.bookshelf.source.model.UpdateStrategy
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.protobuf.ProtoNumber
 import com.bookshelf.core.common.extensions.JsonObjectEmptyBytes
 import com.bookshelf.data.MemoColumnAdapter
 import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.source.model.UpdateStrategy
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.protobuf.ProtoNumber
 
 @Suppress("DEPRECATION")
 @Serializable

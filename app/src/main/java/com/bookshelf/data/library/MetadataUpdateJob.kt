@@ -9,10 +9,23 @@ import androidx.work.ForegroundInfo
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import dev.zacsweers.metro.Inject
+import com.bookshelf.app.di.AppGraph
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.core.metro.metroGraph
 import com.bookshelf.data.notification.Notifications
+import com.bookshelf.domain.library.model.LibraryTextbook
+import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.interactor.GetLibraryTextbook
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.util.system.isRunning
 import com.bookshelf.util.system.setForegroundSafely
+import dev.zacsweers.metro.Inject
+import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.concurrent.atomics.AtomicInt
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
+import kotlin.concurrent.atomics.fetchAndIncrement
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -21,19 +34,6 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import logcat.LogPriority
-import com.bookshelf.app.di.AppGraph
-import com.bookshelf.core.metro.metroGraph
-import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.library.model.LibraryTextbook
-import com.bookshelf.domain.textbook.interactor.GetLibraryTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
-import java.util.concurrent.CopyOnWriteArrayList
-import kotlin.concurrent.atomics.AtomicInt
-import kotlin.concurrent.atomics.ExperimentalAtomicApi
-import kotlin.concurrent.atomics.fetchAndIncrement
 
 @OptIn(ExperimentalAtomicApi::class)
 class MetadataUpdateJob(private val context: Context, workerParams: WorkerParameters) :

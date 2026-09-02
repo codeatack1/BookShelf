@@ -1,7 +1,7 @@
 package com.bookshelf.domain.chapter.model
 
-import kotlinx.serialization.json.JsonObject
 import com.bookshelf.core.common.extensions.EMPTY
+import kotlinx.serialization.json.JsonObject
 
 data class Chapter(
     val id: Long,

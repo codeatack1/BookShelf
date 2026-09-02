@@ -6,8 +6,8 @@ import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.category.visualName
 import com.bookshelf.domain.category.model.Category
+import com.bookshelf.presentation.category.visualName
 import com.bookshelf.presentation.core.components.material.TabText
 
 @Composable

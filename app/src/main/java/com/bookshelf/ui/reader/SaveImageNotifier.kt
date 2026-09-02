@@ -9,15 +9,15 @@ import coil3.imageLoader
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import com.bookshelf.R
+import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.data.notification.NotificationHandler
 import com.bookshelf.data.notification.NotificationReceiver
 import com.bookshelf.data.notification.Notifications
+import com.bookshelf.i18n.MR
 import com.bookshelf.util.system.cancelNotification
 import com.bookshelf.util.system.getBitmapOrNull
 import com.bookshelf.util.system.notificationBuilder
 import com.bookshelf.util.system.notify
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.i18n.MR
 
 /**
  * Class used to show BigPictureStyle notifications

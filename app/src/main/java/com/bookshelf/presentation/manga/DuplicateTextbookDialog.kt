@@ -46,14 +46,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastMaxOfOrNull
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.bookshelf.presentation.components.AdaptiveSheet
-import com.bookshelf.presentation.components.TabbedDialogPaddings
-import com.bookshelf.presentation.manga.components.TextbookCover
-import com.bookshelf.presentation.more.settings.LocalPreferenceMinHeight
-import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
-import com.bookshelf.source.Source
-import com.bookshelf.source.model.STextbook
 import com.bookshelf.app.di.appGraph
+import com.bookshelf.domain.source.model.StubSource
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Add
 import com.bookshelf.icons.materialsymbols.rounded.AttachMoney
@@ -66,16 +63,19 @@ import com.bookshelf.icons.materialsymbols.rounded.Pause
 import com.bookshelf.icons.materialsymbols.rounded.Person
 import com.bookshelf.icons.materialsymbols.rounded.Schedule
 import com.bookshelf.icons.materialsymbols.rounded.Warning
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
-import com.bookshelf.domain.source.model.StubSource
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AdaptiveSheet
+import com.bookshelf.presentation.components.TabbedDialogPaddings
 import com.bookshelf.presentation.core.components.Badge
 import com.bookshelf.presentation.core.components.BadgeGroup
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.more.settings.LocalPreferenceMinHeight
+import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
+import com.bookshelf.source.Source
+import com.bookshelf.source.model.STextbook
 
 @Composable
 fun DuplicateTextbookDialog(

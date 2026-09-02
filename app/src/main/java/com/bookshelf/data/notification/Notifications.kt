@@ -5,10 +5,10 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.NotificationManagerCompat.IMPORTANCE_DEFAULT
 import androidx.core.app.NotificationManagerCompat.IMPORTANCE_HIGH
 import androidx.core.app.NotificationManagerCompat.IMPORTANCE_LOW
-import com.bookshelf.util.system.buildNotificationChannel
-import com.bookshelf.util.system.buildNotificationChannelGroup
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.i18n.MR
+import com.bookshelf.util.system.buildNotificationChannel
+import com.bookshelf.util.system.buildNotificationChannelGroup
 
 /**
  * Class to manage the basic information of all the notifications used in the app.

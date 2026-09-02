@@ -1,9 +1,9 @@
 package com.bookshelf.data.backup
 
 import android.net.Uri
-import dev.zacsweers.metro.Inject
 import com.bookshelf.data.track.TrackerManager
 import com.bookshelf.domain.source.service.SourceManager
+import dev.zacsweers.metro.Inject
 
 @Inject
 class BackupFileValidator(

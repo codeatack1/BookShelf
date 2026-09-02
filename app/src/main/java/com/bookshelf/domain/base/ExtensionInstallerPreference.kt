@@ -1,13 +1,13 @@
 package com.bookshelf.domain.base
 
 import android.content.Context
+import com.bookshelf.core.common.preference.Preference
+import com.bookshelf.core.common.preference.PreferenceStore
+import com.bookshelf.core.common.preference.getEnum
 import com.bookshelf.domain.base.BasePreferences.ExtensionInstaller
 import com.bookshelf.util.system.hasMiuiPackageInstaller
 import com.bookshelf.util.system.isShizukuInstalled
 import kotlinx.coroutines.CoroutineScope
-import com.bookshelf.core.common.preference.Preference
-import com.bookshelf.core.common.preference.PreferenceStore
-import com.bookshelf.core.common.preference.getEnum
 
 class ExtensionInstallerPreference(
     private val context: Context,

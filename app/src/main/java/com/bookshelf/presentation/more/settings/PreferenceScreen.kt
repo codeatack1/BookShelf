@@ -11,11 +11,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
+import com.bookshelf.presentation.core.components.ScrollbarLazyColumn
 import com.bookshelf.presentation.more.settings.screen.SearchableSettings
 import com.bookshelf.presentation.more.settings.widget.PreferenceGroupHeader
-import kotlinx.coroutines.delay
-import com.bookshelf.presentation.core.components.ScrollbarLazyColumn
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.delay
 
 /**
  * Preference Screen composable which contains a list of [Preference] items

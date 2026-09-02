@@ -8,19 +8,19 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.bookshelf.presentation.category.components.CategoryFloatingActionButton
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.more.settings.screen.browse.ExtensionStoreScreenState
 import com.bookshelf.domain.extension.model.ExtensionStore
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Refresh
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.category.components.CategoryFloatingActionButton
+import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.components.material.topSmallPaddingValues
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.util.plus
+import com.bookshelf.presentation.more.settings.screen.browse.ExtensionStoreScreenState
 
 @Composable
 fun ExtensionStoresScreen(

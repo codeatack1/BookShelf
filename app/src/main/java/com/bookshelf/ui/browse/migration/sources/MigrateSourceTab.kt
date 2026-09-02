@@ -7,15 +7,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.metroViewModel
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.automirroredrounded.Help
 import com.bookshelf.presentation.browse.MigrateSourceScreen
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.TabContent
-import com.bookshelf.ui.browse.migration.manga.MigrateTextbookScreen
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.automirroredrounded.Help
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.ui.browse.migration.manga.MigrateTextbookScreen
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 @Composable
 fun Screen.migrateSourceTab(): TabContent {

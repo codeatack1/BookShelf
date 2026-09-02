@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
+import com.bookshelf.core.common.Constants
 import com.bookshelf.extension.util.ExtensionInstaller
 import com.bookshelf.ui.main.MainActivity
-import com.bookshelf.core.common.Constants
 
 /**
  * Class that manages [PendingIntent] of activity's

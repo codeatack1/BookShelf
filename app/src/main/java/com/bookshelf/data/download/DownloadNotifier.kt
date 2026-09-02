@@ -4,19 +4,19 @@ import android.app.PendingIntent
 import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
-import dev.zacsweers.metro.Inject
 import com.bookshelf.R
+import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.security.SecurityPreferences
 import com.bookshelf.data.download.model.Download
 import com.bookshelf.data.notification.NotificationHandler
 import com.bookshelf.data.notification.NotificationReceiver
 import com.bookshelf.data.notification.Notifications
+import com.bookshelf.i18n.MR
 import com.bookshelf.util.lang.chop
 import com.bookshelf.util.system.cancelNotification
 import com.bookshelf.util.system.notificationBuilder
 import com.bookshelf.util.system.notify
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.i18n.MR
+import dev.zacsweers.metro.Inject
 import java.util.regex.Pattern
 
 /**

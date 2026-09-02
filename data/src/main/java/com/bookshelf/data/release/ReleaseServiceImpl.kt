@@ -1,18 +1,18 @@
 package com.bookshelf.data.release
 
 import android.os.Build
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesBinding
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
+import com.bookshelf.domain.release.interactor.GetApplicationRelease
+import com.bookshelf.domain.release.model.Release
+import com.bookshelf.domain.release.service.ReleaseService
 import com.bookshelf.network.GET
 import com.bookshelf.network.NetworkHelper
 import com.bookshelf.network.awaitSuccess
 import com.bookshelf.network.parseAs
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlinx.serialization.json.Json
-import com.bookshelf.domain.release.interactor.GetApplicationRelease
-import com.bookshelf.domain.release.model.Release
-import com.bookshelf.domain.release.service.ReleaseService
 
 @Inject
 @SingleIn(AppScope::class)

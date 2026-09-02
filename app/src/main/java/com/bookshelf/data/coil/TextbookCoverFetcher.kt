@@ -11,11 +11,17 @@ import coil3.fetch.Fetcher
 import coil3.fetch.SourceFetchResult
 import coil3.getOrDefault
 import coil3.request.Options
-import com.hippo.unifile.UniFile
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.cache.CoverCache
 import com.bookshelf.data.coil.TextbookCoverFetcher.Companion.USE_CUSTOM_COVER_KEY
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.network.await
 import com.bookshelf.source.online.HttpSource
+import com.hippo.unifile.UniFile
+import java.io.File
+import java.io.IOException
 import logcat.LogPriority
 import okhttp3.CacheControl
 import okhttp3.Call
@@ -27,12 +33,6 @@ import okio.Source
 import okio.buffer
 import okio.sink
 import okio.source
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.textbook.model.TextbookCover
-import com.bookshelf.domain.source.service.SourceManager
-import java.io.File
-import java.io.IOException
 
 /**
  * A [Fetcher] that fetches cover image for [Textbook] object.

@@ -9,15 +9,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.domain.textbook.model.readerOrientation
 import com.bookshelf.domain.textbook.model.readingMode
-import com.bookshelf.ui.reader.setting.ReaderOrientation
-import com.bookshelf.ui.reader.setting.ReaderPreferences
-import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
-import com.bookshelf.ui.reader.setting.ReadingMode
-import com.bookshelf.ui.reader.viewer.webgpu.WebGpuViewer
-import com.bookshelf.ui.reader.viewer.webtoon.WebtoonViewer
-import com.bookshelf.app.di.appGraph
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.CheckboxItem
 import com.bookshelf.presentation.core.components.HeadingItem
@@ -25,6 +19,12 @@ import com.bookshelf.presentation.core.components.SettingsChipRow
 import com.bookshelf.presentation.core.components.SliderItem
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.ui.reader.setting.ReaderOrientation
+import com.bookshelf.ui.reader.setting.ReaderPreferences
+import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
+import com.bookshelf.ui.reader.setting.ReadingMode
+import com.bookshelf.ui.reader.viewer.webgpu.WebGpuViewer
+import com.bookshelf.ui.reader.viewer.webtoon.WebtoonViewer
 import java.text.NumberFormat
 
 @Composable

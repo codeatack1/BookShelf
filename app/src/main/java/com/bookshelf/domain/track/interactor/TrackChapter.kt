@@ -1,19 +1,19 @@
 package com.bookshelf.domain.track.interactor
 
 import android.content.Context
-import dev.zacsweers.metro.Inject
+import com.bookshelf.core.common.util.lang.withNonCancellableContext
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.data.track.TrackerManager
+import com.bookshelf.domain.track.interactor.GetTracks
+import com.bookshelf.domain.track.interactor.InsertTrack
 import com.bookshelf.domain.track.model.toDbTrack
 import com.bookshelf.domain.track.model.toDomainTrack
 import com.bookshelf.domain.track.service.DelayedTrackingUpdateJob
 import com.bookshelf.domain.track.store.DelayedTrackingStore
-import com.bookshelf.data.track.TrackerManager
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import logcat.LogPriority
-import com.bookshelf.core.common.util.lang.withNonCancellableContext
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.track.interactor.GetTracks
-import com.bookshelf.domain.track.interactor.InsertTrack
 
 @Inject
 class TrackChapter(

@@ -1,10 +1,10 @@
 package com.bookshelf.domain.chapter.interactor
 
-import dev.zacsweers.metro.Inject
-import logcat.LogPriority
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.repository.ChapterRepository
+import dev.zacsweers.metro.Inject
+import logcat.LogPriority
 
 @Inject
 class GetBookmarkedChaptersByTextbookId(

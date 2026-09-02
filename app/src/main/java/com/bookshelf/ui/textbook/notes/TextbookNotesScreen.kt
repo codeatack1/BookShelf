@@ -8,6 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.bookshelf.core.common.util.lang.launchNonCancellable
+import com.bookshelf.domain.textbook.interactor.UpdateTextbookNotes
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.presentation.manga.TextbookNotesScreen
+import com.bookshelf.presentation.util.Screen
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
@@ -16,14 +21,9 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
-import com.bookshelf.presentation.manga.TextbookNotesScreen
-import com.bookshelf.presentation.util.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import com.bookshelf.core.common.util.lang.launchNonCancellable
-import com.bookshelf.domain.textbook.interactor.UpdateTextbookNotes
-import com.bookshelf.domain.textbook.model.Textbook
 
 class TextbookNotesScreen(
     private val manga: Textbook,

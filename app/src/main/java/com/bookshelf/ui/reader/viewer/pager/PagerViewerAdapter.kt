@@ -2,6 +2,7 @@ package com.bookshelf.ui.reader.viewer.pager
 
 import android.view.View
 import android.view.ViewGroup
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.ui.reader.model.ChapterTransition
 import com.bookshelf.ui.reader.model.InsertPage
 import com.bookshelf.ui.reader.model.ReaderChapter
@@ -10,7 +11,6 @@ import com.bookshelf.ui.reader.model.ViewerChapters
 import com.bookshelf.ui.reader.viewer.calculateChapterGap
 import com.bookshelf.util.system.createReaderThemeContext
 import com.bookshelf.widget.ViewPagerAdapter
-import com.bookshelf.core.common.util.system.logcat
 
 /**
  * Pager adapter used by this [viewer] to where [ViewerChapters] updates are posted.

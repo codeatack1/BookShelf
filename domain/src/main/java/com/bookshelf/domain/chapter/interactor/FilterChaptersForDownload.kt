@@ -1,11 +1,11 @@
 package com.bookshelf.domain.chapter.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.download.service.DownloadPreferences
 import com.bookshelf.domain.textbook.model.Textbook
+import dev.zacsweers.metro.Inject
 
 /**
  * Interactor responsible for determining which chapters of a manga should be downloaded.

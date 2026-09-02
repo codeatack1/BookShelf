@@ -1,18 +1,18 @@
 package com.bookshelf.network
 
 import android.content.Context
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
 import com.bookshelf.network.interceptor.CloudflareInterceptor
 import com.bookshelf.network.interceptor.UncaughtExceptionInterceptor
 import com.bookshelf.network.interceptor.UserAgentInterceptor
-import okhttp3.Cache
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import java.io.File
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
+import okhttp3.Cache
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 
 @Inject
 @SingleIn(AppScope::class)

@@ -20,20 +20,20 @@ import androidx.compose.ui.util.fastForEachIndexed
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.metroViewModel
+import com.bookshelf.core.common.preference.TriState
+import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.category.visualName
 import com.bookshelf.presentation.components.TabbedDialog
 import com.bookshelf.presentation.components.TabbedDialogPaddings
-import com.bookshelf.presentation.util.Screen
-import com.bookshelf.ui.textbook.TextbookScreen
-import com.bookshelf.core.common.preference.TriState
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.SettingsItemsPaddings
 import com.bookshelf.presentation.core.components.TriStateItem
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.presentation.util.Screen
+import com.bookshelf.ui.textbook.TextbookScreen
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 class UpcomingScreen : Screen() {
 

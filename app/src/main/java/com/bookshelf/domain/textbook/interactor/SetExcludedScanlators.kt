@@ -1,8 +1,8 @@
 package com.bookshelf.domain.textbook.interactor
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
-import dev.zacsweers.metro.Inject
 import com.bookshelf.data.Database
+import dev.zacsweers.metro.Inject
 
 @Inject
 class SetExcludedScanlators(

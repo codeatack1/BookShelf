@@ -21,17 +21,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.os.LocaleListCompat
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.util.Screen
 import com.bookshelf.R
-import com.bookshelf.util.system.LocaleHelper
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.Check
-import org.xmlpull.v1.XmlPullParser
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.Check
+import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.util.Screen
+import com.bookshelf.util.system.LocaleHelper
+import org.xmlpull.v1.XmlPullParser
 
 class AppLanguageScreen : Screen() {
 

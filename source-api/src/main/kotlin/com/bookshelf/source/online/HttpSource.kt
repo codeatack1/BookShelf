@@ -1,5 +1,6 @@
 package com.bookshelf.source.online
 
+import com.bookshelf.core.common.util.lang.awaitSingle
 import com.bookshelf.network.GET
 import com.bookshelf.network.NetworkHelper
 import com.bookshelf.network.asObservableSuccess
@@ -7,20 +8,19 @@ import com.bookshelf.network.awaitSuccess
 import com.bookshelf.network.newCachelessCallWithProgress
 import com.bookshelf.source.CatalogueSource
 import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.model.SChapter
 import com.bookshelf.source.model.STextbook
+import com.bookshelf.source.model.TextbooksPage
+import java.net.URI
+import java.net.URISyntaxException
+import java.security.MessageDigest
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import rx.Observable
-import com.bookshelf.core.common.util.lang.awaitSingle
 import uy.kohesive.injekt.injectLazy
-import java.net.URI
-import java.net.URISyntaxException
-import java.security.MessageDigest
 
 /**
  * A simple implementation for sources from a website.

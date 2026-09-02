@@ -1,16 +1,16 @@
 package com.bookshelf.ui.updates
 
 import androidx.lifecycle.ViewModel
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import com.bookshelf.core.common.preference.Preference
 import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.core.common.preference.getAndSet
 import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.updates.service.UpdatesPreferences
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 
 @Inject
 @ViewModelKey

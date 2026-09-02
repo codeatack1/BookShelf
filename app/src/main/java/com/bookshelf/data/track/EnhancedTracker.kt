@@ -1,9 +1,9 @@
 package com.bookshelf.data.track
 
 import com.bookshelf.data.track.model.TrackSearch
-import com.bookshelf.source.Source
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.track.model.Track
+import com.bookshelf.source.Source
 
 /**
  * A tracker that will never prompt the user to manually bind an entry.

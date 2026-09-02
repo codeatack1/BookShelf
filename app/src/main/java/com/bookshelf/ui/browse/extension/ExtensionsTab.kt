@@ -13,16 +13,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.bookshelf.extension.model.Extension
+import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.browse.ExtensionScreen
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.TabContent
+import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.more.settings.screen.browse.ExtensionStoresScreen
-import com.bookshelf.extension.model.Extension
 import com.bookshelf.ui.browse.extension.details.ExtensionDetailsScreen
 import com.bookshelf.ui.webview.WebViewScreen
 import com.bookshelf.util.system.isPackageInstalled
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
 
 @Composable
 fun extensionsTab(

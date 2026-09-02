@@ -9,10 +9,10 @@ import android.webkit.WebView
 import androidx.webkit.UserAgentMetadata
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
-import kotlinx.coroutines.suspendCancellableCoroutine
-import logcat.LogPriority
 import com.bookshelf.core.common.util.system.logcat
 import kotlin.coroutines.resume
+import kotlinx.coroutines.suspendCancellableCoroutine
+import logcat.LogPriority
 
 object WebViewUtil {
     private const val CHROME_PACKAGE = "com.android.chrome"

@@ -14,30 +14,30 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import com.bookshelf.R
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.preference.asState
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.domain.base.BasePreferences
+import com.bookshelf.feature.support.SupportUsScreen
+import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.more.MoreScreen
+import com.bookshelf.presentation.util.Tab
+import com.bookshelf.ui.category.CategoryScreen
+import com.bookshelf.ui.download.DownloadQueueScreen
+import com.bookshelf.ui.setting.SettingsScreen
+import com.bookshelf.ui.stats.StatsScreen
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import dev.zacsweers.metrox.viewmodel.metroViewModel
-import com.bookshelf.core.preference.asState
-import com.bookshelf.domain.base.BasePreferences
-import com.bookshelf.presentation.more.MoreScreen
-import com.bookshelf.presentation.util.Tab
-import com.bookshelf.R
-import com.bookshelf.data.download.DownloadManager
-import com.bookshelf.ui.category.CategoryScreen
-import com.bookshelf.ui.download.DownloadQueueScreen
-import com.bookshelf.ui.setting.SettingsScreen
-import com.bookshelf.ui.stats.StatsScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import com.bookshelf.feature.support.SupportUsScreen
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
 
 data object MoreTab : Tab {
 

@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.domain.ui.model.AppTheme
 import com.bookshelf.presentation.theme.colorscheme.BaseColorScheme
 import com.bookshelf.presentation.theme.colorscheme.CatppuccinColorScheme
@@ -24,7 +25,6 @@ import com.bookshelf.presentation.theme.colorscheme.TidalWaveColorScheme
 import com.bookshelf.presentation.theme.colorscheme.TokyoNightColorScheme
 import com.bookshelf.presentation.theme.colorscheme.YinYangColorScheme
 import com.bookshelf.presentation.theme.colorscheme.YotsubaColorScheme
-import com.bookshelf.app.di.appGraph
 
 @Composable
 fun BookShelfTheme(

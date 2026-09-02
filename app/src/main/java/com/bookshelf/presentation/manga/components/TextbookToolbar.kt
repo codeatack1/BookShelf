@@ -11,19 +11,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.components.AppBarTitle
-import com.bookshelf.presentation.components.DownloadDropdownMenu
-import com.bookshelf.presentation.manga.DownloadAction
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Download
 import com.bookshelf.icons.materialsymbols.rounded.FilterList
 import com.bookshelf.icons.materialsymbols.rounded.FlipToBack
 import com.bookshelf.icons.materialsymbols.rounded.SelectAll
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
+import com.bookshelf.presentation.components.AppBarTitle
+import com.bookshelf.presentation.components.DownloadDropdownMenu
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.theme.active
+import com.bookshelf.presentation.manga.DownloadAction
 
 @Composable
 fun TextbookToolbar(

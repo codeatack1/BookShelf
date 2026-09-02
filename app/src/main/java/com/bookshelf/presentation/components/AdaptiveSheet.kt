@@ -12,9 +12,9 @@ import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.lifecycle.DisposableEffectIgnoringConfiguration
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
+import com.bookshelf.presentation.core.components.AdaptiveSheet as AdaptiveSheetImpl
 import com.bookshelf.presentation.util.ScreenTransition
 import com.bookshelf.presentation.util.isTabletUi
-import com.bookshelf.presentation.core.components.AdaptiveSheet as AdaptiveSheetImpl
 
 @OptIn(InternalVoyagerApi::class)
 @Composable

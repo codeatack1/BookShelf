@@ -10,9 +10,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.data.track.Tracker
 import com.bookshelf.presentation.core.util.clickableNoIndication
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 
 @Composable
 fun TrackLogoIcon(

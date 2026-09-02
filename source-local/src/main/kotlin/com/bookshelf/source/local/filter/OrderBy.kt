@@ -1,9 +1,9 @@
 package com.bookshelf.source.local.filter
 
 import android.content.Context
-import com.bookshelf.source.model.Filter
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.i18n.MR
+import com.bookshelf.source.model.Filter
 
 sealed class OrderBy(context: Context, selection: Selection) : Filter.Sort(
     context.stringResource(MR.strings.local_filter_order_by),

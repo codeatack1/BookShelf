@@ -9,14 +9,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.FragmentActivity
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.bookshelf.presentation.more.settings.Preference
-import com.bookshelf.presentation.more.settings.screen.browse.ExtensionStoresScreen
-import com.bookshelf.util.system.AuthenticatorUtil.authenticate
 import com.bookshelf.app.di.appGraph
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.more.settings.Preference
+import com.bookshelf.presentation.more.settings.screen.browse.ExtensionStoresScreen
+import com.bookshelf.util.system.AuthenticatorUtil.authenticate
 
 object SettingsBrowseScreen : SearchableSettings {
 

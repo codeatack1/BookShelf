@@ -1,8 +1,8 @@
 package com.bookshelf.domain.history.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.history.model.HistoryWithRelations
 import com.bookshelf.domain.history.repository.HistoryRepository
+import dev.zacsweers.metro.Inject
 
 @Inject
 class RemoveHistory(

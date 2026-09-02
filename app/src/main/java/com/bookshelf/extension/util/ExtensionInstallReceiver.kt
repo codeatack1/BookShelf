@@ -7,13 +7,13 @@ import android.content.IntentFilter
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.bookshelf.BuildConfig
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.extension.model.Extension
 import com.bookshelf.extension.model.LoadResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import logcat.LogPriority
-import com.bookshelf.core.common.util.system.logcat
 
 /**
  * Broadcast receiver that listens for the system's packages installed, updated or removed, and only

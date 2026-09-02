@@ -6,16 +6,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import com.bookshelf.presentation.more.settings.Preference
-import com.bookshelf.ui.reader.setting.ReaderOrientation
-import com.bookshelf.ui.reader.setting.ReaderPreferences
-import com.bookshelf.ui.reader.setting.ReadingMode
-import com.bookshelf.util.system.hasDisplayCutout
 import com.bookshelf.app.di.appGraph
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.presentation.more.settings.Preference
+import com.bookshelf.ui.reader.setting.ReaderOrientation
+import com.bookshelf.ui.reader.setting.ReaderPreferences
+import com.bookshelf.ui.reader.setting.ReadingMode
+import com.bookshelf.util.system.hasDisplayCutout
 import java.text.NumberFormat
 
 object SettingsReaderScreen : SearchableSettings {

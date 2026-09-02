@@ -8,16 +8,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.util.Screen
-import com.bookshelf.ui.browse.source.globalsearch.GlobalSearchScreen
-import com.bookshelf.ui.textbook.TextbookScreen
-import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.LoadingScreen
+import com.bookshelf.presentation.util.Screen
+import com.bookshelf.ui.browse.source.globalsearch.GlobalSearchScreen
+import com.bookshelf.ui.reader.ReaderActivity
+import com.bookshelf.ui.textbook.TextbookScreen
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 
 class DeepLinkScreen(
     val query: String = "",

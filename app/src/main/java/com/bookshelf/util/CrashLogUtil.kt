@@ -2,9 +2,10 @@ package com.bookshelf.util
 
 import android.content.Context
 import android.os.Build
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.BuildConfig
+import com.bookshelf.core.common.util.lang.withNonCancellableContext
+import com.bookshelf.core.common.util.lang.withUIContext
+import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.extension.ExtensionManager
 import com.bookshelf.network.NetworkPreferences
 import com.bookshelf.util.storage.getUriCompat
@@ -12,12 +13,11 @@ import com.bookshelf.util.system.WebViewUtil
 import com.bookshelf.util.system.createFileInCacheDir
 import com.bookshelf.util.system.toShareIntent
 import com.bookshelf.util.system.toast
+import dev.zacsweers.metro.Inject
+import kotlin.time.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
-import com.bookshelf.core.common.util.lang.withNonCancellableContext
-import com.bookshelf.core.common.util.lang.withUIContext
-import kotlin.time.Clock
 
 @Inject
 class CrashLogUtil(

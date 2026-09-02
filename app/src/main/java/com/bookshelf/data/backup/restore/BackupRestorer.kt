@@ -2,31 +2,26 @@ package com.bookshelf.data.backup.restore
 
 import android.content.Context
 import android.net.Uri
-import dev.zacsweers.metro.Assisted
-import dev.zacsweers.metro.AssistedFactory
-import dev.zacsweers.metro.AssistedInject
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.data.Database
 import com.bookshelf.data.backup.BackupDecoder
 import com.bookshelf.data.backup.BackupNotifier
 import com.bookshelf.data.backup.models.BackupCategory
 import com.bookshelf.data.backup.models.BackupExtensionStore
-import com.bookshelf.data.backup.models.BackupTextbook
 import com.bookshelf.data.backup.models.BackupPreference
 import com.bookshelf.data.backup.models.BackupSourcePreferences
+import com.bookshelf.data.backup.models.BackupTextbook
 import com.bookshelf.data.backup.restore.restorers.CategoriesRestorer
 import com.bookshelf.data.backup.restore.restorers.ExtensionStoreRestorer
-import com.bookshelf.data.backup.restore.restorers.TextbookRestorer
 import com.bookshelf.data.backup.restore.restorers.PreferenceRestorer
+import com.bookshelf.data.backup.restore.restorers.TextbookRestorer
 import com.bookshelf.data.download.DownloadCache
-import com.bookshelf.util.system.createFileInCacheDir
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.launch
-import logcat.LogPriority
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.data.Database
 import com.bookshelf.i18n.MR
+import com.bookshelf.util.system.createFileInCacheDir
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -35,6 +30,11 @@ import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.concurrent.atomics.AtomicInt
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 import kotlin.concurrent.atomics.incrementAndFetch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
+import logcat.LogPriority
 
 @OptIn(ExperimentalAtomicApi::class)
 @AssistedInject

@@ -3,12 +3,19 @@ package com.bookshelf.presentation.more.settings.screen.browse
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.domain.extension.interactor.AddExtensionStore
+import com.bookshelf.domain.extension.interactor.GetExtensionStores
+import com.bookshelf.domain.extension.interactor.RemoveExtensionStore
+import com.bookshelf.domain.extension.interactor.UpdateExtensionStores
+import com.bookshelf.domain.extension.model.ExtensionStore
+import com.bookshelf.extension.ExtensionManager
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.binding
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
-import com.bookshelf.extension.ExtensionManager
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,13 +26,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import com.bookshelf.domain.extension.interactor.AddExtensionStore
-import com.bookshelf.domain.extension.interactor.GetExtensionStores
-import com.bookshelf.domain.extension.interactor.RemoveExtensionStore
-import com.bookshelf.domain.extension.interactor.UpdateExtensionStores
-import com.bookshelf.domain.extension.model.ExtensionStore
-import com.bookshelf.core.common.util.lang.launchIO
-import kotlin.time.Duration.Companion.seconds
 
 @Inject
 @ViewModelKey

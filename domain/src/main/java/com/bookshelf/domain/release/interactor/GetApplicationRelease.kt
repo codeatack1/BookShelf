@@ -1,8 +1,8 @@
 package com.bookshelf.domain.release.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.release.model.Release
 import com.bookshelf.domain.release.service.ReleaseService
+import dev.zacsweers.metro.Inject
 
 @Inject
 class GetApplicationRelease(

@@ -1,12 +1,12 @@
 package com.bookshelf.presentation.util
 
 import android.content.Context
-import com.bookshelf.network.HttpException
-import com.bookshelf.util.system.isOnline
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.data.source.NoResultsException
 import com.bookshelf.domain.source.model.SourceNotInstalledException
 import com.bookshelf.i18n.MR
+import com.bookshelf.network.HttpException
+import com.bookshelf.util.system.isOnline
 import java.net.UnknownHostException
 
 context(context: Context)

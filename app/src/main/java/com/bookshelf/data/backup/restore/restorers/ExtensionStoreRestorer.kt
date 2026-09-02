@@ -1,8 +1,8 @@
 package com.bookshelf.data.backup.restore.restorers
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.data.backup.models.BackupExtensionStore
 import com.bookshelf.data.Database
+import com.bookshelf.data.backup.models.BackupExtensionStore
+import dev.zacsweers.metro.Inject
 
 @Inject
 class ExtensionStoreRestorer(

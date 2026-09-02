@@ -2,11 +2,11 @@ package com.bookshelf.ui.download
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bookshelf.R
+import com.bookshelf.data.download.model.Download
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.AbstractSectionableItem
 import eu.davidea.flexibleadapter.items.IFlexible
-import com.bookshelf.R
-import com.bookshelf.data.download.model.Download
 
 class DownloadItem(
     val download: Download,

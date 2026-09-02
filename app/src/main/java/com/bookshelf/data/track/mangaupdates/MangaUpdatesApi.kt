@@ -1,5 +1,6 @@
 package com.bookshelf.data.track.mangaupdates
 
+import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.mangaupdates.MangaUpdates.Companion.READING_LIST
 import com.bookshelf.data.track.mangaupdates.MangaUpdates.Companion.WISH_LIST
@@ -10,6 +11,7 @@ import com.bookshelf.data.track.mangaupdates.dto.MULoginResponse
 import com.bookshelf.data.track.mangaupdates.dto.MURating
 import com.bookshelf.data.track.mangaupdates.dto.MURecord
 import com.bookshelf.data.track.mangaupdates.dto.MUSearchResult
+import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.network.DELETE
 import com.bookshelf.network.GET
 import com.bookshelf.network.POST
@@ -27,9 +29,7 @@ import kotlinx.serialization.json.putJsonObject
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
-import com.bookshelf.core.common.util.lang.withIOContext
 import uy.kohesive.injekt.injectLazy
-import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class MangaUpdatesApi(
     interceptor: MangaUpdatesInterceptor,

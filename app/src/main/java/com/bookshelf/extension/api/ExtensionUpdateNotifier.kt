@@ -2,17 +2,17 @@ package com.bookshelf.extension.api
 
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
 import com.bookshelf.R
+import com.bookshelf.core.common.i18n.pluralStringResource
 import com.bookshelf.core.security.SecurityPreferences
 import com.bookshelf.data.notification.NotificationReceiver
 import com.bookshelf.data.notification.Notifications
+import com.bookshelf.i18n.MR
 import com.bookshelf.util.system.cancelNotification
 import com.bookshelf.util.system.notify
-import com.bookshelf.core.common.i18n.pluralStringResource
-import com.bookshelf.i18n.MR
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 
 @Inject
 @SingleIn(AppScope::class)

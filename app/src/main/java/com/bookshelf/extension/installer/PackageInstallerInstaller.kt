@@ -11,12 +11,12 @@ import android.content.pm.PackageInstaller
 import android.os.Build
 import androidx.core.content.ContextCompat
 import androidx.core.content.IntentSanitizer
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.extension.model.InstallStep
 import com.bookshelf.util.lang.use
 import com.bookshelf.util.system.getParcelableExtraCompat
 import com.bookshelf.util.system.getUriSize
 import logcat.LogPriority
-import com.bookshelf.core.common.util.system.logcat
 
 class PackageInstallerInstaller(private val service: Service) : Installer(service) {
 

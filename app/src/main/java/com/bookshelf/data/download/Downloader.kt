@@ -1,16 +1,28 @@
 package com.bookshelf.data.download
 
 import android.content.Context
-import com.hippo.unifile.UniFile
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import com.bookshelf.domain.chapter.model.toSChapter
-import com.bookshelf.domain.textbook.model.getComicInfo
+import com.bookshelf.core.archive.ZipWriter
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.lang.launchNow
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.common.util.system.ImageUtil
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.core.metadata.comicinfo.COMIC_INFO_FILE
+import com.bookshelf.core.metadata.comicinfo.ComicInfo
 import com.bookshelf.data.cache.ChapterCache
 import com.bookshelf.data.download.model.Download
 import com.bookshelf.data.library.LibraryUpdateNotifier
 import com.bookshelf.data.notification.NotificationHandler
+import com.bookshelf.domain.category.interactor.GetCategories
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.chapter.model.toSChapter
+import com.bookshelf.domain.download.service.DownloadPreferences
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.getComicInfo
+import com.bookshelf.domain.track.interactor.GetTracks
+import com.bookshelf.i18n.MR
 import com.bookshelf.network.HttpException
 import com.bookshelf.source.UnmeteredSource
 import com.bookshelf.source.model.Page
@@ -18,6 +30,13 @@ import com.bookshelf.source.online.HttpSource
 import com.bookshelf.util.storage.DiskUtil
 import com.bookshelf.util.storage.DiskUtil.NOMEDIA_FILE
 import com.bookshelf.util.storage.saveTo
+import com.hippo.unifile.UniFile
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
+import java.io.File
+import java.util.Locale
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,27 +61,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import logcat.LogPriority
-import com.bookshelf.core.archive.ZipWriter
 import nl.adaptivity.xmlutil.serialization.XML
 import okhttp3.Response
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.lang.launchNow
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.core.common.util.system.ImageUtil
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.core.metadata.comicinfo.COMIC_INFO_FILE
-import com.bookshelf.core.metadata.comicinfo.ComicInfo
-import com.bookshelf.domain.category.interactor.GetCategories
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.download.service.DownloadPreferences
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.domain.track.interactor.GetTracks
-import com.bookshelf.i18n.MR
-import java.io.File
-import java.util.Locale
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * This class is the one in charge of downloading chapters.

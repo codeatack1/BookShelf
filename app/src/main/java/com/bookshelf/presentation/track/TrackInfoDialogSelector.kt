@@ -31,8 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import dev.icerock.moko.resources.StringResource
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.ScrollbarLazyColumn
 import com.bookshelf.presentation.core.components.WheelNumberPicker
@@ -40,6 +38,8 @@ import com.bookshelf.presentation.core.components.WheelTextPicker
 import com.bookshelf.presentation.core.components.material.AlertDialogContent
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
+import dev.icerock.moko.resources.StringResource
 
 @Composable
 fun TrackStatusSelector(

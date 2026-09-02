@@ -1,7 +1,7 @@
 package com.bookshelf.domain.track.repository
 
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.track.model.Track
+import kotlinx.coroutines.flow.Flow
 
 interface TrackRepository {
 

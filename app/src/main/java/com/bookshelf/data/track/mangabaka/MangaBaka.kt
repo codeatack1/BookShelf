@@ -1,18 +1,18 @@
 package com.bookshelf.data.track.mangabaka
 
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.R
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.DeletableTracker
 import com.bookshelf.data.track.mangabaka.dto.MangaBakaOAuth
 import com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.domain.track.model.Track as DomainTrack
+import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.json.Json
-import com.bookshelf.i18n.MR
 import uy.kohesive.injekt.injectLazy
-import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class MangaBaka(id: Long) : BaseTracker(id, "MangaBaka"), DeletableTracker {
 

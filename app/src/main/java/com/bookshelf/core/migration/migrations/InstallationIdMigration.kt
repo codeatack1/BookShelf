@@ -1,12 +1,12 @@
 package com.bookshelf.core.migration.migrations
 
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoSet
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.core.common.FeatureFlags
 import com.bookshelf.core.migration.Migration
 import com.bookshelf.core.migration.MigrationContext
+import com.bookshelf.domain.base.BasePreferences
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoSet
+import dev.zacsweers.metro.Inject
 import kotlin.uuid.ExperimentalUuidApi
 
 @Inject

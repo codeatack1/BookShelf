@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.manga.components.TextbookCover
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.asTextbookCover
 import com.bookshelf.presentation.core.components.material.padding
+import com.bookshelf.presentation.manga.components.TextbookCover
 
 private val UpcomingItemHeight = 96.dp
 

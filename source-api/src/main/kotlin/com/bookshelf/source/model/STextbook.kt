@@ -2,8 +2,8 @@
 
 package com.bookshelf.source.model
 
-import kotlinx.serialization.json.JsonObject
 import java.io.Serializable
+import kotlinx.serialization.json.JsonObject
 
 interface STextbook : Serializable {
 

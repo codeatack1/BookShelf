@@ -3,12 +3,12 @@ package com.bookshelf.extension.util
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import dev.zacsweers.metro.Inject
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.extension.ExtensionManager
 import com.bookshelf.extension.model.InstallStep
 import com.bookshelf.util.system.hasMiuiPackageInstaller
 import com.bookshelf.util.system.toast
-import com.bookshelf.app.di.appGraph
+import dev.zacsweers.metro.Inject
 import kotlin.time.Duration.Companion.seconds
 
 /**

@@ -24,10 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.CheckBoxOutlineBlank
 import com.bookshelf.icons.materialsymbols.roundedfilled.DisabledByDefault
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.TextButton
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource

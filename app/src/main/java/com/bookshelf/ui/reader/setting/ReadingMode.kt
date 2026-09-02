@@ -1,8 +1,9 @@
 package com.bookshelf.ui.reader.setting
 
 import androidx.annotation.DrawableRes
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.R
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.i18n.MR
 import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.ui.reader.viewer.Viewer
 import com.bookshelf.ui.reader.viewer.pager.L2RPagerViewer
@@ -11,8 +12,7 @@ import com.bookshelf.ui.reader.viewer.pager.VerticalPagerViewer
 import com.bookshelf.ui.reader.viewer.webgpu.WebGpuViewer
 import com.bookshelf.ui.reader.viewer.webgpu.WebGpuViewerContinuous
 import com.bookshelf.ui.reader.viewer.webtoon.WebtoonViewer
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
 
 enum class ReadingMode(
     val stringRes: StringResource,

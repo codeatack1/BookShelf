@@ -35,19 +35,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.icerock.moko.resources.StringResource
-import com.bookshelf.presentation.browse.components.BaseBrowseItem
-import com.bookshelf.presentation.browse.components.ExtensionIcon
-import com.bookshelf.presentation.components.WarningBanner
-import com.bookshelf.presentation.manga.components.DotSeparatorNoSpaceText
-import com.bookshelf.presentation.more.settings.screen.browse.ExtensionStoresScreen
-import com.bookshelf.presentation.util.rememberRequestPackageInstallsPermissionState
 import com.bookshelf.extension.model.Extension
 import com.bookshelf.extension.model.InstallStep
-import com.bookshelf.ui.browse.extension.ExtensionUiModel
-import com.bookshelf.ui.browse.extension.ExtensionsViewModel
-import com.bookshelf.util.system.LocaleHelper
-import com.bookshelf.util.system.launchRequestPackageInstallsPermission
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Close
 import com.bookshelf.icons.materialsymbols.rounded.Download
@@ -55,7 +45,9 @@ import com.bookshelf.icons.materialsymbols.rounded.Public
 import com.bookshelf.icons.materialsymbols.rounded.Refresh
 import com.bookshelf.icons.materialsymbols.rounded.Settings
 import com.bookshelf.icons.materialsymbols.rounded.VerifiedUser
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.browse.components.BaseBrowseItem
+import com.bookshelf.presentation.browse.components.ExtensionIcon
+import com.bookshelf.presentation.components.WarningBanner
 import com.bookshelf.presentation.core.components.FastScrollLazyColumn
 import com.bookshelf.presentation.core.components.material.PullRefresh
 import com.bookshelf.presentation.core.components.material.padding
@@ -67,6 +59,14 @@ import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.theme.header
 import com.bookshelf.presentation.core.util.plus
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.presentation.manga.components.DotSeparatorNoSpaceText
+import com.bookshelf.presentation.more.settings.screen.browse.ExtensionStoresScreen
+import com.bookshelf.presentation.util.rememberRequestPackageInstallsPermissionState
+import com.bookshelf.ui.browse.extension.ExtensionUiModel
+import com.bookshelf.ui.browse.extension.ExtensionsViewModel
+import com.bookshelf.util.system.LocaleHelper
+import com.bookshelf.util.system.launchRequestPackageInstallsPermission
+import dev.icerock.moko.resources.StringResource
 
 @Composable
 fun ExtensionScreen(

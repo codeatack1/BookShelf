@@ -17,16 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.browse.components.BaseSourceItem
-import com.bookshelf.ui.browse.source.SourcesViewModel
-import com.bookshelf.ui.browse.source.browse.BrowseSourceViewModel.Listing
-import com.bookshelf.util.system.LocaleHelper
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.PushPin
-import com.bookshelf.icons.materialsymbols.roundedfilled.PushPin
 import com.bookshelf.domain.source.model.Pin
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.PushPin
+import com.bookshelf.icons.materialsymbols.roundedfilled.PushPin
+import com.bookshelf.presentation.browse.components.BaseSourceItem
 import com.bookshelf.presentation.core.components.ScrollbarLazyColumn
 import com.bookshelf.presentation.core.components.material.SECONDARY_ALPHA
 import com.bookshelf.presentation.core.components.material.padding
@@ -37,6 +34,9 @@ import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.theme.header
 import com.bookshelf.presentation.core.util.plus
 import com.bookshelf.source.local.isLocal
+import com.bookshelf.ui.browse.source.SourcesViewModel
+import com.bookshelf.ui.browse.source.browse.BrowseSourceViewModel.Listing
+import com.bookshelf.util.system.LocaleHelper
 
 @Composable
 fun SourcesScreen(

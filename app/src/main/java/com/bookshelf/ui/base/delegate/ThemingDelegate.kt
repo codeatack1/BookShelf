@@ -1,9 +1,9 @@
 package com.bookshelf.ui.base.delegate
 
 import android.app.Activity
-import com.bookshelf.domain.ui.model.AppTheme
 import com.bookshelf.R
 import com.bookshelf.app.di.appGraph
+import com.bookshelf.domain.ui.model.AppTheme
 
 interface ThemingDelegate {
     fun applyAppTheme(activity: Activity)

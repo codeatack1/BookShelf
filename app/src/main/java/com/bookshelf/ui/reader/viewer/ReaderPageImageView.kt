@@ -27,17 +27,17 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import coil3.size.Precision
 import coil3.size.ViewSizeResolver
+import com.bookshelf.data.coil.cropBorders
+import com.bookshelf.data.coil.customDecoder
+import com.bookshelf.ui.reader.viewer.webtoon.WebtoonSubsamplingImageView
+import com.bookshelf.util.system.animatorDurationScale
+import com.bookshelf.util.view.isVisibleOnScreen
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.EASE_IN_OUT_QUAD
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.EASE_OUT_QUAD
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.SCALE_TYPE_CENTER_INSIDE
 import com.github.chrisbanes.photoview.PhotoView
-import com.bookshelf.data.coil.cropBorders
-import com.bookshelf.data.coil.customDecoder
-import com.bookshelf.ui.reader.viewer.webtoon.WebtoonSubsamplingImageView
-import com.bookshelf.util.system.animatorDurationScale
-import com.bookshelf.util.view.isVisibleOnScreen
 import okio.BufferedSource
 
 /**

@@ -11,13 +11,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.AbstractComposeView
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.presentation.reader.ChapterTransition
 import com.bookshelf.presentation.theme.BookShelfTheme
-import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.source.Source
-import com.bookshelf.ui.reader.model.ChapterTransition
-import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.source.local.isLocal
+import com.bookshelf.ui.reader.model.ChapterTransition
 
 class ReaderTransitionView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     AbstractComposeView(context, attrs) {

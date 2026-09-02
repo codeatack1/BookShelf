@@ -8,17 +8,17 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkerParameters
-import dev.zacsweers.metro.Inject
+import com.bookshelf.app.di.AppGraph
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.core.metro.metroGraph
+import com.bookshelf.domain.track.interactor.GetTracks
 import com.bookshelf.domain.track.interactor.TrackChapter
 import com.bookshelf.domain.track.store.DelayedTrackingStore
 import com.bookshelf.util.system.workManager
-import logcat.LogPriority
-import com.bookshelf.app.di.AppGraph
-import com.bookshelf.core.metro.metroGraph
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.track.interactor.GetTracks
+import dev.zacsweers.metro.Inject
 import java.util.concurrent.TimeUnit
+import logcat.LogPriority
 
 class DelayedTrackingUpdateJob(private val context: Context, workerParams: WorkerParameters) :
     CoroutineWorker(context, workerParams) {

@@ -1,10 +1,10 @@
 package com.bookshelf.util.chapter
 
-import com.bookshelf.domain.chapter.model.applyFilters
 import com.bookshelf.data.download.DownloadManager
-import com.bookshelf.ui.textbook.ChapterList
 import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.chapter.model.applyFilters
 import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.ui.textbook.ChapterList
 
 /**
  * Gets next unread chapter with filters and sorting applied

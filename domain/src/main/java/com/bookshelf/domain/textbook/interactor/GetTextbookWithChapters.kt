@@ -1,12 +1,12 @@
 package com.bookshelf.domain.textbook.interactor
 
-import dev.zacsweers.metro.Inject
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.repository.ChapterRepository
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.repository.TextbookRepository
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 
 @Inject
 class GetTextbookWithChapters(

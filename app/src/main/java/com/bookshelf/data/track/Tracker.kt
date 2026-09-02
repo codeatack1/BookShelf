@@ -2,12 +2,12 @@ package com.bookshelf.data.track
 
 import androidx.annotation.CallSuper
 import androidx.annotation.DrawableRes
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.domain.track.model.Track as DomainTrack
+import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.flow.Flow
 import okhttp3.OkHttpClient
-import com.bookshelf.domain.track.model.Track as DomainTrack
 
 interface Tracker {
 

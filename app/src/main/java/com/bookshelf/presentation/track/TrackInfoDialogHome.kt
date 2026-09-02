@@ -47,22 +47,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import dev.icerock.moko.resources.StringResource
+import com.bookshelf.data.track.Tracker
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.MoreVert
+import com.bookshelf.icons.materialsymbols.rounded.VisibilityOff
 import com.bookshelf.presentation.components.DropdownMenu
+import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.presentation.track.components.TrackLogoIcon
-import com.bookshelf.data.track.Tracker
 import com.bookshelf.ui.textbook.track.TrackItem
 import com.bookshelf.util.lang.toJavaLocalDate
 import com.bookshelf.util.lang.toLocalDate
 import com.bookshelf.util.system.copyToClipboard
-import kotlinx.datetime.toJavaLocalDate
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.MoreVert
-import com.bookshelf.icons.materialsymbols.rounded.VisibilityOff
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
+import dev.icerock.moko.resources.StringResource
 import java.time.format.DateTimeFormatter
+import kotlinx.datetime.toJavaLocalDate
 
 @Composable
 fun TrackInfoDialogHome(

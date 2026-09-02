@@ -1,9 +1,9 @@
 package com.bookshelf.data.extension.model
 
 import android.annotation.SuppressLint
+import com.bookshelf.domain.extension.model.ExtensionStore
 import com.bookshelf.extension.model.Extension
 import kotlinx.serialization.Serializable
-import com.bookshelf.domain.extension.model.ExtensionStore
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable

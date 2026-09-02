@@ -3,9 +3,9 @@ package com.bookshelf.ui.download
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.bookshelf.databinding.DownloadHeaderBinding
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.viewholders.ExpandableViewHolder
-import com.bookshelf.databinding.DownloadHeaderBinding
 
 class DownloadHeaderHolder(view: View, adapter: FlexibleAdapter<*>) : ExpandableViewHolder(view, adapter) {
 

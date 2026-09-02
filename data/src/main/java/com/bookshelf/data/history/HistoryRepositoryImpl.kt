@@ -3,12 +3,6 @@ package com.bookshelf.data.history
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesBinding
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import kotlinx.coroutines.flow.Flow
-import logcat.LogPriority
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.Database
 import com.bookshelf.data.subscribeToList
@@ -16,6 +10,12 @@ import com.bookshelf.domain.history.model.History
 import com.bookshelf.domain.history.model.HistoryUpdate
 import com.bookshelf.domain.history.model.HistoryWithRelations
 import com.bookshelf.domain.history.repository.HistoryRepository
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
+import kotlinx.coroutines.flow.Flow
+import logcat.LogPriority
 
 @Inject
 @SingleIn(AppScope::class)

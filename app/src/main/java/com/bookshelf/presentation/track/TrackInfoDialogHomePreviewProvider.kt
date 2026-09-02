@@ -2,9 +2,9 @@ package com.bookshelf.presentation.track
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.bookshelf.ui.textbook.track.TrackItem
-import com.bookshelf.test.DummyTracker
 import com.bookshelf.domain.track.model.Track
+import com.bookshelf.test.DummyTracker
+import com.bookshelf.ui.textbook.track.TrackItem
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 

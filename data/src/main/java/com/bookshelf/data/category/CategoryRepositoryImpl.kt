@@ -2,15 +2,15 @@ package com.bookshelf.data.category
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
+import com.bookshelf.data.Database
+import com.bookshelf.data.subscribeToList
+import com.bookshelf.domain.category.model.Category
+import com.bookshelf.domain.category.repository.CategoryRepository
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.Flow
-import com.bookshelf.data.Database
-import com.bookshelf.data.subscribeToList
-import com.bookshelf.domain.category.model.Category
-import com.bookshelf.domain.category.repository.CategoryRepository
 
 @Inject
 @SingleIn(AppScope::class)

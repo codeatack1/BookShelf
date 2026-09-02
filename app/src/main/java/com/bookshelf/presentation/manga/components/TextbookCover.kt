@@ -12,8 +12,8 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role
 import coil3.compose.AsyncImage
-import com.bookshelf.presentation.util.rememberResourceBitmapPainter
 import com.bookshelf.R
+import com.bookshelf.presentation.util.rememberResourceBitmapPainter
 
 enum class TextbookCover(val ratio: Float) {
     Square(1f / 1f),

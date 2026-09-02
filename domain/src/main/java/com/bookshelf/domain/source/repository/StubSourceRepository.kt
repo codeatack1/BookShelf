@@ -1,7 +1,7 @@
 package com.bookshelf.domain.source.repository
 
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.source.model.StubSource
+import kotlinx.coroutines.flow.Flow
 
 interface StubSourceRepository {
     fun subscribeAll(): Flow<List<StubSource>>

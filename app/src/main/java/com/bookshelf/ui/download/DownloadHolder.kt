@@ -2,11 +2,11 @@ package com.bookshelf.ui.download
 
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
-import eu.davidea.viewholders.FlexibleViewHolder
 import com.bookshelf.R
 import com.bookshelf.data.download.model.Download
 import com.bookshelf.databinding.DownloadItemBinding
 import com.bookshelf.util.view.popupMenu
+import eu.davidea.viewholders.FlexibleViewHolder
 
 /**
  * Class used to hold the data of a download.

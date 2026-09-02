@@ -2,11 +2,23 @@ package com.bookshelf.data.download
 
 import android.content.Context
 import androidx.core.net.toUri
+import com.bookshelf.core.common.storage.extension
+import com.bookshelf.core.common.storage.nameWithoutExtension
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.lang.launchNonCancellable
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.storage.service.StorageManager
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.source.Source
 import com.hippo.unifile.UniFile
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.source.Source
+import java.io.File
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,20 +52,8 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.protobuf.ProtoBuf
 import logcat.LogPriority
-import com.bookshelf.core.common.storage.extension
-import com.bookshelf.core.common.storage.nameWithoutExtension
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.lang.launchNonCancellable
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.domain.storage.service.StorageManager
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
-import java.io.File
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * Cache where we dump the downloads directory from the filesystem. This class is needed because

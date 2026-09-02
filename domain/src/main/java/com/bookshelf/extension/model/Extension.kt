@@ -1,9 +1,9 @@
 package com.bookshelf.extension.model
 
 import android.graphics.drawable.Drawable
-import com.bookshelf.source.Source
 import com.bookshelf.domain.extension.model.ExtensionStore
 import com.bookshelf.domain.source.model.StubSource
+import com.bookshelf.source.Source
 
 sealed class Extension {
 

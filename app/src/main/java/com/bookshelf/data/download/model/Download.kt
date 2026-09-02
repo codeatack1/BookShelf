@@ -1,7 +1,10 @@
 package com.bookshelf.data.download.model
 
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.online.HttpSource
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,9 +13,6 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.textbook.model.Textbook
-import kotlin.time.Duration.Companion.milliseconds
 
 data class Download(
     val source: HttpSource,

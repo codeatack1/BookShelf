@@ -13,17 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.bookshelf.presentation.manga.components.MarkdownRender
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
-import com.bookshelf.ui.more.NewUpdateScreenModel
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.OpenInNew
 import com.bookshelf.icons.materialsymbols.rounded.NewReleases
-import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.InfoScreen
+import com.bookshelf.presentation.manga.components.MarkdownRender
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
+import com.bookshelf.ui.more.NewUpdateScreenModel
+import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
 
 @Composable
 fun NewUpdateScreen(

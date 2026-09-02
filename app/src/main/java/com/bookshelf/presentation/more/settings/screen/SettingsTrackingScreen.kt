@@ -38,9 +38,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.icerock.moko.resources.StringResource
-import com.bookshelf.domain.track.model.AutoTrackState
-import com.bookshelf.presentation.more.settings.Preference
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.lang.withUIContext
 import com.bookshelf.data.track.EnhancedTracker
 import com.bookshelf.data.track.Tracker
 import com.bookshelf.data.track.anilist.AnilistApi
@@ -49,19 +49,19 @@ import com.bookshelf.data.track.hikka.HikkaApi
 import com.bookshelf.data.track.mangabaka.MangaBakaApi
 import com.bookshelf.data.track.myanimelist.MyAnimeListApi
 import com.bookshelf.data.track.shikimori.ShikimoriApi
-import com.bookshelf.util.system.openInBrowser
-import com.bookshelf.util.system.toast
-import com.bookshelf.app.di.appGraph
+import com.bookshelf.domain.track.model.AutoTrackState
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.Help
 import com.bookshelf.icons.materialsymbols.rounded.Close
 import com.bookshelf.icons.materialsymbols.rounded.Visibility
 import com.bookshelf.icons.materialsymbols.rounded.VisibilityOff
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.lang.withUIContext
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.more.settings.Preference
+import com.bookshelf.util.system.openInBrowser
+import com.bookshelf.util.system.toast
+import dev.icerock.moko.resources.StringResource
 
 object SettingsTrackingScreen : SearchableSettings {
 

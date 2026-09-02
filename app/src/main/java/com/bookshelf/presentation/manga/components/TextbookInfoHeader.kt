@@ -67,16 +67,10 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.mikepenz.markdown.model.markdownAnnotator
-import com.mikepenz.markdown.model.markdownAnnotatorConfig
-import com.mikepenz.markdown.utils.getUnescapedTextInNode
-import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.R
-import com.bookshelf.source.model.STextbook
-import com.bookshelf.util.system.copyToClipboard
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.daysUntil
 import com.bookshelf.app.di.appGraph
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.AttachMoney
 import com.bookshelf.icons.materialsymbols.rounded.Block
@@ -93,11 +87,7 @@ import com.bookshelf.icons.materialsymbols.rounded.Schedule
 import com.bookshelf.icons.materialsymbols.rounded.Sync
 import com.bookshelf.icons.materialsymbols.rounded.Warning
 import com.bookshelf.icons.materialsymbols.roundedfilled.Favorite
-import org.intellij.markdown.MarkdownElementTypes
-import org.intellij.markdown.MarkdownTokenTypes
-import org.intellij.markdown.ast.findChildOfType
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.core.components.material.DISABLED_ALPHA
 import com.bookshelf.presentation.core.components.material.TextButton
 import com.bookshelf.presentation.core.components.material.padding
@@ -105,9 +95,19 @@ import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.clickableNoIndication
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.source.model.STextbook
+import com.bookshelf.util.system.copyToClipboard
+import com.mikepenz.markdown.model.markdownAnnotator
+import com.mikepenz.markdown.model.markdownAnnotatorConfig
+import com.mikepenz.markdown.utils.getUnescapedTextInNode
 import kotlin.math.roundToInt
 import kotlin.time.Clock
 import kotlin.time.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.daysUntil
+import org.intellij.markdown.MarkdownElementTypes
+import org.intellij.markdown.MarkdownTokenTypes
+import org.intellij.markdown.ast.findChildOfType
 
 @Composable
 fun TextbookInfoBox(

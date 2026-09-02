@@ -6,10 +6,22 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
-import dev.zacsweers.metro.Inject
+import com.bookshelf.BuildConfig.APPLICATION_ID as ID
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.Constants
+import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.data.backup.restore.BackupRestoreJob
 import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.data.library.LibraryUpdateJob
+import com.bookshelf.domain.chapter.interactor.GetChapter
+import com.bookshelf.domain.chapter.interactor.UpdateChapter
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.chapter.model.toChapterUpdate
+import com.bookshelf.domain.download.service.DownloadPreferences
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.i18n.MR
 import com.bookshelf.ui.main.MainActivity
 import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.util.system.cancelNotification
@@ -18,20 +30,8 @@ import com.bookshelf.util.system.notificationManager
 import com.bookshelf.util.system.toShareIntent
 import com.bookshelf.util.system.toast
 import com.bookshelf.util.system.workManager
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.runBlocking
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.core.common.Constants
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.domain.chapter.interactor.GetChapter
-import com.bookshelf.domain.chapter.interactor.UpdateChapter
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.chapter.model.toChapterUpdate
-import com.bookshelf.domain.download.service.DownloadPreferences
-import com.bookshelf.domain.textbook.interactor.GetTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.i18n.MR
-import com.bookshelf.BuildConfig.APPLICATION_ID as ID
 
 /**
  * Global [BroadcastReceiver] that runs on UI thread

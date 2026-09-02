@@ -1,9 +1,9 @@
 package com.bookshelf.domain.source.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.source.model.FilterList
 import com.bookshelf.domain.source.repository.SourcePagingSource
 import com.bookshelf.domain.source.repository.SourceRepository
+import com.bookshelf.source.model.FilterList
+import dev.zacsweers.metro.Inject
 
 @Inject
 class GetRemoteTextbook(

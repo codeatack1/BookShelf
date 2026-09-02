@@ -34,16 +34,16 @@ import androidx.core.net.toUri
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import com.bookshelf.presentation.util.rememberRequestPackageInstallsPermissionState
-import com.bookshelf.util.system.launchRequestPackageInstallsPermission
-import com.bookshelf.util.system.telemetryIncluded
 import com.bookshelf.app.di.appGraph
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Check
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.collectAsState
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.presentation.util.rememberRequestPackageInstallsPermissionState
+import com.bookshelf.util.system.launchRequestPackageInstallsPermission
+import com.bookshelf.util.system.telemetryIncluded
 
 internal class PermissionStep : OnboardingStep {
 

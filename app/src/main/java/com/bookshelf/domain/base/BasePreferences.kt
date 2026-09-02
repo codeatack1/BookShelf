@@ -1,13 +1,13 @@
 package com.bookshelf.domain.base
 
 import android.content.Context
+import com.bookshelf.core.common.preference.Preference
+import com.bookshelf.core.common.preference.PreferenceStore
+import com.bookshelf.i18n.MR
 import dev.icerock.moko.resources.StringResource
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.core.common.preference.Preference
-import com.bookshelf.core.common.preference.PreferenceStore
-import com.bookshelf.i18n.MR
 
 @Inject
 @SingleIn(AppScope::class)

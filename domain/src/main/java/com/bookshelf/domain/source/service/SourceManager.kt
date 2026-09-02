@@ -1,9 +1,9 @@
 package com.bookshelf.domain.source.service
 
+import com.bookshelf.domain.source.model.StubSource
 import com.bookshelf.source.Source
 import com.bookshelf.source.online.HttpSource
 import kotlinx.coroutines.flow.Flow
-import com.bookshelf.domain.source.model.StubSource
 
 interface SourceManager {
 

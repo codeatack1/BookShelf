@@ -1,10 +1,10 @@
 package com.bookshelf.ui.reader.loader
 
+import com.bookshelf.core.archive.ArchiveReader
+import com.bookshelf.core.common.util.system.ImageUtil
 import com.bookshelf.source.model.Page
 import com.bookshelf.ui.reader.model.ReaderPage
 import com.bookshelf.util.lang.compareToCaseInsensitiveNaturalOrder
-import com.bookshelf.core.archive.ArchiveReader
-import com.bookshelf.core.common.util.system.ImageUtil
 
 /**
  * Loader used to load a chapter from an archive file.

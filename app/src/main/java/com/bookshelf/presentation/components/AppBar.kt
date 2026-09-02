@@ -46,12 +46,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowBack
 import com.bookshelf.icons.materialsymbols.rounded.Close
 import com.bookshelf.icons.materialsymbols.rounded.MoreVert
 import com.bookshelf.icons.materialsymbols.rounded.Search
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.clearFocusOnSoftKeyboardHide
 import com.bookshelf.presentation.core.util.runOnEnterKeyPressed

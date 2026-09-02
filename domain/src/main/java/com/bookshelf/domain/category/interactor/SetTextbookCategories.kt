@@ -1,9 +1,9 @@
 package com.bookshelf.domain.category.interactor
 
-import dev.zacsweers.metro.Inject
-import logcat.LogPriority
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.textbook.repository.TextbookRepository
+import dev.zacsweers.metro.Inject
+import logcat.LogPriority
 
 @Inject
 class SetTextbookCategories(

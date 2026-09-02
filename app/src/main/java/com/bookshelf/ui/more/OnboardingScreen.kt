@@ -7,14 +7,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.core.util.collectAsState
 import com.bookshelf.presentation.more.onboarding.OnboardingScreen
 import com.bookshelf.presentation.more.settings.screen.SearchableSettings
 import com.bookshelf.presentation.more.settings.screen.SettingsDataScreen
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.ui.setting.SettingsScreen
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.core.util.collectAsState
 
 class OnboardingScreen : Screen() {
 

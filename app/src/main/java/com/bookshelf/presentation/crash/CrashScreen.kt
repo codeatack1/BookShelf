@@ -13,15 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
-import kotlinx.coroutines.launch
 import com.bookshelf.app.di.appGraph
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.BugReport
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.InfoScreen
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun CrashScreen(

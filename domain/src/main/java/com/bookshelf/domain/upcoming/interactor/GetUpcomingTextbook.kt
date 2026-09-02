@@ -1,10 +1,10 @@
 package com.bookshelf.domain.upcoming.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.source.model.STextbook
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.repository.TextbookRepository
+import com.bookshelf.source.model.STextbook
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
 
 @Inject
 class GetUpcomingTextbook(

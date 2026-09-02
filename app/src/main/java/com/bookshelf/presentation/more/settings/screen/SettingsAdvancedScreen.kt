@@ -22,11 +22,14 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.net.toUri
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.bookshelf.domain.base.BasePreferences
-import com.bookshelf.presentation.more.settings.Preference
-import com.bookshelf.presentation.more.settings.screen.advanced.ClearDatabaseScreen
-import com.bookshelf.presentation.more.settings.screen.debug.DebugInfoScreen
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.util.lang.launchNonCancellable
+import com.bookshelf.core.common.util.lang.withUIContext
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.library.MetadataUpdateJob
+import com.bookshelf.domain.base.BasePreferences
+import com.bookshelf.domain.library.service.LibraryPreferences
+import com.bookshelf.i18n.MR
 import com.bookshelf.network.NetworkPreferences
 import com.bookshelf.network.PREF_DOH_360
 import com.bookshelf.network.PREF_DOH_ADGUARD
@@ -40,6 +43,11 @@ import com.bookshelf.network.PREF_DOH_NJALLA
 import com.bookshelf.network.PREF_DOH_QUAD101
 import com.bookshelf.network.PREF_DOH_QUAD9
 import com.bookshelf.network.PREF_DOH_SHECAN
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.presentation.more.settings.Preference
+import com.bookshelf.presentation.more.settings.screen.advanced.ClearDatabaseScreen
+import com.bookshelf.presentation.more.settings.screen.debug.DebugInfoScreen
 import com.bookshelf.ui.more.OnboardingScreen
 import com.bookshelf.util.system.isReleaseBuildType
 import com.bookshelf.util.system.isShizukuInstalled
@@ -47,18 +55,10 @@ import com.bookshelf.util.system.powerManager
 import com.bookshelf.util.system.setDefaultSettings
 import com.bookshelf.util.system.toast
 import com.bookshelf.util.system.workManager
+import java.io.File
 import kotlinx.coroutines.launch
 import logcat.LogPriority
-import com.bookshelf.app.di.appGraph
 import okhttp3.Headers
-import com.bookshelf.core.common.util.lang.launchNonCancellable
-import com.bookshelf.core.common.util.lang.withUIContext
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.core.util.collectAsState
-import java.io.File
 
 object SettingsAdvancedScreen : SearchableSettings {
 

@@ -1,8 +1,8 @@
 package com.bookshelf.ui.reader.loader
 
+import com.bookshelf.core.archive.EpubReader
 import com.bookshelf.source.model.Page
 import com.bookshelf.ui.reader.model.ReaderPage
-import com.bookshelf.core.archive.EpubReader
 
 /**
  * Loader used to load a chapter from a .epub file.

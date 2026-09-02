@@ -1,11 +1,11 @@
 package com.bookshelf.domain.download.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.core.common.util.lang.withNonCancellableContext
+import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.model.Textbook
+import dev.zacsweers.metro.Inject
 
 @Inject
 class DeleteDownload(

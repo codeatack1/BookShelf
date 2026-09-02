@@ -13,18 +13,18 @@ import android.content.pm.PackageManager
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.bookshelf.BuildConfig
+import com.bookshelf.app.shizuku.IShellInterface
+import com.bookshelf.app.shizuku.ShellInterface
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.extension.model.InstallStep
+import com.bookshelf.i18n.MR
 import com.bookshelf.util.system.toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import logcat.LogPriority
-import com.bookshelf.app.shizuku.IShellInterface
-import com.bookshelf.app.shizuku.ShellInterface
 import rikka.shizuku.Shizuku
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.i18n.MR
 
 class ShizukuInstaller(private val service: Service) : Installer(service) {
 

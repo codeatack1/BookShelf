@@ -23,15 +23,15 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.bookshelf.presentation.components.SearchToolbar
-import com.bookshelf.ui.browse.source.globalsearch.SourceFilter
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.DoneAll
 import com.bookshelf.icons.materialsymbols.rounded.FilterList
 import com.bookshelf.icons.materialsymbols.rounded.PushPin
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.SearchToolbar
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.ui.browse.source.globalsearch.SourceFilter
 
 @Composable
 fun GlobalSearchToolbar(

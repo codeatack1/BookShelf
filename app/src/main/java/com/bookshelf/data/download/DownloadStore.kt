@@ -2,17 +2,17 @@ package com.bookshelf.data.download
 
 import android.content.Context
 import androidx.core.content.edit
+import com.bookshelf.data.download.model.Download
+import com.bookshelf.domain.chapter.interactor.GetChapter
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.source.online.HttpSource
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.data.download.model.Download
-import com.bookshelf.source.online.HttpSource
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import com.bookshelf.domain.chapter.interactor.GetChapter
-import com.bookshelf.domain.textbook.interactor.GetTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
 
 /**
  * This class is used to persist active downloads across application restarts.

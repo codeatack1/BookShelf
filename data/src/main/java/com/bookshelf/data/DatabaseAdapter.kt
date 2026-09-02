@@ -2,9 +2,9 @@ package com.bookshelf.data
 
 import app.cash.sqldelight.ColumnAdapter
 import com.bookshelf.source.model.UpdateStrategy
+import java.util.Date
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
-import java.util.Date
 
 object DateColumnAdapter : ColumnAdapter<Date, Long> {
     override fun decode(databaseValue: Long): Date = Date(databaseValue)

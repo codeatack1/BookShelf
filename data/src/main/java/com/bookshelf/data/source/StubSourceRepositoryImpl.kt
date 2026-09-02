@@ -1,15 +1,15 @@
 package com.bookshelf.data.source
 
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
+import com.bookshelf.data.Database
+import com.bookshelf.data.subscribeToList
+import com.bookshelf.domain.source.model.StubSource
+import com.bookshelf.domain.source.repository.StubSourceRepository
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.Flow
-import com.bookshelf.data.Database
-import com.bookshelf.data.subscribeToList
-import com.bookshelf.domain.source.model.StubSource
-import com.bookshelf.domain.source.repository.StubSourceRepository
 
 @Inject
 @SingleIn(AppScope::class)

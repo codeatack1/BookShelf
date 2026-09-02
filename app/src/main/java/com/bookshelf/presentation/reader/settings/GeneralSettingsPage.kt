@@ -7,10 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import com.bookshelf.ui.reader.setting.ReaderPreferences
-import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
-import com.bookshelf.ui.reader.setting.ReadingMode
-import com.bookshelf.util.system.hasDisplayCutout
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.CheckboxItem
 import com.bookshelf.presentation.core.components.SettingsChipRow
@@ -18,6 +14,10 @@ import com.bookshelf.presentation.core.components.SliderItem
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.ui.reader.setting.ReaderPreferences
+import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
+import com.bookshelf.ui.reader.setting.ReadingMode
+import com.bookshelf.util.system.hasDisplayCutout
 
 private val themes = listOf(
     MR.strings.black_background to 1,

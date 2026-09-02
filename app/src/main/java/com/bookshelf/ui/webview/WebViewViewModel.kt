@@ -4,6 +4,13 @@ import android.content.Context
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.network.NetworkHelper
+import com.bookshelf.source.online.HttpSource
+import com.bookshelf.util.system.openInBrowser
+import com.bookshelf.util.system.toShareIntent
+import com.bookshelf.util.system.toast
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
@@ -11,18 +18,11 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
-import com.bookshelf.network.NetworkHelper
-import com.bookshelf.source.online.HttpSource
-import com.bookshelf.util.system.openInBrowser
-import com.bookshelf.util.system.toShareIntent
-import com.bookshelf.util.system.toast
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import logcat.LogPriority
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.source.service.SourceManager
 
 @AssistedInject
 class WebViewViewModel(

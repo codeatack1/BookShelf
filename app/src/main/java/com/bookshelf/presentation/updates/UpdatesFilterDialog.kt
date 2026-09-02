@@ -22,20 +22,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
-import com.bookshelf.presentation.category.visualName
-import com.bookshelf.presentation.components.TabbedDialog
-import com.bookshelf.presentation.components.TabbedDialogPaddings
-import com.bookshelf.ui.updates.UpdatesSettingsViewModel
 import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.core.common.preference.getAndSet
 import com.bookshelf.domain.updates.service.UpdatesPreferences
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.category.visualName
+import com.bookshelf.presentation.components.TabbedDialog
+import com.bookshelf.presentation.components.TabbedDialogPaddings
 import com.bookshelf.presentation.core.components.SettingsItemsPaddings
 import com.bookshelf.presentation.core.components.TriStateItem
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.ui.updates.UpdatesSettingsViewModel
 
 @Composable
 fun UpdatesFilterDialog(

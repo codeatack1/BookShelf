@@ -1,11 +1,11 @@
 package com.bookshelf.domain.chapter.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.core.common.util.lang.withNonCancellableContext
 import com.bookshelf.domain.library.service.LibraryPreferences
 import com.bookshelf.domain.textbook.interactor.GetFavoriteTextbooks
 import com.bookshelf.domain.textbook.interactor.SetTextbookChapterFlags
 import com.bookshelf.domain.textbook.model.Textbook
+import dev.zacsweers.metro.Inject
 
 @Inject
 class SetTextbookDefaultChapterFlags(

@@ -1,8 +1,8 @@
 package com.bookshelf.domain.extension.repository
 
+import com.bookshelf.domain.extension.model.ExtensionStore
 import com.bookshelf.extension.model.Extension
 import kotlinx.coroutines.flow.Flow
-import com.bookshelf.domain.extension.model.ExtensionStore
 
 interface ExtensionStoreRepository {
     suspend fun insert(indexUrl: String): Result<Unit>

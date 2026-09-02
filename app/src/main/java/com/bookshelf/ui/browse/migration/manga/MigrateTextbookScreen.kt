@@ -19,18 +19,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.manga.components.BaseTextbookListItem
-import com.bookshelf.presentation.util.Screen
-import com.bookshelf.ui.textbook.TextbookScreen
-import com.bookshelf.util.system.toast
-import kotlinx.coroutines.flow.collectLatest
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.feature.migration.config.MigrationConfigScreen
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowForward
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.core.components.FastScrollLazyColumn
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
@@ -38,6 +32,12 @@ import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.util.selectedBackground
 import com.bookshelf.presentation.core.util.shouldExpandFAB
+import com.bookshelf.presentation.manga.components.BaseTextbookListItem
+import com.bookshelf.presentation.util.Screen
+import com.bookshelf.ui.textbook.TextbookScreen
+import com.bookshelf.util.system.toast
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 data class MigrateTextbookScreen(
     private val sourceId: Long,

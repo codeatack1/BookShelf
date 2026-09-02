@@ -1,9 +1,9 @@
 package com.bookshelf.source.online
 
-import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.model.SChapter
 import com.bookshelf.source.model.STextbook
+import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.util.asJsoup
 import okhttp3.Response
 import org.jsoup.nodes.Document

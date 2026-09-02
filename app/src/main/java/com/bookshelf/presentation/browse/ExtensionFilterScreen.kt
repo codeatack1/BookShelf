@@ -7,14 +7,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.more.settings.widget.SwitchPreferenceWidget
-import com.bookshelf.ui.browse.extension.ExtensionFilterState
-import com.bookshelf.util.system.LocaleHelper
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.EmptyScreen
+import com.bookshelf.presentation.more.settings.widget.SwitchPreferenceWidget
+import com.bookshelf.ui.browse.extension.ExtensionFilterState
+import com.bookshelf.util.system.LocaleHelper
 
 @Composable
 fun ExtensionFilterScreen(

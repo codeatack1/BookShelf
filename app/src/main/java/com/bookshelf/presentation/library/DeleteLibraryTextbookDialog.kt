@@ -9,11 +9,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.core.common.preference.CheckboxState
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.LabeledCheckbox
 import com.bookshelf.presentation.core.i18n.stringResource
+import dev.icerock.moko.resources.StringResource
 
 @Composable
 fun DeleteLibraryTextbookDialog(

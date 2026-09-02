@@ -16,14 +16,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import com.bookshelf.core.preference.PreferenceMutableState
-import com.bookshelf.ui.library.LibraryItem
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.library.model.LibraryDisplayMode
 import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.presentation.core.components.material.PullRefresh
+import com.bookshelf.ui.library.LibraryItem
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun LibraryContent(

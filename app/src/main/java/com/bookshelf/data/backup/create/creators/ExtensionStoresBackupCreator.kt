@@ -1,9 +1,9 @@
 package com.bookshelf.data.backup.create.creators
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.data.backup.models.BackupExtensionStore
 import com.bookshelf.data.backup.models.backupExtensionStoreMapper
 import com.bookshelf.domain.extension.interactor.GetExtensionStores
+import dev.zacsweers.metro.Inject
 
 @Inject
 class ExtensionStoresBackupCreator(

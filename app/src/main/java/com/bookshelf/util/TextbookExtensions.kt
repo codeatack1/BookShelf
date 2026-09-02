@@ -1,9 +1,9 @@
 package com.bookshelf.util
 
-import com.bookshelf.domain.textbook.interactor.UpdateTextbook
-import com.bookshelf.domain.textbook.model.toSTextbook
 import com.bookshelf.data.cache.CoverCache
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
 import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.toSTextbook
 import com.bookshelf.source.local.image.LocalCoverManager
 import com.bookshelf.source.local.isLocal
 import java.io.InputStream

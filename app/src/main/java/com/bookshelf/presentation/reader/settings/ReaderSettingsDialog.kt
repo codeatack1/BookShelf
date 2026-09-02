@@ -12,11 +12,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.window.DialogWindowProvider
+import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.components.TabbedDialog
 import com.bookshelf.presentation.components.TabbedDialogPaddings
-import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
 
 @Composable
 fun ReaderSettingsDialog(

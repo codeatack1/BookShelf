@@ -5,11 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.domain.ui.model.setAppCompatDelegateThemeMode
+import com.bookshelf.presentation.core.util.collectAsState
 import com.bookshelf.presentation.more.settings.widget.AppThemeModePreferenceWidget
 import com.bookshelf.presentation.more.settings.widget.AppThemePreferenceWidget
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.presentation.core.util.collectAsState
 
 internal class ThemeStep : OnboardingStep {
 

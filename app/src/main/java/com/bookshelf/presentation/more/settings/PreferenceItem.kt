@@ -16,6 +16,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.bookshelf.presentation.core.components.BaseSliderItem
+import com.bookshelf.presentation.core.util.collectAsState
 import com.bookshelf.presentation.more.settings.widget.EditTextPreferenceWidget
 import com.bookshelf.presentation.more.settings.widget.InfoWidget
 import com.bookshelf.presentation.more.settings.widget.ListPreferenceWidget
@@ -27,8 +29,6 @@ import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
 import com.bookshelf.presentation.more.settings.widget.TitleFontSize
 import com.bookshelf.presentation.more.settings.widget.TrackingPreferenceWidget
 import kotlinx.coroutines.launch
-import com.bookshelf.presentation.core.components.BaseSliderItem
-import com.bookshelf.presentation.core.util.collectAsState
 
 val LocalPreferenceHighlighted = compositionLocalOf(structuralEqualityPolicy()) { false }
 val LocalPreferenceMinHeight = compositionLocalOf(structuralEqualityPolicy()) { 56.dp }

@@ -29,24 +29,24 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.components.relativeDateText
-import com.bookshelf.presentation.manga.components.ChapterDownloadAction
-import com.bookshelf.presentation.manga.components.ChapterDownloadIndicator
-import com.bookshelf.presentation.manga.components.DotSeparatorText
-import com.bookshelf.presentation.manga.components.TextbookCover
-import com.bookshelf.presentation.util.relativeTimeSpanString
 import com.bookshelf.data.download.model.Download
-import com.bookshelf.ui.updates.UpdatesItem
+import com.bookshelf.domain.updates.model.UpdatesWithRelations
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.roundedfilled.Bookmark
 import com.bookshelf.icons.materialsymbols.roundedfilled.Circle
-import com.bookshelf.domain.updates.model.UpdatesWithRelations
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.relativeDateText
 import com.bookshelf.presentation.core.components.ListGroupHeader
 import com.bookshelf.presentation.core.components.material.DISABLED_ALPHA
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.selectedBackground
+import com.bookshelf.presentation.manga.components.ChapterDownloadAction
+import com.bookshelf.presentation.manga.components.ChapterDownloadIndicator
+import com.bookshelf.presentation.manga.components.DotSeparatorText
+import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.util.relativeTimeSpanString
+import com.bookshelf.ui.updates.UpdatesItem
 
 internal fun LazyListScope.updatesLastUpdatedItem(
     lastUpdated: Long,

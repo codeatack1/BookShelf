@@ -3,14 +3,16 @@ package com.bookshelf.ui.browse.extension
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.extension.interactor.GetExtensionLanguages
+import com.bookshelf.domain.source.interactor.ToggleLanguage
+import com.bookshelf.domain.source.service.SourcePreferences
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.binding
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
-import com.bookshelf.domain.extension.interactor.GetExtensionLanguages
-import com.bookshelf.domain.source.interactor.ToggleLanguage
-import com.bookshelf.domain.source.service.SourcePreferences
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -21,8 +23,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import logcat.LogPriority
-import com.bookshelf.core.common.util.system.logcat
-import kotlin.time.Duration.Companion.seconds
 
 @Inject
 @ViewModelKey

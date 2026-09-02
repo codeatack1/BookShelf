@@ -3,12 +3,12 @@ package com.bookshelf.presentation.reader.appbars
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Bookmark
 import com.bookshelf.icons.materialsymbols.roundedfilled.Bookmark
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.core.i18n.stringResource
 
 @Composable

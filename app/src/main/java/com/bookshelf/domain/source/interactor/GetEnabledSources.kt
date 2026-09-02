@@ -1,15 +1,15 @@
 package com.bookshelf.domain.source.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.source.service.SourcePreferences
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import com.bookshelf.domain.source.model.Pin
 import com.bookshelf.domain.source.model.Pins
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.domain.source.repository.SourceRepository
+import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.source.local.isLocal
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Inject
 class GetEnabledSources(

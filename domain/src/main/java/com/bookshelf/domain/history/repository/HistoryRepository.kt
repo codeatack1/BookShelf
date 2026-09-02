@@ -1,9 +1,9 @@
 package com.bookshelf.domain.history.repository
 
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.history.model.History
 import com.bookshelf.domain.history.model.HistoryUpdate
 import com.bookshelf.domain.history.model.HistoryWithRelations
+import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {
 

@@ -2,9 +2,9 @@
 
 package com.bookshelf.data.database.models
 
+import com.bookshelf.domain.chapter.model.Chapter as DomainChapter
 import com.bookshelf.source.model.SChapter
 import java.io.Serializable
-import com.bookshelf.domain.chapter.model.Chapter as DomainChapter
 
 interface Chapter : SChapter, Serializable {
 

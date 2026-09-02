@@ -4,21 +4,10 @@ import androidx.compose.ui.util.fastDistinctBy
 import androidx.compose.ui.util.fastFilter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.binding
-import dev.zacsweers.metrox.viewmodel.ViewModelKey
+import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.core.util.fastCountNot
-import com.bookshelf.presentation.more.stats.StatsScreenState
-import com.bookshelf.presentation.more.stats.data.StatsData
 import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.data.track.TrackerManager
-import com.bookshelf.source.model.STextbook
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
-import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.domain.history.interactor.GetTotalReadDuration
 import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.domain.library.service.LibraryPreferences
@@ -28,7 +17,18 @@ import com.bookshelf.domain.library.service.LibraryPreferences.Companion.MANGA_N
 import com.bookshelf.domain.textbook.interactor.GetLibraryTextbook
 import com.bookshelf.domain.track.interactor.GetTracks
 import com.bookshelf.domain.track.model.Track
+import com.bookshelf.presentation.more.stats.StatsScreenState
+import com.bookshelf.presentation.more.stats.data.StatsData
 import com.bookshelf.source.local.isLocal
+import com.bookshelf.source.model.STextbook
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.binding
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 @Inject
 @ViewModelKey

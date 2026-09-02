@@ -10,16 +10,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.util.fastMap
-import com.bookshelf.presentation.category.visualName
-import com.bookshelf.presentation.more.settings.Preference
-import com.bookshelf.presentation.more.settings.widget.TriStateListDialog
 import com.bookshelf.app.di.appGraph
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.download.service.DownloadPreferences
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.category.visualName
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.presentation.more.settings.Preference
+import com.bookshelf.presentation.more.settings.widget.TriStateListDialog
 
 object SettingsDownloadScreen : SearchableSettings {
 

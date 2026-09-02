@@ -22,16 +22,11 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
+import cafe.adriel.voyager.core.screen.Screen as VoyagerScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.icerock.moko.resources.StringResource
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.more.settings.screen.about.AboutScreen
-import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
-import com.bookshelf.presentation.util.LocalBackPress
-import com.bookshelf.presentation.util.Screen
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.ChromeReaderMode
 import com.bookshelf.icons.materialsymbols.rounded.Code
@@ -44,10 +39,15 @@ import com.bookshelf.icons.materialsymbols.rounded.Search
 import com.bookshelf.icons.materialsymbols.rounded.Security
 import com.bookshelf.icons.materialsymbols.rounded.Storage
 import com.bookshelf.icons.materialsymbols.rounded.Sync
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
-import cafe.adriel.voyager.core.screen.Screen as VoyagerScreen
+import com.bookshelf.presentation.more.settings.screen.about.AboutScreen
+import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
+import com.bookshelf.presentation.util.LocalBackPress
+import com.bookshelf.presentation.util.Screen
+import dev.icerock.moko.resources.StringResource
 
 object SettingsMainScreen : Screen() {
 

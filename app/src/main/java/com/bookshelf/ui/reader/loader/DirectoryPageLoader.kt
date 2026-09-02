@@ -1,10 +1,10 @@
 package com.bookshelf.ui.reader.loader
 
-import com.hippo.unifile.UniFile
+import com.bookshelf.core.common.util.system.ImageUtil
 import com.bookshelf.source.model.Page
 import com.bookshelf.ui.reader.model.ReaderPage
 import com.bookshelf.util.lang.compareToCaseInsensitiveNaturalOrder
-import com.bookshelf.core.common.util.system.ImageUtil
+import com.hippo.unifile.UniFile
 
 /**
  * Loader used to load a chapter from a directory given on [file].

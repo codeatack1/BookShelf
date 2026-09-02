@@ -11,12 +11,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.bookshelf.presentation.library.components.CommonTextbookItemDefaults
-import com.bookshelf.presentation.library.components.TextbookComfortableGridItem
-import kotlinx.coroutines.flow.StateFlow
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.presentation.core.util.plus
+import com.bookshelf.presentation.library.components.CommonTextbookItemDefaults
+import com.bookshelf.presentation.library.components.TextbookComfortableGridItem
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun BrowseSourceComfortableGrid(

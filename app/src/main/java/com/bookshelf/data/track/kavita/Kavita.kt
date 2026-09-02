@@ -1,20 +1,20 @@
 package com.bookshelf.data.track.kavita
 
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.R
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.EnhancedTracker
 import com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.track.model.Track as DomainTrack
+import com.bookshelf.i18n.MR
 import com.bookshelf.source.ConfigurableSource
 import com.bookshelf.source.Source
 import com.bookshelf.source.sourcePreferences
-import kotlinx.coroutines.runBlocking
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
 import java.security.MessageDigest
-import com.bookshelf.domain.track.model.Track as DomainTrack
+import kotlinx.coroutines.runBlocking
 
 class Kavita(id: Long) : BaseTracker(id, "Kavita"), EnhancedTracker {
 

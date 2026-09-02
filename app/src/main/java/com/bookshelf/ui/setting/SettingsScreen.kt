@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.bookshelf.presentation.core.components.TwoPanelBox
 import com.bookshelf.presentation.more.settings.screen.SettingsAppearanceScreen
 import com.bookshelf.presentation.more.settings.screen.SettingsDataScreen
 import com.bookshelf.presentation.more.settings.screen.SettingsMainScreen
@@ -21,7 +22,6 @@ import com.bookshelf.presentation.util.DefaultNavigatorScreenTransition
 import com.bookshelf.presentation.util.LocalBackPress
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.presentation.util.isTabletUi
-import com.bookshelf.presentation.core.components.TwoPanelBox
 
 class SettingsScreen(
     private val destination: Int? = null,

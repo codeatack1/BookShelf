@@ -2,24 +2,24 @@ package com.bookshelf.data.track
 
 import android.content.Context
 import androidx.annotation.CallSuper
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.common.util.lang.withUIContext
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.data.database.models.Track
 import com.bookshelf.domain.track.interactor.AddTracks
+import com.bookshelf.domain.track.interactor.InsertTrack
+import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.domain.track.model.toDomainTrack
 import com.bookshelf.domain.track.service.TrackPreferences
-import com.bookshelf.data.database.models.Track
 import com.bookshelf.network.NetworkHelper
 import com.bookshelf.util.system.toast
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import logcat.LogPriority
-import com.bookshelf.app.di.appGraph
 import okhttp3.OkHttpClient
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.core.common.util.lang.withUIContext
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.track.interactor.InsertTrack
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
-import com.bookshelf.domain.track.model.Track as DomainTrack
 
 abstract class BaseTracker(
     override val id: Long,

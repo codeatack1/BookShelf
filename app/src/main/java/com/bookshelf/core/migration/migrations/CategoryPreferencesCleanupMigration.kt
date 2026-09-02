@@ -1,14 +1,14 @@
 package com.bookshelf.core.migration.migrations
 
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoSet
-import dev.zacsweers.metro.Inject
+import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.core.migration.Migration
 import com.bookshelf.core.migration.MigrationContext
-import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.download.service.DownloadPreferences
 import com.bookshelf.domain.library.service.LibraryPreferences
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoSet
+import dev.zacsweers.metro.Inject
 
 @Inject
 @ContributesIntoSet(AppScope::class)

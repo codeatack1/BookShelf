@@ -7,17 +7,17 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.bookshelf.presentation.browse.components.BaseSourceItem
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.more.settings.widget.SwitchPreferenceWidget
-import com.bookshelf.ui.browse.source.SourcesFilterViewModel
-import com.bookshelf.util.system.LocaleHelper
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.browse.components.BaseSourceItem
+import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.core.components.FastScrollLazyColumn
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.EmptyScreen
+import com.bookshelf.presentation.more.settings.widget.SwitchPreferenceWidget
+import com.bookshelf.ui.browse.source.SourcesFilterViewModel
+import com.bookshelf.util.system.LocaleHelper
 
 @Composable
 fun SourcesFilterScreen(

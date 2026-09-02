@@ -12,17 +12,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.domain.textbook.model.readerOrientation
+import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.components.AdaptiveSheet
+import com.bookshelf.presentation.core.components.SettingsIconGrid
+import com.bookshelf.presentation.core.components.material.IconToggleButton
+import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.reader.components.ModeSelectionDialog
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.ui.reader.setting.ReaderOrientation
 import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.components.SettingsIconGrid
-import com.bookshelf.presentation.core.components.material.IconToggleButton
-import com.bookshelf.presentation.core.i18n.stringResource
+import dev.icerock.moko.resources.StringResource
 
 private val ReaderOrientationsWithoutDefault = ReaderOrientation.entries - ReaderOrientation.DEFAULT
 

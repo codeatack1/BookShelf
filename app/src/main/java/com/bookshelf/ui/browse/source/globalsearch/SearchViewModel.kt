@@ -5,9 +5,17 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.produceState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshelf.core.common.preference.toggle
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.domain.source.service.SourcePreferences
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.toDomainTextbook
 import com.bookshelf.extension.ExtensionManager
 import com.bookshelf.source.Source
+import java.util.concurrent.Executors
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
@@ -20,14 +28,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.bookshelf.domain.textbook.model.toDomainTextbook
-import com.bookshelf.core.common.preference.toggle
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.domain.textbook.interactor.GetTextbook
-import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
-import java.util.concurrent.Executors
 
 abstract class SearchViewModel(
     initialState: State = State(),

@@ -10,10 +10,10 @@ import androidx.annotation.CallSuper
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bookshelf.extension.ExtensionManager
 import com.bookshelf.extension.model.InstallStep
-import uy.kohesive.injekt.injectLazy
 import java.util.Collections
 import kotlin.concurrent.atomics.AtomicReference
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
+import uy.kohesive.injekt.injectLazy
 
 /**
  * Base implementation class for extension installer. To be used inside a foreground [Service].

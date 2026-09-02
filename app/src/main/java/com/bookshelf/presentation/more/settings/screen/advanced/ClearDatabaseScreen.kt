@@ -31,24 +31,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.binding
-import dev.zacsweers.metrox.viewmodel.ViewModelKey
-import dev.zacsweers.metrox.viewmodel.metroViewModel
-import com.bookshelf.presentation.browse.components.SourceIcon
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.util.Screen
-import com.bookshelf.util.system.toast
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.FlipToBack
-import com.bookshelf.icons.materialsymbols.rounded.SelectAll
 import com.bookshelf.core.common.util.lang.launchIO
 import com.bookshelf.core.common.util.lang.launchUI
 import com.bookshelf.core.common.util.lang.toLong
@@ -58,6 +40,12 @@ import com.bookshelf.domain.source.interactor.GetSourcesWithNonLibraryTextbook
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.domain.source.model.SourceWithCount
 import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.FlipToBack
+import com.bookshelf.icons.materialsymbols.rounded.SelectAll
+import com.bookshelf.presentation.browse.components.SourceIcon
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.core.components.LazyColumnWithAction
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.components.material.padding
@@ -65,6 +53,18 @@ import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.util.selectedBackground
+import com.bookshelf.presentation.util.Screen
+import com.bookshelf.util.system.toast
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.binding
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
+import dev.zacsweers.metrox.viewmodel.metroViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 
 class ClearDatabaseScreen : Screen() {
 

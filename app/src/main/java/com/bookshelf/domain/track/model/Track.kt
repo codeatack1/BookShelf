@@ -1,7 +1,7 @@
 package com.bookshelf.domain.track.model
 
-import com.bookshelf.domain.track.model.Track
 import com.bookshelf.data.database.models.Track as DbTrack
+import com.bookshelf.domain.track.model.Track
 
 fun Track.copyPersonalFrom(other: Track): Track {
     return this.copy(

@@ -7,10 +7,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.more.settings.widget.SwitchPreferenceWidget
-import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
 import com.bookshelf.R
-import com.bookshelf.ui.more.DownloadQueueState
+import com.bookshelf.core.common.Constants
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.Help
 import com.bookshelf.icons.materialsymbols.automirroredrounded.Label
@@ -21,12 +20,13 @@ import com.bookshelf.icons.materialsymbols.rounded.QueryStats
 import com.bookshelf.icons.materialsymbols.rounded.Settings
 import com.bookshelf.icons.materialsymbols.rounded.Storage
 import com.bookshelf.icons.materialsymbols.rounded.VolunteerActivism
-import com.bookshelf.core.common.Constants
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.ScrollbarLazyColumn
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.more.settings.widget.SwitchPreferenceWidget
+import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
+import com.bookshelf.ui.more.DownloadQueueState
 
 @Composable
 fun MoreScreen(

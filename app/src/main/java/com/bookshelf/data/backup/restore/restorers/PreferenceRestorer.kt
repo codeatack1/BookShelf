@@ -2,7 +2,9 @@ package com.bookshelf.data.backup.restore.restorers
 
 import android.content.Context
 import android.util.Log
-import dev.zacsweers.metro.Inject
+import com.bookshelf.core.common.preference.AndroidPreferenceStore
+import com.bookshelf.core.common.preference.PreferenceStore
+import com.bookshelf.core.common.preference.plusAssign
 import com.bookshelf.data.backup.create.BackupCreateJob
 import com.bookshelf.data.backup.models.BackupCategory
 import com.bookshelf.data.backup.models.BackupPreference
@@ -14,14 +16,12 @@ import com.bookshelf.data.backup.models.LongPreferenceValue
 import com.bookshelf.data.backup.models.StringPreferenceValue
 import com.bookshelf.data.backup.models.StringSetPreferenceValue
 import com.bookshelf.data.library.LibraryUpdateJob
-import com.bookshelf.source.sourcePreferences
-import com.bookshelf.core.common.preference.AndroidPreferenceStore
-import com.bookshelf.core.common.preference.PreferenceStore
-import com.bookshelf.core.common.preference.plusAssign
 import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.download.service.DownloadPreferences
 import com.bookshelf.domain.library.service.LibraryPreferences
+import com.bookshelf.source.sourcePreferences
+import dev.zacsweers.metro.Inject
 
 @Inject
 class PreferenceRestorer(

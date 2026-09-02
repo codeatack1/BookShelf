@@ -12,22 +12,22 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import dev.zacsweers.metrox.viewmodel.metroViewModel
-import com.bookshelf.presentation.components.TabbedScreen
-import com.bookshelf.presentation.util.Tab
 import com.bookshelf.R
+import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.TabbedScreen
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.util.Tab
 import com.bookshelf.ui.browse.extension.ExtensionsViewModel
 import com.bookshelf.ui.browse.extension.extensionsTab
 import com.bookshelf.ui.browse.migration.sources.migrateSourceTab
 import com.bookshelf.ui.browse.source.globalsearch.GlobalSearchScreen
 import com.bookshelf.ui.browse.source.sourcesTab
 import com.bookshelf.ui.main.MainActivity
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
 
 data object BrowseTab : Tab {
 

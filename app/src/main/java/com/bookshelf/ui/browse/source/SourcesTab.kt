@@ -7,20 +7,20 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.metroViewModel
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.FilterList
+import com.bookshelf.icons.materialsymbols.rounded.TravelExplore
 import com.bookshelf.presentation.browse.SourceOptionsDialog
 import com.bookshelf.presentation.browse.SourcesScreen
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.TabContent
+import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.ui.browse.source.browse.BrowseSourceScreen
 import com.bookshelf.ui.browse.source.globalsearch.GlobalSearchScreen
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.FilterList
-import com.bookshelf.icons.materialsymbols.rounded.TravelExplore
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
 
 @Composable
 fun Screen.sourcesTab(): TabContent {

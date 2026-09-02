@@ -1,9 +1,9 @@
 package com.bookshelf.domain.chapter.model
 
-import com.bookshelf.data.database.models.ChapterImpl
-import com.bookshelf.source.model.SChapter
-import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.data.database.models.Chapter as DbChapter
+import com.bookshelf.data.database.models.ChapterImpl
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.source.model.SChapter
 
 // TODO: Remove when all deps are migrated
 fun Chapter.toSChapter(): SChapter {

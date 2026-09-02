@@ -2,6 +2,7 @@ package com.bookshelf.data.track.myanimelist
 
 import android.net.Uri
 import androidx.core.net.toUri
+import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.data.track.myanimelist.dto.MALListItem
@@ -10,6 +11,7 @@ import com.bookshelf.data.track.myanimelist.dto.MALManga
 import com.bookshelf.data.track.myanimelist.dto.MALOAuth
 import com.bookshelf.data.track.myanimelist.dto.MALSearchResult
 import com.bookshelf.data.track.myanimelist.dto.MALUser
+import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.network.DELETE
 import com.bookshelf.network.GET
 import com.bookshelf.network.HttpException
@@ -18,17 +20,15 @@ import com.bookshelf.network.await
 import com.bookshelf.network.awaitSuccess
 import com.bookshelf.network.parseAs
 import com.bookshelf.util.PkceUtil
+import java.text.SimpleDateFormat
+import java.util.Locale
 import kotlinx.serialization.json.Json
 import okhttp3.FormBody
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
-import com.bookshelf.core.common.util.lang.withIOContext
 import uy.kohesive.injekt.injectLazy
-import java.text.SimpleDateFormat
-import java.util.Locale
-import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class MyAnimeListApi(
     private val trackId: Long,

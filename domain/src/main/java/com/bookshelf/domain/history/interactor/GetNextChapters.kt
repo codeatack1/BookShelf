@@ -1,11 +1,11 @@
 package com.bookshelf.domain.history.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.service.getChapterSort
 import com.bookshelf.domain.history.repository.HistoryRepository
 import com.bookshelf.domain.textbook.interactor.GetTextbook
+import dev.zacsweers.metro.Inject
 import kotlin.math.max
 
 @Inject

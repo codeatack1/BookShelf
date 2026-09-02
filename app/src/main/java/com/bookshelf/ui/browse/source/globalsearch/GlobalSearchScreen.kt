@@ -9,12 +9,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import com.bookshelf.presentation.browse.GlobalSearchScreen
+import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.ui.browse.source.browse.BrowseSourceScreen
 import com.bookshelf.ui.textbook.TextbookScreen
-import com.bookshelf.presentation.core.screens.LoadingScreen
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 
 class GlobalSearchScreen(
     val searchQuery: String = "",

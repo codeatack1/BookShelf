@@ -10,12 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import com.bookshelf.R
-import com.bookshelf.ui.reader.setting.ReaderOrientation
-import com.bookshelf.ui.reader.setting.ReadingMode
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Settings
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.ui.reader.setting.ReaderOrientation
+import com.bookshelf.ui.reader.setting.ReadingMode
 
 @Composable
 fun ReaderBottomBar(

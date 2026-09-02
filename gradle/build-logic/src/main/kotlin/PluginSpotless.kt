@@ -1,7 +1,7 @@
-import com.diffplug.gradle.spotless.SpotlessExtension
 import com.bookshelf.gradle.extensions.alias
 import com.bookshelf.gradle.extensions.libs
 import com.bookshelf.gradle.extensions.plugins
+import com.diffplug.gradle.spotless.SpotlessExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

@@ -1,12 +1,17 @@
 package com.bookshelf.source
 
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.domain.source.model.StubSource
+import com.bookshelf.domain.source.repository.StubSourceRepository
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.extension.ExtensionManager
+import com.bookshelf.source.local.LocalSource
+import com.bookshelf.source.online.HttpSource
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.data.download.DownloadManager
-import com.bookshelf.extension.ExtensionManager
-import com.bookshelf.source.online.HttpSource
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,11 +22,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import com.bookshelf.domain.source.model.StubSource
-import com.bookshelf.domain.source.repository.StubSourceRepository
-import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.source.local.LocalSource
-import java.util.concurrent.ConcurrentHashMap
 
 @Inject
 @SingleIn(AppScope::class)

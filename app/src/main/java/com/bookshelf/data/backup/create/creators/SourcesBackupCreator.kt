@@ -1,10 +1,10 @@
 package com.bookshelf.data.backup.create.creators
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.data.backup.models.BackupTextbook
 import com.bookshelf.data.backup.models.BackupSource
-import com.bookshelf.source.Source
+import com.bookshelf.data.backup.models.BackupTextbook
 import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.source.Source
+import dev.zacsweers.metro.Inject
 
 @Inject
 class SourcesBackupCreator(

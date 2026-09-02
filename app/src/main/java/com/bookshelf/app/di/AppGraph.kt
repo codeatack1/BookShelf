@@ -1,19 +1,8 @@
 package com.bookshelf.app.di
 
 import android.content.Context
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.DependencyGraph
-import dev.zacsweers.metro.Provides
-import dev.zacsweers.metrox.viewmodel.MetroViewModelFactory
-import dev.zacsweers.metrox.viewmodel.ViewModelGraph
-import com.bookshelf.domain.base.BasePreferences
-import com.bookshelf.domain.extension.interactor.TrustExtension
-import com.bookshelf.domain.source.service.SourcePreferences
-import com.bookshelf.domain.track.interactor.AddTracks
-import com.bookshelf.domain.track.service.DelayedTrackingUpdateJob
-import com.bookshelf.domain.track.service.TrackPreferences
-import com.bookshelf.domain.ui.UiPreferences
 import com.bookshelf.App
+import com.bookshelf.core.metro.IsDebugBuild
 import com.bookshelf.core.security.PrivacyPreferences
 import com.bookshelf.core.security.SecurityPreferences
 import com.bookshelf.data.backup.create.BackupCreateJob
@@ -27,6 +16,24 @@ import com.bookshelf.data.library.MetadataUpdateJob
 import com.bookshelf.data.notification.NotificationReceiver
 import com.bookshelf.data.track.TrackerManager
 import com.bookshelf.data.updater.AppUpdateChecker
+import com.bookshelf.domain.backup.service.BackupPreferences
+import com.bookshelf.domain.base.BasePreferences
+import com.bookshelf.domain.category.interactor.GetCategories
+import com.bookshelf.domain.category.interactor.ResetCategoryFlags
+import com.bookshelf.domain.download.service.DownloadPreferences
+import com.bookshelf.domain.extension.interactor.GetExtensionStoreCountAsFlow
+import com.bookshelf.domain.extension.interactor.TrustExtension
+import com.bookshelf.domain.library.service.LibraryPreferences
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.source.service.SourcePreferences
+import com.bookshelf.domain.storage.service.StoragePreferences
+import com.bookshelf.domain.textbook.interactor.GetFavoriteTextbooks
+import com.bookshelf.domain.textbook.interactor.ResetViewerFlags
+import com.bookshelf.domain.track.interactor.AddTracks
+import com.bookshelf.domain.track.interactor.InsertTrack
+import com.bookshelf.domain.track.service.DelayedTrackingUpdateJob
+import com.bookshelf.domain.track.service.TrackPreferences
+import com.bookshelf.domain.ui.UiPreferences
 import com.bookshelf.extension.ExtensionManager
 import com.bookshelf.extension.util.ExtensionInstallActivity
 import com.bookshelf.network.NetworkHelper
@@ -38,19 +45,12 @@ import com.bookshelf.ui.reader.setting.ReaderPreferences
 import com.bookshelf.ui.setting.track.BaseOAuthLoginActivity
 import com.bookshelf.ui.webview.WebViewActivity
 import com.bookshelf.util.CrashLogUtil
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.DependencyGraph
+import dev.zacsweers.metro.Provides
+import dev.zacsweers.metrox.viewmodel.MetroViewModelFactory
+import dev.zacsweers.metrox.viewmodel.ViewModelGraph
 import kotlinx.serialization.json.Json
-import com.bookshelf.core.metro.IsDebugBuild
-import com.bookshelf.domain.extension.interactor.GetExtensionStoreCountAsFlow
-import com.bookshelf.domain.backup.service.BackupPreferences
-import com.bookshelf.domain.category.interactor.GetCategories
-import com.bookshelf.domain.category.interactor.ResetCategoryFlags
-import com.bookshelf.domain.download.service.DownloadPreferences
-import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.textbook.interactor.GetFavoriteTextbooks
-import com.bookshelf.domain.textbook.interactor.ResetViewerFlags
-import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.domain.storage.service.StoragePreferences
-import com.bookshelf.domain.track.interactor.InsertTrack
 
 @DependencyGraph(
     scope = AppScope::class,

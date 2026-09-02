@@ -1,14 +1,14 @@
 package com.bookshelf.test
 
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.R
 import com.bookshelf.data.track.Tracker
 import com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.domain.track.model.Track
+import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import okhttp3.OkHttpClient
-import com.bookshelf.domain.track.model.Track
-import com.bookshelf.i18n.MR
 
 data class DummyTracker(
     override val id: Long,

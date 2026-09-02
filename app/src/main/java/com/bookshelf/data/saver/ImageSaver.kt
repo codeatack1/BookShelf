@@ -11,23 +11,23 @@ import android.webkit.MimeTypeMap
 import androidx.annotation.RequiresApi
 import androidx.core.content.contentValuesOf
 import androidx.core.net.toUri
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import com.bookshelf.util.storage.DiskUtil
-import com.bookshelf.util.storage.cacheImageDir
-import com.bookshelf.util.storage.getUriCompat
-import logcat.LogPriority
-import okio.IOException
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.util.system.ImageUtil
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.i18n.MR
+import com.bookshelf.util.storage.DiskUtil
+import com.bookshelf.util.storage.cacheImageDir
+import com.bookshelf.util.storage.getUriCompat
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
 import kotlin.time.Clock
+import logcat.LogPriority
+import okio.IOException
 
 @Inject
 @SingleIn(AppScope::class)

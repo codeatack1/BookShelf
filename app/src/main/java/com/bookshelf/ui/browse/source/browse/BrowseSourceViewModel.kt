@@ -13,6 +13,31 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
+import com.bookshelf.core.common.preference.CheckboxState
+import com.bookshelf.core.common.preference.mapAsCheckboxState
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.preference.asState
+import com.bookshelf.data.cache.CoverCache
+import com.bookshelf.domain.category.interactor.GetCategories
+import com.bookshelf.domain.category.interactor.SetTextbookCategories
+import com.bookshelf.domain.category.model.Category
+import com.bookshelf.domain.chapter.interactor.SetTextbookDefaultChapterFlags
+import com.bookshelf.domain.library.service.LibraryPreferences
+import com.bookshelf.domain.source.interactor.GetIncognitoState
+import com.bookshelf.domain.source.interactor.GetRemoteTextbook
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.source.service.SourcePreferences
+import com.bookshelf.domain.textbook.interactor.GetDuplicateLibraryTextbook
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
+import com.bookshelf.domain.textbook.model.toTextbookUpdate
+import com.bookshelf.domain.track.interactor.AddTracks
+import com.bookshelf.source.Source
+import com.bookshelf.source.model.Filter as SourceModelFilter
+import com.bookshelf.source.model.FilterList
+import com.bookshelf.util.removeCovers
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
@@ -20,15 +45,7 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
-import com.bookshelf.core.preference.asState
-import com.bookshelf.domain.textbook.interactor.UpdateTextbook
-import com.bookshelf.domain.source.interactor.GetIncognitoState
-import com.bookshelf.domain.source.service.SourcePreferences
-import com.bookshelf.domain.track.interactor.AddTracks
-import com.bookshelf.data.cache.CoverCache
-import com.bookshelf.source.Source
-import com.bookshelf.source.model.FilterList
-import com.bookshelf.util.removeCovers
+import kotlin.time.Clock
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -40,23 +57,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import com.bookshelf.core.common.preference.CheckboxState
-import com.bookshelf.core.common.preference.mapAsCheckboxState
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.domain.category.interactor.GetCategories
-import com.bookshelf.domain.category.interactor.SetTextbookCategories
-import com.bookshelf.domain.category.model.Category
-import com.bookshelf.domain.chapter.interactor.SetTextbookDefaultChapterFlags
-import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.textbook.interactor.GetDuplicateLibraryTextbook
-import com.bookshelf.domain.textbook.interactor.GetTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
-import com.bookshelf.domain.textbook.model.toTextbookUpdate
-import com.bookshelf.domain.source.interactor.GetRemoteTextbook
-import com.bookshelf.domain.source.service.SourceManager
-import kotlin.time.Clock
-import com.bookshelf.source.model.Filter as SourceModelFilter
 
 @AssistedInject
 class BrowseSourceViewModel(

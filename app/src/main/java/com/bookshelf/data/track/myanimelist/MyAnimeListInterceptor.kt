@@ -2,11 +2,11 @@ package com.bookshelf.data.track.myanimelist
 
 import com.bookshelf.data.track.myanimelist.dto.MALOAuth
 import com.bookshelf.network.parseAs
+import java.io.IOException
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.Response
 import uy.kohesive.injekt.injectLazy
-import java.io.IOException
 
 class MyAnimeListInterceptor(private val myanimelist: MyAnimeList) : Interceptor {
 

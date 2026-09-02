@@ -3,13 +3,6 @@ package com.bookshelf.data.chapter
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesBinding
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.json.JsonObject
-import logcat.LogPriority
 import com.bookshelf.core.common.util.lang.toLong
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.Database
@@ -18,6 +11,13 @@ import com.bookshelf.data.subscribeToList
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.model.ChapterUpdate
 import com.bookshelf.domain.chapter.repository.ChapterRepository
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
+import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.json.JsonObject
+import logcat.LogPriority
 
 @Inject
 @SingleIn(AppScope::class)

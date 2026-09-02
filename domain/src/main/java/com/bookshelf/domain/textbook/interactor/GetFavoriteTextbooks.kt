@@ -1,9 +1,9 @@
 package com.bookshelf.domain.textbook.interactor
 
-import dev.zacsweers.metro.Inject
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.repository.TextbookRepository
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
 
 @Inject
 class GetFavoriteTextbooks(

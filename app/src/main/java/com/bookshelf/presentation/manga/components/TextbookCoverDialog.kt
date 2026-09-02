@@ -44,26 +44,26 @@ import coil3.imageLoader
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import coil3.size.Size
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.components.DropdownMenu
-import com.bookshelf.presentation.manga.EditCoverAction
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.data.coil.ImageDecoder
 import com.bookshelf.data.coil.newDecoder
-import com.bookshelf.ui.reader.viewer.ReaderPageImageView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import com.bookshelf.app.di.appGraph
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Close
 import com.bookshelf.icons.materialsymbols.rounded.Edit
 import com.bookshelf.icons.materialsymbols.rounded.Save
 import com.bookshelf.icons.materialsymbols.rounded.Share
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
+import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.clickableNoIndication
+import com.bookshelf.presentation.manga.EditCoverAction
+import com.bookshelf.ui.reader.viewer.ReaderPageImageView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun TextbookCoverDialog(

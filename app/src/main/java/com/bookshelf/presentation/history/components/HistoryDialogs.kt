@@ -12,11 +12,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.LabeledCheckbox
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 
 @Composable
 fun HistoryDeleteDialog(

@@ -17,13 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Check
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.SettingsItemsPaddings
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 
 @Composable
 fun ModeSelectionDialog(

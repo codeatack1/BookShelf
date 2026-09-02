@@ -6,11 +6,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
+import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.util.AssistContentScreen
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.presentation.webview.WebViewScreenContent
-import com.bookshelf.presentation.core.screens.LoadingScreen
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 
 class WebViewScreen(
     private val url: String,

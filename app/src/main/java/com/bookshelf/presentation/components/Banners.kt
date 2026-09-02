@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.fastMap
 import androidx.compose.ui.util.fastMaxBy
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
+import dev.icerock.moko.resources.StringResource
 
 val DownloadedOnlyBannerBackgroundColor
     @Composable get() = MaterialTheme.colorScheme.tertiary

@@ -1,11 +1,11 @@
 package com.bookshelf.data.cache
 
 import android.content.Context
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.util.storage.DiskUtil
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.util.storage.DiskUtil
-import com.bookshelf.domain.textbook.model.Textbook
 import java.io.File
 import java.io.IOException
 import java.io.InputStream

@@ -8,17 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.base.BasePreferences
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.core.security.SecurityPreferences
+import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.ui.security.UnlockActivity
 import com.bookshelf.util.system.AuthenticatorUtil
 import com.bookshelf.util.system.AuthenticatorUtil.isAuthenticationSupported
 import com.bookshelf.util.view.setSecureScreen
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import com.bookshelf.app.di.appGraph
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 

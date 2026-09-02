@@ -19,13 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.bookshelf.core.preference.PreferenceMutableState
-import com.bookshelf.ui.library.LibraryItem
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.library.model.LibraryDisplayMode
 import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.util.plus
+import com.bookshelf.ui.library.LibraryItem
 
 @Composable
 fun LibraryPager(

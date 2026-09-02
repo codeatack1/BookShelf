@@ -2,10 +2,10 @@ package com.bookshelf.core.preference
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import com.bookshelf.core.common.preference.Preference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import com.bookshelf.core.common.preference.Preference
 
 class PreferenceMutableState<T>(
     private val preference: Preference<T>,

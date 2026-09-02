@@ -44,14 +44,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.components.DownloadDropdownMenu
-import com.bookshelf.presentation.components.DropdownMenu
-import com.bookshelf.presentation.manga.DownloadAction
 import com.bookshelf.R
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.Label
 import com.bookshelf.icons.materialsymbols.rounded.BookmarkAdd
@@ -62,9 +56,15 @@ import com.bookshelf.icons.materialsymbols.rounded.Download
 import com.bookshelf.icons.materialsymbols.rounded.MoreVert
 import com.bookshelf.icons.materialsymbols.rounded.RemoveDone
 import com.bookshelf.icons.materialsymbols.rounded.SwapCalls
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.DownloadDropdownMenu
+import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.manga.DownloadAction
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 @Composable
 fun TextbookBottomActionMenu(

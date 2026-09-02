@@ -2,9 +2,9 @@ package com.bookshelf.ui.setting.track
 
 import android.net.Uri
 import androidx.lifecycle.lifecycleScope
+import com.bookshelf.core.common.util.system.logcat
 import kotlinx.coroutines.launch
 import logcat.LogPriority
-import com.bookshelf.core.common.util.system.logcat
 
 class TrackLoginActivity : BaseOAuthLoginActivity() {
 

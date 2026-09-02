@@ -15,13 +15,8 @@ import androidx.core.content.ContextCompat
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.bookshelf.presentation.category.visualName
-import com.bookshelf.presentation.more.settings.Preference
-import com.bookshelf.presentation.more.settings.widget.TriStateListDialog
-import com.bookshelf.data.library.LibraryUpdateJob
-import com.bookshelf.ui.category.CategoryScreen
-import kotlinx.coroutines.launch
 import com.bookshelf.app.di.appGraph
+import com.bookshelf.data.library.LibraryUpdateJob
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.library.service.LibraryPreferences
 import com.bookshelf.domain.library.service.LibraryPreferences.Companion.DEVICE_CHARGING
@@ -34,9 +29,14 @@ import com.bookshelf.domain.library.service.LibraryPreferences.Companion.MANGA_O
 import com.bookshelf.domain.library.service.LibraryPreferences.Companion.MARK_DUPLICATE_CHAPTER_READ_EXISTING
 import com.bookshelf.domain.library.service.LibraryPreferences.Companion.MARK_DUPLICATE_CHAPTER_READ_NEW
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.category.visualName
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.presentation.more.settings.Preference
+import com.bookshelf.presentation.more.settings.widget.TriStateListDialog
+import com.bookshelf.ui.category.CategoryScreen
+import kotlinx.coroutines.launch
 
 object SettingsLibraryScreen : SearchableSettings {
 

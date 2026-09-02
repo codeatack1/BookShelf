@@ -1,24 +1,24 @@
 package com.bookshelf.data.source
 
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesBinding
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import com.bookshelf.source.Source
-import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.online.HttpSource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import com.bookshelf.data.Database
 import com.bookshelf.data.subscribeToList
-import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.source.model.Source as DomainSource
 import com.bookshelf.domain.source.model.SourceWithCount
 import com.bookshelf.domain.source.model.StubSource
 import com.bookshelf.domain.source.repository.SourcePagingSource
 import com.bookshelf.domain.source.repository.SourceRepository
 import com.bookshelf.domain.source.service.SourceManager
-import com.bookshelf.domain.source.model.Source as DomainSource
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.source.Source
+import com.bookshelf.source.model.FilterList
+import com.bookshelf.source.online.HttpSource
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 
 @Inject
 @SingleIn(AppScope::class)

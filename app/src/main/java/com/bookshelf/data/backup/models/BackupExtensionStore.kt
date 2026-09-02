@@ -1,8 +1,8 @@
 package com.bookshelf.data.backup.models
 
+import com.bookshelf.domain.extension.model.ExtensionStore
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.protobuf.ProtoNumber
-import com.bookshelf.domain.extension.model.ExtensionStore
 
 @Serializable
 class BackupExtensionStore(

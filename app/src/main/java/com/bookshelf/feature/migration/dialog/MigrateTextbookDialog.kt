@@ -20,30 +20,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.util.fastForEach
 import androidx.lifecycle.ViewModel
 import cafe.adriel.voyager.core.screen.Screen
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.lang.withUIContext
+import com.bookshelf.data.cache.CoverCache
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.domain.migration.models.MigrationFlag
+import com.bookshelf.domain.migration.usecases.MigrateTextbookUseCase
+import com.bookshelf.domain.source.service.SourcePreferences
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.hasCustomCover
+import com.bookshelf.feature.common.utils.getLabel
+import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.core.components.LabeledCheckbox
+import com.bookshelf.presentation.core.components.material.padding
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.core.screens.LoadingScreen
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.binding
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import dev.zacsweers.metrox.viewmodel.metroViewModel
-import com.bookshelf.domain.textbook.model.hasCustomCover
-import com.bookshelf.domain.source.service.SourcePreferences
-import com.bookshelf.data.cache.CoverCache
-import com.bookshelf.data.download.DownloadManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import com.bookshelf.domain.migration.models.MigrationFlag
-import com.bookshelf.domain.migration.usecases.MigrateTextbookUseCase
-import com.bookshelf.feature.common.utils.getLabel
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.lang.withUIContext
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.components.LabeledCheckbox
-import com.bookshelf.presentation.core.components.material.padding
-import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.core.screens.LoadingScreen
 
 @Composable
 internal fun Screen.MigrateTextbookDialog(

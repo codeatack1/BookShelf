@@ -1,14 +1,14 @@
 package com.bookshelf.domain.textbook.interactor
 
-import dev.zacsweers.metro.Inject
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import com.bookshelf.domain.textbook.interactor.FetchInterval
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookUpdate
 import com.bookshelf.domain.textbook.repository.TextbookRepository
+import dev.zacsweers.metro.Inject
 import kotlin.time.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 @Inject
 class UpdateTextbook(

@@ -2,6 +2,7 @@ package com.bookshelf.data.track.shikimori
 
 import android.net.Uri
 import androidx.core.net.toUri
+import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.data.track.shikimori.dto.SMLibraryIdResponse
@@ -10,6 +11,7 @@ import com.bookshelf.data.track.shikimori.dto.SMSearchResult
 import com.bookshelf.data.track.shikimori.dto.SMUser
 import com.bookshelf.data.track.shikimori.dto.SMUserListResult
 import com.bookshelf.data.track.shikimori.dto.SMUserResult
+import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.network.DELETE
 import com.bookshelf.network.POST
 import com.bookshelf.network.PUT
@@ -23,9 +25,7 @@ import kotlinx.serialization.json.putJsonObject
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
-import com.bookshelf.core.common.util.lang.withIOContext
 import uy.kohesive.injekt.injectLazy
-import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class ShikimoriApi(
     private val trackId: Long,

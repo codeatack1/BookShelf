@@ -1,10 +1,10 @@
 package com.bookshelf.domain.track.interactor
 
-import dev.zacsweers.metro.Inject
-import logcat.LogPriority
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.track.model.Track
 import com.bookshelf.domain.track.repository.TrackRepository
+import dev.zacsweers.metro.Inject
+import logcat.LogPriority
 
 @Inject
 class InsertTrack(

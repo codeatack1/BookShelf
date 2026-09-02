@@ -1,11 +1,11 @@
 package com.bookshelf.source
 
 import com.bookshelf.source.model.FilterList
-import com.bookshelf.source.model.TextbooksPage
 import com.bookshelf.source.model.Page
 import com.bookshelf.source.model.SChapter
 import com.bookshelf.source.model.STextbook
 import com.bookshelf.source.model.STextbookUpdate
+import com.bookshelf.source.model.TextbooksPage
 import rx.Observable
 
 /**

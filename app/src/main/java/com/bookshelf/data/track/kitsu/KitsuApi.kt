@@ -1,5 +1,7 @@
 package com.bookshelf.data.track.kitsu
 
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.kitsu.dto.KitsuAccount
 import com.bookshelf.data.track.kitsu.dto.KitsuAddMangaResult
@@ -12,11 +14,13 @@ import com.bookshelf.data.track.kitsu.dto.KitsuSearchBySlugResult
 import com.bookshelf.data.track.kitsu.dto.KitsuSearchByTitleResult
 import com.bookshelf.data.track.kitsu.dto.KitsuUpdateMangaResult
 import com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.network.POST
 import com.bookshelf.network.await
 import com.bookshelf.network.awaitSuccess
 import com.bookshelf.network.jsonMime
 import com.bookshelf.network.parseAs
+import kotlin.time.Instant
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -26,11 +30,7 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.core.common.util.system.logcat
 import uy.kohesive.injekt.injectLazy
-import kotlin.time.Instant
-import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class KitsuApi(
     private val trackId: Long,

@@ -1,10 +1,10 @@
 package com.bookshelf.ui.reader.model
 
-import com.bookshelf.domain.chapter.model.toDbChapter
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.database.models.Chapter
+import com.bookshelf.domain.chapter.model.toDbChapter
 import com.bookshelf.ui.reader.loader.PageLoader
 import kotlinx.coroutines.flow.MutableStateFlow
-import com.bookshelf.core.common.util.system.logcat
 
 data class ReaderChapter(val chapter: Chapter) {
 

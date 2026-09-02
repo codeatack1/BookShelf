@@ -14,18 +14,18 @@ import android.provider.Settings
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
-import com.hippo.unifile.UniFile
-import com.bookshelf.domain.ui.model.ThemeMode
 import com.bookshelf.R
-import com.bookshelf.ui.base.delegate.ThemingDelegate
-import com.bookshelf.util.lang.truncateCenter
-import logcat.LogPriority
 import com.bookshelf.app.di.appGraph
-import rikka.shizuku.ShizukuProvider
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.ui.model.ThemeMode
 import com.bookshelf.i18n.MR
+import com.bookshelf.ui.base.delegate.ThemingDelegate
+import com.bookshelf.util.lang.truncateCenter
+import com.hippo.unifile.UniFile
 import java.io.File
+import logcat.LogPriority
+import rikka.shizuku.ShizukuProvider
 
 /**
  * Copies a string to clipboard

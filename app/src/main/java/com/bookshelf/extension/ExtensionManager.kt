@@ -2,10 +2,10 @@ package com.bookshelf.extension
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
+import com.bookshelf.core.common.util.lang.withUIContext
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.extension.interactor.TrustExtension
+import com.bookshelf.domain.source.model.StubSource
 import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.extension.api.ExtensionApi
 import com.bookshelf.extension.api.ExtensionUpdateNotifier
@@ -15,7 +15,12 @@ import com.bookshelf.extension.model.LoadResult
 import com.bookshelf.extension.util.ExtensionInstallReceiver
 import com.bookshelf.extension.util.ExtensionInstaller
 import com.bookshelf.extension.util.ExtensionLoader
+import com.bookshelf.i18n.MR
 import com.bookshelf.util.system.toast
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
+import java.util.Locale
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,11 +35,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import logcat.LogPriority
-import com.bookshelf.core.common.util.lang.withUIContext
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.source.model.StubSource
-import com.bookshelf.i18n.MR
-import java.util.Locale
 
 /**
  * The manager of extensions installed as another apk which extend the available sources. It handles

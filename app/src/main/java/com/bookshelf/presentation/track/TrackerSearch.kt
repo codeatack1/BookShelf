@@ -65,18 +65,14 @@ import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.components.DropdownMenu
-import com.bookshelf.presentation.manga.components.TextbookCover
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.data.track.model.TrackSearch
-import com.bookshelf.util.system.openInBrowser
-import kotlinx.coroutines.launch
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowBack
 import com.bookshelf.icons.materialsymbols.rounded.Close
 import com.bookshelf.icons.materialsymbols.rounded.VisibilityOff
 import com.bookshelf.icons.materialsymbols.roundedfilled.CheckCircle
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.core.components.ScrollbarLazyColumn
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.components.material.padding
@@ -86,6 +82,10 @@ import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.util.plus
 import com.bookshelf.presentation.core.util.runOnEnterKeyPressed
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
+import com.bookshelf.util.system.openInBrowser
+import kotlinx.coroutines.launch
 
 @Composable
 fun TrackerSearch(

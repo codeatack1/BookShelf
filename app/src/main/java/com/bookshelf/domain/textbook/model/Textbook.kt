@@ -1,16 +1,16 @@
 package com.bookshelf.domain.textbook.model
 
 import android.content.Context
-import com.bookshelf.data.cache.CoverCache
-import com.bookshelf.source.model.STextbook
-import com.bookshelf.ui.reader.setting.ReaderOrientation
-import com.bookshelf.ui.reader.setting.ReadingMode
 import com.bookshelf.app.di.appGraph
 import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.core.metadata.comicinfo.ComicInfo
 import com.bookshelf.core.metadata.comicinfo.ComicInfoPublishingStatus
+import com.bookshelf.data.cache.CoverCache
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.source.model.STextbook
+import com.bookshelf.ui.reader.setting.ReaderOrientation
+import com.bookshelf.ui.reader.setting.ReadingMode
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 

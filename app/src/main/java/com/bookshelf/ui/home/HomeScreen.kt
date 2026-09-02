@@ -31,25 +31,25 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.presentation.util.isTabletUi
 import com.bookshelf.ui.browse.BrowseTab
 import com.bookshelf.ui.download.DownloadQueueScreen
 import com.bookshelf.ui.history.HistoryTab
 import com.bookshelf.ui.library.LibraryTab
-import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.more.MoreTab
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.updates.UpdatesTab
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import com.bookshelf.app.di.appGraph
 import soup.compose.material.motion.animation.materialFadeThroughIn
 import soup.compose.material.motion.animation.materialFadeThroughOut
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.pluralStringResource
 
 object HomeScreen : Screen() {
 

@@ -5,15 +5,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.metroViewModel
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.more.stats.StatsScreenContent
-import com.bookshelf.presentation.more.stats.StatsScreenState
-import com.bookshelf.presentation.util.Screen
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.LoadingScreen
+import com.bookshelf.presentation.more.stats.StatsScreenContent
+import com.bookshelf.presentation.more.stats.StatsScreenState
+import com.bookshelf.presentation.util.Screen
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 class StatsScreen : Screen() {
 

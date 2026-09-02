@@ -2,10 +2,10 @@ package com.bookshelf.ui.download
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bookshelf.R
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.AbstractExpandableHeaderItem
 import eu.davidea.flexibleadapter.items.IFlexible
-import com.bookshelf.R
 
 data class DownloadHeaderItem(
     val id: Long,

@@ -17,23 +17,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.util.fastAll
 import androidx.compose.ui.util.fastAny
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.manga.components.ChapterDownloadAction
-import com.bookshelf.presentation.manga.components.TextbookBottomActionMenu
 import com.bookshelf.data.download.model.Download
-import com.bookshelf.ui.updates.UpdatesItem
-import com.bookshelf.ui.updates.UpdatesViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.CalendarMonth
 import com.bookshelf.icons.materialsymbols.rounded.FilterList
 import com.bookshelf.icons.materialsymbols.rounded.FlipToBack
 import com.bookshelf.icons.materialsymbols.rounded.Refresh
 import com.bookshelf.icons.materialsymbols.rounded.SelectAll
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.core.components.FastScrollLazyColumn
 import com.bookshelf.presentation.core.components.material.PullRefresh
 import com.bookshelf.presentation.core.components.material.Scaffold
@@ -41,7 +34,14 @@ import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.theme.active
+import com.bookshelf.presentation.manga.components.ChapterDownloadAction
+import com.bookshelf.presentation.manga.components.TextbookBottomActionMenu
+import com.bookshelf.ui.updates.UpdatesItem
+import com.bookshelf.ui.updates.UpdatesViewModel
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
 
 @Composable
 fun UpdateScreen(

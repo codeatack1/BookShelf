@@ -1,8 +1,8 @@
 package com.bookshelf.source.local.metadata
 
+import com.bookshelf.core.archive.EpubReader
 import com.bookshelf.source.model.SChapter
 import com.bookshelf.source.model.STextbook
-import com.bookshelf.core.archive.EpubReader
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale

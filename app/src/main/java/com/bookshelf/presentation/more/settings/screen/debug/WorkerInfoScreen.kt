@@ -22,31 +22,31 @@ import androidx.work.WorkInfo
 import androidx.work.WorkQuery
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.domain.ui.UiPreferences
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.ContentCopy
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
+import com.bookshelf.presentation.core.components.material.Scaffold
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.core.util.plus
+import com.bookshelf.presentation.util.Screen
+import com.bookshelf.util.lang.toDateTimestampString
+import com.bookshelf.util.system.copyToClipboard
+import com.bookshelf.util.system.workManager
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import dev.zacsweers.metrox.viewmodel.metroViewModel
-import com.bookshelf.domain.ui.UiPreferences
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.util.Screen
-import com.bookshelf.util.lang.toDateTimestampString
-import com.bookshelf.util.system.copyToClipboard
-import com.bookshelf.util.system.workManager
+import kotlin.time.Instant
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.ContentCopy
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.components.material.Scaffold
-import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.core.util.plus
-import kotlin.time.Instant
 
 class WorkerInfoScreen : Screen() {
 

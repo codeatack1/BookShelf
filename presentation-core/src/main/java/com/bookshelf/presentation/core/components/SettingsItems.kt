@@ -43,16 +43,15 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import dev.icerock.moko.resources.StringResource
+import com.bookshelf.core.common.preference.Preference
+import com.bookshelf.core.common.preference.TriState
+import com.bookshelf.core.common.preference.toggle
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.ArrowDownward
 import com.bookshelf.icons.materialsymbols.rounded.ArrowUpward
 import com.bookshelf.icons.materialsymbols.rounded.CheckBoxOutlineBlank
 import com.bookshelf.icons.materialsymbols.roundedfilled.CheckBox
 import com.bookshelf.icons.materialsymbols.roundedfilled.DisabledByDefault
-import com.bookshelf.core.common.preference.Preference
-import com.bookshelf.core.common.preference.TriState
-import com.bookshelf.core.common.preference.toggle
 import com.bookshelf.presentation.core.components.material.DISABLED_ALPHA
 import com.bookshelf.presentation.core.components.material.Slider
 import com.bookshelf.presentation.core.components.material.padding
@@ -60,6 +59,7 @@ import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.theme.header
 import com.bookshelf.presentation.core.util.collectAsState
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import dev.icerock.moko.resources.StringResource
 
 object SettingsItemsPaddings {
     val Horizontal = 24.dp

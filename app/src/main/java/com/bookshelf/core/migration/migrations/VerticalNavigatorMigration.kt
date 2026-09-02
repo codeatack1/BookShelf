@@ -1,14 +1,14 @@
 package com.bookshelf.core.migration.migrations
 
+import com.bookshelf.core.common.preference.PreferenceStore
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.migration.Migration
+import com.bookshelf.core.migration.MigrationContext
+import com.bookshelf.ui.reader.setting.ReaderPreferences
+import com.bookshelf.ui.reader.setting.ReadingMode
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
-import com.bookshelf.ui.reader.setting.ReaderPreferences
-import com.bookshelf.ui.reader.setting.ReadingMode
-import com.bookshelf.core.migration.Migration
-import com.bookshelf.core.migration.MigrationContext
-import com.bookshelf.core.common.preference.PreferenceStore
-import com.bookshelf.core.common.util.lang.withIOContext
 
 @Inject
 @ContributesIntoSet(AppScope::class)

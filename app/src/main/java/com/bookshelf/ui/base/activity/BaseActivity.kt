@@ -3,12 +3,12 @@ package com.bookshelf.ui.base.activity
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.ui.base.delegate.SecureActivityDelegate
 import com.bookshelf.ui.base.delegate.SecureActivityDelegateImpl
 import com.bookshelf.ui.base.delegate.ThemingDelegate
 import com.bookshelf.ui.base.delegate.ThemingDelegateImpl
 import com.bookshelf.util.system.prepareTabletUiContext
-import com.bookshelf.app.di.appGraph
 
 open class BaseActivity :
     AppCompatActivity(),

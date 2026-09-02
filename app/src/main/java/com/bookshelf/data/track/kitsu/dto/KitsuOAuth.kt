@@ -1,8 +1,8 @@
 package com.bookshelf.data.track.kitsu.dto
 
+import kotlin.time.Clock
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.time.Clock
 
 @Serializable
 data class KitsuOAuth(

@@ -15,11 +15,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.components.AdaptiveSheet
-import com.bookshelf.source.model.Filter
-import com.bookshelf.source.model.FilterList
 import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AdaptiveSheet
 import com.bookshelf.presentation.core.components.CheckboxItem
 import com.bookshelf.presentation.core.components.CollapsibleBox
 import com.bookshelf.presentation.core.components.HeadingItem
@@ -29,6 +27,8 @@ import com.bookshelf.presentation.core.components.TextItem
 import com.bookshelf.presentation.core.components.TriStateItem
 import com.bookshelf.presentation.core.components.material.Button
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.source.model.Filter
+import com.bookshelf.source.model.FilterList
 
 @Composable
 fun SourceFilterDialog(

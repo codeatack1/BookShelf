@@ -2,14 +2,14 @@ package com.bookshelf.ui.reader.setting
 
 import android.content.pm.ActivityInfo
 import androidx.compose.ui.graphics.vector.ImageVector
-import dev.icerock.moko.resources.StringResource
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.ScreenLockLandscape
 import com.bookshelf.icons.materialsymbols.rounded.ScreenLockPortrait
 import com.bookshelf.icons.materialsymbols.rounded.ScreenRotation
 import com.bookshelf.icons.materialsymbols.rounded.StayCurrentLandscape
 import com.bookshelf.icons.materialsymbols.rounded.StayCurrentPortrait
-import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
 
 enum class ReaderOrientation(
     val flag: Int,

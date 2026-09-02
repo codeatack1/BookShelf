@@ -1,16 +1,16 @@
 package com.bookshelf.domain.chapter.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.download.interactor.DeleteDownload
-import logcat.LogPriority
 import com.bookshelf.core.common.util.lang.withNonCancellableContext
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.model.ChapterUpdate
 import com.bookshelf.domain.chapter.repository.ChapterRepository
+import com.bookshelf.domain.download.interactor.DeleteDownload
 import com.bookshelf.domain.download.service.DownloadPreferences
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.repository.TextbookRepository
+import dev.zacsweers.metro.Inject
+import logcat.LogPriority
 
 @Inject
 class SetReadStatus(

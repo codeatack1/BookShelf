@@ -2,12 +2,12 @@ package com.bookshelf.presentation.browse
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.presentation.browse.components.GlobalSearchToolbar
+import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.source.Source
 import com.bookshelf.ui.browse.source.globalsearch.SearchViewModel
 import com.bookshelf.ui.browse.source.globalsearch.SourceFilter
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.presentation.core.components.material.Scaffold
 
 @Composable
 fun MigrateSearchScreen(

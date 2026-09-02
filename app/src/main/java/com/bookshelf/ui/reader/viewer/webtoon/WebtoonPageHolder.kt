@@ -9,15 +9,22 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.bookshelf.presentation.util.formattedMessage
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.common.util.lang.withUIContext
+import com.bookshelf.core.common.util.system.ImageUtil
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.databinding.ReaderErrorBinding
+import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.util.formattedMessage
 import com.bookshelf.source.model.Page
 import com.bookshelf.ui.reader.model.ReaderPage
 import com.bookshelf.ui.reader.viewer.ReaderPageImageView
 import com.bookshelf.ui.reader.viewer.ReaderProgressIndicator
 import com.bookshelf.ui.webview.WebViewActivity
 import com.bookshelf.util.system.dpToPx
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collectLatest
@@ -26,13 +33,6 @@ import kotlinx.coroutines.supervisorScope
 import logcat.LogPriority
 import okio.Buffer
 import okio.BufferedSource
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.core.common.util.lang.withUIContext
-import com.bookshelf.core.common.util.system.ImageUtil
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.i18n.MR
 
 /**
  * Holder of the webtoon reader for a single page of a chapter.

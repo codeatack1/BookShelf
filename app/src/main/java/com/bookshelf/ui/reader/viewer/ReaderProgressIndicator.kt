@@ -13,9 +13,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.view.isVisible
-import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.bookshelf.presentation.theme.BookShelfTheme
 import com.bookshelf.presentation.core.components.CombinedCircularProgressIndicator
+import com.bookshelf.presentation.theme.BookShelfTheme
+import com.google.android.material.progressindicator.CircularProgressIndicator
 
 /**
  * A wrapper for [CircularProgressIndicator] that always rotates.

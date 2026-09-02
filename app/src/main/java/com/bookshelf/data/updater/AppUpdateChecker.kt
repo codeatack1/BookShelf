@@ -1,11 +1,11 @@
 package com.bookshelf.data.updater
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.BuildConfig
-import com.bookshelf.util.system.isFossBuildType
-import com.bookshelf.util.system.isNightlyBuildType
 import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.domain.release.interactor.GetApplicationRelease
+import com.bookshelf.util.system.isFossBuildType
+import com.bookshelf.util.system.isNightlyBuildType
+import dev.zacsweers.metro.Inject
 
 @Inject
 class AppUpdateChecker(

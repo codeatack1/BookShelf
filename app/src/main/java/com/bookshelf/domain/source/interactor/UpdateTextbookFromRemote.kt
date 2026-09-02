@@ -1,27 +1,27 @@
 package com.bookshelf.domain.source.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.chapter.interactor.SyncChaptersWithSource
-import com.bookshelf.domain.chapter.model.toSChapter
-import com.bookshelf.domain.textbook.model.hasCustomCover
-import com.bookshelf.domain.textbook.model.toSTextbook
-import com.bookshelf.data.cache.CoverCache
-import com.bookshelf.data.download.DownloadManager
-import com.bookshelf.source.Source
-import com.bookshelf.source.model.STextbook
-import logcat.LogPriority
-import com.bookshelf.domain.source.models.RemoteTextbookUpdate
 import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.data.cache.CoverCache
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.domain.chapter.interactor.SyncChaptersWithSource
 import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.chapter.model.toSChapter
 import com.bookshelf.domain.chapter.repository.ChapterRepository
 import com.bookshelf.domain.library.service.LibraryPreferences
+import com.bookshelf.domain.source.models.RemoteTextbookUpdate
+import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookUpdate
+import com.bookshelf.domain.textbook.model.hasCustomCover
+import com.bookshelf.domain.textbook.model.toSTextbook
 import com.bookshelf.domain.textbook.repository.TextbookRepository
-import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.source.Source
 import com.bookshelf.source.local.isLocal
+import com.bookshelf.source.model.STextbook
+import dev.zacsweers.metro.Inject
 import kotlin.time.Clock
+import logcat.LogPriority
 
 @Inject
 class UpdateTextbookFromRemote(

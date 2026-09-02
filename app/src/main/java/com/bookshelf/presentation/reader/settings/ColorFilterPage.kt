@@ -10,8 +10,6 @@ import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import com.bookshelf.ui.reader.setting.ReaderPreferences.Companion.ColorFilterMode
-import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
 import com.bookshelf.core.common.preference.getAndSet
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.CheckboxItem
@@ -19,6 +17,8 @@ import com.bookshelf.presentation.core.components.SettingsChipRow
 import com.bookshelf.presentation.core.components.SliderItem
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.ui.reader.setting.ReaderPreferences.Companion.ColorFilterMode
+import com.bookshelf.ui.reader.setting.ReaderSettingsViewModel
 
 @Composable
 internal fun ColumnScope.ColorFilterPage(viewModel: ReaderSettingsViewModel) {

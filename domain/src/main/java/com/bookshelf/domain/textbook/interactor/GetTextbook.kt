@@ -1,11 +1,11 @@
 package com.bookshelf.domain.textbook.interactor
 
-import dev.zacsweers.metro.Inject
-import kotlinx.coroutines.flow.Flow
-import logcat.LogPriority
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.repository.TextbookRepository
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
+import logcat.LogPriority
 
 @Inject
 class GetTextbook(

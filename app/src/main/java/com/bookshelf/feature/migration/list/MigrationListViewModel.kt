@@ -3,6 +3,22 @@ package com.bookshelf.feature.migration.list
 import androidx.annotation.FloatRange
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.lang.withUIContext
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
+import com.bookshelf.domain.migration.usecases.MigrateTextbookUseCase
+import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.source.service.SourcePreferences
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.feature.migration.list.models.MigratingTextbook
+import com.bookshelf.feature.migration.list.models.MigratingTextbook.SearchResult
+import com.bookshelf.feature.migration.list.search.SmartSourceSearchEngine
+import com.bookshelf.source.Source
+import com.bookshelf.source.getNameForMangaInfo
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
@@ -10,9 +26,6 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
-import com.bookshelf.domain.source.service.SourcePreferences
-import com.bookshelf.source.Source
-import com.bookshelf.source.getNameForMangaInfo
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -29,19 +42,6 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import logcat.LogPriority
-import com.bookshelf.domain.migration.usecases.MigrateTextbookUseCase
-import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
-import com.bookshelf.feature.migration.list.models.MigratingTextbook
-import com.bookshelf.feature.migration.list.models.MigratingTextbook.SearchResult
-import com.bookshelf.feature.migration.list.search.SmartSourceSearchEngine
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.lang.withUIContext
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
-import com.bookshelf.domain.textbook.interactor.GetTextbook
-import com.bookshelf.domain.textbook.interactor.NetworkToLocalTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.source.service.SourceManager
 
 @AssistedInject
 class MigrationListViewModel(

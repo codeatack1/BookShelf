@@ -1,13 +1,13 @@
 package com.bookshelf.domain.source.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.source.service.SourcePreferences
-import com.bookshelf.util.system.LocaleHelper
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.domain.source.repository.SourceRepository
+import com.bookshelf.domain.source.service.SourcePreferences
+import com.bookshelf.util.system.LocaleHelper
+import dev.zacsweers.metro.Inject
 import java.util.SortedMap
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 
 @Inject
 class GetLanguagesWithSources(

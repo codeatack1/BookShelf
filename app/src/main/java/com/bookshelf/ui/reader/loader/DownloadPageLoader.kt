@@ -2,16 +2,16 @@ package com.bookshelf.ui.reader.loader
 
 import android.content.Context
 import android.net.Uri
-import com.hippo.unifile.UniFile
+import com.bookshelf.core.archive.archiveReader
 import com.bookshelf.data.database.models.toDomainChapter
 import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.data.download.DownloadProvider
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.source.Source
 import com.bookshelf.source.model.Page
 import com.bookshelf.ui.reader.model.ReaderChapter
 import com.bookshelf.ui.reader.model.ReaderPage
-import com.bookshelf.core.archive.archiveReader
-import com.bookshelf.domain.textbook.model.Textbook
+import com.hippo.unifile.UniFile
 import uy.kohesive.injekt.injectLazy
 
 /**

@@ -1,7 +1,7 @@
 package com.bookshelf.data.backup.restore
 
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
 
 data class RestoreOptions(
     val libraryEntries: Boolean = true,

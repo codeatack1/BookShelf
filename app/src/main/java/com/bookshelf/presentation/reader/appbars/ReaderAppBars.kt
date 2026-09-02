@@ -33,11 +33,11 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.reader.components.ChapterNavigator
 import com.bookshelf.presentation.reader.components.ChapterNavigatorType
 import com.bookshelf.ui.reader.setting.ReaderOrientation
 import com.bookshelf.ui.reader.setting.ReadingMode
-import com.bookshelf.presentation.core.components.material.padding
 
 private val readerBarsSlideAnimationSpec = tween<IntOffset>(200)
 private val readerBarsFadeAnimationSpec = tween<Float>(150)

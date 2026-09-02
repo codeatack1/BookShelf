@@ -1,27 +1,27 @@
 package com.bookshelf.domain.migration.usecases
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.textbook.interactor.UpdateTextbook
-import com.bookshelf.domain.textbook.model.hasCustomCover
-import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.data.cache.CoverCache
 import com.bookshelf.data.download.DownloadManager
 import com.bookshelf.data.track.EnhancedTracker
 import com.bookshelf.data.track.TrackerManager
-import kotlinx.coroutines.CancellationException
-import com.bookshelf.domain.migration.models.MigrationFlag
-import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
 import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.category.interactor.SetTextbookCategories
 import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.interactor.UpdateChapter
 import com.bookshelf.domain.chapter.model.toChapterUpdate
+import com.bookshelf.domain.migration.models.MigrationFlag
+import com.bookshelf.domain.source.interactor.UpdateTextbookFromRemote
+import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.source.service.SourcePreferences
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookUpdate
-import com.bookshelf.domain.source.service.SourceManager
+import com.bookshelf.domain.textbook.model.hasCustomCover
 import com.bookshelf.domain.track.interactor.GetTracks
 import com.bookshelf.domain.track.interactor.InsertTrack
+import dev.zacsweers.metro.Inject
 import kotlin.time.Clock
+import kotlinx.coroutines.CancellationException
 
 @Inject
 class MigrateTextbookUseCase(

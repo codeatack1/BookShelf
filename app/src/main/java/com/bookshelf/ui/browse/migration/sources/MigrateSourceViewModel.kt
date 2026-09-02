@@ -3,14 +3,18 @@ package com.bookshelf.ui.browse.migration.sources
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bookshelf.core.common.preference.getAndSet
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.source.interactor.GetSourcesWithFavoriteCount
+import com.bookshelf.domain.source.interactor.SetMigrateSorting
+import com.bookshelf.domain.source.model.Source
+import com.bookshelf.domain.source.service.SourcePreferences
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.binding
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
-import com.bookshelf.domain.source.interactor.GetSourcesWithFavoriteCount
-import com.bookshelf.domain.source.interactor.SetMigrateSorting
-import com.bookshelf.domain.source.service.SourcePreferences
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,10 +26,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import logcat.LogPriority
-import com.bookshelf.core.common.preference.getAndSet
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.source.model.Source
-import kotlin.time.Duration.Companion.seconds
 
 @Inject
 @ViewModelKey

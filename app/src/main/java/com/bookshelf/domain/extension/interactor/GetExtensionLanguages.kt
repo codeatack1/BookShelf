@@ -1,9 +1,9 @@
 package com.bookshelf.domain.extension.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.extension.ExtensionManager
 import com.bookshelf.util.system.LocaleHelper
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 

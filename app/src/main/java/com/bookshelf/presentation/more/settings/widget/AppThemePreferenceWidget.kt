@@ -40,19 +40,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
+import com.bookshelf.core.common.preference.InMemoryPreferenceStore
 import com.bookshelf.domain.ui.UiPreferences
 import com.bookshelf.domain.ui.model.AppTheme
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.roundedfilled.CheckCircle
+import com.bookshelf.presentation.core.components.material.padding
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.core.util.secondaryItemAlpha
 import com.bookshelf.presentation.manga.components.TextbookCover
 import com.bookshelf.presentation.theme.BookShelfTheme
 import com.bookshelf.util.system.DeviceUtil
 import com.bookshelf.util.system.isDynamicColorAvailable
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.roundedfilled.CheckCircle
-import com.bookshelf.core.common.preference.InMemoryPreferenceStore
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.components.material.padding
-import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.core.util.secondaryItemAlpha
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.fullType
 

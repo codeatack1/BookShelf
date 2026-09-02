@@ -10,23 +10,23 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.domain.ui.UiPreferences
 import com.bookshelf.domain.ui.model.TabletUiMode
 import com.bookshelf.domain.ui.model.ThemeMode
 import com.bookshelf.domain.ui.model.setAppCompatDelegateThemeMode
+import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.core.util.collectAsState
 import com.bookshelf.presentation.more.settings.Preference
 import com.bookshelf.presentation.more.settings.screen.appearance.AppLanguageScreen
 import com.bookshelf.presentation.more.settings.widget.AppThemeModePreferenceWidget
 import com.bookshelf.presentation.more.settings.widget.AppThemePreferenceWidget
 import com.bookshelf.util.system.toast
+import kotlin.time.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toLocalDateTime
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.core.util.collectAsState
-import kotlin.time.Clock
 
 object SettingsAppearanceScreen : SearchableSettings {
 

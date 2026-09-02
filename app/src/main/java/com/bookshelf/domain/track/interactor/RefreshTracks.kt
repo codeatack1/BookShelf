@@ -1,15 +1,15 @@
 package com.bookshelf.domain.track.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.track.model.toDbTrack
-import com.bookshelf.domain.track.model.toDomainTrack
 import com.bookshelf.data.track.Tracker
 import com.bookshelf.data.track.TrackerManager
+import com.bookshelf.domain.track.interactor.GetTracks
+import com.bookshelf.domain.track.interactor.InsertTrack
+import com.bookshelf.domain.track.model.toDbTrack
+import com.bookshelf.domain.track.model.toDomainTrack
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
-import com.bookshelf.domain.track.interactor.GetTracks
-import com.bookshelf.domain.track.interactor.InsertTrack
 
 @Inject
 class RefreshTracks(

@@ -1,14 +1,14 @@
 package com.bookshelf.domain.source.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.source.service.SourcePreferences
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import com.bookshelf.core.common.util.lang.compareToWithCollator
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.domain.source.repository.SourceRepository
+import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.source.local.isLocal
+import dev.zacsweers.metro.Inject
 import java.util.Collections
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 
 @Inject
 class GetSourcesWithFavoriteCount(

@@ -1,13 +1,13 @@
 package com.bookshelf.data.extension.model
 
 import android.annotation.SuppressLint
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonNames
-import kotlinx.serialization.protobuf.ProtoNumber
 import com.bookshelf.data.extension.model.NetworkExtensionStore.ContentWarning
 import com.bookshelf.data.extension.model.NetworkExtensionStore.ExtensionList
 import com.bookshelf.domain.extension.model.ExtensionStore
 import com.bookshelf.extension.model.Extension as TachiyomiExtension
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonNames
+import kotlinx.serialization.protobuf.ProtoNumber
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable

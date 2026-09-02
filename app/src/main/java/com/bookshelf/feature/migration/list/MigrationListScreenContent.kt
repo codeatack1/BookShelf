@@ -40,13 +40,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.manga.components.TextbookCover
-import com.bookshelf.presentation.util.formatChapterNumber
-import com.bookshelf.presentation.util.rememberResourceBitmapPainter
 import com.bookshelf.R
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.feature.migration.list.models.MigratingTextbook
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowForward
 import com.bookshelf.icons.materialsymbols.rounded.Close
@@ -55,8 +52,8 @@ import com.bookshelf.icons.materialsymbols.rounded.CopyAll
 import com.bookshelf.icons.materialsymbols.rounded.Done
 import com.bookshelf.icons.materialsymbols.rounded.DoneAll
 import com.bookshelf.icons.materialsymbols.rounded.MoreVert
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.core.components.Badge
 import com.bookshelf.presentation.core.components.BadgeGroup
 import com.bookshelf.presentation.core.components.FastScrollLazyColumn
@@ -65,6 +62,9 @@ import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.components.material.topSmallPaddingValues
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.plus
+import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.util.formatChapterNumber
+import com.bookshelf.presentation.util.rememberResourceBitmapPainter
 
 @Composable
 fun MigrationListScreenContent(

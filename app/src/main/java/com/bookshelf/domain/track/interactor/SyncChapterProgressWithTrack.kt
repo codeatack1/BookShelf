@@ -1,17 +1,17 @@
 package com.bookshelf.domain.track.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.track.model.toDbTrack
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.track.EnhancedTracker
 import com.bookshelf.data.track.Tracker
-import logcat.LogPriority
-import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.chapter.interactor.GetChaptersByTextbookId
 import com.bookshelf.domain.chapter.interactor.UpdateChapter
 import com.bookshelf.domain.chapter.model.toChapterUpdate
 import com.bookshelf.domain.track.interactor.InsertTrack
 import com.bookshelf.domain.track.model.Track
+import com.bookshelf.domain.track.model.toDbTrack
+import dev.zacsweers.metro.Inject
 import kotlin.math.max
+import logcat.LogPriority
 
 @Inject
 class SyncChapterProgressWithTrack(

@@ -1,7 +1,7 @@
 package com.bookshelf.domain.source.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.source.service.SourcePreferences
+import dev.zacsweers.metro.Inject
 
 @Inject
 class SetMigrateSorting(

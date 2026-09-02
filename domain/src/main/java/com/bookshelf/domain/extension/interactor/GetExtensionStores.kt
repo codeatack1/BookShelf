@@ -1,9 +1,9 @@
 package com.bookshelf.domain.extension.interactor
 
-import dev.zacsweers.metro.Inject
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.extension.model.ExtensionStore
 import com.bookshelf.domain.extension.repository.ExtensionStoreRepository
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
 
 @Inject
 class GetExtensionStores(

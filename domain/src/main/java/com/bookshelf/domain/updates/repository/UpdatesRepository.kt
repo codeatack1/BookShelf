@@ -1,7 +1,7 @@
 package com.bookshelf.domain.updates.repository
 
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.updates.model.UpdatesWithRelations
+import kotlinx.coroutines.flow.Flow
 
 interface UpdatesRepository {
 

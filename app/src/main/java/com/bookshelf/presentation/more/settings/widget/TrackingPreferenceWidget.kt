@@ -17,13 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.more.settings.LocalPreferenceHighlighted
-import com.bookshelf.presentation.track.components.TrackLogoIcon
 import com.bookshelf.data.track.Tracker
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Done
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.more.settings.LocalPreferenceHighlighted
+import com.bookshelf.presentation.track.components.TrackLogoIcon
 
 @Composable
 fun TrackingPreferenceWidget(

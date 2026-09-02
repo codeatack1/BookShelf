@@ -11,6 +11,8 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.viewpager.widget.ViewPager
 import com.bookshelf.R
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.ui.reader.model.ChapterTransition
 import com.bookshelf.ui.reader.model.InsertPage
@@ -18,11 +20,9 @@ import com.bookshelf.ui.reader.model.ReaderPage
 import com.bookshelf.ui.reader.model.ViewerChapters
 import com.bookshelf.ui.reader.viewer.Viewer
 import com.bookshelf.ui.reader.viewer.ViewerNavigation.NavigationRegion
+import kotlin.math.min
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.core.common.util.system.logcat
-import kotlin.math.min
 
 /**
  * Implementation of a [Viewer] to display pages with a [ViewPager].

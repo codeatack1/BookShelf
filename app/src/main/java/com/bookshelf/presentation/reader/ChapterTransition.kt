@@ -29,20 +29,20 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.data.database.models.toDomainChapter
-import com.bookshelf.ui.reader.model.ChapterTransition
-import com.bookshelf.ui.reader.model.ReaderChapter
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.chapter.service.calculateChapterGap
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Info
 import com.bookshelf.icons.materialsymbols.rounded.Warning
 import com.bookshelf.icons.materialsymbols.roundedfilled.CheckCircle
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.chapter.service.calculateChapterGap
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
+import com.bookshelf.ui.reader.model.ChapterTransition
+import com.bookshelf.ui.reader.model.ReaderChapter
 
 @Composable
 fun ChapterTransition(

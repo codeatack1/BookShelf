@@ -1,15 +1,15 @@
 package com.bookshelf.source.local.image
 
 import android.content.Context
+import com.bookshelf.core.common.storage.nameWithoutExtension
+import com.bookshelf.core.common.util.system.ImageUtil
+import com.bookshelf.source.local.io.LocalSourceFileSystem
+import com.bookshelf.source.model.STextbook
+import com.bookshelf.util.storage.DiskUtil
 import com.hippo.unifile.UniFile
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.source.model.STextbook
-import com.bookshelf.util.storage.DiskUtil
-import com.bookshelf.core.common.storage.nameWithoutExtension
-import com.bookshelf.core.common.util.system.ImageUtil
-import com.bookshelf.source.local.io.LocalSourceFileSystem
 import java.io.InputStream
 
 private const val DEFAULT_COVER_NAME = "cover.jpg"

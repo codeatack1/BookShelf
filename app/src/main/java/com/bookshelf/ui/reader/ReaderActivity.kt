@@ -43,9 +43,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.transition.platform.MaterialContainerTransform
-import dev.zacsweers.metro.Inject
+import com.bookshelf.R
+import com.bookshelf.app.di.AppGraph
+import com.bookshelf.core.common.Constants
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.lang.launchNonCancellable
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.core.metro.metroGraph
+import com.bookshelf.data.notification.NotificationReceiver
+import com.bookshelf.data.notification.Notifications
+import com.bookshelf.databinding.ReaderActivityBinding
 import com.bookshelf.domain.base.BasePreferences
+import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.core.util.collectAsState
 import com.bookshelf.presentation.reader.DisplayRefreshHost
 import com.bookshelf.presentation.reader.OrientationSelectDialog
 import com.bookshelf.presentation.reader.ReaderContentOverlay
@@ -55,10 +66,6 @@ import com.bookshelf.presentation.reader.ReadingModeSelectDialog
 import com.bookshelf.presentation.reader.appbars.ReaderAppBars
 import com.bookshelf.presentation.reader.components.ChapterNavigatorType
 import com.bookshelf.presentation.reader.settings.ReaderSettingsDialog
-import com.bookshelf.R
-import com.bookshelf.data.notification.NotificationReceiver
-import com.bookshelf.data.notification.Notifications
-import com.bookshelf.databinding.ReaderActivityBinding
 import com.bookshelf.source.online.HttpSource
 import com.bookshelf.ui.base.activity.BaseActivity
 import com.bookshelf.ui.main.MainActivity
@@ -81,6 +88,9 @@ import com.bookshelf.util.system.readerBackgroundColor
 import com.bookshelf.util.system.toShareIntent
 import com.bookshelf.util.system.toast
 import com.bookshelf.util.view.setComposeContent
+import com.google.android.material.transition.platform.MaterialContainerTransform
+import dev.zacsweers.metro.Inject
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
@@ -91,16 +101,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.sample
 import kotlinx.coroutines.launch
 import logcat.LogPriority
-import com.bookshelf.app.di.AppGraph
-import com.bookshelf.core.metro.metroGraph
-import com.bookshelf.core.common.Constants
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.lang.launchNonCancellable
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.util.collectAsState
-import kotlin.time.Duration.Companion.seconds
 
 class ReaderActivity : BaseActivity() {
 

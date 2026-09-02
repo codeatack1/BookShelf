@@ -1,10 +1,10 @@
 package com.bookshelf.data.textbook
 
-import com.bookshelf.source.model.UpdateStrategy
-import kotlinx.serialization.json.JsonObject
 import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
+import com.bookshelf.source.model.UpdateStrategy
+import kotlinx.serialization.json.JsonObject
 
 object TextbookMapper {
     @Suppress("UNUSED_PARAMETER")

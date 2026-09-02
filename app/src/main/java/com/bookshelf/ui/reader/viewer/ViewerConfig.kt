@@ -1,11 +1,11 @@
 package com.bookshelf.ui.reader.viewer
 
+import com.bookshelf.core.common.preference.Preference
 import com.bookshelf.ui.reader.setting.ReaderPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import com.bookshelf.core.common.preference.Preference
 
 /**
  * Common configuration for all viewers.

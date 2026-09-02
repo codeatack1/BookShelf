@@ -3,9 +3,9 @@ package com.bookshelf.presentation.more.settings.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalContext
-import com.bookshelf.presentation.category.visualName
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.category.visualName
 import com.bookshelf.presentation.core.i18n.stringResource
 
 /**

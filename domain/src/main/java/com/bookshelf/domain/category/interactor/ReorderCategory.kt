@@ -1,13 +1,13 @@
 package com.bookshelf.domain.category.interactor
 
-import dev.zacsweers.metro.Inject
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import logcat.LogPriority
 import com.bookshelf.core.common.util.lang.withNonCancellableContext
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.category.repository.CategoryRepository
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import logcat.LogPriority
 
 @Inject
 class ReorderCategory(

@@ -27,7 +27,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bookshelf.data.download.model.Download
-import me.saket.swipe.SwipeableActionsBox
+import com.bookshelf.domain.library.service.LibraryPreferences
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.BookmarkAdd
 import com.bookshelf.icons.materialsymbols.rounded.BookmarkRemove
@@ -38,12 +39,11 @@ import com.bookshelf.icons.materialsymbols.rounded.FileDownloadOff
 import com.bookshelf.icons.materialsymbols.rounded.RemoveDone
 import com.bookshelf.icons.materialsymbols.roundedfilled.Bookmark
 import com.bookshelf.icons.materialsymbols.roundedfilled.Circle
-import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.DISABLED_ALPHA
 import com.bookshelf.presentation.core.components.material.SECONDARY_ALPHA
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.selectedBackground
+import me.saket.swipe.SwipeableActionsBox
 
 @Composable
 fun TextbookChapterListItem(

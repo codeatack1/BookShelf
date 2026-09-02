@@ -2,9 +2,9 @@ package com.bookshelf.util.system
 
 import android.content.Context
 import androidx.core.os.LocaleListCompat
-import com.bookshelf.ui.browse.source.SourcesViewModel
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.i18n.MR
+import com.bookshelf.ui.browse.source.SourcesViewModel
 import java.util.Locale
 
 /**

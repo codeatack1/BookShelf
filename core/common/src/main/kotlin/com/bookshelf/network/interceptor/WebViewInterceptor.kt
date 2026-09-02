@@ -5,20 +5,20 @@ import android.os.Build
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.Toast
+import com.bookshelf.core.common.util.lang.launchUI
+import com.bookshelf.i18n.MR
 import com.bookshelf.util.system.DeviceUtil
 import com.bookshelf.util.system.WebViewUtil
 import com.bookshelf.util.system.setDefaultSettings
 import com.bookshelf.util.system.setUserAgent
 import com.bookshelf.util.system.toast
+import java.util.Locale
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import com.bookshelf.core.common.util.lang.launchUI
-import com.bookshelf.i18n.MR
-import java.util.Locale
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 abstract class WebViewInterceptor(
     private val context: Context,

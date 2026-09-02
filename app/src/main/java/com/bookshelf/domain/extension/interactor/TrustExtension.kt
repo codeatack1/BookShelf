@@ -2,10 +2,10 @@ package com.bookshelf.domain.extension.interactor
 
 import android.content.pm.PackageInfo
 import androidx.core.content.pm.PackageInfoCompat
-import dev.zacsweers.metro.Inject
-import com.bookshelf.domain.source.service.SourcePreferences
-import com.bookshelf.domain.extension.repository.ExtensionStoreRepository
 import com.bookshelf.core.common.preference.getAndSet
+import com.bookshelf.domain.extension.repository.ExtensionStoreRepository
+import com.bookshelf.domain.source.service.SourcePreferences
+import dev.zacsweers.metro.Inject
 
 @Inject
 class TrustExtension(

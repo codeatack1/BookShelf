@@ -1,9 +1,9 @@
 package com.bookshelf.data.track.mangabaka.dto
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.minutes
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class MangaBakaOAuth(

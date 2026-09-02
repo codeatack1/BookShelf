@@ -2,25 +2,25 @@ package com.bookshelf.ui.library
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metrox.viewmodel.ViewModelKey
-import com.bookshelf.domain.base.BasePreferences
-import com.bookshelf.data.track.TrackerManager
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import com.bookshelf.core.common.preference.Preference
 import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.core.common.preference.getAndSet
 import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.data.track.TrackerManager
+import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.domain.category.interactor.SetDisplayMode
 import com.bookshelf.domain.category.interactor.SetSortModeForCategory
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.library.model.LibraryDisplayMode
 import com.bookshelf.domain.library.model.LibrarySort
 import com.bookshelf.domain.library.service.LibraryPreferences
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 
 @Inject
 @ViewModelKey

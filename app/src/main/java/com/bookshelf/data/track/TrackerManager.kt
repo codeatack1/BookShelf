@@ -1,8 +1,5 @@
 package com.bookshelf.data.track
 
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
 import com.bookshelf.data.track.anilist.Anilist
 import com.bookshelf.data.track.bangumi.Bangumi
 import com.bookshelf.data.track.hikka.Hikka
@@ -14,6 +11,9 @@ import com.bookshelf.data.track.mangaupdates.MangaUpdates
 import com.bookshelf.data.track.myanimelist.MyAnimeList
 import com.bookshelf.data.track.shikimori.Shikimori
 import com.bookshelf.data.track.suwayomi.Suwayomi
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.combine
 
 @Inject

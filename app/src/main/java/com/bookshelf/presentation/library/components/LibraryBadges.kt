@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Folder
 import com.bookshelf.presentation.core.components.Badge
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 
 @Composable
 internal fun DownloadsBadge(count: Int) {

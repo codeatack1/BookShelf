@@ -14,23 +14,23 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import dev.zacsweers.metrox.viewmodel.metroViewModel
+import com.bookshelf.R
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.feature.upcoming.UpcomingScreen
+import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.updates.UpdateScreen
 import com.bookshelf.presentation.updates.UpdatesDeleteConfirmationDialog
 import com.bookshelf.presentation.updates.UpdatesFilterDialog
 import com.bookshelf.presentation.util.Tab
-import com.bookshelf.R
 import com.bookshelf.ui.download.DownloadQueueScreen
 import com.bookshelf.ui.home.HomeScreen
 import com.bookshelf.ui.main.MainActivity
-import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.reader.ReaderActivity
+import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.updates.UpdatesViewModel.Event
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import kotlinx.coroutines.flow.collectLatest
-import com.bookshelf.feature.upcoming.UpcomingScreen
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
 
 data object UpdatesTab : Tab {
 

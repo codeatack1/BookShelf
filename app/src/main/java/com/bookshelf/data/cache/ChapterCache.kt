@@ -2,22 +2,22 @@ package com.bookshelf.data.cache
 
 import android.content.Context
 import android.text.format.Formatter
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.source.model.Page
+import com.bookshelf.util.storage.DiskUtil
+import com.bookshelf.util.storage.saveTo
 import com.jakewharton.disklrucache.DiskLruCache
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.source.model.Page
-import com.bookshelf.util.storage.DiskUtil
-import com.bookshelf.util.storage.saveTo
+import java.io.File
+import java.io.IOException
 import kotlinx.serialization.json.Json
 import logcat.LogPriority
 import okhttp3.Response
 import okio.buffer
 import okio.sink
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.chapter.model.Chapter
-import java.io.File
-import java.io.IOException
 
 /**
  * Class used to create chapter cache

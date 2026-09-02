@@ -11,23 +11,23 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import dev.zacsweers.metro.Inject
 import com.bookshelf.R
+import com.bookshelf.app.di.AppGraph
+import com.bookshelf.core.metro.metroGraph
 import com.bookshelf.data.notification.Notifications
+import com.bookshelf.domain.download.service.DownloadPreferences
 import com.bookshelf.util.system.NetworkState
 import com.bookshelf.util.system.activeNetworkState
 import com.bookshelf.util.system.networkStateFlow
 import com.bookshelf.util.system.notificationBuilder
 import com.bookshelf.util.system.setForegroundSafely
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import com.bookshelf.app.di.AppGraph
-import com.bookshelf.core.metro.metroGraph
-import com.bookshelf.domain.download.service.DownloadPreferences
 
 /**
  * This worker is used to manage the downloader. The system can decide to stop the worker, in

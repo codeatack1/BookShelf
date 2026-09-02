@@ -3,9 +3,9 @@ package com.bookshelf.ui.reader.viewer
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
-import com.google.android.material.button.MaterialButton
 import com.bookshelf.R
 import com.bookshelf.ui.reader.viewer.pager.PagerViewer
+import com.google.android.material.button.MaterialButton
 
 /**
  * A button class to be used by child views of the pager viewer. All tap gestures are handled by

@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Preview
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 
 @Composable
 fun TextPreferenceWidget(

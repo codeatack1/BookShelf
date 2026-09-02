@@ -25,11 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import com.bookshelf.core.preference.asToggleableState
-import com.bookshelf.presentation.category.visualName
 import com.bookshelf.core.common.preference.CheckboxState
+import com.bookshelf.core.preference.asToggleableState
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.category.visualName
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 

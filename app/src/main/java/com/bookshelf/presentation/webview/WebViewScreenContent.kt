@@ -33,6 +33,21 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.stack.mutableStateStackOf
+import com.bookshelf.BuildConfig
+import com.bookshelf.R
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowBack
+import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowForward
+import com.bookshelf.icons.materialsymbols.rounded.Close
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
+import com.bookshelf.presentation.components.WarningBanner
+import com.bookshelf.presentation.core.components.material.Scaffold
+import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.util.system.getHtml
+import com.bookshelf.util.system.setDefaultSettings
+import com.bookshelf.util.system.setUserAgent
 import com.kevinnzou.web.AccompanistWebChromeClient
 import com.kevinnzou.web.AccompanistWebViewClient
 import com.kevinnzou.web.LoadingState
@@ -40,22 +55,7 @@ import com.kevinnzou.web.WebContent
 import com.kevinnzou.web.WebView
 import com.kevinnzou.web.WebViewNavigator
 import com.kevinnzou.web.WebViewState
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.components.WarningBanner
-import com.bookshelf.BuildConfig
-import com.bookshelf.R
-import com.bookshelf.util.system.getHtml
-import com.bookshelf.util.system.setDefaultSettings
-import com.bookshelf.util.system.setUserAgent
 import kotlinx.coroutines.launch
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowBack
-import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowForward
-import com.bookshelf.icons.materialsymbols.rounded.Close
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.components.material.Scaffold
-import com.bookshelf.presentation.core.i18n.stringResource
 
 class WebViewWindow(webContent: WebContent, val navigator: WebViewNavigator) {
     var state by mutableStateOf(WebViewState(webContent))

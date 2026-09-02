@@ -1,10 +1,10 @@
 package com.bookshelf.domain.textbook.repository
 
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookUpdate
 import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
+import kotlinx.coroutines.flow.Flow
 
 interface TextbookRepository {
 

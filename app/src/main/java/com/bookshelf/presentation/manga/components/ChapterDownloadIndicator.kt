@@ -27,14 +27,14 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.R
 import com.bookshelf.data.download.model.Download
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.ArrowDownward
 import com.bookshelf.icons.materialsymbols.rounded.Error
 import com.bookshelf.icons.materialsymbols.roundedfilled.CheckCircle
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.core.components.material.IconButtonTokens
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.secondaryItemAlpha

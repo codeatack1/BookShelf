@@ -3,14 +3,14 @@ package com.bookshelf.ui.setting.track
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import dev.zacsweers.metro.HasMemberInjections
-import dev.zacsweers.metro.Inject
+import com.bookshelf.app.di.appGraph
 import com.bookshelf.data.track.TrackerManager
+import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.ui.base.activity.BaseActivity
 import com.bookshelf.ui.main.MainActivity
 import com.bookshelf.util.view.setComposeContent
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.presentation.core.screens.LoadingScreen
+import dev.zacsweers.metro.HasMemberInjections
+import dev.zacsweers.metro.Inject
 
 @HasMemberInjections
 abstract class BaseOAuthLoginActivity : BaseActivity() {

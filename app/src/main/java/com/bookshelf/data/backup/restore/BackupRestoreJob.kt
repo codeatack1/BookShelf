@@ -12,19 +12,19 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import dev.zacsweers.metro.Inject
+import com.bookshelf.app.di.AppGraph
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.core.metro.metroGraph
 import com.bookshelf.data.backup.BackupNotifier
 import com.bookshelf.data.notification.Notifications
+import com.bookshelf.i18n.MR
 import com.bookshelf.util.system.cancelNotification
 import com.bookshelf.util.system.isRunning
 import com.bookshelf.util.system.setForegroundSafely
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.CancellationException
 import logcat.LogPriority
-import com.bookshelf.app.di.AppGraph
-import com.bookshelf.core.metro.metroGraph
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.i18n.MR
 
 class BackupRestoreJob(private val context: Context, workerParams: WorkerParameters) :
     CoroutineWorker(context, workerParams) {

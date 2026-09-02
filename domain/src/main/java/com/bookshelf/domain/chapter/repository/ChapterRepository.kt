@@ -1,8 +1,8 @@
 package com.bookshelf.domain.chapter.repository
 
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.model.ChapterUpdate
+import kotlinx.coroutines.flow.Flow
 
 interface ChapterRepository {
 

@@ -7,7 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.metroViewModel
+import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.more.settings.screen.browse.components.ExtensionStoreConfirmDialog
 import com.bookshelf.presentation.more.settings.screen.browse.components.ExtensionStoreCreateDialog
 import com.bookshelf.presentation.more.settings.screen.browse.components.ExtensionStoreDeleteDialog
@@ -15,7 +15,7 @@ import com.bookshelf.presentation.more.settings.screen.browse.components.Extensi
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.util.system.copyToClipboard
 import com.bookshelf.util.system.openInBrowser
-import com.bookshelf.presentation.core.screens.LoadingScreen
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 class ExtensionStoresScreen(
     private val url: String? = null,

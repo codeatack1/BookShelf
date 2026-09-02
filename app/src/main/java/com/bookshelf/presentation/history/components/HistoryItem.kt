@@ -20,17 +20,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.bookshelf.domain.history.model.HistoryWithRelations
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.Delete
+import com.bookshelf.icons.materialsymbols.rounded.Favorite
+import com.bookshelf.presentation.core.components.material.padding
+import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.manga.components.TextbookCover
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.presentation.util.formatChapterNumber
 import com.bookshelf.util.lang.toTimestampString
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.Delete
-import com.bookshelf.icons.materialsymbols.rounded.Favorite
-import com.bookshelf.domain.history.model.HistoryWithRelations
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.components.material.padding
-import com.bookshelf.presentation.core.i18n.stringResource
 
 private val HistoryItemHeight = 96.dp
 

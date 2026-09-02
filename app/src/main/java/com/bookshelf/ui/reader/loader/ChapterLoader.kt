@@ -1,22 +1,22 @@
 package com.bookshelf.ui.reader.loader
 
 import android.content.Context
-import com.bookshelf.data.cache.ChapterCache
-import com.bookshelf.data.download.DownloadManager
-import com.bookshelf.data.download.DownloadProvider
-import com.bookshelf.source.Source
-import com.bookshelf.source.online.HttpSource
-import com.bookshelf.ui.reader.model.ReaderChapter
 import com.bookshelf.core.archive.archiveReader
 import com.bookshelf.core.archive.epubReader
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.data.cache.ChapterCache
+import com.bookshelf.data.download.DownloadManager
+import com.bookshelf.data.download.DownloadProvider
 import com.bookshelf.domain.source.model.StubSource
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
+import com.bookshelf.source.Source
 import com.bookshelf.source.local.LocalSource
 import com.bookshelf.source.local.io.Format
+import com.bookshelf.source.online.HttpSource
+import com.bookshelf.ui.reader.model.ReaderChapter
 
 /**
  * Loader used to retrieve the [PageLoader] for a given chapter.

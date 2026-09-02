@@ -9,6 +9,23 @@ import coil3.asDrawable
 import coil3.imageLoader
 import coil3.request.ImageRequest
 import coil3.size.Size
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.core.common.util.lang.launchIO
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.core.common.util.lang.withUIContext
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.data.cache.CoverCache
+import com.bookshelf.data.saver.Image
+import com.bookshelf.data.saver.ImageSaver
+import com.bookshelf.data.saver.Location
+import com.bookshelf.domain.textbook.interactor.GetTextbook
+import com.bookshelf.domain.textbook.interactor.UpdateTextbook
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.i18n.MR
+import com.bookshelf.source.local.image.LocalCoverManager
+import com.bookshelf.util.editCover
+import com.bookshelf.util.system.getBitmapOrNull
+import com.bookshelf.util.system.toShareIntent
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
@@ -16,14 +33,7 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
-import com.bookshelf.domain.textbook.interactor.UpdateTextbook
-import com.bookshelf.data.cache.CoverCache
-import com.bookshelf.data.saver.Image
-import com.bookshelf.data.saver.ImageSaver
-import com.bookshelf.data.saver.Location
-import com.bookshelf.util.editCover
-import com.bookshelf.util.system.getBitmapOrNull
-import com.bookshelf.util.system.toShareIntent
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -32,16 +42,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import logcat.LogPriority
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.core.common.util.lang.launchIO
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.core.common.util.lang.withUIContext
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.domain.textbook.interactor.GetTextbook
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.i18n.MR
-import com.bookshelf.source.local.image.LocalCoverManager
-import kotlin.time.Duration.Companion.seconds
 
 @AssistedInject
 class TextbookCoverViewModel(

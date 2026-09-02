@@ -8,15 +8,15 @@ import androidx.compose.ui.util.fastMap
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.zacsweers.metrox.viewmodel.metroViewModel
 import com.bookshelf.presentation.category.CategoryScreen
 import com.bookshelf.presentation.category.components.CategoryCreateDialog
 import com.bookshelf.presentation.category.components.CategoryDeleteDialog
 import com.bookshelf.presentation.category.components.CategoryRenameDialog
+import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.util.system.toast
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import kotlinx.coroutines.flow.collectLatest
-import com.bookshelf.presentation.core.screens.LoadingScreen
 
 class CategoryScreen : Screen() {
 

@@ -1,13 +1,13 @@
 package com.bookshelf.domain.chapter.model
 
-import com.bookshelf.domain.textbook.model.downloadedFilter
 import com.bookshelf.data.download.DownloadManager
-import com.bookshelf.ui.textbook.ChapterList
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.service.getChapterSort
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.applyFilter
+import com.bookshelf.domain.textbook.model.downloadedFilter
 import com.bookshelf.source.local.isLocal
+import com.bookshelf.ui.textbook.ChapterList
 
 /**
  * Applies the view filters to the list of chapters obtained from the database.

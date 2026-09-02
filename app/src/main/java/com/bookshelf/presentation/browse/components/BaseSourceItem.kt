@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
-import com.bookshelf.util.system.LocaleHelper
 import com.bookshelf.domain.source.model.Source
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
+import com.bookshelf.util.system.LocaleHelper
 
 @Composable
 fun BaseSourceItem(

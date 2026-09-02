@@ -1,9 +1,9 @@
 package com.bookshelf.feature.migration.list.search
 
+import com.bookshelf.domain.textbook.model.Textbook
+import com.bookshelf.domain.textbook.model.toDomainTextbook
 import com.bookshelf.source.Source
 import com.bookshelf.source.model.STextbook
-import com.bookshelf.domain.textbook.model.toDomainTextbook
-import com.bookshelf.domain.textbook.model.Textbook
 
 class SmartSourceSearchEngine(extraSearchParams: String?) : BaseSmartSearchEngine<STextbook>(extraSearchParams) {
 

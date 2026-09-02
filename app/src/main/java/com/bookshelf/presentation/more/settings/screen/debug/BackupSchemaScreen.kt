@@ -12,17 +12,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.bookshelf.presentation.components.AppBar
-import com.bookshelf.presentation.components.AppBarActions
-import com.bookshelf.presentation.util.Screen
 import com.bookshelf.data.backup.models.Backup
-import com.bookshelf.util.system.copyToClipboard
-import kotlinx.serialization.protobuf.schema.ProtoBufSchemaGenerator
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.ContentCopy
-import com.bookshelf.i18n.MR
+import com.bookshelf.presentation.components.AppBar
+import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.util.Screen
+import com.bookshelf.util.system.copyToClipboard
+import kotlinx.serialization.protobuf.schema.ProtoBufSchemaGenerator
 
 class BackupSchemaScreen : Screen() {
 

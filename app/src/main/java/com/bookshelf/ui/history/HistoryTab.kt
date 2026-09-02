@@ -15,26 +15,26 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import dev.zacsweers.metrox.viewmodel.metroViewModel
+import com.bookshelf.R
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.feature.migration.dialog.MigrateTextbookDialog
+import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.category.components.ChangeCategoryDialog
+import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.history.HistoryScreen
 import com.bookshelf.presentation.history.components.HistoryDeleteAllDialog
 import com.bookshelf.presentation.history.components.HistoryDeleteDialog
 import com.bookshelf.presentation.manga.DuplicateTextbookDialog
 import com.bookshelf.presentation.util.Tab
-import com.bookshelf.R
 import com.bookshelf.ui.category.CategoryScreen
 import com.bookshelf.ui.main.MainActivity
-import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.ui.reader.ReaderActivity
+import com.bookshelf.ui.textbook.TextbookScreen
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
-import com.bookshelf.feature.migration.dialog.MigrateTextbookDialog
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
 
 data object HistoryTab : Tab {
 

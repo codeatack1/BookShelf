@@ -1,11 +1,11 @@
 package com.bookshelf.data.backup.models
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.protobuf.ProtoNumber
 import com.bookshelf.core.common.extensions.JsonObjectEmptyBytes
 import com.bookshelf.data.MemoColumnAdapter
 import com.bookshelf.domain.chapter.model.Chapter
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.protobuf.ProtoNumber
 
 @Serializable
 class BackupChapter(

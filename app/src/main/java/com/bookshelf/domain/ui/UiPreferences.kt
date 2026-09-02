@@ -1,16 +1,16 @@
 package com.bookshelf.domain.ui
 
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
+import com.bookshelf.core.common.preference.Preference
+import com.bookshelf.core.common.preference.PreferenceStore
+import com.bookshelf.core.common.preference.getEnum
 import com.bookshelf.domain.ui.model.AppTheme
 import com.bookshelf.domain.ui.model.TabletUiMode
 import com.bookshelf.domain.ui.model.ThemeMode
 import com.bookshelf.util.system.DeviceUtil
 import com.bookshelf.util.system.isDynamicColorAvailable
-import com.bookshelf.core.common.preference.Preference
-import com.bookshelf.core.common.preference.PreferenceStore
-import com.bookshelf.core.common.preference.getEnum
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale

@@ -11,9 +11,9 @@ import android.view.ViewPropertyAnimator
 import androidx.core.graphics.withScale
 import androidx.core.graphics.withTranslation
 import androidx.core.view.isVisible
+import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.ui.reader.viewer.ViewerNavigation
 import com.bookshelf.ui.reader.viewer.navigation.DisabledNavigation
-import com.bookshelf.core.common.i18n.stringResource
 import kotlin.math.abs
 
 class ReaderNavigationOverlayView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {

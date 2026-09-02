@@ -1,7 +1,7 @@
 package com.bookshelf.domain.chapter.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.chapter.model.Chapter
+import dev.zacsweers.metro.Inject
 
 @Inject
 class ShouldUpdateDbChapter {

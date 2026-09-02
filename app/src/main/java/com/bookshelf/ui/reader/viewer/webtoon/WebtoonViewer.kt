@@ -11,18 +11,18 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.WebtoonLayoutManager
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.ui.reader.ReaderActivity
 import com.bookshelf.ui.reader.model.ChapterTransition
 import com.bookshelf.ui.reader.model.ReaderPage
 import com.bookshelf.ui.reader.model.ViewerChapters
 import com.bookshelf.ui.reader.viewer.Viewer
 import com.bookshelf.ui.reader.viewer.ViewerNavigation.NavigationRegion
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.core.common.util.system.logcat
 import kotlin.math.max
 import kotlin.math.min
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
 /**
  * Implementation of a [Viewer] to display pages with a [RecyclerView].

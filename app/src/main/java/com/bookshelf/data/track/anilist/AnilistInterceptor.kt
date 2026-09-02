@@ -3,9 +3,9 @@ package com.bookshelf.data.track.anilist
 import com.bookshelf.BuildConfig
 import com.bookshelf.data.track.anilist.dto.ALOAuth
 import com.bookshelf.data.track.anilist.dto.isExpired
+import java.io.IOException
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.io.IOException
 
 class AnilistInterceptor(val anilist: Anilist, private var token: String?) : Interceptor {
 

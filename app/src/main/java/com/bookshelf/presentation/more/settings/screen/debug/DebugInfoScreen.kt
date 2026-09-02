@@ -14,6 +14,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.profileinstaller.ProfileVerifier
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.FeatureFlags
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.Autorenew
+import com.bookshelf.presentation.core.util.collectAsState
 import com.bookshelf.presentation.more.settings.Preference
 import com.bookshelf.presentation.more.settings.PreferenceScaffold
 import com.bookshelf.presentation.more.settings.screen.about.AboutScreen
@@ -23,12 +29,6 @@ import com.bookshelf.util.system.WebViewUtil
 import com.bookshelf.util.system.copyToClipboard
 import kotlinx.coroutines.guava.await
 import kotlinx.coroutines.launch
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.core.common.FeatureFlags
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.Autorenew
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.util.collectAsState
 
 class DebugInfoScreen : Screen() {
 

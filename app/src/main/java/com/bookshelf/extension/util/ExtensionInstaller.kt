@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import dev.zacsweers.metro.Inject
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.base.BasePreferences
 import com.bookshelf.extension.installer.Installer
 import com.bookshelf.extension.model.Extension
@@ -12,6 +12,8 @@ import com.bookshelf.extension.model.InstallStep
 import com.bookshelf.network.NetworkHelper
 import com.bookshelf.util.storage.getUriCompat
 import com.bookshelf.util.system.isPackageInstalled
+import dev.zacsweers.metro.Inject
+import java.io.File
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,8 +25,6 @@ import kotlinx.coroutines.launch
 import logcat.LogPriority
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import com.bookshelf.core.common.util.system.logcat
-import java.io.File
 
 /**
  * The installer which installs, updates and uninstalls the extensions.

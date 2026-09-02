@@ -9,19 +9,19 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatTextView
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.bookshelf.core.common.i18n.stringResource
+import com.bookshelf.i18n.MR
 import com.bookshelf.ui.reader.model.ChapterTransition
 import com.bookshelf.ui.reader.model.ReaderChapter
 import com.bookshelf.ui.reader.viewer.ReaderButton
 import com.bookshelf.ui.reader.viewer.ReaderTransitionView
 import com.bookshelf.util.system.dpToPx
 import com.bookshelf.widget.ViewPagerAdapter
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.bookshelf.core.common.i18n.stringResource
-import com.bookshelf.i18n.MR
 
 /**
  * View of the ViewPager that contains a chapter transition.

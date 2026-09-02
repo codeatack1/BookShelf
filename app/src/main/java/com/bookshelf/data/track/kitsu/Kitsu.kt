@@ -1,19 +1,19 @@
 package com.bookshelf.data.track.kitsu
 
-import dev.icerock.moko.resources.StringResource
 import com.bookshelf.R
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.DeletableTracker
 import com.bookshelf.data.track.kitsu.dto.KitsuOAuth
 import com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.domain.track.model.Track as DomainTrack
+import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
+import java.text.DecimalFormat
 import kotlinx.serialization.json.Json
 import logcat.LogPriority
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.i18n.MR
 import uy.kohesive.injekt.injectLazy
-import java.text.DecimalFormat
-import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class Kitsu(id: Long) : BaseTracker(id, "Kitsu"), DeletableTracker {
 

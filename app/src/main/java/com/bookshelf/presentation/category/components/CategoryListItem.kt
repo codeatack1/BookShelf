@@ -12,15 +12,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.bookshelf.domain.category.model.Category
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.rounded.Delete
 import com.bookshelf.icons.materialsymbols.rounded.DragHandle
 import com.bookshelf.icons.materialsymbols.rounded.Edit
-import sh.calvin.reorderable.ReorderableCollectionItemScope
-import com.bookshelf.domain.category.model.Category
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import sh.calvin.reorderable.ReorderableCollectionItemScope
 
 @Composable
 fun ReorderableCollectionItemScope.CategoryListItem(

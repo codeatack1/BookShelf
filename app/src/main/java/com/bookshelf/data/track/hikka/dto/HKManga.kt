@@ -4,10 +4,10 @@ import com.bookshelf.data.track.hikka.HikkaApi
 import com.bookshelf.data.track.hikka.stringToNumber
 import com.bookshelf.data.track.hikka.toTrackStatus
 import com.bookshelf.data.track.model.TrackSearch
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class HKManga(

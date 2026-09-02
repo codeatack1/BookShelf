@@ -2,6 +2,7 @@ package com.bookshelf.data.track.bangumi
 
 import android.net.Uri
 import androidx.core.net.toUri
+import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.bangumi.dto.BGMCollectionResponse
 import com.bookshelf.data.track.bangumi.dto.BGMOAuth
@@ -26,7 +27,6 @@ import okhttp3.Headers.Companion.headersOf
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import com.bookshelf.core.common.util.lang.withIOContext
 import uy.kohesive.injekt.injectLazy
 
 class BangumiApi(

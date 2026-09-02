@@ -15,12 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import com.bookshelf.presentation.components.TabbedDialog
-import com.bookshelf.presentation.components.TabbedDialogPaddings
-import com.bookshelf.ui.library.LibrarySettingsViewModel
-import com.bookshelf.util.system.isReleaseBuildType
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.rounded.Refresh
 import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.domain.category.model.Category
 import com.bookshelf.domain.library.model.LibraryDisplayMode
@@ -28,6 +22,10 @@ import com.bookshelf.domain.library.model.LibrarySort
 import com.bookshelf.domain.library.model.sort
 import com.bookshelf.domain.library.service.LibraryPreferences
 import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.rounded.Refresh
+import com.bookshelf.presentation.components.TabbedDialog
+import com.bookshelf.presentation.components.TabbedDialogPaddings
 import com.bookshelf.presentation.core.components.BaseSortItem
 import com.bookshelf.presentation.core.components.CheckboxItem
 import com.bookshelf.presentation.core.components.HeadingItem
@@ -37,6 +35,8 @@ import com.bookshelf.presentation.core.components.SortItem
 import com.bookshelf.presentation.core.components.TriStateItem
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.collectAsState
+import com.bookshelf.ui.library.LibrarySettingsViewModel
+import com.bookshelf.util.system.isReleaseBuildType
 
 @Composable
 fun LibrarySettingsDialog(

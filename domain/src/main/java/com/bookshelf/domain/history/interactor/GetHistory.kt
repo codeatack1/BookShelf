@@ -1,10 +1,10 @@
 package com.bookshelf.domain.history.interactor
 
-import dev.zacsweers.metro.Inject
-import kotlinx.coroutines.flow.Flow
 import com.bookshelf.domain.history.model.History
 import com.bookshelf.domain.history.model.HistoryWithRelations
 import com.bookshelf.domain.history.repository.HistoryRepository
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
 
 @Inject
 class GetHistory(

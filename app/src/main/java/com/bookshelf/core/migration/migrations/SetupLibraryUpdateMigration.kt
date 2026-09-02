@@ -1,12 +1,12 @@
 package com.bookshelf.core.migration.migrations
 
 import android.content.Context
+import com.bookshelf.core.migration.Migration
+import com.bookshelf.core.migration.MigrationContext
+import com.bookshelf.data.library.LibraryUpdateJob
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
-import com.bookshelf.data.library.LibraryUpdateJob
-import com.bookshelf.core.migration.Migration
-import com.bookshelf.core.migration.MigrationContext
 
 @Inject
 @ContributesIntoSet(AppScope::class)

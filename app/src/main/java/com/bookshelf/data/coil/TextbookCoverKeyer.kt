@@ -2,10 +2,10 @@ package com.bookshelf.data.coil
 
 import coil3.key.Keyer
 import coil3.request.Options
-import com.bookshelf.domain.textbook.model.hasCustomCover
 import com.bookshelf.data.cache.CoverCache
-import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.domain.textbook.model.Textbook as DomainTextbook
+import com.bookshelf.domain.textbook.model.TextbookCover
+import com.bookshelf.domain.textbook.model.hasCustomCover
 
 class TextbookKeyer : Keyer<DomainTextbook> {
     override fun key(data: DomainTextbook, options: Options): String {

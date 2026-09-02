@@ -2,16 +2,16 @@ package com.bookshelf.domain.textbook.model
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Immutable
+import com.bookshelf.core.common.extensions.EMPTY
+import com.bookshelf.core.common.preference.TriState
 import com.bookshelf.source.model.STextbook
 import com.bookshelf.source.model.UpdateStrategy
+import java.io.ObjectStreamException
+import java.io.Serializable as JavaSerializable
+import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
-import com.bookshelf.core.common.extensions.EMPTY
-import com.bookshelf.core.common.preference.TriState
-import java.io.ObjectStreamException
-import kotlin.time.Instant
-import java.io.Serializable as JavaSerializable
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable

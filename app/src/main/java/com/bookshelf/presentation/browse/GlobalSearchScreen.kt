@@ -5,18 +5,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.presentation.browse.components.GlobalSearchCardRow
 import com.bookshelf.presentation.browse.components.GlobalSearchErrorResultItem
 import com.bookshelf.presentation.browse.components.GlobalSearchLoadingResultItem
 import com.bookshelf.presentation.browse.components.GlobalSearchResultItem
 import com.bookshelf.presentation.browse.components.GlobalSearchToolbar
+import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.source.Source
 import com.bookshelf.ui.browse.source.globalsearch.SearchItemResult
 import com.bookshelf.ui.browse.source.globalsearch.SearchViewModel
 import com.bookshelf.ui.browse.source.globalsearch.SourceFilter
 import com.bookshelf.util.system.LocaleHelper
-import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.presentation.core.components.material.Scaffold
 
 @Composable
 fun GlobalSearchScreen(

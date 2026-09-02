@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.bookshelf.domain.extension.model.ExtensionStore
+import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.automirroredrounded.Label
 import com.bookshelf.icons.materialsymbols.rounded.ContentCopy
@@ -23,7 +24,6 @@ import com.bookshelf.icons.materialsymbols.rounded.Delete
 import com.bookshelf.icons.materialsymbols.rounded.Public
 import com.bookshelf.icons.simpleicons.Discord
 import com.bookshelf.icons.simpleicons.SimpleIcons
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 

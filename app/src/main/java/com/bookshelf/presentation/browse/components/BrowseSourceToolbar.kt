@@ -7,20 +7,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.bookshelf.domain.library.model.LibraryDisplayMode
+import com.bookshelf.i18n.MR
+import com.bookshelf.icons.materialsymbols.MaterialSymbols
+import com.bookshelf.icons.materialsymbols.automirroredrounded.ViewList
+import com.bookshelf.icons.materialsymbols.rounded.ViewModule
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.AppBarActions
 import com.bookshelf.presentation.components.AppBarTitle
 import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.components.RadioMenuItem
 import com.bookshelf.presentation.components.SearchToolbar
+import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.source.ConfigurableSource
 import com.bookshelf.source.Source
-import com.bookshelf.icons.materialsymbols.MaterialSymbols
-import com.bookshelf.icons.materialsymbols.automirroredrounded.ViewList
-import com.bookshelf.icons.materialsymbols.rounded.ViewModule
-import com.bookshelf.domain.library.model.LibraryDisplayMode
-import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.source.local.LocalSource
 
 @Composable

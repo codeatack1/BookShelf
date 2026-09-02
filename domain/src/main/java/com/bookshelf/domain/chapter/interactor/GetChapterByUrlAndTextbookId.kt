@@ -1,8 +1,8 @@
 package com.bookshelf.domain.chapter.interactor
 
-import dev.zacsweers.metro.Inject
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.chapter.repository.ChapterRepository
+import dev.zacsweers.metro.Inject
 
 @Inject
 class GetChapterByUrlAndTextbookId(

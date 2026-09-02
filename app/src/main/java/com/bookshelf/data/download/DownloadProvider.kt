@@ -1,23 +1,23 @@
 package com.bookshelf.data.download
 
 import android.content.Context
-import com.hippo.unifile.UniFile
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import com.bookshelf.source.Source
-import com.bookshelf.util.lang.Hash.md5
-import com.bookshelf.util.storage.DiskUtil
-import logcat.LogPriority
 import com.bookshelf.core.common.i18n.stringResource
 import com.bookshelf.core.common.storage.displayablePath
 import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.library.service.LibraryPreferences
-import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.storage.service.StorageManager
+import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
+import com.bookshelf.source.Source
+import com.bookshelf.util.lang.Hash.md5
+import com.bookshelf.util.storage.DiskUtil
+import com.hippo.unifile.UniFile
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import java.io.IOException
+import logcat.LogPriority
 
 /**
  * This class is used to provide the directories where the downloads should be saved.

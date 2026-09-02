@@ -1,10 +1,10 @@
 package com.bookshelf.data.backup.restore.restorers
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.data.backup.models.BackupCategory
 import com.bookshelf.data.Database
+import com.bookshelf.data.backup.models.BackupCategory
 import com.bookshelf.domain.category.interactor.GetCategories
 import com.bookshelf.domain.library.service.LibraryPreferences
+import dev.zacsweers.metro.Inject
 
 @Inject
 class CategoriesRestorer(

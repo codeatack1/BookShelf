@@ -1,16 +1,16 @@
 package com.bookshelf.domain.source.service
 
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import com.bookshelf.domain.source.interactor.SetMigrateSorting
-import com.bookshelf.util.system.LocaleHelper
-import com.bookshelf.domain.migration.models.MigrationFlag
 import com.bookshelf.core.common.preference.Preference
 import com.bookshelf.core.common.preference.PreferenceStore
 import com.bookshelf.core.common.preference.getEnum
 import com.bookshelf.core.common.preference.getLongArray
 import com.bookshelf.domain.library.model.LibraryDisplayMode
+import com.bookshelf.domain.migration.models.MigrationFlag
+import com.bookshelf.domain.source.interactor.SetMigrateSorting
+import com.bookshelf.util.system.LocaleHelper
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 
 @Inject
 @SingleIn(AppScope::class)

@@ -20,10 +20,10 @@ import androidx.compose.runtime.CompositionContext
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import dev.zacsweers.metrox.viewmodel.LocalMetroViewModelFactory
-import com.bookshelf.presentation.theme.BookShelfTheme
 import com.bookshelf.R
 import com.bookshelf.app.di.appGraph
+import com.bookshelf.presentation.theme.BookShelfTheme
+import dev.zacsweers.metrox.viewmodel.LocalMetroViewModelFactory
 
 inline fun ComponentActivity.setComposeContent(
     parent: CompositionContext? = null,

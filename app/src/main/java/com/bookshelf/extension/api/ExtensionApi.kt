@@ -1,15 +1,15 @@
 package com.bookshelf.extension.api
 
 import android.content.Context
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
+import com.bookshelf.core.common.util.lang.withIOContext
+import com.bookshelf.domain.extension.interactor.UpdateExtensionStores
+import com.bookshelf.domain.extension.repository.ExtensionStoreRepository
 import com.bookshelf.extension.model.Extension
 import com.bookshelf.extension.model.LoadResult
 import com.bookshelf.extension.util.ExtensionLoader
-import com.bookshelf.domain.extension.interactor.UpdateExtensionStores
-import com.bookshelf.domain.extension.repository.ExtensionStoreRepository
-import com.bookshelf.core.common.util.lang.withIOContext
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 
 @Inject
 @SingleIn(AppScope::class)

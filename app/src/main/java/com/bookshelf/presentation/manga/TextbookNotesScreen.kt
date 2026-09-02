@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.AppBarTitle
-import com.bookshelf.presentation.manga.components.TextbookNotesTextArea
-import com.bookshelf.ui.textbook.notes.TextbookNotesScreen
-import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.manga.components.TextbookNotesTextArea
+import com.bookshelf.ui.textbook.notes.TextbookNotesScreen
 
 @Composable
 fun TextbookNotesScreen(

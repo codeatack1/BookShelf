@@ -14,14 +14,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.bookshelf.presentation.library.components.CommonTextbookItemDefaults
-import com.bookshelf.presentation.library.components.TextbookComfortableGridItem
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.domain.textbook.model.asTextbookCover
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
+import com.bookshelf.presentation.library.components.CommonTextbookItemDefaults
+import com.bookshelf.presentation.library.components.TextbookComfortableGridItem
 
 @Composable
 fun GlobalSearchCardRow(

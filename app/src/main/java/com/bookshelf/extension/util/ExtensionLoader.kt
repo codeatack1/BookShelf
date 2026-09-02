@@ -6,6 +6,9 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.pm.PackageInfoCompat
+import com.bookshelf.app.di.appGraph
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.data.dalvik.DelegateLastClassLoaderCompat
 import com.bookshelf.domain.extension.interactor.TrustExtension
 import com.bookshelf.extension.model.Extension
 import com.bookshelf.extension.model.LoadResult
@@ -13,15 +16,12 @@ import com.bookshelf.source.Source
 import com.bookshelf.source.SourceFactory
 import com.bookshelf.util.lang.Hash
 import com.bookshelf.util.storage.copyAndSetReadOnlyTo
+import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
 import logcat.LogPriority
-import com.bookshelf.app.di.appGraph
-import com.bookshelf.data.dalvik.DelegateLastClassLoaderCompat
-import com.bookshelf.core.common.util.system.logcat
-import java.io.File
 
 /**
  * Class that handles the loading of the extensions. Supports two kinds of extensions:

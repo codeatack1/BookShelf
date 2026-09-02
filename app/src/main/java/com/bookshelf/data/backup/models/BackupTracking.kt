@@ -1,8 +1,8 @@
 package com.bookshelf.data.backup.models
 
+import com.bookshelf.domain.track.model.Track
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.protobuf.ProtoNumber
-import com.bookshelf.domain.track.model.Track
 
 @Serializable
 data class BackupTracking(

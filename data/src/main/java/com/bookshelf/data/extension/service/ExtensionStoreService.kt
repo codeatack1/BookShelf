@@ -1,27 +1,27 @@
 package com.bookshelf.data.extension.service
 
-import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
-import com.bookshelf.extension.model.Extension
-import com.bookshelf.network.GET
-import com.bookshelf.network.NetworkHelper
-import com.bookshelf.network.awaitSuccess
-import kotlinx.serialization.decodeFromByteArray
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.okio.decodeFromBufferedSource
-import kotlinx.serialization.protobuf.ProtoBuf
-import logcat.LogPriority
+import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.extension.model.NetworkExtensionStore
 import com.bookshelf.data.extension.model.NetworkLegacyExtension
 import com.bookshelf.data.extension.model.NetworkLegacyExtensionRepo
 import com.bookshelf.data.extension.model.toAvailableExtensions
 import com.bookshelf.domain.extension.model.ExtensionStore
+import com.bookshelf.extension.model.Extension
+import com.bookshelf.network.GET
+import com.bookshelf.network.NetworkHelper
+import com.bookshelf.network.awaitSuccess
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
+import kotlin.coroutines.cancellation.CancellationException
+import kotlinx.serialization.decodeFromByteArray
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.okio.decodeFromBufferedSource
+import kotlinx.serialization.protobuf.ProtoBuf
+import logcat.LogPriority
 import okio.BufferedSource
 import okio.buffer
 import okio.gzip
-import com.bookshelf.core.common.util.system.logcat
-import kotlin.coroutines.cancellation.CancellationException
 
 @Inject
 @SingleIn(AppScope::class)

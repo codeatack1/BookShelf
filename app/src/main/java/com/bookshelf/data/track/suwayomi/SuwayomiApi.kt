@@ -1,8 +1,10 @@
 package com.bookshelf.data.track.suwayomi
 
 import android.content.SharedPreferences
+import com.bookshelf.core.common.util.lang.withIOContext
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.model.TrackSearch
+import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.network.POST
 import com.bookshelf.network.awaitSuccess
 import com.bookshelf.network.jsonMime
@@ -10,6 +12,7 @@ import com.bookshelf.network.parseAs
 import com.bookshelf.source.ConfigurableSource
 import com.bookshelf.source.online.HttpSource
 import com.bookshelf.source.sourcePreferences
+import java.security.MessageDigest
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.addAll
@@ -19,10 +22,7 @@ import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
-import com.bookshelf.core.common.util.lang.withIOContext
-import com.bookshelf.domain.source.service.SourceManager
 import uy.kohesive.injekt.injectLazy
-import java.security.MessageDigest
 
 class SuwayomiApi(
     private val trackId: Long,

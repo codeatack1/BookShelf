@@ -2,13 +2,13 @@ package com.bookshelf.data.download
 
 import android.content.Context
 import androidx.core.content.edit
+import com.bookshelf.domain.chapter.model.Chapter
+import com.bookshelf.domain.textbook.model.Textbook
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import com.bookshelf.domain.chapter.model.Chapter
-import com.bookshelf.domain.textbook.model.Textbook
 
 /**
  * Class used to keep a list of chapters for future deletion.

@@ -1,23 +1,23 @@
 package com.bookshelf.data.extension.repository
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
+import com.bookshelf.core.common.util.system.logcat
+import com.bookshelf.data.Database
+import com.bookshelf.data.extension.service.ExtensionStoreService
+import com.bookshelf.data.subscribeToList
+import com.bookshelf.data.subscribeToOne
+import com.bookshelf.domain.extension.model.ExtensionStore
+import com.bookshelf.domain.extension.repository.ExtensionStoreRepository
+import com.bookshelf.extension.model.Extension
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.extension.model.Extension
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.supervisorScope
 import logcat.LogPriority
-import com.bookshelf.data.extension.service.ExtensionStoreService
-import com.bookshelf.domain.extension.model.ExtensionStore
-import com.bookshelf.domain.extension.repository.ExtensionStoreRepository
-import com.bookshelf.core.common.util.system.logcat
-import com.bookshelf.data.Database
-import com.bookshelf.data.subscribeToList
-import com.bookshelf.data.subscribeToOne
 
 @Inject
 @SingleIn(AppScope::class)

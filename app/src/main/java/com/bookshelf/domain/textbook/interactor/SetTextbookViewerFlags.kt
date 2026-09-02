@@ -1,10 +1,10 @@
 package com.bookshelf.domain.textbook.interactor
 
-import dev.zacsweers.metro.Inject
-import com.bookshelf.ui.reader.setting.ReaderOrientation
-import com.bookshelf.ui.reader.setting.ReadingMode
 import com.bookshelf.domain.textbook.model.TextbookUpdate
 import com.bookshelf.domain.textbook.repository.TextbookRepository
+import com.bookshelf.ui.reader.setting.ReaderOrientation
+import com.bookshelf.ui.reader.setting.ReadingMode
+import dev.zacsweers.metro.Inject
 
 @Inject
 class SetTextbookViewerFlags(

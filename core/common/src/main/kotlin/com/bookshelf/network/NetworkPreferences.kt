@@ -1,11 +1,11 @@
 package com.bookshelf.network
 
+import com.bookshelf.core.common.preference.Preference
+import com.bookshelf.core.common.preference.PreferenceStore
+import com.bookshelf.core.metro.IsDebugBuild
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import com.bookshelf.core.metro.IsDebugBuild
-import com.bookshelf.core.common.preference.Preference
-import com.bookshelf.core.common.preference.PreferenceStore
 
 @Inject
 @SingleIn(AppScope::class)

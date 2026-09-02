@@ -1,16 +1,16 @@
 package com.bookshelf.data.track.anilist
 
-import dev.icerock.moko.resources.StringResource
-import com.bookshelf.domain.track.model.toDbTrack
 import com.bookshelf.R
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.DeletableTracker
 import com.bookshelf.data.track.anilist.dto.ALOAuth
 import com.bookshelf.data.track.model.TrackSearch
-import kotlinx.serialization.json.Json
-import com.bookshelf.i18n.MR
 import com.bookshelf.domain.track.model.Track as DomainTrack
+import com.bookshelf.domain.track.model.toDbTrack
+import com.bookshelf.i18n.MR
+import dev.icerock.moko.resources.StringResource
+import kotlinx.serialization.json.Json
 
 class Anilist(id: Long) : BaseTracker(id, "AniList"), DeletableTracker {
 
