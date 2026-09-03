@@ -7,9 +7,9 @@ import com.bookshelf.data.Chapters
 import com.bookshelf.data.Database
 import com.bookshelf.data.DateColumnAdapter
 import com.bookshelf.data.History
-import com.bookshelf.data.Textbooks
 import com.bookshelf.data.MemoColumnAdapter
 import com.bookshelf.data.StringListColumnAdapter
+import com.bookshelf.data.Textbooks
 import com.bookshelf.data.UpdateStrategyColumnAdapter
 import com.eygraber.sqldelight.androidx.driver.AndroidxSqliteConfiguration
 import com.eygraber.sqldelight.androidx.driver.AndroidxSqliteDatabaseType
