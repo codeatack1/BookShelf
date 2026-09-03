@@ -135,7 +135,7 @@ fun Context.createReaderThemeContext(): Context {
         overrideConf.setTo(resources.configuration)
         overrideConf.uiMode = (overrideConf.uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or expected
 
-        val wrappedContext = ContextThemeWrapper(this, R.style.Theme_Tachiyomi)
+        val wrappedContext = ContextThemeWrapper(this, R.style.Theme_BookShelf)
         wrappedContext.applyOverrideConfiguration(overrideConf)
         ThemingDelegate.getThemeResIds(preferences.appTheme.get(), preferences.themeDarkAmoled.get())
             .forEach { wrappedContext.theme.applyStyle(it, true) }

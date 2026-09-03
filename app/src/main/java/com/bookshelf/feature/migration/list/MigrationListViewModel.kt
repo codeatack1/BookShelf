@@ -129,7 +129,7 @@ class MigrationListViewModel(
 
         for (manga in mangas) {
             if (!currentCoroutineContext().isActive) break
-            if (manga.textbook.id !in state.value.mangaIds) continue
+            if (manga.manga.id !in state.value.mangaIds) continue
             if (manga.searchResult.value != SearchResult.Searching) continue
             if (!manga.migrationScope.isActive) continue
 
