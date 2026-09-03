@@ -20,7 +20,7 @@ spotless {
 }
 
 valkyrie {
-    packageName = "mihon.icons.simpleicons"
+    packageName = "com.bookshelf.icons.simpleicons"
     generateAtSync = true
 
     imageVector {
