@@ -1,9 +1,9 @@
 package com.bookshelf.gradle
 
+import org.gradle.api.Project
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Instant
-import org.gradle.api.Project
 
 // Git is needed in your system PATH for these commands to work.
 // If it's not installed, you can return a random value as a workaround

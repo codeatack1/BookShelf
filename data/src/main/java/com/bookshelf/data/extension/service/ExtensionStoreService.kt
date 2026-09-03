@@ -13,7 +13,6 @@ import com.bookshelf.network.awaitSuccess
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.okio.decodeFromBufferedSource
@@ -22,6 +21,7 @@ import logcat.LogPriority
 import okio.BufferedSource
 import okio.buffer
 import okio.gzip
+import kotlin.coroutines.cancellation.CancellationException
 
 @Inject
 @SingleIn(AppScope::class)

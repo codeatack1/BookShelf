@@ -2,7 +2,6 @@ package com.bookshelf.data.source
 
 import com.bookshelf.data.Database
 import com.bookshelf.data.subscribeToList
-import com.bookshelf.domain.source.model.Source as DomainSource
 import com.bookshelf.domain.source.model.SourceWithCount
 import com.bookshelf.domain.source.model.StubSource
 import com.bookshelf.domain.source.repository.SourcePagingSource
@@ -19,6 +18,7 @@ import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import com.bookshelf.domain.source.model.Source as DomainSource
 
 @Inject
 @SingleIn(AppScope::class)
