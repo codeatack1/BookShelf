@@ -1,4 +1,4 @@
-import eu.kanade.tachiyomi.source.model.UpdateStrategy;
+import com.bookshelf.source.model.UpdateStrategy;
 import kotlin.Boolean;
 import kotlin.String;
 import kotlin.collections.List;
