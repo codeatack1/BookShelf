@@ -112,10 +112,6 @@ import com.bookshelf.util.system.isNavigationBarNeedsScrim
 import com.bookshelf.util.system.updaterEnabled
 import com.bookshelf.util.view.setComposeContent
 import dev.zacsweers.metro.Inject
-import kotlin.time.Clock
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Instant
-import kotlin.time.times
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -125,6 +121,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import logcat.LogPriority
+import kotlin.time.Clock
+import kotlin.time.Duration.Companion.days
+import kotlin.time.Instant
+import kotlin.time.times
 
 class MainActivity : BaseActivity() {
 

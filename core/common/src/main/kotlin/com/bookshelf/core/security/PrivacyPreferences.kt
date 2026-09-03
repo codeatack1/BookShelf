@@ -10,5 +10,4 @@ import dev.zacsweers.metro.SingleIn
 @SingleIn(AppScope::class)
 class PrivacyPreferences(
     preferenceStore: PreferenceStore,
-) {
-}
+)

@@ -9,7 +9,6 @@ import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.data.database.models.Track
 import com.bookshelf.domain.track.interactor.AddTracks
 import com.bookshelf.domain.track.interactor.InsertTrack
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.domain.track.model.toDomainTrack
 import com.bookshelf.domain.track.service.TrackPreferences
 import com.bookshelf.network.NetworkHelper
@@ -20,6 +19,7 @@ import logcat.LogPriority
 import okhttp3.OkHttpClient
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 abstract class BaseTracker(
     override val id: Long,

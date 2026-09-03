@@ -77,8 +77,6 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
-import kotlin.time.Clock
-import kotlin.time.Instant
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -90,6 +88,8 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import logcat.LogPriority
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 data class TrackInfoDialogHomeScreen(
     private val textbookId: Long,
@@ -101,7 +101,8 @@ data class TrackInfoDialogHomeScreen(
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val context = LocalContext.current
-        val viewModel = assistedMetroViewModel<Model, Model.Factory> { create(textbookId = textbookId, sourceId = sourceId) }
+        val viewModel =
+            assistedMetroViewModel<Model, Model.Factory> { create(textbookId = textbookId, sourceId = sourceId) }
 
         val dateFormat = remember { UiPreferences.dateFormat(context.appGraph.uiPreferences.dateFormat.get()) }
         val state by viewModel.state.collectAsState()

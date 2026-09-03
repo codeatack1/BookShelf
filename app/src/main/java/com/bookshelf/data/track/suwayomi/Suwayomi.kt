@@ -5,11 +5,11 @@ import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.EnhancedTracker
 import com.bookshelf.data.track.model.TrackSearch
-import com.bookshelf.domain.textbook.model.Textbook as DomainTextbook
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.i18n.MR
 import com.bookshelf.source.Source
 import dev.icerock.moko.resources.StringResource
+import com.bookshelf.domain.textbook.model.Textbook as DomainTextbook
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class Suwayomi(id: Long) : BaseTracker(id, "Suwayomi"), EnhancedTracker {
 

@@ -100,14 +100,14 @@ import com.bookshelf.util.system.copyToClipboard
 import com.mikepenz.markdown.model.markdownAnnotator
 import com.mikepenz.markdown.model.markdownAnnotatorConfig
 import com.mikepenz.markdown.utils.getUnescapedTextInNode
-import kotlin.math.roundToInt
-import kotlin.time.Clock
-import kotlin.time.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.daysUntil
 import org.intellij.markdown.MarkdownElementTypes
 import org.intellij.markdown.MarkdownTokenTypes
 import org.intellij.markdown.ast.findChildOfType
+import kotlin.math.roundToInt
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 @Composable
 fun TextbookInfoBox(

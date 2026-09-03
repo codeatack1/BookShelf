@@ -5,10 +5,6 @@ import com.bookshelf.domain.chapter.model.Chapter
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookUpdate
 import dev.zacsweers.metro.Inject
-import kotlin.math.absoluteValue
-import kotlin.time.Clock
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -16,6 +12,10 @@ import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.daysUntil
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import kotlin.math.absoluteValue
+import kotlin.time.Clock
+import kotlin.time.Duration.Companion.days
+import kotlin.time.Instant
 
 @Inject
 class FetchInterval(

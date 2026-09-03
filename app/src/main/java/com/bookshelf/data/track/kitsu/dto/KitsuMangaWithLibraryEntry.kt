@@ -2,8 +2,8 @@ package com.bookshelf.data.track.kitsu.dto
 
 import com.bookshelf.data.track.kitsu.toKitsuLocalStatus
 import com.bookshelf.data.track.model.TrackSearch
-import kotlin.time.Instant
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 // KitsuManga extended with KitsuLibraryEntryData
 @Serializable

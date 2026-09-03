@@ -20,7 +20,9 @@ class MigrateSearchScreen(private val textbookId: Long) : Screen() {
         val navigator = LocalNavigator.currentOrThrow
 
         val viewModel =
-            assistedMetroViewModel<MigrateSearchViewModel, MigrateSearchViewModel.Factory> { create(textbookId = textbookId) }
+            assistedMetroViewModel<MigrateSearchViewModel, MigrateSearchViewModel.Factory> {
+                create(textbookId = textbookId)
+            }
         val state by viewModel.state.collectAsState()
 
         MigrateSearchScreen(

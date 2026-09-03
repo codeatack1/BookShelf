@@ -55,10 +55,10 @@ import com.bookshelf.util.system.powerManager
 import com.bookshelf.util.system.setDefaultSettings
 import com.bookshelf.util.system.toast
 import com.bookshelf.util.system.workManager
-import java.io.File
 import kotlinx.coroutines.launch
 import logcat.LogPriority
 import okhttp3.Headers
+import java.io.File
 
 object SettingsAdvancedScreen : SearchableSettings {
 

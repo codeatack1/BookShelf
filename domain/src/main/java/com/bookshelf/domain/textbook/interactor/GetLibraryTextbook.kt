@@ -4,12 +4,12 @@ import com.bookshelf.core.common.util.system.logcat
 import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.domain.textbook.repository.TextbookRepository
 import dev.zacsweers.metro.Inject
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.retry
 import logcat.LogPriority
+import kotlin.time.Duration.Companion.seconds
 
 @Inject
 class GetLibraryTextbook(

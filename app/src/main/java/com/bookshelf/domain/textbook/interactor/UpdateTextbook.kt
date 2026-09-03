@@ -5,10 +5,10 @@ import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.TextbookUpdate
 import com.bookshelf.domain.textbook.repository.TextbookRepository
 import dev.zacsweers.metro.Inject
-import kotlin.time.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
 
 @Inject
 class UpdateTextbook(
@@ -36,7 +36,9 @@ class UpdateTextbook(
     }
 
     suspend fun awaitUpdateLastUpdate(textbookId: Long): Boolean {
-        return mangaRepository.update(TextbookUpdate(id = textbookId, lastUpdate = Clock.System.now().toEpochMilliseconds()))
+        return mangaRepository.update(
+            TextbookUpdate(id = textbookId, lastUpdate = Clock.System.now().toEpochMilliseconds()),
+        )
     }
 
     suspend fun awaitUpdateCoverLastModified(textbookId: Long): Boolean {

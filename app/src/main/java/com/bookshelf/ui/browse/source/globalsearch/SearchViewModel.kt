@@ -15,7 +15,6 @@ import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.toDomainTextbook
 import com.bookshelf.extension.ExtensionManager
 import com.bookshelf.source.Source
-import java.util.concurrent.Executors
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
@@ -28,6 +27,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.Executors
 
 abstract class SearchViewModel(
     initialState: State = State(),

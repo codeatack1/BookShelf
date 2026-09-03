@@ -38,10 +38,10 @@ import com.bookshelf.presentation.manga.components.ChapterDownloadAction
 import com.bookshelf.presentation.manga.components.TextbookBottomActionMenu
 import com.bookshelf.ui.updates.UpdatesItem
 import com.bookshelf.ui.updates.UpdatesViewModel
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun UpdateScreen(

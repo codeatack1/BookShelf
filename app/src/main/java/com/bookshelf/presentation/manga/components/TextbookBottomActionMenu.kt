@@ -60,11 +60,11 @@ import com.bookshelf.presentation.components.DownloadDropdownMenu
 import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.manga.DownloadAction
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun TextbookBottomActionMenu(

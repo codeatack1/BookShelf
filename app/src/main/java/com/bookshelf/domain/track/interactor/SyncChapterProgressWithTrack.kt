@@ -10,8 +10,8 @@ import com.bookshelf.domain.track.interactor.InsertTrack
 import com.bookshelf.domain.track.model.Track
 import com.bookshelf.domain.track.model.toDbTrack
 import dev.zacsweers.metro.Inject
-import kotlin.math.max
 import logcat.LogPriority
+import kotlin.math.max
 
 @Inject
 class SyncChapterProgressWithTrack(

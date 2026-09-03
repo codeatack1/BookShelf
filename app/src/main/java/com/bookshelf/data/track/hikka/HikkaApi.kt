@@ -10,7 +10,6 @@ import com.bookshelf.data.track.hikka.dto.HKOAuth
 import com.bookshelf.data.track.hikka.dto.HKRead
 import com.bookshelf.data.track.hikka.dto.HKUser
 import com.bookshelf.data.track.model.TrackSearch
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.network.DELETE
 import com.bookshelf.network.GET
 import com.bookshelf.network.HttpException
@@ -30,6 +29,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import uy.kohesive.injekt.injectLazy
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class HikkaApi(
     private val trackId: Long,

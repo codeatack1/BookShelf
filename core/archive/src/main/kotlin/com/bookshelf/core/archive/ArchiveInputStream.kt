@@ -1,12 +1,12 @@
 package com.bookshelf.core.archive
 
-import com.bookshelf.core.archive.ArchiveEntry as MihonArchiveEntry
-import java.io.InputStream
-import java.nio.ByteBuffer
-import kotlin.concurrent.Volatile
 import me.zhanghai.android.libarchive.Archive
 import me.zhanghai.android.libarchive.ArchiveEntry
 import me.zhanghai.android.libarchive.ArchiveException
+import java.io.InputStream
+import java.nio.ByteBuffer
+import kotlin.concurrent.Volatile
+import com.bookshelf.core.archive.ArchiveEntry as MihonArchiveEntry
 
 internal class ArchiveInputStream(buffer: Long, size: Long) : InputStream() {
     private val lock = Any()

@@ -14,10 +14,10 @@ import com.bookshelf.util.system.createFileInCacheDir
 import com.bookshelf.util.system.toShareIntent
 import com.bookshelf.util.system.toast
 import dev.zacsweers.metro.Inject
-import kotlin.time.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
 
 @Inject
 class CrashLogUtil(

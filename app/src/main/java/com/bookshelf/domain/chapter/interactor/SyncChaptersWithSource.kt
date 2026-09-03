@@ -23,12 +23,12 @@ import com.bookshelf.source.local.isLocal
 import com.bookshelf.source.model.SChapter
 import com.bookshelf.source.online.HttpSource
 import dev.zacsweers.metro.Inject
-import java.lang.Long.max
-import java.util.TreeSet
-import kotlin.time.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import java.lang.Long.max
+import java.util.TreeSet
+import kotlin.time.Clock
 
 @Inject
 class SyncChaptersWithSource(

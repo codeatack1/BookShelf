@@ -8,11 +8,6 @@ import com.bookshelf.source.model.Page
 import com.bookshelf.source.online.HttpSource
 import com.bookshelf.ui.reader.model.ReaderChapter
 import com.bookshelf.ui.reader.model.ReaderPage
-import java.util.concurrent.PriorityBlockingQueue
-import kotlin.concurrent.atomics.AtomicInt
-import kotlin.concurrent.atomics.ExperimentalAtomicApi
-import kotlin.concurrent.atomics.incrementAndFetch
-import kotlin.math.min
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +17,11 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runInterruptible
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.concurrent.PriorityBlockingQueue
+import kotlin.concurrent.atomics.AtomicInt
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
+import kotlin.concurrent.atomics.incrementAndFetch
+import kotlin.math.min
 
 /**
  * Loader used to load chapters from an online source.

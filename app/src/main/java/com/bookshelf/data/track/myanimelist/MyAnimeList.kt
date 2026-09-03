@@ -6,11 +6,11 @@ import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.DeletableTracker
 import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.data.track.myanimelist.dto.MALOAuth
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.i18n.MR
 import dev.icerock.moko.resources.StringResource
 import kotlinx.serialization.json.Json
 import uy.kohesive.injekt.injectLazy
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class MyAnimeList(id: Long) : BaseTracker(id, "MyAnimeList"), DeletableTracker {
 

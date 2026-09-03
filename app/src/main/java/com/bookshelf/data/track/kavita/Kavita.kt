@@ -7,14 +7,14 @@ import com.bookshelf.data.track.EnhancedTracker
 import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.domain.source.service.SourceManager
 import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.i18n.MR
 import com.bookshelf.source.ConfigurableSource
 import com.bookshelf.source.Source
 import com.bookshelf.source.sourcePreferences
 import dev.icerock.moko.resources.StringResource
-import java.security.MessageDigest
 import kotlinx.coroutines.runBlocking
+import java.security.MessageDigest
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class Kavita(id: Long) : BaseTracker(id, "Kavita"), EnhancedTracker {
 

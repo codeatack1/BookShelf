@@ -3,17 +3,17 @@ package com.bookshelf.domain.textbook.interactor
 import com.bookshelf.domain.chapter.model.Chapter
 import io.kotest.matchers.shouldBe
 import io.mockk.mockk
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 @Execution(ExecutionMode.CONCURRENT)
 class FetchIntervalTest {

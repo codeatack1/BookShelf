@@ -47,10 +47,6 @@ import com.google.android.material.color.MaterialColors
 import de.stefan_oltmann.kim.Kim
 import de.stefan_oltmann.kim.android.readMetadata
 import de.stefan_oltmann.kim.format.tiff.constant.TiffTag
-import java.util.concurrent.Executors
-import kotlin.math.abs
-import kotlin.math.min
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -59,6 +55,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 import logcat.LogPriority
+import java.util.concurrent.Executors
+import kotlin.math.abs
+import kotlin.math.min
+import kotlin.time.Duration.Companion.milliseconds
 
 open class WebGpuViewer(
     val activity: ReaderActivity,

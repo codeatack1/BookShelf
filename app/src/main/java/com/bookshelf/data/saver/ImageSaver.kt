@@ -21,13 +21,13 @@ import com.bookshelf.util.storage.getUriCompat
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
+import logcat.LogPriority
+import okio.IOException
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
 import kotlin.time.Clock
-import logcat.LogPriority
-import okio.IOException
 
 @Inject
 @SingleIn(AppScope::class)

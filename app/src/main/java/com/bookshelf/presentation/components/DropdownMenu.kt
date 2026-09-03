@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.DropdownMenu as ComposeDropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +23,7 @@ import com.bookshelf.icons.materialsymbols.automirroredrounded.ArrowRight
 import com.bookshelf.icons.materialsymbols.rounded.RadioButtonChecked
 import com.bookshelf.icons.materialsymbols.rounded.RadioButtonUnchecked
 import com.bookshelf.presentation.core.i18n.stringResource
+import androidx.compose.material3.DropdownMenu as ComposeDropdownMenu
 
 /**
  * DropdownMenu but overlaps anchor and has width constraints to better

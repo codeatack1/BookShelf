@@ -55,13 +55,13 @@ import com.bookshelf.util.system.isFossBuildType
 import com.bookshelf.util.system.isNightlyBuildType
 import com.bookshelf.util.system.toast
 import com.bookshelf.util.system.updaterEnabled
-import kotlin.time.Instant
 import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import logcat.LogPriority
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
+import kotlin.time.Instant
 
 object AboutScreen : Screen() {
 

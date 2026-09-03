@@ -6,9 +6,9 @@ import com.bookshelf.domain.source.repository.SourceRepository
 import com.bookshelf.domain.source.service.SourcePreferences
 import com.bookshelf.source.local.isLocal
 import dev.zacsweers.metro.Inject
-import java.util.Collections
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import java.util.Collections
 
 @Inject
 class GetSourcesWithFavoriteCount(

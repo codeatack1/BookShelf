@@ -13,7 +13,6 @@ import com.bookshelf.network.NetworkHelper
 import com.bookshelf.util.storage.getUriCompat
 import com.bookshelf.util.system.isPackageInstalled
 import dev.zacsweers.metro.Inject
-import java.io.File
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,6 +24,7 @@ import kotlinx.coroutines.launch
 import logcat.LogPriority
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.io.File
 
 /**
  * The installer which installs, updates and uninstalls the extensions.

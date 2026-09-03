@@ -20,8 +20,6 @@ import com.bookshelf.domain.textbook.model.TextbookCover
 import com.bookshelf.network.await
 import com.bookshelf.source.online.HttpSource
 import com.hippo.unifile.UniFile
-import java.io.File
-import java.io.IOException
 import logcat.LogPriority
 import okhttp3.CacheControl
 import okhttp3.Call
@@ -33,6 +31,8 @@ import okio.Source
 import okio.buffer
 import okio.sink
 import okio.source
+import java.io.File
+import java.io.IOException
 
 /**
  * A [Fetcher] that fetches cover image for [Textbook] object.

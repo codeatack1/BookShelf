@@ -55,8 +55,6 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.binding
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
-import kotlin.random.Random
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -72,6 +70,8 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlin.random.Random
+import kotlin.time.Duration.Companion.seconds
 
 @Inject
 @ViewModelKey
@@ -471,7 +471,10 @@ class LibraryViewModel(
     }
 
     suspend fun getNextUnreadChapter(manga: Textbook): Chapter? {
-        return getChaptersByTextbookId.await(manga.id, applyScanlatorFilter = true).getNextUnread(manga, downloadManager)
+        return getChaptersByTextbookId.await(
+            manga.id,
+            applyScanlatorFilter = true,
+        ).getNextUnread(manga, downloadManager)
     }
 
     /**

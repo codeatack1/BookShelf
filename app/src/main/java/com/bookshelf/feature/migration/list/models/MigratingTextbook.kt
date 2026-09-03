@@ -1,11 +1,11 @@
 package com.bookshelf.feature.migration.list.models
 
 import com.bookshelf.domain.textbook.model.Textbook
-import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlin.coroutines.CoroutineContext
 
 class MigratingTextbook(
     val manga: Textbook,

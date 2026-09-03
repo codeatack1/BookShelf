@@ -15,7 +15,6 @@ import com.bookshelf.core.metadata.comicinfo.copyFromComicInfo
 import com.bookshelf.core.metadata.comicinfo.getComicInfo
 import com.bookshelf.core.metadata.tachiyomi.MangaDetails
 import com.bookshelf.domain.chapter.service.ChapterRecognition
-import com.bookshelf.domain.source.model.Source as DomainSource
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.i18n.MR
 import com.bookshelf.source.Source
@@ -37,9 +36,6 @@ import com.hippo.unifile.UniFile
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import java.io.InputStream
-import java.nio.charset.StandardCharsets
-import kotlin.time.Duration.Companion.days
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
@@ -49,6 +45,10 @@ import logcat.LogPriority
 import nl.adaptivity.xmlutil.core.AndroidXmlReader
 import nl.adaptivity.xmlutil.serialization.XML
 import uy.kohesive.injekt.injectLazy
+import java.io.InputStream
+import java.nio.charset.StandardCharsets
+import kotlin.time.Duration.Companion.days
+import com.bookshelf.domain.source.model.Source as DomainSource
 
 @Inject
 @SingleIn(AppScope::class)
@@ -82,7 +82,11 @@ class LocalSource(
 
     override suspend fun getLatestTextbooks(page: Int) = getSearchTextbooks(page, "", LatestFilters)
 
-    override suspend fun getSearchTextbooks(page: Int, query: String, filters: FilterList): TextbooksPage = withIOContext {
+    override suspend fun getSearchTextbooks(
+        page: Int,
+        query: String,
+        filters: FilterList,
+    ): TextbooksPage = withIOContext {
         val lastModifiedLimit = if (filters === LatestFilters) {
             System.currentTimeMillis() - LATEST_THRESHOLD
         } else {

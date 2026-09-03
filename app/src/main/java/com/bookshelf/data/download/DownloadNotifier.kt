@@ -170,7 +170,12 @@ class DownloadNotifier(
      * @param textbookId the id of the entry being warned about
      * Only works on Android 8+.
      */
-    fun onWarning(reason: String, timeout: Long? = null, contentIntent: PendingIntent? = null, textbookId: Long? = null) {
+    fun onWarning(
+        reason: String,
+        timeout: Long? = null,
+        contentIntent: PendingIntent? = null,
+        textbookId: Long? = null,
+    ) {
         with(errorNotificationBuilder) {
             setContentTitle(context.stringResource(MR.strings.download_notifier_downloader_title))
             setStyle(NotificationCompat.BigTextStyle().bigText(reason))
@@ -204,11 +209,17 @@ class DownloadNotifier(
      * @param chapter string containing chapter title.
      * @param textbookId the id of the entry that the error occurred on
      */
-    fun onError(error: String? = null, chapter: String? = null, textbookTitle: String? = null, textbookId: Long? = null) {
+    fun onError(
+        error: String? = null,
+        chapter: String? = null,
+        textbookTitle: String? = null,
+        textbookId: Long? = null,
+    ) {
         // Create notification
         with(errorNotificationBuilder) {
             setContentTitle(
-                textbookTitle?.plus(": $chapter") ?: context.stringResource(MR.strings.download_notifier_downloader_title),
+                textbookTitle?.plus(": $chapter")
+                    ?: context.stringResource(MR.strings.download_notifier_downloader_title),
             )
             setContentText(error ?: context.stringResource(MR.strings.download_notifier_unknown_error))
             setSmallIcon(R.drawable.ic_warning_white_24dp)

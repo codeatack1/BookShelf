@@ -1,11 +1,11 @@
 package com.bookshelf.core.archive
 
-import java.io.Closeable
-import java.io.File
-import java.io.InputStream
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.parser.Parser
+import java.io.Closeable
+import java.io.File
+import java.io.InputStream
 
 /**
  * Wrapper over ArchiveReader to load files in epub format.

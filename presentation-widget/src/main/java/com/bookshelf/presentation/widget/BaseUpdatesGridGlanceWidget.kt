@@ -46,12 +46,12 @@ import com.bookshelf.presentation.widget.util.calculateRowAndColumnCount
 import com.bookshelf.util.system.dpToPx
 import dev.zacsweers.metro.HasMemberInjections
 import dev.zacsweers.metro.Inject
-import kotlin.time.Clock
-import kotlin.time.Instant
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 @HasMemberInjections
 abstract class BaseUpdatesGridGlanceWidget : GlanceAppWidget() {

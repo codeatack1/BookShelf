@@ -20,8 +20,8 @@ import com.bookshelf.source.Source
 import com.bookshelf.source.local.isLocal
 import com.bookshelf.source.model.STextbook
 import dev.zacsweers.metro.Inject
-import kotlin.time.Clock
 import logcat.LogPriority
+import kotlin.time.Clock
 
 @Inject
 class UpdateTextbookFromRemote(

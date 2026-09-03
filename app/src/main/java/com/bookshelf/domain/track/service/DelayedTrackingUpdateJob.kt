@@ -17,8 +17,8 @@ import com.bookshelf.domain.track.interactor.TrackChapter
 import com.bookshelf.domain.track.store.DelayedTrackingStore
 import com.bookshelf.util.system.workManager
 import dev.zacsweers.metro.Inject
-import java.util.concurrent.TimeUnit
 import logcat.LogPriority
+import java.util.concurrent.TimeUnit
 
 class DelayedTrackingUpdateJob(private val context: Context, workerParams: WorkerParameters) :
     CoroutineWorker(context, workerParams) {

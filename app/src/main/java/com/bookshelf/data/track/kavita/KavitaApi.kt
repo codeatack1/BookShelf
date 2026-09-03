@@ -8,8 +8,6 @@ import com.bookshelf.network.GET
 import com.bookshelf.network.POST
 import com.bookshelf.network.awaitSuccess
 import com.bookshelf.network.parseAs
-import java.io.IOException
-import java.net.SocketTimeoutException
 import kotlinx.serialization.json.Json
 import logcat.LogPriority
 import okhttp3.Dns
@@ -17,6 +15,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import uy.kohesive.injekt.injectLazy
+import java.io.IOException
+import java.net.SocketTimeoutException
 
 class KavitaApi(private val client: OkHttpClient, interceptor: KavitaInterceptor) {
 

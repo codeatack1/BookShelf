@@ -19,10 +19,10 @@ import com.bookshelf.ui.reader.model.ReaderPage
 import com.bookshelf.ui.reader.model.ViewerChapters
 import com.bookshelf.ui.reader.viewer.Viewer
 import com.bookshelf.ui.reader.viewer.ViewerNavigation.NavigationRegion
-import kotlin.math.max
-import kotlin.math.min
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * Implementation of a [Viewer] to display pages with a [RecyclerView].

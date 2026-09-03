@@ -5,11 +5,11 @@ import com.bookshelf.data.database.models.Track
 import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.bangumi.dto.BGMOAuth
 import com.bookshelf.data.track.model.TrackSearch
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.i18n.MR
 import dev.icerock.moko.resources.StringResource
 import kotlinx.serialization.json.Json
 import uy.kohesive.injekt.injectLazy
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class Bangumi(id: Long) : BaseTracker(id, "Bangumi") {
 

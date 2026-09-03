@@ -11,14 +11,11 @@ import com.bookshelf.data.track.anilist.dto.ALSearchResult
 import com.bookshelf.data.track.anilist.dto.ALUserListMangaQueryResult
 import com.bookshelf.data.track.anilist.dto.ALUserViewerData
 import com.bookshelf.data.track.model.TrackSearch
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.network.POST
 import com.bookshelf.network.awaitSuccess
 import com.bookshelf.network.interceptor.rateLimit
 import com.bookshelf.network.jsonMime
 import com.bookshelf.network.parseAs
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
@@ -31,6 +28,9 @@ import kotlinx.serialization.json.putJsonObject
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import uy.kohesive.injekt.injectLazy
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Instant
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class AnilistApi(val client: OkHttpClient, interceptor: AnilistInterceptor) {
 

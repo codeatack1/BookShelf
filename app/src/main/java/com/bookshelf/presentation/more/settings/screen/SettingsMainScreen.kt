@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
-import cafe.adriel.voyager.core.screen.Screen as VoyagerScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -48,6 +47,7 @@ import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
 import com.bookshelf.presentation.util.LocalBackPress
 import com.bookshelf.presentation.util.Screen
 import dev.icerock.moko.resources.StringResource
+import cafe.adriel.voyager.core.screen.Screen as VoyagerScreen
 
 object SettingsMainScreen : Screen() {
 

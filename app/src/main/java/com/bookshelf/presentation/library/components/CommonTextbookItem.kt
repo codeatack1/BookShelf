@@ -36,7 +36,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bookshelf.domain.textbook.model.TextbookCover as TextbookCoverModel
 import com.bookshelf.i18n.MR
 import com.bookshelf.icons.materialsymbols.MaterialSymbols
 import com.bookshelf.icons.materialsymbols.roundedfilled.PlayArrow
@@ -44,6 +43,7 @@ import com.bookshelf.presentation.core.components.BadgeGroup
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.selectedBackground
 import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.domain.textbook.model.TextbookCover as TextbookCoverModel
 
 object CommonTextbookItemDefaults {
     val GridHorizontalSpacer = 4.dp

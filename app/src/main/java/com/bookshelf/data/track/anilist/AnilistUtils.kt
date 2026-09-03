@@ -1,8 +1,8 @@
 package com.bookshelf.data.track.anilist
 
 import com.bookshelf.data.database.models.Track
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.domain.track.service.TrackPreferences
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 fun Track.toApiStatus() = when (status) {
     Anilist.READING -> "CURRENT"

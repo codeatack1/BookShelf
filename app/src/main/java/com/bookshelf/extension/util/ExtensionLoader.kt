@@ -16,12 +16,12 @@ import com.bookshelf.source.Source
 import com.bookshelf.source.SourceFactory
 import com.bookshelf.util.lang.Hash
 import com.bookshelf.util.storage.copyAndSetReadOnlyTo
-import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
 import logcat.LogPriority
+import java.io.File
 
 /**
  * Class that handles the loading of the extensions. Supports two kinds of extensions:

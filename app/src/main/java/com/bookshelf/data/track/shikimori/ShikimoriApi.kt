@@ -11,7 +11,6 @@ import com.bookshelf.data.track.shikimori.dto.SMSearchResult
 import com.bookshelf.data.track.shikimori.dto.SMUser
 import com.bookshelf.data.track.shikimori.dto.SMUserListResult
 import com.bookshelf.data.track.shikimori.dto.SMUserResult
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.network.DELETE
 import com.bookshelf.network.POST
 import com.bookshelf.network.PUT
@@ -26,6 +25,7 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import uy.kohesive.injekt.injectLazy
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class ShikimoriApi(
     private val trackId: Long,

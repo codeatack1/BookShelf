@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bookshelf.presentation.more.settings.LocalPreferenceHighlighted
 import com.bookshelf.presentation.more.settings.LocalPreferenceMinHeight
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 internal fun BasePreferenceWidget(

@@ -24,7 +24,10 @@ interface ChapterRepository {
 
     suspend fun getChapterById(id: Long): Chapter?
 
-    suspend fun getChapterByTextbookIdAsFlow(textbookId: Long, applyScanlatorFilter: Boolean = false): Flow<List<Chapter>>
+    suspend fun getChapterByTextbookIdAsFlow(
+        textbookId: Long,
+        applyScanlatorFilter: Boolean = false,
+    ): Flow<List<Chapter>>
 
     suspend fun getChapterByUrlAndTextbookId(url: String, textbookId: Long): Chapter?
 }

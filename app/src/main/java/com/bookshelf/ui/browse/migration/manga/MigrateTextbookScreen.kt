@@ -48,7 +48,9 @@ data class MigrateTextbookScreen(
         val context = LocalContext.current
         val navigator = LocalNavigator.currentOrThrow
         val viewModel =
-            assistedMetroViewModel<MigrateTextbookViewModel, MigrateTextbookViewModel.Factory> { create(sourceId = sourceId) }
+            assistedMetroViewModel<MigrateTextbookViewModel, MigrateTextbookViewModel.Factory> {
+                create(sourceId = sourceId)
+            }
 
         val state by viewModel.state.collectAsStateWithLifecycle()
 

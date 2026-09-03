@@ -23,9 +23,9 @@ import com.bookshelf.i18n.MR
 import com.bookshelf.ui.base.delegate.ThemingDelegate
 import com.bookshelf.util.lang.truncateCenter
 import com.hippo.unifile.UniFile
-import java.io.File
 import logcat.LogPriority
 import rikka.shizuku.ShizukuProvider
+import java.io.File
 
 /**
  * Copies a string to clipboard

@@ -395,7 +395,9 @@ class DownloadManager(
     suspend fun renameChapter(source: Source, manga: Textbook, oldChapter: Chapter, newChapter: Chapter) {
         val oldNames = provider.getValidChapterDirNames(oldChapter.name, oldChapter.scanlator, oldChapter.url)
         val mangaDir = provider.getMangaDir(manga.title, source).getOrElse { e ->
-            logcat(LogPriority.ERROR, e) { "Textbook download folder doesn't exist. Skipping renaming after source sync" }
+            logcat(LogPriority.ERROR, e) {
+                "Textbook download folder doesn't exist. Skipping renaming after source sync"
+            }
             return
         }
 

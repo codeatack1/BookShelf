@@ -1,9 +1,9 @@
 package com.bookshelf.data.track.mangaupdates
 
 import com.bookshelf.BuildConfig
-import java.io.IOException
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 
 class MangaUpdatesInterceptor(
     mangaUpdates: MangaUpdates,

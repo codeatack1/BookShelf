@@ -9,9 +9,9 @@ import com.bookshelf.data.track.mangaupdates.dto.MURating
 import com.bookshelf.data.track.mangaupdates.dto.copyTo
 import com.bookshelf.data.track.mangaupdates.dto.toTrackSearch
 import com.bookshelf.data.track.model.TrackSearch
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.i18n.MR
 import dev.icerock.moko.resources.StringResource
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class MangaUpdates(id: Long) : BaseTracker(id, "MangaUpdates"), DeletableTracker {
 

@@ -11,7 +11,6 @@ import com.bookshelf.data.track.mangaupdates.dto.MULoginResponse
 import com.bookshelf.data.track.mangaupdates.dto.MURating
 import com.bookshelf.data.track.mangaupdates.dto.MURecord
 import com.bookshelf.data.track.mangaupdates.dto.MUSearchResult
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.network.DELETE
 import com.bookshelf.network.GET
 import com.bookshelf.network.POST
@@ -30,6 +29,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import uy.kohesive.injekt.injectLazy
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class MangaUpdatesApi(
     interceptor: MangaUpdatesInterceptor,

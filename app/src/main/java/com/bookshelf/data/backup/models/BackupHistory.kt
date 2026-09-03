@@ -1,9 +1,9 @@
 package com.bookshelf.data.backup.models
 
 import com.bookshelf.domain.history.model.History
-import java.util.Date
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.protobuf.ProtoNumber
+import java.util.Date
 
 @Serializable
 data class BackupHistory(

@@ -14,13 +14,13 @@ import com.bookshelf.i18n.MR
 import com.bookshelf.network.AndroidCookieJar
 import com.bookshelf.util.system.isOutdated
 import com.bookshelf.util.system.toast
-import java.io.IOException
-import java.util.concurrent.CountDownLatch
 import okhttp3.Cookie
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import java.io.IOException
+import java.util.concurrent.CountDownLatch
 
 class CloudflareInterceptor(
     private val context: Context,

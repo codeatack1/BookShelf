@@ -11,13 +11,13 @@ import com.jakewharton.disklrucache.DiskLruCache
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import java.io.File
-import java.io.IOException
 import kotlinx.serialization.json.Json
 import logcat.LogPriority
 import okhttp3.Response
 import okio.buffer
 import okio.sink
+import java.io.File
+import java.io.IOException
 
 /**
  * Class used to create chapter cache

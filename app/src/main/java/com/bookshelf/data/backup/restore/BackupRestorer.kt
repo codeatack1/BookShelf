@@ -22,6 +22,11 @@ import com.bookshelf.util.system.createFileInCacheDir
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
+import logcat.LogPriority
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -30,11 +35,6 @@ import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.concurrent.atomics.AtomicInt
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 import kotlin.concurrent.atomics.incrementAndFetch
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.launch
-import logcat.LogPriority
 
 @OptIn(ExperimentalAtomicApi::class)
 @AssistedInject

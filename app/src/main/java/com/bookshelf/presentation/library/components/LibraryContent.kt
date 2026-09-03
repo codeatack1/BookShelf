@@ -21,9 +21,9 @@ import com.bookshelf.domain.library.model.LibraryDisplayMode
 import com.bookshelf.domain.library.model.LibraryTextbook
 import com.bookshelf.presentation.core.components.material.PullRefresh
 import com.bookshelf.ui.library.LibraryItem
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun LibraryContent(

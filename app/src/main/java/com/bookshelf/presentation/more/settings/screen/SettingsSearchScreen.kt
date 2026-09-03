@@ -43,7 +43,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen as VoyagerScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.bookshelf.i18n.MR
@@ -56,6 +55,7 @@ import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.util.runOnEnterKeyPressed
 import com.bookshelf.presentation.more.settings.Preference
 import com.bookshelf.presentation.util.Screen
+import cafe.adriel.voyager.core.screen.Screen as VoyagerScreen
 
 class SettingsSearchScreen : Screen() {
 

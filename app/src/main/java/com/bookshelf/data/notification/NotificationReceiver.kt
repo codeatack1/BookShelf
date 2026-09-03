@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
-import com.bookshelf.BuildConfig.APPLICATION_ID as ID
 import com.bookshelf.app.di.appGraph
 import com.bookshelf.core.common.Constants
 import com.bookshelf.core.common.util.lang.launchIO
@@ -32,6 +31,7 @@ import com.bookshelf.util.system.toast
 import com.bookshelf.util.system.workManager
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.runBlocking
+import com.bookshelf.BuildConfig.APPLICATION_ID as ID
 
 /**
  * Global [BroadcastReceiver] that runs on UI thread

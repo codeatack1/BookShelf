@@ -35,7 +35,6 @@ import com.bookshelf.domain.textbook.model.TextbookWithChapterCount
 import com.bookshelf.domain.textbook.model.toTextbookUpdate
 import com.bookshelf.domain.track.interactor.AddTracks
 import com.bookshelf.source.Source
-import com.bookshelf.source.model.Filter as SourceModelFilter
 import com.bookshelf.source.model.FilterList
 import com.bookshelf.util.removeCovers
 import dev.zacsweers.metro.AppScope
@@ -45,7 +44,6 @@ import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
-import kotlin.time.Clock
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -57,6 +55,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.Clock
+import com.bookshelf.source.model.Filter as SourceModelFilter
 
 @AssistedInject
 class BrowseSourceViewModel(

@@ -20,8 +20,8 @@ import com.bookshelf.domain.textbook.model.hasCustomCover
 import com.bookshelf.domain.track.interactor.GetTracks
 import com.bookshelf.domain.track.interactor.InsertTrack
 import dev.zacsweers.metro.Inject
-import kotlin.time.Clock
 import kotlinx.coroutines.CancellationException
+import kotlin.time.Clock
 
 @Inject
 class MigrateTextbookUseCase(

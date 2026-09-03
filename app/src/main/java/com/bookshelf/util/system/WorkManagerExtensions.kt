@@ -5,9 +5,9 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.bookshelf.core.common.util.system.logcat
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import logcat.LogPriority
+import kotlin.time.Duration.Companion.seconds
 
 val Context.workManager: WorkManager
     get() = WorkManager.getInstance(this)

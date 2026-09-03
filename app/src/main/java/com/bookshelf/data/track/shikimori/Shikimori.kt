@@ -6,11 +6,11 @@ import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.DeletableTracker
 import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.data.track.shikimori.dto.SMOAuth
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.i18n.MR
 import dev.icerock.moko.resources.StringResource
 import kotlinx.serialization.json.Json
 import uy.kohesive.injekt.injectLazy
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class Shikimori(id: Long) : BaseTracker(id, "Shikimori"), DeletableTracker {
 

@@ -3,8 +3,8 @@ package com.bookshelf.domain.updates.interactor
 import com.bookshelf.domain.updates.model.UpdatesWithRelations
 import com.bookshelf.domain.updates.repository.UpdatesRepository
 import dev.zacsweers.metro.Inject
-import kotlin.time.Instant
 import kotlinx.coroutines.flow.Flow
+import kotlin.time.Instant
 
 @Inject
 class GetUpdates(

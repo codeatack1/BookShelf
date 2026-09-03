@@ -1,8 +1,8 @@
 package com.bookshelf.source.local.io
 
 import com.bookshelf.core.common.storage.extension
-import com.bookshelf.source.local.io.Archive.isSupported as isArchiveSupported
 import com.hippo.unifile.UniFile
+import com.bookshelf.source.local.io.Archive.isSupported as isArchiveSupported
 
 sealed interface Format {
     data class Directory(val file: UniFile) : Format

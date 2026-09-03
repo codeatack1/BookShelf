@@ -16,8 +16,8 @@ import com.hippo.unifile.UniFile
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import java.io.IOException
 import logcat.LogPriority
+import java.io.IOException
 
 /**
  * This class is used to provide the directories where the downloads should be saved.

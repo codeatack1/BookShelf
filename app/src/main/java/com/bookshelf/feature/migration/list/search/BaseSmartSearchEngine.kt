@@ -1,10 +1,10 @@
 package com.bookshelf.feature.migration.list.search
 
 import com.aallam.similarity.NormalizedLevenshtein
-import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.supervisorScope
+import java.util.Locale
 
 typealias SearchAction<T> = suspend (String) -> List<T>
 

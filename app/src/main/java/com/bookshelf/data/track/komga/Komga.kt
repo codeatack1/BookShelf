@@ -6,12 +6,12 @@ import com.bookshelf.data.track.BaseTracker
 import com.bookshelf.data.track.EnhancedTracker
 import com.bookshelf.data.track.model.TrackSearch
 import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.domain.track.model.Track as DomainTrack
 import com.bookshelf.i18n.MR
 import com.bookshelf.source.Source
 import dev.icerock.moko.resources.StringResource
 import okhttp3.Dns
 import okhttp3.OkHttpClient
+import com.bookshelf.domain.track.model.Track as DomainTrack
 
 class Komga(id: Long) : BaseTracker(id, "Komga"), EnhancedTracker {
 
