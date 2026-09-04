@@ -30,14 +30,14 @@ class PdfPageLoader(
         val pfd = context.contentResolver.openFileDescriptor(file.uri, "r")
             ?: throw IllegalStateException("Cannot open PDF: ${file.name}")
 
-        renderer = PdfRenderer(pfd).also {
-            (0 until it.pageCount).map { index ->
-                ReaderPage(index).apply {
-                    stream = { renderPage(index) }
-                    status = Page.State.Ready
-                }
+        renderer = PdfRenderer(pfd)
+        val pages = (0 until renderer!!.pageCount).map { index ->
+            ReaderPage(index).apply {
+                stream = { renderPage(index) }
+                status = Page.State.Ready
             }
-        } ?: throw IllegalStateException("Failed to open PDF renderer")
+        }
+        pages
     }
 
     private fun renderPage(pageIndex: Int): java.io.InputStream {
