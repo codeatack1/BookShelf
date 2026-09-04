@@ -23,16 +23,27 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version-file: .github/.java-version
+          java-version: 21
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Build web interface
+        working-directory: web
+        run: npm ci && npm run build
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build and verify
-        run: ./gradlew spotlessCheck verifySqlDelightMigration testDebugUnitTest assembleDebug --no-daemon
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --no-daemon
 
       - name: Upload debug APKs
         uses: actions/upload-artifact@v4

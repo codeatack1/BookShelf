@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BookShelf</string>
+    <string name="web_not_built">Вебинтерфейс не собран. Запустите npm run build в web/</string>
+    <string name="server_error">Не удалось запустить сервер</string>
+</resources>
