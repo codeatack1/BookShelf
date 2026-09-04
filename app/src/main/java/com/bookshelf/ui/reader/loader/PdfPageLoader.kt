@@ -8,9 +8,9 @@ import android.util.LruCache
 import com.bookshelf.source.model.Page
 import com.bookshelf.ui.reader.model.ReaderPage
 import com.hippo.unifile.UniFile
-import java.io.ByteArrayOutputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 
 class PdfPageLoader(
     private val file: UniFile,
