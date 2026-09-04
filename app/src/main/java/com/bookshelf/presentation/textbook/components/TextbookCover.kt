@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga.components
+package com.bookshelf.presentation.textbook.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio

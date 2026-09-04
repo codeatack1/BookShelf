@@ -44,7 +44,7 @@ import com.bookshelf.domain.track.interactor.GetTracksPerTextbook
 import com.bookshelf.domain.track.model.Track
 import com.bookshelf.feature.library.matches
 import com.bookshelf.presentation.library.components.LibraryToolbarTitle
-import com.bookshelf.presentation.manga.DownloadAction
+import com.bookshelf.presentation.textbook.DownloadAction
 import com.bookshelf.source.local.isLocal
 import com.bookshelf.source.model.STextbook
 import com.bookshelf.source.online.HttpSource

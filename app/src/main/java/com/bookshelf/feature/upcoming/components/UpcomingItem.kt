@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.bookshelf.domain.textbook.model.Textbook
 import com.bookshelf.domain.textbook.model.asTextbookCover
 import com.bookshelf.presentation.core.components.material.padding
-import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.textbook.components.TextbookCover
 
 private val UpcomingItemHeight = 96.dp
 

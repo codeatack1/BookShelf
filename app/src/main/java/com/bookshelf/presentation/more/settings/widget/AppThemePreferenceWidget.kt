@@ -49,7 +49,7 @@ import com.bookshelf.icons.materialsymbols.roundedfilled.CheckCircle
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
-import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.textbook.components.TextbookCover
 import com.bookshelf.presentation.theme.BookShelfTheme
 import com.bookshelf.util.system.DeviceUtil
 import com.bookshelf.util.system.isDynamicColorAvailable

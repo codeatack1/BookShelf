@@ -11,7 +11,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.bookshelf.core.common.util.lang.launchNonCancellable
 import com.bookshelf.domain.textbook.interactor.UpdateTextbookNotes
 import com.bookshelf.domain.textbook.model.Textbook
-import com.bookshelf.presentation.manga.TextbookNotesScreen
+import com.bookshelf.presentation.textbook.TextbookNotesScreen
 import com.bookshelf.presentation.util.Screen
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted

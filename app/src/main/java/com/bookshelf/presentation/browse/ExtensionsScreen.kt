@@ -59,8 +59,8 @@ import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.theme.header
 import com.bookshelf.presentation.core.util.plus
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
-import com.bookshelf.presentation.manga.components.DotSeparatorNoSpaceText
 import com.bookshelf.presentation.more.settings.screen.browse.ExtensionStoresScreen
+import com.bookshelf.presentation.textbook.components.DotSeparatorNoSpaceText
 import com.bookshelf.presentation.util.rememberRequestPackageInstallsPermissionState
 import com.bookshelf.ui.browse.extension.ExtensionUiModel
 import com.bookshelf.ui.browse.extension.ExtensionsViewModel

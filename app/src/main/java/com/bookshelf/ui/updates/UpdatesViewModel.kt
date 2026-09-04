@@ -29,7 +29,7 @@ import com.bookshelf.domain.textbook.model.applyFilter
 import com.bookshelf.domain.updates.interactor.GetUpdates
 import com.bookshelf.domain.updates.model.UpdatesWithRelations
 import com.bookshelf.domain.updates.service.UpdatesPreferences
-import com.bookshelf.presentation.manga.components.ChapterDownloadAction
+import com.bookshelf.presentation.textbook.components.ChapterDownloadAction
 import com.bookshelf.presentation.updates.UpdatesUiModel
 import com.bookshelf.util.lang.toLocalDate
 import com.bookshelf.util.system.workManager

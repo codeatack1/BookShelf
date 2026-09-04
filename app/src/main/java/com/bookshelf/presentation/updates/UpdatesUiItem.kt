@@ -41,10 +41,10 @@ import com.bookshelf.presentation.core.components.material.DISABLED_ALPHA
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.selectedBackground
-import com.bookshelf.presentation.manga.components.ChapterDownloadAction
-import com.bookshelf.presentation.manga.components.ChapterDownloadIndicator
-import com.bookshelf.presentation.manga.components.DotSeparatorText
-import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.textbook.components.ChapterDownloadAction
+import com.bookshelf.presentation.textbook.components.ChapterDownloadIndicator
+import com.bookshelf.presentation.textbook.components.DotSeparatorText
+import com.bookshelf.presentation.textbook.components.TextbookCover
 import com.bookshelf.presentation.util.relativeTimeSpanString
 import com.bookshelf.ui.updates.UpdatesItem
 

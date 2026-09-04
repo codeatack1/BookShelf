@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga
+package com.bookshelf.presentation.textbook
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateFloatAsState
@@ -60,15 +60,15 @@ import com.bookshelf.presentation.core.components.material.PullRefresh
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.shouldExpandFAB
-import com.bookshelf.presentation.manga.components.ChapterDownloadAction
-import com.bookshelf.presentation.manga.components.ChapterHeader
-import com.bookshelf.presentation.manga.components.ExpandableTextbookDescription
-import com.bookshelf.presentation.manga.components.MissingChapterCountListItem
-import com.bookshelf.presentation.manga.components.TextbookActionRow
-import com.bookshelf.presentation.manga.components.TextbookBottomActionMenu
-import com.bookshelf.presentation.manga.components.TextbookChapterListItem
-import com.bookshelf.presentation.manga.components.TextbookInfoBox
-import com.bookshelf.presentation.manga.components.TextbookToolbar
+import com.bookshelf.presentation.textbook.components.ChapterDownloadAction
+import com.bookshelf.presentation.textbook.components.ChapterHeader
+import com.bookshelf.presentation.textbook.components.ExpandableTextbookDescription
+import com.bookshelf.presentation.textbook.components.MissingChapterCountListItem
+import com.bookshelf.presentation.textbook.components.TextbookActionRow
+import com.bookshelf.presentation.textbook.components.TextbookBottomActionMenu
+import com.bookshelf.presentation.textbook.components.TextbookChapterListItem
+import com.bookshelf.presentation.textbook.components.TextbookInfoBox
+import com.bookshelf.presentation.textbook.components.TextbookToolbar
 import com.bookshelf.presentation.util.formatChapterNumber
 import com.bookshelf.source.getNameForMangaInfo
 import com.bookshelf.source.local.isLocal

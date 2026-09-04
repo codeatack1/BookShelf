@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga.components
+package com.bookshelf.presentation.textbook.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
@@ -59,7 +59,7 @@ import com.bookshelf.icons.materialsymbols.rounded.SwapCalls
 import com.bookshelf.presentation.components.DownloadDropdownMenu
 import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.manga.DownloadAction
+import com.bookshelf.presentation.textbook.DownloadAction
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive

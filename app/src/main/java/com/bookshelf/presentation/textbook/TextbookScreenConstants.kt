@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga
+package com.bookshelf.presentation.textbook
 
 enum class DownloadAction {
     NEXT_1_CHAPTER,

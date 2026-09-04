@@ -61,8 +61,8 @@ import com.bookshelf.domain.track.interactor.TrackChapter
 import com.bookshelf.domain.track.model.AutoTrackState
 import com.bookshelf.domain.track.service.TrackPreferences
 import com.bookshelf.i18n.MR
-import com.bookshelf.presentation.manga.DownloadAction
-import com.bookshelf.presentation.manga.components.ChapterDownloadAction
+import com.bookshelf.presentation.textbook.DownloadAction
+import com.bookshelf.presentation.textbook.components.ChapterDownloadAction
 import com.bookshelf.presentation.util.formattedMessage
 import com.bookshelf.source.Source
 import com.bookshelf.source.local.isLocal

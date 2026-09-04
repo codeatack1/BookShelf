@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga
+package com.bookshelf.presentation.textbook
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -71,9 +71,9 @@ import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
-import com.bookshelf.presentation.manga.components.TextbookCover
 import com.bookshelf.presentation.more.settings.LocalPreferenceMinHeight
 import com.bookshelf.presentation.more.settings.widget.TextPreferenceWidget
+import com.bookshelf.presentation.textbook.components.TextbookCover
 import com.bookshelf.source.Source
 import com.bookshelf.source.model.STextbook
 

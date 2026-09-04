@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.DpOffset
 import com.bookshelf.i18n.MR
 import com.bookshelf.presentation.core.i18n.pluralStringResource
 import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.manga.DownloadAction
+import com.bookshelf.presentation.textbook.DownloadAction
 
 @Composable
 fun DownloadDropdownMenu(

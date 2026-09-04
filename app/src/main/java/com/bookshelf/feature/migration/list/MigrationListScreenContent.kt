@@ -62,7 +62,7 @@ import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.components.material.topSmallPaddingValues
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.plus
-import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.textbook.components.TextbookCover
 import com.bookshelf.presentation.util.formatChapterNumber
 import com.bookshelf.presentation.util.rememberResourceBitmapPainter
 

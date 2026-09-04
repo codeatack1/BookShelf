@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga.components
+package com.bookshelf.presentation.textbook.components
 
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +23,7 @@ import com.bookshelf.presentation.components.AppBarTitle
 import com.bookshelf.presentation.components.DownloadDropdownMenu
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.theme.active
-import com.bookshelf.presentation.manga.DownloadAction
+import com.bookshelf.presentation.textbook.DownloadAction
 
 @Composable
 fun TextbookToolbar(

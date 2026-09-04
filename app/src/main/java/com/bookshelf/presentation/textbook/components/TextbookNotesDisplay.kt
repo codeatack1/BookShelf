@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga.components
+package com.bookshelf.presentation.textbook.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Animatable

@@ -34,8 +34,8 @@ import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.theme.active
-import com.bookshelf.presentation.manga.components.ChapterDownloadAction
-import com.bookshelf.presentation.manga.components.TextbookBottomActionMenu
+import com.bookshelf.presentation.textbook.components.ChapterDownloadAction
+import com.bookshelf.presentation.textbook.components.TextbookBottomActionMenu
 import com.bookshelf.ui.updates.UpdatesItem
 import com.bookshelf.ui.updates.UpdatesViewModel
 import kotlinx.coroutines.delay

@@ -82,7 +82,7 @@ import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.util.plus
 import com.bookshelf.presentation.core.util.runOnEnterKeyPressed
 import com.bookshelf.presentation.core.util.secondaryItemAlpha
-import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.textbook.components.TextbookCover
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.util.system.openInBrowser
 import kotlinx.coroutines.launch

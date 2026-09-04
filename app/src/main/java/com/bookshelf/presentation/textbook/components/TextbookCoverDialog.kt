@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga.components
+package com.bookshelf.presentation.textbook.components
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -60,7 +60,7 @@ import com.bookshelf.presentation.components.DropdownMenu
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.util.clickableNoIndication
-import com.bookshelf.presentation.manga.EditCoverAction
+import com.bookshelf.presentation.textbook.EditCoverAction
 import com.bookshelf.ui.reader.viewer.ReaderPageImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

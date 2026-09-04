@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga.components
+package com.bookshelf.presentation.textbook.components
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

@@ -45,8 +45,8 @@ import com.bookshelf.presentation.library.DeleteLibraryTextbookDialog
 import com.bookshelf.presentation.library.LibrarySettingsDialog
 import com.bookshelf.presentation.library.components.LibraryContent
 import com.bookshelf.presentation.library.components.LibraryToolbar
-import com.bookshelf.presentation.manga.components.LibraryBottomActionMenu
 import com.bookshelf.presentation.more.onboarding.GETTING_STARTED_URL
+import com.bookshelf.presentation.textbook.components.LibraryBottomActionMenu
 import com.bookshelf.presentation.util.Tab
 import com.bookshelf.source.local.isLocal
 import com.bookshelf.ui.browse.source.globalsearch.GlobalSearchScreen

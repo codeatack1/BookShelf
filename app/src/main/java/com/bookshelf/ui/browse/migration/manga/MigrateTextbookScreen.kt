@@ -32,7 +32,7 @@ import com.bookshelf.presentation.core.screens.EmptyScreen
 import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.util.selectedBackground
 import com.bookshelf.presentation.core.util.shouldExpandFAB
-import com.bookshelf.presentation.manga.components.BaseTextbookListItem
+import com.bookshelf.presentation.textbook.components.BaseTextbookListItem
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.ui.textbook.TextbookScreen
 import com.bookshelf.util.system.toast

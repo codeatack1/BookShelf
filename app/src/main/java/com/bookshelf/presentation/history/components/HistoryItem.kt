@@ -27,7 +27,7 @@ import com.bookshelf.icons.materialsymbols.rounded.Delete
 import com.bookshelf.icons.materialsymbols.rounded.Favorite
 import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.manga.components.TextbookCover
+import com.bookshelf.presentation.textbook.components.TextbookCover
 import com.bookshelf.presentation.theme.TachiyomiPreviewTheme
 import com.bookshelf.presentation.util.formatChapterNumber
 import com.bookshelf.util.lang.toTimestampString

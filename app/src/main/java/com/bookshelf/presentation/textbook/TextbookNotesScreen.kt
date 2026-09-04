@@ -1,4 +1,4 @@
-package com.bookshelf.presentation.manga
+package com.bookshelf.presentation.textbook
 
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.imePadding
@@ -10,7 +10,7 @@ import com.bookshelf.presentation.components.AppBar
 import com.bookshelf.presentation.components.AppBarTitle
 import com.bookshelf.presentation.core.components.material.Scaffold
 import com.bookshelf.presentation.core.i18n.stringResource
-import com.bookshelf.presentation.manga.components.TextbookNotesTextArea
+import com.bookshelf.presentation.textbook.components.TextbookNotesTextArea
 import com.bookshelf.ui.textbook.notes.TextbookNotesScreen
 
 @Composable

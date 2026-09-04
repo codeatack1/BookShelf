@@ -49,7 +49,7 @@ import com.bookshelf.presentation.core.components.material.padding
 import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.core.screens.LoadingScreen
 import com.bookshelf.presentation.core.util.collectAsLazyPagingItems
-import com.bookshelf.presentation.manga.DuplicateTextbookDialog
+import com.bookshelf.presentation.textbook.DuplicateTextbookDialog
 import com.bookshelf.presentation.util.AssistContentScreen
 import com.bookshelf.presentation.util.Screen
 import com.bookshelf.source.local.LocalSource

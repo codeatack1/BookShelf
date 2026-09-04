@@ -25,7 +25,7 @@ import com.bookshelf.presentation.core.i18n.stringResource
 import com.bookshelf.presentation.history.HistoryScreen
 import com.bookshelf.presentation.history.components.HistoryDeleteAllDialog
 import com.bookshelf.presentation.history.components.HistoryDeleteDialog
-import com.bookshelf.presentation.manga.DuplicateTextbookDialog
+import com.bookshelf.presentation.textbook.DuplicateTextbookDialog
 import com.bookshelf.presentation.util.Tab
 import com.bookshelf.ui.category.CategoryScreen
 import com.bookshelf.ui.main.MainActivity
