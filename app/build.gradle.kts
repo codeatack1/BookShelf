@@ -45,6 +45,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    packaging {
+        resources {
+            excludes += "META-INF/INDEX.LIST"
+            excludes += "META-INF/io.netty.versions.properties"
+        }
+    }
+
     buildFeatures {
         compose = true
     }
