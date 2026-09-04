@@ -378,33 +378,37 @@ class LocalSource(
                 }
                 is Format.Pdf -> {
                     // Render first page as cover
-                    extraction@ try {
-                        val pfd = context.contentResolver.openFileDescriptor(format.file.uri, "r") ?: return@extraction
+                    try {
+                        val pfd = context.contentResolver.openFileDescriptor(format.file.uri, "r") ?: return null
                         val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                        if (renderer.pageCount > 0) {
-                            val page = renderer.openPage(0)
-                            val scale = 2
-                            val bitmap = android.graphics.Bitmap.createBitmap(
-                                page.width * scale,
-                                page.height * scale,
-                                android.graphics.Bitmap.Config.ARGB_8888,
-                            )
-                            bitmap.eraseColor(android.graphics.Color.WHITE)
-                            page.render(
-                                bitmap,
-                                null,
-                                null,
-                                android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY,
-                            )
-                            page.close()
-                            val baos = java.io.ByteArrayOutputStream()
-                            bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, baos)
-                            bitmap.recycle()
-                            coverManager.update(manga, baos.toByteArray().inputStream())
+                        try {
+                            if (renderer.pageCount > 0) {
+                                val page = renderer.openPage(0)
+                                val scale = 2
+                                val bitmap = android.graphics.Bitmap.createBitmap(
+                                    page.width * scale,
+                                    page.height * scale,
+                                    android.graphics.Bitmap.Config.ARGB_8888,
+                                )
+                                bitmap.eraseColor(android.graphics.Color.WHITE)
+                                page.render(
+                                    bitmap,
+                                    null,
+                                    null,
+                                    android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY,
+                                )
+                                page.close()
+                                val baos = java.io.ByteArrayOutputStream()
+                                bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, baos)
+                                bitmap.recycle()
+                                coverManager.update(manga, baos.toByteArray().inputStream())
+                            } else null
+                        } finally {
+                            renderer.close()
                         }
-                        renderer.close()
                     } catch (_: Exception) {
                         // Cover extraction failed, skip
+                        null
                     }
                 }
             }
