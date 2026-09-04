@@ -31,7 +31,7 @@ object StaticContent {
     )
 
     fun register(route: Route, context: Context) {
-        route.get("/{path...}") { call ->
+        route.get("/{path...}") {
             serveAsset(call, context)
         }
     }
