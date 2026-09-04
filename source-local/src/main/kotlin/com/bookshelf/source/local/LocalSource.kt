@@ -402,7 +402,9 @@ class LocalSource(
                                 bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, baos)
                                 bitmap.recycle()
                                 coverManager.update(manga, baos.toByteArray().inputStream())
-                            } else null
+                            } else {
+                                null
+                            }
                         } finally {
                             renderer.close()
                         }
