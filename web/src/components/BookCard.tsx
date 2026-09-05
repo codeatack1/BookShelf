@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { Book } from '../data/books'
 import Cover from './Cover'
 import CoverBadges from './CoverBadges'
@@ -6,12 +7,13 @@ import type { DisplayMode } from '../libraryTypes'
 interface BookCardProps {
   book: Book
   mode: DisplayMode
+  style?: CSSProperties
 }
 
-export default function BookCard({ book, mode }: BookCardProps) {
+export default function BookCard({ book, mode, style }: BookCardProps) {
   if (mode === 'list') {
     return (
-      <article className="library__row">
+      <article className="library__row" style={style}>
         <div className="library__row__cover">
           <Cover book={book} />
         </div>
@@ -25,7 +27,7 @@ export default function BookCard({ book, mode }: BookCardProps) {
   }
 
   return (
-    <article className={`library__card library__card--${mode}`}>
+    <article className={`library__card library__card--${mode}`} style={style}>
       <div className="library__card__cover">
         <Cover book={book} />
         <CoverBadges book={book} />

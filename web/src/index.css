@@ -1,6 +1,10 @@
 @import './theme.css';
 @import './styles.css';
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 *,
 *::before,
 *::after {
@@ -52,6 +56,11 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible {
   outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--md-primary, #6750A4);
   outline-offset: 2px;
 }
 

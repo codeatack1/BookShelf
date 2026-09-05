@@ -8,8 +8,18 @@ interface NavRailProps {
 
 export default function NavRail({ active, onChange }: NavRailProps) {
   const { t } = useT()
+  const activeIndex = Math.max(
+    0,
+    TABS.findIndex((tab) => tab.id === active),
+  )
   return (
-    <nav className="nav-rail" aria-label={t('common.sections')} role="tablist">
+    <nav
+      className="nav-rail"
+      aria-label={t('common.sections')}
+      role="tablist"
+      style={{ ['--active' as string]: activeIndex }}
+    >
+      <div className="nav-rail__indicator" aria-hidden="true" />
       {TABS.map((tab) => {
         const selected = tab.id === active
         const Icon = selected ? tab.iconActive : tab.icon
@@ -22,7 +32,6 @@ export default function NavRail({ active, onChange }: NavRailProps) {
             className={`nav-rail__tab${selected ? ' is-active' : ''}`}
             onClick={() => onChange(tab.id)}
           >
-            <span className="nav-rail__pill" aria-hidden="true" />
             <span className="nav-rail__icon">
               <Icon />
             </span>

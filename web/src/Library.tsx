@@ -125,14 +125,14 @@ export default function Library() {
         <EmptyState message={emptyMessage} />
       ) : display === 'list' ? (
         <div className="library__list">
-          {items.map((book) => (
-            <BookCard key={book.id} book={book} mode={display} />
+          {items.map((book, index) => (
+            <BookCard key={book.id} book={book} mode={display} style={{ ['--i' as string]: Math.min(index, 8) }} />
           ))}
         </div>
       ) : (
         <div className="library__grid">
-          {items.map((book) => (
-            <BookCard key={book.id} book={book} mode={display} />
+          {items.map((book, index) => (
+            <BookCard key={book.id} book={book} mode={display} style={{ ['--i' as string]: Math.min(index, 8) }} />
           ))}
         </div>
       )}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState, type ReactNode } from 'react'
 import Library from './Library'
 import Schedule from './Schedule'
 import Settings from './Settings'
@@ -39,6 +39,48 @@ function resolveMode(mode: Mode): 'light' | 'dark' {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
+function syncNativeBackground(): void {
+  try {
+    const bridge = (
+      window as unknown as { AndroidBridge?: { setBackgroundColor?: (c: string) => void } }
+    ).AndroidBridge
+    if (!bridge?.setBackgroundColor) return
+    const bg = getComputedStyle(document.documentElement).getPropertyValue('--md-background').trim()
+    if (bg) bridge.setBackgroundColor(bg)
+  } catch {
+    /* ignore: not in WebView */
+  }
+}
+
+function FadeThrough({ tab, onOpenThemeSelect }: { tab: AppTab; onOpenThemeSelect: () => void }) {
+  const [shownTab, setShownTab] = useState<AppTab>(tab)
+  const [leaving, setLeaving] = useState(false)
+
+  useEffect(() => {
+    if (shownTab === tab) {
+      setLeaving(false)
+      return
+    }
+    setLeaving(true)
+    const t = setTimeout(() => {
+      setShownTab(tab)
+      setLeaving(false)
+    }, 70)
+    return () => clearTimeout(t)
+  }, [tab, shownTab])
+
+  let page: ReactNode
+  if (shownTab === 'library') page = <Library />
+  else if (shownTab === 'schedule') page = <Schedule />
+  else page = <Settings onOpenThemeSelect={onOpenThemeSelect} />
+
+  return (
+    <div key={shownTab} className={leaving ? 'fade-through-exit' : 'fade-through-enter'}>
+      {page}
+    </div>
+  )
+}
+
 export default function App() {
   const [everPicked, setEverPicked] = useState(() => readLSBool(LS_PICKED))
   const [showMain, setShowMain] = useState(() => readLSBool(LS_PICKED))
@@ -64,6 +106,16 @@ export default function App() {
     mq.addEventListener('change', onChange)
     return () => mq.removeEventListener('change', onChange)
   }, [mode])
+
+  useEffect(() => {
+    syncNativeBackground()
+    const observer = new MutationObserver(syncNativeBackground)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'data-mode'],
+    })
+    return () => observer.disconnect()
+  }, [])
 
   const handleLiveChange = useCallback((id: string, m: Mode) => {
     setThemeId(id)
@@ -92,13 +144,7 @@ export default function App() {
       <div className="screen">
         {showMain ? (
           <>
-            {tab === 'library' ? (
-              <Library />
-            ) : tab === 'schedule' ? (
-              <Schedule />
-            ) : (
-              <Settings onOpenThemeSelect={openThemeSelect} />
-            )}
+            <FadeThrough tab={tab} onOpenThemeSelect={openThemeSelect} />
             {navWide ? (
               <NavRail active={tab} onChange={setTab} />
             ) : (

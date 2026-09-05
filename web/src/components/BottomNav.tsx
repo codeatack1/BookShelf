@@ -33,8 +33,18 @@ export const TABS: ReadonlyArray<TabDef> = [
 
 export default function BottomNav({ active, onChange }: BottomNavProps) {
   const { t } = useT()
+  const activeIndex = Math.max(
+    0,
+    TABS.findIndex((tab) => tab.id === active),
+  )
   return (
-    <nav className="bottom-nav" aria-label={t('common.sections')} role="tablist">
+    <nav
+      className="bottom-nav"
+      aria-label={t('common.sections')}
+      role="tablist"
+      style={{ ['--active' as string]: activeIndex }}
+    >
+      <div className="bottom-nav__indicator" aria-hidden="true" />
       {TABS.map((tab) => {
         const selected = tab.id === active
         const Icon = selected ? tab.iconActive : tab.icon
@@ -47,7 +57,6 @@ export default function BottomNav({ active, onChange }: BottomNavProps) {
             className={`bottom-nav__tab${selected ? ' is-active' : ''}`}
             onClick={() => onChange(tab.id)}
           >
-            <span className="bottom-nav__pill" aria-hidden="true" />
             <span className="bottom-nav__icon">
               <Icon />
             </span>
