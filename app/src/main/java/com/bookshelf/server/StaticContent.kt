@@ -41,8 +41,8 @@ object StaticContent {
     }
 
     private suspend fun serveAsset(call: ApplicationCall, context: Context) {
-        val requested = call.parameters["path"] ?: "index.html"
-        Log.d(TAG, "HTTP ${call.request.httpMethod.value} path=${call.parameters["path"]}")
+        val requested = call.parameters.getAll("path")?.joinToString("/")?.takeIf { it.isNotEmpty() } ?: "index.html"
+        Log.d(TAG, "HTTP ${call.request.httpMethod.value} path=${requested}")
         val normalized = normalize(requested)
         if (normalized == null) {
             Log.w(TAG, "HTTP bad path rejected: $requested")

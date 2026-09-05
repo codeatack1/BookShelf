@@ -36,9 +36,19 @@ android {
         versionName = "0.1.0"
     }
 
+    signingConfigs {
+        create("debug") {
+            storeFile = rootProject.file("keystore/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".dev"
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
