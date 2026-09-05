@@ -11,5 +11,10 @@
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.BookShelf</item>
         <item name="android:windowBackground">@color/splash_background</item>
+        <item name="windowSplashScreenStatusBarColor">@color/splash_background</item>
+        <item name="windowSplashScreenNavigationBarColor">@color/splash_background</item>
+        <item name="android:navigationBarColor">@color/splash_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 </resources>

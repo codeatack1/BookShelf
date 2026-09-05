@@ -1,9 +1,11 @@
 package com.bookshelf.ui
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.webkit.ConsoleMessage
+import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -126,6 +128,7 @@ private fun WebContent(port: Int) {
                 WebView.setWebContentsDebuggingEnabled(true)
                 Log.d(TAG, "WebContent: webContentsDebugging enabled")
             }
+            addJavascriptInterface(ThemeBridge(context), "AndroidBridge")
             webViewClient = object : WebViewClient() {
                 override fun onPageStarted(view: WebView, url: String?, favicon: Bitmap?) {
                     Log.i(TAG, "WEB onPageStarted url=$url")
@@ -175,4 +178,12 @@ private fun WebContent(port: Int) {
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing)
     )
+}
+
+private class ThemeBridge(private val context: Context) {
+    @JavascriptInterface
+    fun setThemeMode(mode: String) {
+        context.getSharedPreferences("bookshelf_ui", Context.MODE_PRIVATE)
+            .edit().putString("ui_theme_mode", mode).apply()
+    }
 }
