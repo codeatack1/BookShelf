@@ -1,13 +1,17 @@
 package com.bookshelf.server
 
 import android.content.Context
+import android.util.Log
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
+import io.ktor.server.request.*
 import io.ktor.server.response.respondBytes
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
+
+private const val TAG = "BookShelf"
 
 object StaticContent {
 
@@ -38,8 +42,10 @@ object StaticContent {
 
     private suspend fun serveAsset(call: ApplicationCall, context: Context) {
         val requested = call.parameters["path"] ?: "index.html"
+        Log.d(TAG, "HTTP ${call.request.httpMethod.value} path=${call.parameters["path"]}")
         val normalized = normalize(requested)
         if (normalized == null) {
+            Log.w(TAG, "HTTP bad path rejected: $requested")
             call.respondText(
                 """{"error":"not_found"}""",
                 ContentType.Application.Json,
@@ -59,12 +65,14 @@ object StaticContent {
 
         if (bytes == null) {
             if (isIndex) {
+                Log.e(TAG, "HTTP 404 index.html NOT FOUND in assets (web_not_built shown)")
                 call.respondText(
                     context.getString(com.bookshelf.R.string.web_not_built),
                     ContentType.Text.Html,
                     HttpStatusCode.NotFound,
                 )
             } else {
+                Log.w(TAG, "HTTP 404 asset missing: $assetPath")
                 call.respondText(
                     """{"error":"not_found","path":"$normalized"}""",
                     ContentType.Application.Json,
@@ -76,6 +84,7 @@ object StaticContent {
 
         val extension = normalized.substringAfterLast('.', "").lowercase()
         val contentType = contentTypes[extension] ?: ContentType.Application.OctetStream
+        Log.d(TAG, "HTTP 200 $normalized -> $contentType (${bytes.size} bytes)")
         call.respondBytes(bytes, contentType)
     }
 

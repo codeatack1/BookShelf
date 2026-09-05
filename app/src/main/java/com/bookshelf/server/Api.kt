@@ -1,5 +1,6 @@
 package com.bookshelf.server
 
+import android.util.Log
 import io.ktor.http.ContentType
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
@@ -7,6 +8,8 @@ import io.ktor.server.routing.get
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+
+private const val TAG = "BookShelf"
 
 @Serializable
 data class LibraryBookDto(
@@ -99,6 +102,7 @@ object Api {
 
     fun register(route: Route) {
         route.get("/api/health") {
+            Log.d(TAG, "API GET /api/health")
             call.respondText(
                 """{"status":"ok","app":"BookShelf","version":"0.1.0"}""",
                 ContentType.Application.Json,
@@ -106,6 +110,7 @@ object Api {
         }
 
         route.get("/api/library") {
+            Log.d(TAG, "API GET /api/library -> ${sampleBooks.size} books")
             val body = json.encodeToString(sampleBooks)
             call.respondText(body, ContentType.Application.Json)
         }

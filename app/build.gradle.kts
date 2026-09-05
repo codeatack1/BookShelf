@@ -9,11 +9,13 @@ val webAssetsDir = file("src/main/assets/web")
 
 tasks.register("syncWebDist") {
     doLast {
-        webAssetsDir.mkdirs()
         if (webDistDir.exists()) {
             webAssetsDir.deleteRecursively()
-            webAssetsDir.mkdirs()
             webDistDir.copyRecursively(webAssetsDir)
+            File(webAssetsDir, ".gitkeep").writeText("")
+            logger.lifecycle("syncWebDist: copied web/dist -> ${webAssetsDir.path} (${webAssetsDir.listFiles()?.size ?: 0} items)")
+        } else {
+            logger.lifecycle("syncWebDist: ${webDistDir.path} does not exist, assets/web left untouched")
         }
     }
 }
@@ -54,6 +56,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

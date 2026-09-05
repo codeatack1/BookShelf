@@ -1,12 +1,15 @@
 package com.bookshelf.server
 
 import android.content.Context
+import android.util.Log
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.routing.routing
 import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.util.concurrent.atomic.AtomicInteger
+
+private const val TAG = "BookShelf"
 
 object LocalServer {
 
@@ -16,15 +19,26 @@ object LocalServer {
     private val startedPort = AtomicInteger(-1)
 
     fun start(context: Context): Int {
+        Log.i(TAG, "LocalServer.start called")
         val current = startedPort.get()
-        if (current != -1) return current
+        if (current != -1) {
+            Log.i(TAG, "LocalServer.start: already started, port=$current")
+            return current
+        }
 
         synchronized(this) {
             val recheck = startedPort.get()
-            if (recheck != -1) return recheck
+            if (recheck != -1) {
+                Log.i(TAG, "LocalServer.start: already started, port=$recheck")
+                return recheck
+            }
 
             val port = findFreePort()
-            if (port == null) return -1
+            if (port == null) {
+                Log.e(TAG, "LocalServer: no free port in $PORT_RANGE_START..$PORT_RANGE_END")
+                return -1
+            }
+            Log.d(TAG, "LocalServer: probing found free port=$port")
 
             return try {
                 val server = embeddedServer(Netty, host = "127.0.0.1", port = port) {
@@ -35,8 +49,10 @@ object LocalServer {
                 }
                 server.start(wait = false)
                 startedPort.set(port)
+                Log.i(TAG, "LocalServer: Ktor running on http://127.0.0.1:$port")
                 port
-            } catch (_: Exception) {
+            } catch (t: Throwable) {
+                Log.e(TAG, "LocalServer: failed to start", t)
                 -1
             }
         }
