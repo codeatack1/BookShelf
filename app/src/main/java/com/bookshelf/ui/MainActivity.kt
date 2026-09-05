@@ -99,13 +99,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun WebContent(port: Int) {
     val context = LocalContext.current
+    val themeBackgroundArgb = MaterialTheme.colorScheme.background.toArgb()
     val webView = remember {
         WebView(context).apply {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.mediaPlaybackRequiresUserGesture = false
             settings.setSupportZoom(false)
-            setBackgroundColor(MaterialTheme.colorScheme.background.toArgb())
+            setBackgroundColor(themeBackgroundArgb)
             addJavascriptInterface(WebBridge(this), "AndroidBridge")
             if (BuildConfig.DEBUG) {
                 WebView.setWebContentsDebuggingEnabled(true)
