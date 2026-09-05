@@ -39,6 +39,11 @@ function resolveMode(mode: Mode): 'light' | 'dark' {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
+function setNativeThemeMode(mode: string) {
+  const bridge = (window as unknown as { AndroidBridge?: { setThemeMode?: (m: string) => void } }).AndroidBridge
+  bridge?.setThemeMode?.(mode)
+}
+
 function FadeThrough({ tab, onOpenThemeSelect }: { tab: AppTab; onOpenThemeSelect: () => void }) {
   const [shownTab, setShownTab] = useState<AppTab>(tab)
   const [leaving, setLeaving] = useState(false)
@@ -82,6 +87,7 @@ export default function App() {
   useLayoutEffect(() => {
     document.documentElement.dataset.theme = resolveThemeId(themeId)
     document.documentElement.dataset.mode = resolveMode(mode)
+    setNativeThemeMode(mode)
   }, [themeId, mode])
 
   useEffect(() => {
@@ -111,6 +117,7 @@ export default function App() {
     } catch {
       // ignore storage errors
     }
+    setNativeThemeMode(m)
   }, [])
 
   const openThemeSelect = useCallback(() => setShowMain(false), [])
