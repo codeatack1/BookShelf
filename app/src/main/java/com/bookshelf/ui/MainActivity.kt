@@ -1,9 +1,11 @@
 package com.bookshelf.ui
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.webkit.ConsoleMessage
+import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -26,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import com.bookshelf.BuildConfig
@@ -102,6 +105,8 @@ private fun WebContent(port: Int) {
             settings.domStorageEnabled = true
             settings.mediaPlaybackRequiresUserGesture = false
             settings.setSupportZoom(false)
+            setBackgroundColor(MaterialTheme.colorScheme.background.toArgb())
+            addJavascriptInterface(WebBridge(this), "AndroidBridge")
             if (BuildConfig.DEBUG) {
                 WebView.setWebContentsDebuggingEnabled(true)
                 Log.d(TAG, "WebContent: webContentsDebugging enabled")
@@ -155,4 +160,17 @@ private fun WebContent(port: Int) {
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing)
     )
+}
+
+private class WebBridge(private val webView: WebView) {
+    @JavascriptInterface
+    fun setBackgroundColor(color: String) {
+        if (color.isBlank()) return
+        val parsed = try {
+            Color.parseColor(color.trim())
+        } catch (e: IllegalArgumentException) {
+            return
+        }
+        webView.post { webView.setBackgroundColor(parsed) }
+    }
 }
