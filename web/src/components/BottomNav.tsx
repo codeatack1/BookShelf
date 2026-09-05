@@ -18,14 +18,14 @@ interface BottomNavProps {
 
 type TabIcon = ComponentType<SVGProps<SVGSVGElement>>
 
-interface TabDef {
+export interface TabDef {
   id: AppTab
   labelKey: TranslationKey
   icon: TabIcon
   iconActive: TabIcon
 }
 
-const TABS: ReadonlyArray<TabDef> = [
+export const TABS: ReadonlyArray<TabDef> = [
   { id: 'schedule', labelKey: 'nav.schedule', icon: CalendarIcon, iconActive: CalendarFilledIcon },
   { id: 'library', labelKey: 'nav.library', icon: BookIcon, iconActive: BookFilledIcon },
   { id: 'settings', labelKey: 'nav.settings', icon: SettingsIcon, iconActive: SettingsFilledIcon },

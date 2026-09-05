@@ -2,6 +2,7 @@
 
 :root {
   --bottom-nav-height: 80px;
+  --nav-rail-width: 80px;
 }
 
 .screen {
@@ -95,6 +96,22 @@
   margin: 24px auto 0;
 }
 
+/* >=840: expanded — theme picker content can be wider */
+@media (min-width: 840px) {
+  .theme-select__header,
+  .theme-select__body {
+    max-width: 1200px;
+  }
+}
+
+/* >=1200: large */
+@media (min-width: 1200px) {
+  .theme-select__header,
+  .theme-select__body {
+    max-width: 1440px;
+  }
+}
+
 .segmented {
   display: inline-flex;
   flex-wrap: wrap;
@@ -133,7 +150,8 @@
   padding-bottom: 24px;
 }
 
-@media (min-width: 900px) {
+/* >=840: expanded */
+@media (min-width: 840px) {
   .theme-grid {
     grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
   }
@@ -292,11 +310,33 @@
   color: var(--md-on-background);
 }
 
+/* >=600: medium — main screens shift right of the Navigation Rail (no fixed bottom bar) */
+@media (min-width: 600px) {
+  .library,
+  .schedule,
+  .settings {
+    padding-left: var(--nav-rail-width, 80px);
+    padding-bottom: 24px;
+  }
+}
+
 .settings__list {
   width: 100%;
   max-width: 720px;
   margin: 4px auto 0;
   padding: 8px 8px 0;
+}
+
+/* >=840: expanded — two-column settings */
+@media (min-width: 840px) {
+  .settings__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    max-width: 1040px;
+    padding: 12px 8px 0;
+    align-content: start;
+  }
 }
 
 .settings-row {
@@ -571,13 +611,51 @@
   background: var(--md-primary);
 }
 
+/* >=840: expanded — category tabs flow onto multiple rows */
+@media (min-width: 840px) {
+  .library__tabs {
+    flex-wrap: wrap;
+  }
+}
+
 /* ---------- book grid ---------- */
 
 .library__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
-  gap: 4px;
+  /* <600: compact — 2 columns on phones */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
   padding: 8px;
+  min-width: 0;
+}
+
+/* >=600: medium — 3 columns */
+@media (min-width: 600px) {
+  .library__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 12px;
+  }
+}
+
+/* >=840: expanded — 4 columns, centred content */
+@media (min-width: 840px) {
+  .library__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    padding: 16px 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* >=1200: large — 5-6 columns */
+@media (min-width: 1200px) {
+  .library__grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    max-width: 1440px;
+  }
 }
 
 .library__card {
@@ -709,6 +787,23 @@
 
 .library__list {
   padding: 8px 0;
+}
+
+/* >=840: expanded — list stretches to the available rail content width */
+@media (min-width: 840px) {
+  .library__list {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px 20px;
+  }
+}
+
+/* >=1200: large */
+@media (min-width: 1200px) {
+  .library__list {
+    max-width: 1440px;
+  }
 }
 
 .library__row {
@@ -1052,6 +1147,82 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- navigation rail (>=600px) ---------- */
+
+.nav-rail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: var(--nav-rail-width, 80px);
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 4px env(safe-area-inset-bottom, 0px);
+  background: var(--md-surface-container);
+  color: var(--md-on-surface);
+  border-right: 1px solid var(--md-outline-variant);
+}
+
+.nav-rail__tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 56px;
+  padding: 12px 2px 10px;
+  border-radius: 999px;
+  color: var(--md-on-surface-variant);
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+.nav-rail__tab:hover {
+  background: color-mix(in srgb, var(--md-on-surface) 4%, transparent);
+}
+
+.nav-rail__tab.is-active {
+  color: var(--md-primary);
+}
+
+.nav-rail__pill {
+  position: absolute;
+  inset: 8px 4px;
+  border-radius: 999px;
+  background: transparent;
+  transition: background-color 0.18s ease;
+}
+
+.nav-rail__tab.is-active .nav-rail__pill {
+  background: color-mix(in srgb, var(--md-primary-container) 60%, transparent);
+}
+
+.nav-rail__icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+}
+
+.nav-rail__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-rail__label {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 15px;
   letter-spacing: 0.02em;
   white-space: nowrap;
   overflow: hidden;

@@ -4,8 +4,10 @@ import Schedule from './Schedule'
 import Settings from './Settings'
 import ThemeSelect, { type Mode } from './ThemeSelect'
 import BottomNav, { type AppTab } from './components/BottomNav'
+import NavRail from './components/NavRail'
 import { LanguageProvider } from './i18n'
 import { themes } from './themes'
+import { useMediaQuery } from './useMediaQuery'
 
 const LS_THEME = 'bs-theme'
 const LS_MODE = 'bs-mode'
@@ -41,6 +43,7 @@ export default function App() {
   const [everPicked, setEverPicked] = useState(() => readLSBool(LS_PICKED))
   const [showMain, setShowMain] = useState(() => readLSBool(LS_PICKED))
   const [tab, setTab] = useState<AppTab>('library')
+  const navWide = useMediaQuery('(min-width: 600px)')
   const [themeId, setThemeId] = useState(() => resolveThemeId(readLS(LS_THEME, 'default')))
   const [mode, setMode] = useState<Mode>(() => {
     const m = readLS(LS_MODE, 'system')
@@ -96,7 +99,11 @@ export default function App() {
             ) : (
               <Settings onOpenThemeSelect={openThemeSelect} />
             )}
-            <BottomNav active={tab} onChange={setTab} />
+            {navWide ? (
+              <NavRail active={tab} onChange={setTab} />
+            ) : (
+              <BottomNav active={tab} onChange={setTab} />
+            )}
           </>
         ) : (
           <ThemeSelect
