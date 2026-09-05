@@ -1,5 +1,6 @@
 package com.bookshelf.ui
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.webkit.ConsoleMessage
@@ -97,8 +98,9 @@ private fun WebContent(port: Int) {
                 Log.d(TAG, "WebContent: webContentsDebugging enabled")
             }
             webViewClient = object : WebViewClient() {
-                override fun onPageStarted(view: WebView, url: String?) {
+                override fun onPageStarted(view: WebView, url: String?, favicon: Bitmap?) {
                     Log.i(TAG, "WEB onPageStarted url=$url")
+                    super.onPageStarted(view, url, favicon)
                 }
 
                 override fun onPageFinished(view: WebView, url: String?) {
