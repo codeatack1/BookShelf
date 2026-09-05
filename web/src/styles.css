@@ -1123,6 +1123,7 @@
   background: var(--md-surface-container);
   color: var(--md-on-surface);
   border-top: 1px solid var(--md-outline-variant);
+  container-type: inline-size;
 }
 
 .bottom-nav__tab {
@@ -1149,16 +1150,16 @@
 
 .bottom-nav__indicator {
   position: absolute;
-  top: 12px;
   left: 0;
-  z-index: 0;
-  width: calc(100% / 3);
+  width: 64px;
   height: 32px;
-  border-radius: 16px;
+  top: 12px;
+  border-radius: 999px;
   background: color-mix(in srgb, var(--md-primary-container) 60%, transparent);
-  transform: translateX(calc(var(--active, 0) * 100%));
+  transform: translateX(calc((100cqw / 3) * var(--active, 0) + (100cqw / 3 - 64px) / 2));
   transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);
   pointer-events: none;
+  z-index: 0;
 }
 
 .bottom-nav__icon {

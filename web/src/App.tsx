@@ -39,19 +39,6 @@ function resolveMode(mode: Mode): 'light' | 'dark' {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
-function syncNativeBackground(): void {
-  try {
-    const bridge = (
-      window as unknown as { AndroidBridge?: { setBackgroundColor?: (c: string) => void } }
-    ).AndroidBridge
-    if (!bridge?.setBackgroundColor) return
-    const bg = getComputedStyle(document.documentElement).getPropertyValue('--md-background').trim()
-    if (bg) bridge.setBackgroundColor(bg)
-  } catch {
-    /* ignore: not in WebView */
-  }
-}
-
 function FadeThrough({ tab, onOpenThemeSelect }: { tab: AppTab; onOpenThemeSelect: () => void }) {
   const [shownTab, setShownTab] = useState<AppTab>(tab)
   const [leaving, setLeaving] = useState(false)
@@ -106,16 +93,6 @@ export default function App() {
     mq.addEventListener('change', onChange)
     return () => mq.removeEventListener('change', onChange)
   }, [mode])
-
-  useEffect(() => {
-    syncNativeBackground()
-    const observer = new MutationObserver(syncNativeBackground)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme', 'data-mode'],
-    })
-    return () => observer.disconnect()
-  }, [])
 
   const handleLiveChange = useCallback((id: string, m: Mode) => {
     setThemeId(id)
