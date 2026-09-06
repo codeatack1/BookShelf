@@ -21,8 +21,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import com.bookshelf.BuildConfig
@@ -57,6 +58,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme {
+                val webBg = MaterialTheme.colorScheme.background.toArgb()
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -68,7 +70,7 @@ class MainActivity : ComponentActivity() {
                         }
                     } else {
                         Box(Modifier.fillMaxSize()) {
-                            WebContent(port)
+                            WebContent(port = port, backgroundColor = webBg)
                             Box(
                                 Modifier
                                     .fillMaxWidth()
@@ -79,7 +81,7 @@ class MainActivity : ComponentActivity() {
                                 Modifier
                                     .align(Alignment.BottomCenter)
                                     .fillMaxWidth()
-                                    .windowInsetsBottomHeight(WindowInsets.navigationBars)
+                                    .windowInsetsBottomHeight(WindowInsets.systemBars)
                                     .background(MaterialTheme.colorScheme.background)
                             )
                         }
@@ -116,10 +118,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun WebContent(port: Int) {
+private fun WebContent(port: Int, backgroundColor: Int) {
     val context = LocalContext.current
     val webView = remember {
         WebView(context).apply {
+            setBackgroundColor(backgroundColor)
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.mediaPlaybackRequiresUserGesture = false
