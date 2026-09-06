@@ -1,11 +1,17 @@
 package com.bookshelf.server
 
 import android.util.Log
+import com.bookshelf.data.AppStorage
 import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.request.receiveText
+import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
+import io.ktor.server.routing.put
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -28,6 +34,15 @@ data class LibraryBookDto(
     val lastReadAt: Long?,
     val dateAdded: Long,
 )
+
+@Serializable
+data class StatePutRequest(val value: String)
+
+@Serializable
+data class StateResponse(val key: String, val value: String)
+
+@Serializable
+data class StateOkResponse(val ok: Boolean = true)
 
 val sampleBooks: List<LibraryBookDto> = listOf(
     LibraryBookDto(
@@ -112,6 +127,37 @@ object Api {
         route.get("/api/library") {
             Log.d(TAG, "API GET /api/library -> ${sampleBooks.size} books")
             val body = json.encodeToString(sampleBooks)
+            call.respondText(body, ContentType.Application.Json)
+        }
+
+        route.get("/api/state/{key}") {
+            val key = call.parameters["key"].orEmpty()
+            Log.d(TAG, "API GET /api/state key=$key")
+            val value = AppStorage.getString(key)
+            if (value == null) {
+                call.respond(HttpStatusCode.NotFound)
+            } else {
+                val body = json.encodeToString(StateResponse(key = key, value = value))
+                call.respondText(body, ContentType.Application.Json)
+            }
+        }
+
+        route.put("/api/state/{key}") {
+            val key = call.parameters["key"].orEmpty()
+            Log.d(TAG, "API PUT /api/state key=$key")
+            if (key.isEmpty()) {
+                call.respond(HttpStatusCode.BadRequest)
+                return@put
+            }
+            val text = call.receiveText()
+            val request = json.decodeFromString<StatePutRequest>(text)
+            val value = request.value
+            if (value.isEmpty()) {
+                call.respond(HttpStatusCode.BadRequest)
+                return@put
+            }
+            AppStorage.putString(key, value)
+            val body = json.encodeToString(StateOkResponse())
             call.respondText(body, ContentType.Application.Json)
         }
     }
