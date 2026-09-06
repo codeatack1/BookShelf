@@ -62,11 +62,24 @@ function getEffectiveBackground(): number | null {
   return null
 }
 
+async function reportBackground(bg: number): Promise<void> {
+  try {
+    await fetch('/api/state/background', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ value: String(bg) }),
+    })
+  } catch {
+    /* сервер может быть недоступен — игнорируем */
+  }
+}
+
 function syncNativeBackground() {
   const bg = getEffectiveBackground()
   if (bg === null) return
   const bridge = (window as unknown as { AndroidBridge?: { setBackgroundColor?: (c: number) => void } }).AndroidBridge
   bridge?.setBackgroundColor?.(bg)
+  reportBackground(bg)
 }
 
 function FadeThrough({ tab, onOpenThemeSelect }: { tab: AppTab; onOpenThemeSelect: () => void }) {
