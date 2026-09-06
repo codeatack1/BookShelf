@@ -30,9 +30,14 @@ import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
@@ -58,7 +63,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme {
-                val webBg = MaterialTheme.colorScheme.background.toArgb()
+                val initialBg = MaterialTheme.colorScheme.background.toArgb()
+                val bgState = remember { mutableStateOf(initialBg) }
+                val handler = android.os.Handler(android.os.Looper.getMainLooper())
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -70,19 +77,23 @@ class MainActivity : ComponentActivity() {
                         }
                     } else {
                         Box(Modifier.fillMaxSize()) {
-                            WebContent(port = port, backgroundColor = webBg)
+                            WebContent(
+                                port = port,
+                                backgroundColor = bgState.value,
+                                onBackground = { argb -> handler.post { bgState.value = argb } }
+                            )
                             Box(
                                 Modifier
                                     .fillMaxWidth()
                                     .windowInsetsTopHeight(WindowInsets.statusBars)
-                                    .background(MaterialTheme.colorScheme.background)
+                                    .background(Color(bgState.value))
                             )
                             Box(
                                 Modifier
                                     .align(Alignment.BottomCenter)
                                     .fillMaxWidth()
                                     .windowInsetsBottomHeight(WindowInsets.systemBars)
-                                    .background(MaterialTheme.colorScheme.background)
+                                    .background(Color(bgState.value))
                             )
                         }
                     }
@@ -118,7 +129,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun WebContent(port: Int, backgroundColor: Int) {
+private fun WebContent(port: Int, backgroundColor: Int, onBackground: (Int) -> Unit) {
     val context = LocalContext.current
     val webView = remember {
         WebView(context).apply {
@@ -131,7 +142,7 @@ private fun WebContent(port: Int, backgroundColor: Int) {
                 WebView.setWebContentsDebuggingEnabled(true)
                 Log.d(TAG, "WebContent: webContentsDebugging enabled")
             }
-            addJavascriptInterface(ThemeBridge(context), "AndroidBridge")
+            addJavascriptInterface(ThemeBridge(context, onBackground), "AndroidBridge")
             webViewClient = object : WebViewClient() {
                 override fun onPageStarted(view: WebView, url: String?, favicon: Bitmap?) {
                     Log.i(TAG, "WEB onPageStarted url=$url")
@@ -171,6 +182,10 @@ private fun WebContent(port: Int, backgroundColor: Int) {
         }
     }
 
+    LaunchedEffect(backgroundColor) {
+        webView.setBackgroundColor(backgroundColor)
+    }
+
     BackHandler(enabled = webView.canGoBack()) {
         webView.goBack()
     }
@@ -183,10 +198,18 @@ private fun WebContent(port: Int, backgroundColor: Int) {
     )
 }
 
-private class ThemeBridge(private val context: Context) {
+private class ThemeBridge(
+    private val context: Context,
+    private val onBackground: (Int) -> Unit
+) {
     @JavascriptInterface
     fun setThemeMode(mode: String) {
         context.getSharedPreferences("bookshelf_ui", Context.MODE_PRIVATE)
             .edit().putString("ui_theme_mode", mode).apply()
+    }
+
+    @JavascriptInterface
+    fun setBackgroundColor(color: Int) {
+        onBackground(color)
     }
 }
