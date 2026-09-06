@@ -43,7 +43,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import com.bookshelf.BuildConfig
 import com.bookshelf.R
+import com.bookshelf.data.AppStorage
 import com.bookshelf.server.LocalServer
+import kotlinx.coroutines.flow.collect
 
 private const val TAG = "BookShelf"
 
@@ -63,7 +65,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme {
-                val initialBg = MaterialTheme.colorScheme.background.toArgb()
+                val initialBg = AppStorage.cachedBackground ?: MaterialTheme.colorScheme.background.toArgb()
                 val bgState = remember { mutableStateOf(initialBg) }
                 val handler = android.os.Handler(android.os.Looper.getMainLooper())
                 Box(
@@ -96,6 +98,12 @@ class MainActivity : ComponentActivity() {
                                     .background(Color(bgState.value))
                             )
                         }
+                    }
+                }
+
+                LaunchedEffect(Unit) {
+                    AppStorage.observe(AppStorage.KEY_BACKGROUND).collect { value ->
+                        value?.toIntOrNull()?.let { bgState.value = it }
                     }
                 }
             }
