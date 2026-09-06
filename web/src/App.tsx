@@ -44,6 +44,31 @@ function setNativeThemeMode(mode: string) {
   bridge?.setThemeMode?.(mode)
 }
 
+function getEffectiveBackground(): number | null {
+  const parse = (s: string): number | null => {
+    const m = s.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)
+    if (!m) return null
+    const a = m[4] === undefined ? 1 : parseFloat(m[4])
+    if (a <= 0.99) return null
+    const [r, g, b] = [parseInt(m[1]), parseInt(m[2]), parseInt(m[3])]
+    return ((0xff << 24) | (r << 16) | (g << 8) | b) >>> 0
+  }
+  const candidates = [document.body, document.documentElement, document.getElementById('root')]
+  for (const el of candidates) {
+    if (!el) continue
+    const v = parse(getComputedStyle(el).backgroundColor)
+    if (v !== null) return v
+  }
+  return null
+}
+
+function syncNativeBackground() {
+  const bg = getEffectiveBackground()
+  if (bg === null) return
+  const bridge = (window as unknown as { AndroidBridge?: { setBackgroundColor?: (c: number) => void } }).AndroidBridge
+  bridge?.setBackgroundColor?.(bg)
+}
+
 function FadeThrough({ tab, onOpenThemeSelect }: { tab: AppTab; onOpenThemeSelect: () => void }) {
   const [shownTab, setShownTab] = useState<AppTab>(tab)
   const [leaving, setLeaving] = useState(false)
@@ -88,6 +113,7 @@ export default function App() {
     document.documentElement.dataset.theme = resolveThemeId(themeId)
     document.documentElement.dataset.mode = resolveMode(mode)
     setNativeThemeMode(mode)
+    syncNativeBackground()
   }, [themeId, mode])
 
   useEffect(() => {
@@ -95,6 +121,7 @@ export default function App() {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
     const onChange = () => {
       document.documentElement.dataset.mode = mq.matches ? 'dark' : 'light'
+      syncNativeBackground()
     }
     mq.addEventListener('change', onChange)
     return () => mq.removeEventListener('change', onChange)
@@ -118,6 +145,7 @@ export default function App() {
       // ignore storage errors
     }
     setNativeThemeMode(m)
+    syncNativeBackground()
   }, [])
 
   const openThemeSelect = useCallback(() => setShowMain(false), [])
