@@ -120,7 +120,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(Unit) {
                     AppStorage.observe(AppStorage.KEY_BACKGROUND).collect { value ->
-                        value?.toIntOrNull()?.let { bgState.value = it }
+                        value?.let(AppStorage::parseArgb32)?.let { bgState.value = it }
                     }
                 }
             }

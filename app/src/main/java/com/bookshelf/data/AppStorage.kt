@@ -8,6 +8,11 @@ object AppStorage {
 
     const val KEY_BACKGROUND = "background"
 
+    fun parseArgb32(value: String): Int? =
+        value.toLongOrNull()
+            ?.takeIf { it in 0L..0xFFFF_FFFFL }
+            ?.toInt()
+
     private lateinit var db: AppDatabase
 
     @Volatile
@@ -27,7 +32,7 @@ object AppStorage {
     suspend fun putString(key: String, value: String) {
         db.appStateDao().put(AppStateEntity(id = key, value = value))
         if (key == KEY_BACKGROUND) {
-            cachedBackground = value.toIntOrNull()
+            cachedBackground = parseArgb32(value)
         }
     }
 

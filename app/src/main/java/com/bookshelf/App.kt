@@ -29,7 +29,7 @@ class App : Application() {
         AppStorage.init(this)
         Log.i(TAG, "App.onCreate: pid=${Process.myPid()} package=$packageName")
         appScope.launch {
-            AppStorage.cachedBackground = AppStorage.getString(AppStorage.KEY_BACKGROUND)?.toIntOrNull()
+            AppStorage.cachedBackground = AppStorage.getString(AppStorage.KEY_BACKGROUND)?.let(AppStorage::parseArgb32)
         }
         val themeMode = getSharedPreferences("bookshelf_ui", MODE_PRIVATE)
             .getString("ui_theme_mode", "system")
