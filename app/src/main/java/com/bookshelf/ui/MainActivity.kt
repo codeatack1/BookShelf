@@ -2,6 +2,8 @@ package com.bookshelf.ui
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color as AndroidColor
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.webkit.ConsoleMessage
@@ -41,6 +43,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.graphics.ColorUtils
+import androidx.core.view.WindowCompat
 import com.bookshelf.BuildConfig
 import com.bookshelf.R
 import com.bookshelf.data.AppStorage
@@ -55,6 +59,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "MainActivity.onCreate")
         enableEdgeToEdge()
+        window.statusBarColor = AndroidColor.TRANSPARENT
+        window.navigationBarColor = AndroidColor.TRANSPARENT
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+            window.isStatusBarContrastEnforced = false
+        }
 
         val port = LocalServer.start(applicationContext)
         Log.i(TAG, "MainActivity.onCreate: port=$port")
@@ -68,10 +78,17 @@ class MainActivity : ComponentActivity() {
                 val initialBg = AppStorage.cachedBackground ?: MaterialTheme.colorScheme.background.toArgb()
                 val bgState = remember { mutableStateOf(initialBg) }
                 val handler = android.os.Handler(android.os.Looper.getMainLooper())
+                LaunchedEffect(bgState.value) {
+                    val isLight = ColorUtils.calculateLuminance(bgState.value) > 0.5
+                    WindowCompat.getInsetsController(window, window.decorView).apply {
+                        isAppearanceLightStatusBars = isLight
+                        isAppearanceLightNavigationBars = isLight
+                    }
+                }
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
+                        .background(Color(bgState.value))
                 ) {
                     if (port < 0) {
                         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
