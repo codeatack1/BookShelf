@@ -53,7 +53,18 @@ function getEffectiveBackground(): number | null {
     const [r, g, b] = [parseInt(m[1]), parseInt(m[2]), parseInt(m[3])]
     return ((0xff << 24) | (r << 16) | (g << 8) | b) >>> 0
   }
-  const candidates = [document.body, document.documentElement, document.getElementById('root')]
+  const candidates = [
+    document.querySelector<HTMLElement>('.fade-through-enter .library'),
+    document.querySelector<HTMLElement>('.fade-through-enter .schedule'),
+    document.querySelector<HTMLElement>('.fade-through-enter .settings'),
+    document.querySelector<HTMLElement>('.theme-select'),
+    document.querySelector<HTMLElement>('.fade-through-exit .library'),
+    document.querySelector<HTMLElement>('.fade-through-exit .schedule'),
+    document.querySelector<HTMLElement>('.fade-through-exit .settings'),
+    document.getElementById('root'),
+    document.body,
+    document.documentElement,
+  ]
   for (const el of candidates) {
     if (!el) continue
     const v = parse(getComputedStyle(el).backgroundColor)
@@ -158,7 +169,6 @@ export default function App() {
       // ignore storage errors
     }
     setNativeThemeMode(m)
-    syncNativeBackground()
   }, [])
 
   const openThemeSelect = useCallback(() => setShowMain(false), [])
