@@ -2,6 +2,8 @@ package com.bookshelf.server
 
 import android.util.Log
 import com.bookshelf.data.AppStorage
+import com.bookshelf.data.BookEntity
+import com.bookshelf.data.BookRepository
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.request.receiveText
@@ -23,16 +25,45 @@ data class LibraryBookDto(
     val title: String,
     val author: String?,
     val category: String,
+    val cover: String?,
+    val description: String?,
+    val genre: String?,
+    val year: Int?,
+    val source: String?,
+    val lang: String,
     val totalChapters: Int,
     val unreadCount: Int,
     val downloaded: Int,
     val isLocal: Boolean,
-    val lang: String,
     val bookmarked: Boolean,
     val started: Boolean,
     val completed: Boolean,
     val lastReadAt: Long?,
     val dateAdded: Long,
+)
+
+@Serializable
+data class ChapterDto(
+    val id: String,
+    val number: Int,
+    val name: String,
+    val read: Boolean,
+)
+
+@Serializable
+data class BookDetailDto(
+    val book: LibraryBookDto,
+    val chapters: List<ChapterDto>,
+)
+
+@Serializable
+data class ProgressPutRequest(
+    val started: Boolean? = null,
+    val completed: Boolean? = null,
+    val lastReadAt: Long? = null,
+    val lastReadChapterId: String? = null,
+    val chapterId: String? = null,
+    val read: Boolean? = null,
 )
 
 @Serializable
@@ -43,73 +74,6 @@ data class StateResponse(val key: String, val value: String)
 
 @Serializable
 data class StateOkResponse(val ok: Boolean = true)
-
-val sampleBooks: List<LibraryBookDto> = listOf(
-    LibraryBookDto(
-        id = "1",
-        title = "Учебник по математике. 5 класс",
-        author = "Виленкин Н.Я., Жохов В.И.",
-        category = "Учебники",
-        totalChapters = 15,
-        unreadCount = 3,
-        downloaded = 12,
-        isLocal = true,
-        lang = "ru",
-        bookmarked = false,
-        started = true,
-        completed = false,
-        lastReadAt = 1_755_000_000,
-        dateAdded = 1_700_000_000,
-    ),
-    LibraryBookDto(
-        id = "2",
-        title = "Физика. 9 класс",
-        author = "Пёрышкин А.В., Гутник Е.М.",
-        category = "Учебники",
-        totalChapters = 10,
-        unreadCount = 10,
-        downloaded = 0,
-        isLocal = false,
-        lang = "ru",
-        bookmarked = true,
-        started = false,
-        completed = false,
-        lastReadAt = null,
-        dateAdded = 1_701_000_000,
-    ),
-    LibraryBookDto(
-        id = "3",
-        title = "История России. 6 класс",
-        author = "Арсентьев Н.М., Данилов А.А.",
-        category = "Учебники",
-        totalChapters = 20,
-        unreadCount = 1,
-        downloaded = 20,
-        isLocal = true,
-        lang = "ru",
-        bookmarked = false,
-        started = true,
-        completed = true,
-        lastReadAt = 1_725_000_000,
-        dateAdded = 1_695_000_000,
-    ),
-    LibraryBookDto(
-        id = "4",
-        title = "Русский язык. 7 класс",
-        author = "Ладыженская Т.А., Баранов М.Т.",
-        category = "Учебники",
-        totalChapters = 12,
-        unreadCount = 12,
-        downloaded = 4,
-        isLocal = false,
-        lang = "ru",
-        bookmarked = false,
-        started = false,
-        completed = false,
-        lastReadAt = null,
-        dateAdded = 1_720_000_000,
-    ),
-)
 
 private val json = Json { encodeDefaults = true }
 
@@ -125,8 +89,94 @@ object Api {
         }
 
         route.get("/api/library") {
-            Log.d(TAG, "API GET /api/library -> ${sampleBooks.size} books")
-            val body = json.encodeToString(sampleBooks)
+            val query = call.request.queryParameters["query"]
+            val category = call.request.queryParameters["category"]
+            Log.d(TAG, "API GET /api/library query=$query category=$category")
+            val books = BookRepository.searchBooks(query, category)
+            val dtos = books.map { book ->
+                val totalChapters = BookRepository.chapterCount(book.id)
+                val unreadCount = BookRepository.unreadCount(book.id)
+                book.toDto(totalChapters, unreadCount)
+            }
+            val body = json.encodeToString(dtos)
+            call.respondText(body, ContentType.Application.Json)
+        }
+
+        route.get("/api/books/{id}") {
+            val id = call.parameters["id"]
+            if (id == null) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@get
+            }
+            Log.d(TAG, "API GET /api/books id=$id")
+            val book = BookRepository.getBook(id)
+            if (book == null) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.NotFound,
+                )
+                return@get
+            }
+            val totalChapters = BookRepository.chapterCount(id)
+            val unreadCount = BookRepository.unreadCount(id)
+            val chapters = BookRepository.getChapters(id)
+            val dto = BookDetailDto(
+                book = book.toDto(totalChapters, unreadCount),
+                chapters = chapters.map {
+                    ChapterDto(id = it.id, number = it.number, name = it.name, read = it.read)
+                },
+            )
+            val body = json.encodeToString(dto)
+            call.respondText(body, ContentType.Application.Json)
+        }
+
+        route.put("/api/books/{id}/progress") {
+            val id = call.parameters["id"]
+            if (id == null) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@put
+            }
+            val text = call.receiveText()
+            val request = try {
+                json.decodeFromString<ProgressPutRequest>(text)
+            } catch (e: Exception) {
+                Log.e(TAG, "API PUT /api/books/$id/progress: bad body", e)
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@put
+            }
+            Log.d(TAG, "API PUT /api/books/$id/progress $request")
+            val book = BookRepository.getBook(id)
+            if (book == null) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.NotFound,
+                )
+                return@put
+            }
+            if (request.chapterId != null && request.read != null) {
+                BookRepository.setChapterRead(id, request.chapterId, request.read)
+            }
+            var updated = book
+            if (request.started != null) updated = updated.copy(started = request.started)
+            if (request.completed != null) updated = updated.copy(completed = request.completed)
+            if (request.lastReadAt != null) updated = updated.copy(lastReadAt = request.lastReadAt)
+            if (request.lastReadChapterId != null) updated = updated.copy(lastReadChapterId = request.lastReadChapterId)
+            BookRepository.updateBook(updated)
+            val body = json.encodeToString(StateOkResponse())
             call.respondText(body, ContentType.Application.Json)
         }
 
@@ -162,3 +212,25 @@ object Api {
         }
     }
 }
+
+private fun BookEntity.toDto(totalChapters: Int, unreadCount: Int): LibraryBookDto = LibraryBookDto(
+    id = id,
+    title = title,
+    author = author,
+    category = category,
+    cover = coverUrl,
+    description = description,
+    genre = genre,
+    year = year,
+    source = source,
+    lang = lang,
+    totalChapters = totalChapters,
+    unreadCount = unreadCount,
+    downloaded = 0,
+    isLocal = totalChapters > 0,
+    bookmarked = bookmarked,
+    started = started,
+    completed = completed,
+    lastReadAt = lastReadAt,
+    dateAdded = dateAdded,
+)

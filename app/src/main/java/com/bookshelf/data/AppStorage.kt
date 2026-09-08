@@ -1,7 +1,6 @@
 package com.bookshelf.data
 
 import android.content.Context
-import androidx.room.Room
 import kotlinx.coroutines.flow.Flow
 
 object AppStorage {
@@ -13,17 +12,14 @@ object AppStorage {
             ?.takeIf { it in 0L..0xFFFF_FFFFL }
             ?.toInt()
 
-    private lateinit var db: AppDatabase
+    private val db: AppDatabase
+        get() = DatabaseProvider.db
 
     @Volatile
     var cachedBackground: Int? = null
 
     fun init(context: Context) {
-        db = Room.databaseBuilder(
-            context.applicationContext,
-            AppDatabase::class.java,
-            "bookshelf.db",
-        ).build()
+        DatabaseProvider.init(context)
     }
 
     suspend fun getString(key: String): String? =
