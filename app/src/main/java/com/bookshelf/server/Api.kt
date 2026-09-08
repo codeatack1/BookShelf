@@ -47,6 +47,17 @@ data class ChapterDto(
     val id: String,
     val number: Int,
     val name: String,
+    val contentType: String,
+    val read: Boolean,
+)
+
+@Serializable
+data class ChapterContentDto(
+    val id: String,
+    val number: Int,
+    val name: String,
+    val contentType: String,
+    val content: String,
     val read: Boolean,
 )
 
@@ -64,6 +75,7 @@ data class ProgressPutRequest(
     val lastReadChapterId: String? = null,
     val chapterId: String? = null,
     val read: Boolean? = null,
+    val bookmarked: Boolean? = null,
 )
 
 @Serializable
@@ -128,10 +140,68 @@ object Api {
             val dto = BookDetailDto(
                 book = book.toDto(totalChapters, unreadCount),
                 chapters = chapters.map {
-                    ChapterDto(id = it.id, number = it.number, name = it.name, read = it.read)
+                    ChapterDto(
+                        id = it.id,
+                        number = it.number,
+                        name = it.name,
+                        contentType = it.contentType,
+                        read = it.read,
+                    )
                 },
             )
             val body = json.encodeToString(dto)
+            call.respondText(body, ContentType.Application.Json)
+        }
+
+        route.get("/api/books/{bookId}/chapters/{number}") {
+            val bookId = call.parameters["bookId"]
+            if (bookId == null) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@get
+            }
+            val numberStr = call.parameters["number"]
+            val number = numberStr?.toIntOrNull()
+            if (number == null) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@get
+            }
+            Log.d(TAG, "API GET /api/books/$bookId/chapters/$number")
+            val book = BookRepository.getBook(bookId)
+            if (book == null) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.NotFound,
+                )
+                return@get
+            }
+            val chapter = BookRepository.getChapter(bookId, number)
+            if (chapter == null) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.NotFound,
+                )
+                return@get
+            }
+            val body = json.encodeToString(
+                ChapterContentDto(
+                    id = chapter.id,
+                    number = chapter.number,
+                    name = chapter.name,
+                    contentType = chapter.contentType,
+                    content = chapter.content,
+                    read = chapter.read,
+                )
+            )
             call.respondText(body, ContentType.Application.Json)
         }
 
@@ -175,6 +245,7 @@ object Api {
             if (request.completed != null) updated = updated.copy(completed = request.completed)
             if (request.lastReadAt != null) updated = updated.copy(lastReadAt = request.lastReadAt)
             if (request.lastReadChapterId != null) updated = updated.copy(lastReadChapterId = request.lastReadChapterId)
+            if (request.bookmarked != null) updated = updated.copy(bookmarked = request.bookmarked)
             BookRepository.updateBook(updated)
             val body = json.encodeToString(StateOkResponse())
             call.respondText(body, ContentType.Application.Json)

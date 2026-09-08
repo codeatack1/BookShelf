@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import type { CSSProperties, KeyboardEvent } from 'react'
 import type { Book } from '../data/books'
 import Cover from './Cover'
 import CoverBadges from './CoverBadges'
@@ -8,12 +8,29 @@ interface BookCardProps {
   book: Book
   mode: DisplayMode
   style?: CSSProperties
+  onClick?: () => void
 }
 
-export default function BookCard({ book, mode, style }: BookCardProps) {
+function handleKey(e: KeyboardEvent, onClick: () => void) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    onClick()
+  }
+}
+
+export default function BookCard({ book, mode, style, onClick }: BookCardProps) {
+  const clickable = onClick != null
+
   if (mode === 'list') {
     return (
-      <article className="library__row" style={style}>
+      <article
+        className={`library__row${clickable ? ' library__row--clickable' : ''}`}
+        style={style}
+        role={clickable ? 'button' : undefined}
+        tabIndex={clickable ? 0 : undefined}
+        onClick={onClick}
+        onKeyDown={onClick ? (e) => handleKey(e, onClick) : undefined}
+      >
         <div className="library__row__cover">
           <Cover book={book} />
         </div>
@@ -27,7 +44,14 @@ export default function BookCard({ book, mode, style }: BookCardProps) {
   }
 
   return (
-    <article className={`library__card library__card--${mode}`} style={style}>
+    <article
+      className={`library__card library__card--${mode}${clickable ? ' library__card--clickable' : ''}`}
+      style={style}
+      role={clickable ? 'button' : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={onClick ? (e) => handleKey(e, onClick) : undefined}
+    >
       <div className="library__card__cover">
         <Cover book={book} />
         <CoverBadges book={book} />

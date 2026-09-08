@@ -20,6 +20,9 @@ interface BookDao {
     @Query("SELECT * FROM chapters WHERE bookId = :bookId ORDER BY number ASC")
     suspend fun getChapters(bookId: String): List<ChapterEntity>
 
+    @Query("SELECT * FROM chapters WHERE bookId = :bookId AND number = :number LIMIT 1")
+    suspend fun getChapter(bookId: String, number: Int): ChapterEntity?
+
     @Query("SELECT COUNT(*) FROM chapters WHERE bookId = :bookId")
     suspend fun chapterCount(bookId: String): Int
 

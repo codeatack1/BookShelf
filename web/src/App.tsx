@@ -3,6 +3,8 @@ import Library from './Library'
 import Schedule from './Schedule'
 import Settings from './Settings'
 import ThemeSelect, { type Mode } from './ThemeSelect'
+import BookDetails from './BookDetails'
+import Reader from './Reader'
 import BottomNav, { type AppTab } from './components/BottomNav'
 import NavRail from './components/NavRail'
 import { LanguageProvider } from './i18n'
@@ -93,7 +95,12 @@ function syncNativeBackground() {
   reportBackground(bg)
 }
 
-function FadeThrough({ tab, onOpenThemeSelect }: { tab: AppTab; onOpenThemeSelect: () => void }) {
+export type Screen =
+  | { name: 'main' }
+  | { name: 'details'; bookId: string }
+  | { name: 'reader'; bookId: string; number: number }
+
+function FadeThrough({ tab, onOpenThemeSelect, onOpenBook }: { tab: AppTab; onOpenThemeSelect: () => void; onOpenBook: (id: string) => void }) {
   const [shownTab, setShownTab] = useState<AppTab>(tab)
   const [leaving, setLeaving] = useState(false)
 
@@ -111,7 +118,7 @@ function FadeThrough({ tab, onOpenThemeSelect }: { tab: AppTab; onOpenThemeSelec
   }, [tab, shownTab])
 
   let page: ReactNode
-  if (shownTab === 'library') page = <Library />
+  if (shownTab === 'library') page = <Library onOpenBook={onOpenBook} />
   else if (shownTab === 'schedule') page = <Schedule />
   else page = <Settings onOpenThemeSelect={onOpenThemeSelect} />
 
@@ -132,6 +139,29 @@ export default function App() {
     const m = readLS(LS_MODE, 'system')
     return m === 'light' || m === 'dark' || m === 'system' ? m : 'system'
   })
+  const [screen, setScreen] = useState<Screen>({ name: 'main' })
+
+  useEffect(() => {
+    const onPop = (e: PopStateEvent) => {
+      const state = (e.state as { screen?: Screen } | null)
+      setScreen(state?.screen ?? { name: 'main' })
+    }
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
+
+  const navigateTo = useCallback((s: Screen) => {
+    setScreen(s)
+    history.pushState({ screen: s }, '')
+  }, [])
+
+  const openBook = useCallback((bookId: string) => {
+    navigateTo({ name: 'details', bookId })
+  }, [navigateTo])
+
+  const openReader = useCallback((bookId: string, number: number) => {
+    navigateTo({ name: 'reader', bookId, number })
+  }, [navigateTo])
 
   useLayoutEffect(() => {
     document.documentElement.dataset.theme = resolveThemeId(themeId)
@@ -178,14 +208,20 @@ export default function App() {
     <LanguageProvider>
       <div className="screen">
         {showMain ? (
-          <>
-            <FadeThrough tab={tab} onOpenThemeSelect={openThemeSelect} />
-            {navWide ? (
-              <NavRail active={tab} onChange={setTab} />
-            ) : (
-              <BottomNav active={tab} onChange={setTab} />
-            )}
-          </>
+          screen.name === 'details' ? (
+            <BookDetails bookId={screen.bookId} onOpenReader={openReader} />
+          ) : screen.name === 'reader' ? (
+            <Reader bookId={screen.bookId} chapterNumber={screen.number} onNavigateChapter={openReader} />
+          ) : (
+            <>
+              <FadeThrough tab={tab} onOpenThemeSelect={openThemeSelect} onOpenBook={openBook} />
+              {navWide ? (
+                <NavRail active={tab} onChange={setTab} />
+              ) : (
+                <BottomNav active={tab} onChange={setTab} />
+              )}
+            </>
+          )
         ) : (
           <ThemeSelect
             themeId={themeId}

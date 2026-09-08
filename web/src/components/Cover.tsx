@@ -43,7 +43,7 @@ export default function Cover({ book }: CoverProps) {
 
   const h = hashText(book.id + book.title) % 360
   const sat = 38 + (hashText(book.title) % 18)
-  const light = 42 + (hashText(book.author) % 13)
+  const light = 42 + (hashText(book.author ?? '') % 13)
   const background = book.cover ?? `hsl(${h}, ${sat}%, ${light}%)`
   const textColor = hslToTextColor(h, sat, light)
   const letter = (book.title.trim()[0] ?? '?').toUpperCase()

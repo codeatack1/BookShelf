@@ -1,20 +1,6 @@
-export interface Book {
-  id: string
-  title: string
-  author: string
-  category: string
-  cover?: string
-  totalChapters: number
-  unreadCount: number
-  downloaded: number
-  isLocal: boolean
-  lang: string
-  bookmarked: boolean
-  started: boolean
-  completed: boolean
-  lastReadAt?: number
-  dateAdded: number
-}
+import type { Book } from '../bookTypes'
+
+export type { Book }
 
 export const books: Book[] = [
   {

@@ -20,6 +20,9 @@ object BookRepository {
     suspend fun getChapters(bookId: String): List<ChapterEntity> =
         db.bookDao().getChapters(bookId)
 
+    suspend fun getChapter(bookId: String, number: Int): ChapterEntity? =
+        db.bookDao().getChapter(bookId, number)
+
     suspend fun chapterCount(bookId: String): Int =
         db.bookDao().chapterCount(bookId)
 

@@ -1,11 +1,13 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import BookCard from './components/BookCard'
 import CategoryTabs from './components/CategoryTabs'
 import EmptyState from './components/EmptyState'
 import FilterSheet from './components/FilterSheet'
 import LibraryTopBar from './components/LibraryTopBar'
-import { books } from './data/books'
+import { books as mockBooks } from './data/books'
+import { getLibrary } from './api'
 import { useT } from './i18n'
+import type { Book } from './bookTypes'
 import {
   DEFAULT_FILTERS,
   FILTER_LABELS,
@@ -22,8 +24,15 @@ function idHash(s: string): number {
   return h
 }
 
-export default function Library() {
+interface LibraryProps {
+  onOpenBook: (bookId: string) => void
+}
+
+export default function Library({ onOpenBook }: LibraryProps) {
   const { t, lang } = useT()
+  const [books, setBooks] = useState<Book[]>([])
+  const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
   const [searching, setSearching] = useState(false)
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
@@ -34,19 +43,57 @@ export default function Library() {
   const [sheetOpen, setSheetOpen] = useState(false)
   const [randomSeed] = useState(() => Math.random())
 
+  useEffect(() => {
+    let cancelled = false
+    setLoading(true)
+    setLoadError(false)
+    getLibrary()
+      .then((data) => {
+        if (!cancelled) {
+          setBooks(data)
+          setLoading(false)
+        }
+      })
+      .catch(() => {
+        console.warn('[api] fallback to mock')
+        if (!cancelled) {
+          setBooks(mockBooks)
+          setLoading(false)
+        }
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const retryLoad = () => {
+    setLoading(true)
+    setLoadError(false)
+    getLibrary()
+      .then((data) => {
+        setBooks(data)
+        setLoading(false)
+      })
+      .catch(() => {
+        console.warn('[api] fallback to mock')
+        setBooks(mockBooks)
+        setLoading(false)
+      })
+  }
+
   const categories = useMemo(() => {
     const set = new Set(books.map((b) => b.category))
     return [
       'all',
       ...[...set].sort((a, b) => t(`categories.${a}`).localeCompare(t(`categories.${b}`), lang)),
     ]
-  }, [t, lang])
+  }, [t, lang, books])
 
   const counts = useMemo(() => {
     const map: Record<string, number> = { all: books.length }
     for (const b of books) map[b.category] = (map[b.category] ?? 0) + 1
     return map
-  }, [])
+  }, [books])
 
   const filterActive = useMemo(
     () => FILTER_LABELS.some((f) => filters[f.key] !== 'unset'),
@@ -81,7 +128,7 @@ export default function Library() {
           return 0
       }
     })
-  }, [category, query, filters, sortKey, sortDir, randomSeed])
+  }, [category, query, filters, sortKey, sortDir, randomSeed, books])
 
   const emptyMessage =
     query.trim() !== '' || filterActive
@@ -89,6 +136,55 @@ export default function Library() {
       : books.length === 0
         ? t('library.empty')
         : t('library.noBooksInCategory')
+
+  if (loading) {
+    return (
+      <div className="library">
+        <LibraryTopBar
+          total={0}
+          searching={searching}
+          query={query}
+          filterActive={filterActive}
+          onSearchToggle={() => setSearching(true)}
+          onQueryChange={setQuery}
+          onCloseSearch={() => {
+            setQuery('')
+            setSearching(false)
+          }}
+          onFilterClick={() => setSheetOpen(true)}
+        />
+        <div className="loading-state">
+          <div className="spinner" />
+        </div>
+      </div>
+    )
+  }
+
+  if (loadError) {
+    return (
+      <div className="library">
+        <LibraryTopBar
+          total={0}
+          searching={searching}
+          query={query}
+          filterActive={filterActive}
+          onSearchToggle={() => setSearching(true)}
+          onQueryChange={setQuery}
+          onCloseSearch={() => {
+            setQuery('')
+            setSearching(false)
+          }}
+          onFilterClick={() => setSheetOpen(true)}
+        />
+        <div className="error-state">
+          <p className="error-state__text">{t('common.errorLoading')}</p>
+          <button type="button" className="btn-primary" onClick={retryLoad}>
+            {t('common.retry')}
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="library">
@@ -126,13 +222,25 @@ export default function Library() {
       ) : display === 'list' ? (
         <div className="library__list">
           {items.map((book, index) => (
-            <BookCard key={book.id} book={book} mode={display} style={{ ['--i' as string]: Math.min(index, 8) }} />
+            <BookCard
+              key={book.id}
+              book={book}
+              mode={display}
+              style={{ ['--i' as string]: Math.min(index, 8) }}
+              onClick={() => onOpenBook(book.id)}
+            />
           ))}
         </div>
       ) : (
         <div className="library__grid">
           {items.map((book, index) => (
-            <BookCard key={book.id} book={book} mode={display} style={{ ['--i' as string]: Math.min(index, 8) }} />
+            <BookCard
+              key={book.id}
+              book={book}
+              mode={display}
+              style={{ ['--i' as string]: Math.min(index, 8) }}
+              onClick={() => onOpenBook(book.id)}
+            />
           ))}
         </div>
       )}
