@@ -8,9 +8,10 @@ import type { BookDetail } from './bookTypes'
 interface BookDetailsProps {
   bookId: string
   onOpenReader: (bookId: string, number: number) => void
+  onBack: () => boolean
 }
 
-export default function BookDetails({ bookId, onOpenReader }: BookDetailsProps) {
+export default function BookDetails({ bookId, onOpenReader, onBack }: BookDetailsProps) {
   const { t } = useT()
   const [detail, setDetail] = useState<BookDetail | null>(null)
   const [loading, setLoading] = useState(true)
@@ -103,7 +104,7 @@ export default function BookDetails({ bookId, onOpenReader }: BookDetailsProps) 
     return (
       <div className="book-detail">
         <header className="book-detail__topbar">
-          <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => history.back()}>
+          <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => onBack()}>
             <ArrowBackIcon />
           </button>
         </header>
@@ -118,7 +119,7 @@ export default function BookDetails({ bookId, onOpenReader }: BookDetailsProps) 
     return (
       <div className="book-detail">
         <header className="book-detail__topbar">
-          <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => history.back()}>
+          <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => onBack()}>
             <ArrowBackIcon />
           </button>
         </header>
@@ -141,7 +142,7 @@ export default function BookDetails({ bookId, onOpenReader }: BookDetailsProps) 
   return (
     <div className="book-detail">
       <header className="book-detail__topbar">
-        <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => history.back()}>
+        <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => onBack()}>
           <ArrowBackIcon />
         </button>
         <span className="book-detail__topbar-title">{book.title}</span>

@@ -8,9 +8,10 @@ interface ReaderProps {
   bookId: string
   chapterNumber: number
   onNavigateChapter: (bookId: string, number: number) => void
+  onBack: () => boolean
 }
 
-export default function Reader({ bookId, chapterNumber, onNavigateChapter }: ReaderProps) {
+export default function Reader({ bookId, chapterNumber, onNavigateChapter, onBack }: ReaderProps) {
   const { t } = useT()
   const [chapter, setChapter] = useState<ChapterContent | null>(null)
   const [total, setTotal] = useState(0)
@@ -68,7 +69,7 @@ export default function Reader({ bookId, chapterNumber, onNavigateChapter }: Rea
     return (
       <div className="reader">
         <header className="reader__topbar">
-          <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => history.back()}>
+          <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => onBack()}>
             <ArrowBackIcon />
           </button>
         </header>
@@ -83,7 +84,7 @@ export default function Reader({ bookId, chapterNumber, onNavigateChapter }: Rea
     return (
       <div className="reader">
         <header className="reader__topbar">
-          <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => history.back()}>
+          <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => onBack()}>
             <ArrowBackIcon />
           </button>
         </header>
@@ -126,7 +127,7 @@ export default function Reader({ bookId, chapterNumber, onNavigateChapter }: Rea
   return (
     <div className="reader">
       <header className="reader__topbar">
-        <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => history.back()}>
+        <button type="button" className="icon-btn" aria-label={t('common.back')} onClick={() => onBack()}>
           <ArrowBackIcon />
         </button>
         <span className="reader__title">{chapter.name}</span>

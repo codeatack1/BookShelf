@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import Library from './Library'
 import Schedule from './Schedule'
 import Settings from './Settings'
@@ -95,6 +95,12 @@ function syncNativeBackground() {
   reportBackground(bg)
 }
 
+declare global {
+  interface Window {
+    __bookshelfBack__?: () => boolean
+  }
+}
+
 export type Screen =
   | { name: 'main' }
   | { name: 'details'; bookId: string }
@@ -141,27 +147,49 @@ export default function App() {
   })
   const [screen, setScreen] = useState<Screen>({ name: 'main' })
 
+  const stackRef = useRef<Screen[]>([{ name: 'main' }])
+  const backFnRef = useRef<() => boolean>(() => false)
+
+  const goBackOne = useCallback((): boolean => {
+    if (stackRef.current.length <= 1) return false
+    stackRef.current = stackRef.current.slice(0, -1)
+    const last = stackRef.current[stackRef.current.length - 1]
+    setScreen(last)
+    return true
+  }, [])
+
+  backFnRef.current = goBackOne
+
   useEffect(() => {
-    const onPop = (e: PopStateEvent) => {
-      const state = (e.state as { screen?: Screen } | null)
-      setScreen(state?.screen ?? { name: 'main' })
+    const fn = () => {
+      const result = backFnRef.current()
+      console.log('[nav] __bookshelfBack__ ->', result)
+      return result
     }
-    window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
+    window.__bookshelfBack__ = fn
+    return () => {
+      window.__bookshelfBack__ = undefined
+    }
   }, [])
 
-  const navigateTo = useCallback((s: Screen) => {
-    setScreen(s)
-    history.pushState({ screen: s }, '')
+  const navigateTo = useCallback((next: Screen) => {
+    stackRef.current = [...stackRef.current, next]
+    setScreen(next)
   }, [])
 
-  const openBook = useCallback((bookId: string) => {
-    navigateTo({ name: 'details', bookId })
-  }, [navigateTo])
+  const openBook = useCallback(
+    (bookId: string) => {
+      navigateTo({ name: 'details', bookId })
+    },
+    [navigateTo],
+  )
 
-  const openReader = useCallback((bookId: string, number: number) => {
-    navigateTo({ name: 'reader', bookId, number })
-  }, [navigateTo])
+  const openReader = useCallback(
+    (bookId: string, number: number) => {
+      navigateTo({ name: 'reader', bookId, number })
+    },
+    [navigateTo],
+  )
 
   useLayoutEffect(() => {
     document.documentElement.dataset.theme = resolveThemeId(themeId)
@@ -209,9 +237,14 @@ export default function App() {
       <div className="screen">
         {showMain ? (
           screen.name === 'details' ? (
-            <BookDetails bookId={screen.bookId} onOpenReader={openReader} />
+            <BookDetails bookId={screen.bookId} onOpenReader={openReader} onBack={goBackOne} />
           ) : screen.name === 'reader' ? (
-            <Reader bookId={screen.bookId} chapterNumber={screen.number} onNavigateChapter={openReader} />
+            <Reader
+              bookId={screen.bookId}
+              chapterNumber={screen.number}
+              onNavigateChapter={openReader}
+              onBack={goBackOne}
+            />
           ) : (
             <>
               <FadeThrough tab={tab} onOpenThemeSelect={openThemeSelect} onOpenBook={openBook} />

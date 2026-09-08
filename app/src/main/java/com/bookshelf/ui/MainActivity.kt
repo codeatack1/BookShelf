@@ -6,6 +6,7 @@ import android.graphics.Color as AndroidColor
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.webkit.ConsoleMessage
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
@@ -154,6 +155,18 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         Log.d(TAG, "MainActivity.onDestroy")
     }
+
+    private fun handleBackPress(webView: WebView) {
+        webView.evaluateJavascript("window.__bookshelfBack__ ? window.__bookshelfBack__() : 'false'") { value ->
+            val handled = (value ?: "false").trim().trim('"') == "true"
+            if (handled) {
+                Log.d("MainActivity", "back handled by web")
+            } else {
+                Log.d("MainActivity", "back not handled, exiting")
+                finish()
+            }
+        }
+    }
 }
 
 @Composable
@@ -207,6 +220,14 @@ private fun WebContent(port: Int, backgroundColor: Int, onBackground: (Int) -> U
             }
             Log.i(TAG, "WebContent: loading http://127.0.0.1:$port/")
             loadUrl("http://127.0.0.1:$port/")
+            setOnKeyListener { view, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                    (context as? MainActivity)?.handleBackPress(view)
+                    true
+                } else {
+                    false
+                }
+            }
         }
     }
 
@@ -214,8 +235,8 @@ private fun WebContent(port: Int, backgroundColor: Int, onBackground: (Int) -> U
         webView.setBackgroundColor(backgroundColor)
     }
 
-    BackHandler(enabled = webView.canGoBack()) {
-        webView.goBack()
+    BackHandler {
+        (context as? MainActivity)?.handleBackPress(webView)
     }
 
     AndroidView(
