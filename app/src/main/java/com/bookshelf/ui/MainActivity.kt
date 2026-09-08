@@ -156,7 +156,7 @@ class MainActivity : ComponentActivity() {
         Log.d(TAG, "MainActivity.onDestroy")
     }
 
-    private fun handleBackPress(webView: WebView) {
+    internal fun handleBackPress(webView: WebView) {
         webView.evaluateJavascript("window.__bookshelfBack__ ? window.__bookshelfBack__() : 'false'") { value ->
             val handled = (value ?: "false").trim().trim('"') == "true"
             if (handled) {
@@ -222,7 +222,11 @@ private fun WebContent(port: Int, backgroundColor: Int, onBackground: (Int) -> U
             loadUrl("http://127.0.0.1:$port/")
             setOnKeyListener { view, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
-                    (context as? MainActivity)?.handleBackPress(view)
+                    val activity = context as? MainActivity
+                    val wv = view as? WebView
+                    if (activity != null && wv != null) {
+                        activity.handleBackPress(wv)
+                    }
                     true
                 } else {
                     false
