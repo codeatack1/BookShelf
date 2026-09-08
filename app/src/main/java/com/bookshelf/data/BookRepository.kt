@@ -43,4 +43,16 @@ object BookRepository {
     suspend fun insertBooks(books: List<BookEntity>) {
         db.bookDao().insertBooks(books)
     }
+
+    suspend fun insertBook(book: BookEntity) {
+        db.bookDao().insertBooks(listOf(book))
+    }
+
+    suspend fun replaceChapters(bookId: String, chapters: List<ChapterEntity>) {
+        db.bookDao().replaceChapters(bookId, chapters)
+    }
+
+    suspend fun findBookByTitle(title: String): BookEntity? {
+        return db.bookDao().findBooksByTitle(title).firstOrNull { it.title.equals(title, ignoreCase = true) }
+    }
 }

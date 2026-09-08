@@ -11,7 +11,9 @@ import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
+import io.ktor.server.routing.post
 import io.ktor.server.routing.put
+import java.util.UUID
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -86,6 +88,41 @@ data class StateResponse(val key: String, val value: String)
 
 @Serializable
 data class StateOkResponse(val ok: Boolean = true)
+
+@Serializable
+data class SearchRequest(
+    val query: String,
+    val page: Int = 1,
+)
+
+@Serializable
+data class SearchResultDto(
+    val title: String,
+    val author: String? = null,
+    val coverUrl: String? = null,
+    val description: String? = null,
+    val year: Int? = null,
+    val source: String,
+)
+
+@Serializable
+data class SearchResponse(
+    val results: List<SearchResultDto> = emptyList(),
+    val hasNextPage: Boolean = false,
+    val error: String? = null,
+)
+
+@Serializable
+data class CreateBookRequest(
+    val title: String,
+    val author: String? = null,
+    val coverUrl: String? = null,
+    val description: String? = null,
+    val year: Int? = null,
+    val genre: String? = null,
+    val source: String? = null,
+    val lang: String? = null,
+)
 
 private val json = Json { encodeDefaults = true }
 
@@ -202,6 +239,86 @@ object Api {
                     read = chapter.read,
                 )
             )
+            call.respondText(body, ContentType.Application.Json)
+        }
+
+        route.post("/api/search") {
+            val text = call.receiveText()
+            val request = try {
+                json.decodeFromString<SearchRequest>(text)
+            } catch (e: Exception) {
+                Log.e(TAG, "API POST /api/search: bad body", e)
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@post
+            }
+            if (request.query.isBlank()) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@post
+            }
+            Log.d(TAG, "API POST /api/search query=${request.query} page=${request.page}")
+            val resp = BookSearch.search(request.query, request.page)
+            val body = json.encodeToString(resp)
+            call.respondText(body, ContentType.Application.Json)
+        }
+
+        route.post("/api/books") {
+            val text = call.receiveText()
+            val request = try {
+                json.decodeFromString<CreateBookRequest>(text)
+            } catch (e: Exception) {
+                Log.e(TAG, "API POST /api/books: bad body", e)
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@post
+            }
+            if (request.title.isBlank()) {
+                call.respondText(
+                    json.encodeToString(StateOkResponse(ok = false)),
+                    ContentType.Application.Json,
+                    status = HttpStatusCode.BadRequest,
+                )
+                return@post
+            }
+            Log.d(TAG, "API POST /api/books title=${request.title}")
+            val existing = BookRepository.findBookByTitle(request.title)
+            if (existing != null) {
+                val totalChapters = BookRepository.chapterCount(existing.id)
+                val unreadCount = BookRepository.unreadCount(existing.id)
+                val body = json.encodeToString(existing.toDto(totalChapters, unreadCount))
+                call.respondText(body, ContentType.Application.Json)
+                return@post
+            }
+            val book = BookEntity(
+                id = "u-" + UUID.randomUUID(),
+                title = request.title,
+                author = request.author,
+                category = "other",
+                lang = request.lang ?: "unknown",
+                coverUrl = request.coverUrl,
+                description = request.description,
+                genre = request.genre,
+                year = request.year,
+                source = request.source,
+                dateAdded = System.currentTimeMillis(),
+                bookmarked = false,
+                started = false,
+                completed = false,
+                lastReadAt = null,
+                lastReadChapterId = null,
+            )
+            BookRepository.insertBook(book)
+            val body = json.encodeToString(book.toDto(0, 0))
             call.respondText(body, ContentType.Application.Json)
         }
 

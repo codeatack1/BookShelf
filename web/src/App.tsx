@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import Library from './Library'
 import Schedule from './Schedule'
+import SearchScreen from './SearchScreen'
 import Settings from './Settings'
 import ThemeSelect, { type Mode } from './ThemeSelect'
 import BookDetails from './BookDetails'
@@ -129,6 +130,7 @@ function FadeThrough({ tab, onOpenThemeSelect, onOpenBook, active }: { tab: AppT
   let page: ReactNode
   if (shownTab === 'library') page = <Library onOpenBook={onOpenBook} active={active} />
   else if (shownTab === 'schedule') page = <Schedule />
+  else if (shownTab === 'search') page = <SearchScreen onOpenBook={onOpenBook} />
   else page = <Settings onOpenThemeSelect={onOpenThemeSelect} />
 
   return (

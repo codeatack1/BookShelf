@@ -1,4 +1,4 @@
-import type { Book, BookDetail, ChapterContent } from './bookTypes'
+import type { Book, BookDetail, ChapterContent, CreateBookPayload, SearchResponse } from './bookTypes'
 
 const BASE = '/api'
 
@@ -50,4 +50,28 @@ export async function putProgress(
     body: JSON.stringify(patch),
   })
   console.log(`[api] progress: ${id}`)
+}
+
+export async function postSearch(query: string, page = 1): Promise<SearchResponse> {
+  const res = await fetch('/api/search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, page }),
+  })
+  if (!res.ok) throw new Error(`API ${res.status}: /api/search`)
+  const data = (await res.json()) as SearchResponse
+  console.log('[api] search: page', page, 'results', data.results.length)
+  return data
+}
+
+export async function createBook(payload: CreateBookPayload): Promise<Book> {
+  const res = await fetch('/api/books', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  if (!res.ok) throw new Error(`API ${res.status}: /api/books`)
+  const data = (await res.json()) as Book
+  console.log('[api] book created:', data.id)
+  return data
 }

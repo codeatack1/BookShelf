@@ -5,11 +5,12 @@ import {
   BookIcon,
   CalendarFilledIcon,
   CalendarIcon,
+  SearchIcon,
   SettingsFilledIcon,
   SettingsIcon,
 } from './icons'
 
-export type AppTab = 'schedule' | 'library' | 'settings'
+export type AppTab = 'schedule' | 'library' | 'search' | 'settings'
 
 interface BottomNavProps {
   active: AppTab
@@ -28,6 +29,7 @@ export interface TabDef {
 export const TABS: ReadonlyArray<TabDef> = [
   { id: 'schedule', labelKey: 'nav.schedule', icon: CalendarIcon, iconActive: CalendarFilledIcon },
   { id: 'library', labelKey: 'nav.library', icon: BookIcon, iconActive: BookFilledIcon },
+  { id: 'search', labelKey: 'nav.search', icon: SearchIcon, iconActive: SearchIcon },
   { id: 'settings', labelKey: 'nav.settings', icon: SettingsIcon, iconActive: SettingsFilledIcon },
 ]
 

@@ -34,6 +34,7 @@ const ru = {
   nav: {
     schedule: 'Расписание',
     library: 'Учебники',
+    search: 'Поиск',
     settings: 'Настройки',
   },
   library: {
@@ -81,6 +82,9 @@ const ru = {
     markAsUnread: 'Отметить непрочитанной',
     noChapters: 'Глав ещё нет',
     fileNotAdded: 'Файл учебника ещё не добавлен — появится после импорта (скоро)',
+    importFile: 'Импортировать файл',
+    importing: 'Импортирую…',
+    importError: 'Не удалось импортировать файл',
     prevChapter: 'Пред. глава',
     nextChapter: 'След. глава',
     chapterOf: '{current} / {total}',
@@ -92,6 +96,20 @@ const ru = {
   schedule: {
     title: 'Расписание',
     placeholder: 'Здесь будет расписание уроков',
+  },
+  search: {
+    hint: 'Найди учебник и добавь в библиотеку',
+    placeholder: 'Поиск по названию…',
+    noResults: 'Ничего не найдено',
+    error: 'Поиск временно недоступен',
+    retry: 'Повторить',
+    loadMore: 'Загрузить ещё',
+    add: 'Добавить',
+    added: 'Добавлено',
+    source: {
+      google: 'Google Books',
+      openlibrary: 'OpenLibrary',
+    },
   },
   settings: {
     title: 'Настройки',
@@ -111,6 +129,7 @@ const ru = {
     literature: 'Литература',
     biology: 'Биология',
     informatics: 'Информатика',
+    other: 'Другое',
   },
 } as const
 
@@ -144,6 +163,7 @@ const en: DeepString<typeof ru> = {
   nav: {
     schedule: 'Schedule',
     library: 'Textbooks',
+    search: 'Search',
     settings: 'Settings',
   },
   library: {
@@ -191,6 +211,9 @@ const en: DeepString<typeof ru> = {
     markAsUnread: 'Mark as unread',
     noChapters: 'No chapters yet',
     fileNotAdded: 'Textbook file has not been added yet — will appear after import (coming soon)',
+    importFile: 'Import file',
+    importing: 'Importing…',
+    importError: 'Failed to import file',
     prevChapter: 'Prev. chapter',
     nextChapter: 'Next chapter',
     chapterOf: '{current} / {total}',
@@ -202,6 +225,20 @@ const en: DeepString<typeof ru> = {
   schedule: {
     title: 'Schedule',
     placeholder: 'Class schedule will be here',
+  },
+  search: {
+    hint: 'Find a textbook and add it to your library',
+    placeholder: 'Search by title…',
+    noResults: 'No results found',
+    error: 'Search is temporarily unavailable',
+    retry: 'Retry',
+    loadMore: 'Load more',
+    add: 'Add',
+    added: 'Added',
+    source: {
+      google: 'Google Books',
+      openlibrary: 'OpenLibrary',
+    },
   },
   settings: {
     title: 'Settings',
@@ -221,6 +258,7 @@ const en: DeepString<typeof ru> = {
     literature: 'Literature',
     biology: 'Biology',
     informatics: 'Computer science',
+    other: 'Other',
   },
 }
 

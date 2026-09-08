@@ -15,10 +15,12 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import java.io.File
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -47,15 +49,42 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.graphics.ColorUtils
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import com.bookshelf.BuildConfig
 import com.bookshelf.R
 import com.bookshelf.data.AppStorage
+import com.bookshelf.data.BookRepository
+import com.bookshelf.data.EpubImporter
 import com.bookshelf.server.LocalServer
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 private const val TAG = "BookShelf"
 
 class MainActivity : ComponentActivity() {
+
+    private var mainWebView: WebView? = null
+    private var pendingImportBookId: String? = null
+    private val importEpubLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        val bookId = pendingImportBookId ?: return@registerForActivityResult
+        pendingImportBookId = null
+        if (uri == null) { notifyImportResult(bookId, "cancelled", null); return@registerForActivityResult }
+        val ctx = applicationContext
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val file = File(ctx.filesDir, "epubs/$bookId.epub")
+                file.parentFile?.mkdirs()
+                val input = ctx.contentResolver.openInputStream(uri) ?: throw IllegalStateException("cannot open file")
+                input.use { src -> file.outputStream().use { src.copyTo(it) } }
+                val chapters = EpubImporter.parse(file, bookId)
+                BookRepository.replaceChapters(bookId, chapters)
+                notifyImportResult(bookId, "ok", null)
+            } catch (e: Exception) {
+                notifyImportResult(bookId, "error", e.message ?: "import_failed")
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -103,7 +132,8 @@ class MainActivity : ComponentActivity() {
                             WebContent(
                                 port = port,
                                 backgroundColor = bgState.value,
-                                onBackground = { argb -> handler.post { bgState.value = argb } }
+                                onBackground = { argb -> handler.post { bgState.value = argb } },
+                                onImportEpub = ::startImport
                             )
                             Box(
                                 Modifier
@@ -156,6 +186,106 @@ class MainActivity : ComponentActivity() {
         Log.d(TAG, "MainActivity.onDestroy")
     }
 
+    private fun notifyImportResult(bookId: String, status: String, message: String?) {
+        val msg = message?.replace("'", "\\'")?.replace("\n", " ") ?: ""
+        mainWebView?.post {
+            mainWebView?.evaluateJavascript("window.__onImportResult && window.__onImportResult('$bookId','$status','$msg')", null)
+        }
+    }
+
+    fun startImport(bookId: String) {
+        pendingImportBookId = bookId
+        importEpubLauncher.launch(arrayOf("application/epub+zip", "application/octet-stream"))
+    }
+
+    @Composable
+    private fun WebContent(
+        port: Int,
+        backgroundColor: Int,
+        onBackground: (Int) -> Unit,
+        onImportEpub: (String) -> Unit
+    ) {
+        val context = LocalContext.current
+        val webView = remember {
+            WebView(context).apply {
+                setBackgroundColor(backgroundColor)
+                settings.javaScriptEnabled = true
+                settings.domStorageEnabled = true
+                settings.mediaPlaybackRequiresUserGesture = false
+                settings.setSupportZoom(false)
+                if (BuildConfig.DEBUG) {
+                    WebView.setWebContentsDebuggingEnabled(true)
+                    Log.d(TAG, "WebContent: webContentsDebugging enabled")
+                }
+                mainWebView = this
+                addJavascriptInterface(ThemeBridge(context, onBackground, onImportEpub), "AndroidBridge")
+                webViewClient = object : WebViewClient() {
+                    override fun onPageStarted(view: WebView, url: String?, favicon: Bitmap?) {
+                        Log.i(TAG, "WEB onPageStarted url=$url")
+                        super.onPageStarted(view, url, favicon)
+                    }
+
+                    override fun onPageFinished(view: WebView, url: String?) {
+                        Log.i(TAG, "WEB onPageFinished url=$url")
+                    }
+
+                    override fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError) {
+                        val m = "WEB onReceivedError url=${request.url} code=${error.errorCode} desc=${error.description} mainFrame=${request.isForMainFrame}"
+                        if (request.isForMainFrame) Log.e(TAG, m) else Log.w(TAG, m)
+                    }
+
+                    override fun onReceivedHttpError(view: WebView, request: WebResourceRequest, errorResponse: WebResourceResponse) {
+                        Log.w(TAG, "WEB onReceivedHttpError status=${errorResponse.statusCode} url=${request.url} mainFrame=${request.isForMainFrame}")
+                    }
+
+                    override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+                        Log.d(TAG, "WEB shouldOverrideUrlLoading url=${request.url}")
+                        return false
+                    }
+                }
+                webChromeClient = object : WebChromeClient() {
+                    override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
+                        Log.d("BookShelf-WEB", "[${consoleMessage.messageLevel()}] ${consoleMessage.sourceId()}:${consoleMessage.lineNumber()} ${consoleMessage.message()}")
+                        return true
+                    }
+
+                    override fun onProgressChanged(view: WebView, newProgress: Int) {
+                        Log.v(TAG, "WEB progress=$newProgress%")
+                    }
+                }
+                Log.i(TAG, "WebContent: loading http://127.0.0.1:$port/")
+                loadUrl("http://127.0.0.1:$port/")
+                setOnKeyListener { view, keyCode, event ->
+                    if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                        val activity = context as? MainActivity
+                        val wv = view as? WebView
+                        if (activity != null && wv != null) {
+                            activity.handleBackPress(wv)
+                        }
+                        true
+                    } else {
+                        false
+                    }
+                }
+            }
+        }
+
+        LaunchedEffect(backgroundColor) {
+            webView.setBackgroundColor(backgroundColor)
+        }
+
+        BackHandler {
+            (context as? MainActivity)?.handleBackPress(webView)
+        }
+
+        AndroidView(
+            factory = { webView },
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing)
+        )
+    }
+
     internal fun handleBackPress(webView: WebView) {
         webView.evaluateJavascript("window.__bookshelfBack__ ? window.__bookshelfBack__() : 'false'") { value ->
             val handled = (value ?: "false").trim().trim('"') == "true"
@@ -169,91 +299,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-private fun WebContent(port: Int, backgroundColor: Int, onBackground: (Int) -> Unit) {
-    val context = LocalContext.current
-    val webView = remember {
-        WebView(context).apply {
-            setBackgroundColor(backgroundColor)
-            settings.javaScriptEnabled = true
-            settings.domStorageEnabled = true
-            settings.mediaPlaybackRequiresUserGesture = false
-            settings.setSupportZoom(false)
-            if (BuildConfig.DEBUG) {
-                WebView.setWebContentsDebuggingEnabled(true)
-                Log.d(TAG, "WebContent: webContentsDebugging enabled")
-            }
-            addJavascriptInterface(ThemeBridge(context, onBackground), "AndroidBridge")
-            webViewClient = object : WebViewClient() {
-                override fun onPageStarted(view: WebView, url: String?, favicon: Bitmap?) {
-                    Log.i(TAG, "WEB onPageStarted url=$url")
-                    super.onPageStarted(view, url, favicon)
-                }
-
-                override fun onPageFinished(view: WebView, url: String?) {
-                    Log.i(TAG, "WEB onPageFinished url=$url")
-                }
-
-                override fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError) {
-                    val m = "WEB onReceivedError url=${request.url} code=${error.errorCode} desc=${error.description} mainFrame=${request.isForMainFrame}"
-                    if (request.isForMainFrame) Log.e(TAG, m) else Log.w(TAG, m)
-                }
-
-                override fun onReceivedHttpError(view: WebView, request: WebResourceRequest, errorResponse: WebResourceResponse) {
-                    Log.w(TAG, "WEB onReceivedHttpError status=${errorResponse.statusCode} url=${request.url} mainFrame=${request.isForMainFrame}")
-                }
-
-                override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-                    Log.d(TAG, "WEB shouldOverrideUrlLoading url=${request.url}")
-                    return false
-                }
-            }
-            webChromeClient = object : WebChromeClient() {
-                override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-                    Log.d("BookShelf-WEB", "[${consoleMessage.messageLevel()}] ${consoleMessage.sourceId()}:${consoleMessage.lineNumber()} ${consoleMessage.message()}")
-                    return true
-                }
-
-                override fun onProgressChanged(view: WebView, newProgress: Int) {
-                    Log.v(TAG, "WEB progress=$newProgress%")
-                }
-            }
-            Log.i(TAG, "WebContent: loading http://127.0.0.1:$port/")
-            loadUrl("http://127.0.0.1:$port/")
-            setOnKeyListener { view, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
-                    val activity = context as? MainActivity
-                    val wv = view as? WebView
-                    if (activity != null && wv != null) {
-                        activity.handleBackPress(wv)
-                    }
-                    true
-                } else {
-                    false
-                }
-            }
-        }
-    }
-
-    LaunchedEffect(backgroundColor) {
-        webView.setBackgroundColor(backgroundColor)
-    }
-
-    BackHandler {
-        (context as? MainActivity)?.handleBackPress(webView)
-    }
-
-    AndroidView(
-        factory = { webView },
-        modifier = Modifier
-            .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.safeDrawing)
-    )
-}
-
 private class ThemeBridge(
     private val context: Context,
-    private val onBackground: (Int) -> Unit
+    private val onBackground: (Int) -> Unit,
+    private val onImportEpub: (String) -> Unit
 ) {
     @JavascriptInterface
     fun setThemeMode(mode: String) {
@@ -264,5 +313,11 @@ private class ThemeBridge(
     @JavascriptInterface
     fun setBackgroundColor(color: Int) {
         onBackground(color)
+    }
+
+    @JavascriptInterface
+    fun importEpub(bookId: String) {
+        val activity = context as? MainActivity ?: return
+        activity.runOnUiThread { activity.startImport(bookId) }
     }
 }

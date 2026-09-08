@@ -16,6 +16,10 @@ export default function BookDetails({ bookId, onOpenReader, onBack }: BookDetail
   const [detail, setDetail] = useState<BookDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
+  const [importing, setImporting] = useState(false)
+  const [importError, setImportError] = useState<string | null>(null)
+
+  const canImport = typeof window !== 'undefined' && !!(window as any).AndroidBridge?.importEpub
 
   useEffect(() => {
     let cancelled = false
@@ -39,7 +43,7 @@ export default function BookDetails({ bookId, onOpenReader, onBack }: BookDetail
     }
   }, [bookId])
 
-  const retryLoad = () => {
+  const reload = useCallback(() => {
     setLoading(true)
     setLoadError(false)
     getBookDetail(bookId)
@@ -51,6 +55,35 @@ export default function BookDetails({ bookId, onOpenReader, onBack }: BookDetail
         setLoadError(true)
         setLoading(false)
       })
+  }, [bookId])
+
+  const retryLoad = reload
+
+  useEffect(() => {
+    const prev = (window as any).__onImportResult
+    ;(window as any).__onImportResult = (bid: string, status: string, message: string) => {
+      if (bid !== bookId) return
+      if (status === 'ok') {
+        setImporting(false)
+        setImportError(null)
+        reload()
+      } else if (status === 'cancelled') {
+        setImporting(false)
+      } else {
+        setImporting(false)
+        setImportError(message || t('details.importError'))
+      }
+    }
+    return () => {
+      ;(window as any).__onImportResult = prev
+    }
+  }, [bookId, reload])
+
+  const handleImport = () => {
+    if (!canImport) return
+    setImporting(true)
+    setImportError(null)
+    ;(window as any).AndroidBridge.importEpub(bookId)
   }
 
   type Patch = Parameters<typeof putProgress>[1]
@@ -217,12 +250,22 @@ export default function BookDetails({ bookId, onOpenReader, onBack }: BookDetail
           <button
             type="button"
             className="btn-primary"
+            onClick={handleImport}
+            disabled={!canImport || importing || loadError}
+          >
+            {importing ? t('details.importing') : t('details.importFile')}
+          </button>
+          <button
+            type="button"
+            className="btn-primary"
             onClick={startReading}
             disabled={!hasChapters}
           >
             {readingLabel}
           </button>
         </div>
+
+        {importError && <p className="book-detail__error">{importError}</p>}
 
         {hasChapters ? (
           <>
@@ -253,6 +296,16 @@ export default function BookDetails({ bookId, onOpenReader, onBack }: BookDetail
           <div className="book-detail__empty">
             <p>{t('details.noChapters')}</p>
             <p>{t('details.fileNotAdded')}</p>
+            {canImport && (
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={handleImport}
+                disabled={importing || loadError}
+              >
+                {importing ? t('details.importing') : t('details.importFile')}
+              </button>
+            )}
           </div>
         )}
       </div>

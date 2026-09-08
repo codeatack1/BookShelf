@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 
 @Dao
@@ -46,4 +47,16 @@ interface BookDao {
             "AND (:category IS NULL OR category = :category) ORDER BY dateAdded DESC"
     )
     suspend fun searchBooks(query: String?, category: String?): List<BookEntity>
+
+    @Query("DELETE FROM chapters WHERE bookId = :bookId")
+    suspend fun deleteChapters(bookId: String)
+
+    @Transaction
+    suspend fun replaceChapters(bookId: String, chapters: List<ChapterEntity>) {
+        deleteChapters(bookId)
+        insertChapters(chapters)
+    }
+
+    @Query("SELECT * FROM books WHERE title = :title COLLATE NOCASE LIMIT 5")
+    suspend fun findBooksByTitle(title: String): List<BookEntity>
 }
