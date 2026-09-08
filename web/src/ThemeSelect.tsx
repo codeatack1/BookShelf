@@ -15,10 +15,10 @@ interface ThemeSelectProps {
   mode: Mode
   onLiveChange: (themeId: string, mode: Mode) => void
   onPick: (themeId: string, mode: Mode) => void
-  onClose?: () => void
+  onBack?: () => void
 }
 
-export default function ThemeSelect({ themeId, mode, onLiveChange, onPick, onClose }: ThemeSelectProps) {
+export default function ThemeSelect({ themeId, mode, onLiveChange, onPick, onBack }: ThemeSelectProps) {
   const { t } = useT()
 
   const previewMode: 'light' | 'dark' =
@@ -38,8 +38,8 @@ export default function ThemeSelect({ themeId, mode, onLiveChange, onPick, onClo
           <h1 className="theme-select__title">BookShelf</h1>
           <p className="theme-select__subtitle">{t('themeSelect.subtitle')}</p>
         </div>
-        {onClose && (
-          <button type="button" className="icon-btn" aria-label={t('common.close')} onClick={onClose}>
+        {onBack && (
+          <button type="button" className="icon-btn" aria-label={t('common.close')} onClick={onBack}>
             <CloseIcon />
           </button>
         )}

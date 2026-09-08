@@ -102,11 +102,14 @@ declare global {
 }
 
 export type Screen =
-  | { name: 'main' }
+  | { name: 'main'; tab: AppTab }
   | { name: 'details'; bookId: string }
   | { name: 'reader'; bookId: string; number: number }
+  | { name: 'theme' }
 
-function FadeThrough({ tab, onOpenThemeSelect, onOpenBook }: { tab: AppTab; onOpenThemeSelect: () => void; onOpenBook: (id: string) => void }) {
+interface StackEntry { key: string; screen: Screen }
+
+function FadeThrough({ tab, onOpenThemeSelect, onOpenBook, active }: { tab: AppTab; onOpenThemeSelect: () => void; onOpenBook: (id: string) => void; active: boolean }) {
   const [shownTab, setShownTab] = useState<AppTab>(tab)
   const [leaving, setLeaving] = useState(false)
 
@@ -124,7 +127,7 @@ function FadeThrough({ tab, onOpenThemeSelect, onOpenBook }: { tab: AppTab; onOp
   }, [tab, shownTab])
 
   let page: ReactNode
-  if (shownTab === 'library') page = <Library onOpenBook={onOpenBook} />
+  if (shownTab === 'library') page = <Library onOpenBook={onOpenBook} active={active} />
   else if (shownTab === 'schedule') page = <Schedule />
   else page = <Settings onOpenThemeSelect={onOpenThemeSelect} />
 
@@ -136,28 +139,68 @@ function FadeThrough({ tab, onOpenThemeSelect, onOpenBook }: { tab: AppTab; onOp
 }
 
 export default function App() {
-  const [everPicked, setEverPicked] = useState(() => readLSBool(LS_PICKED))
-  const [showMain, setShowMain] = useState(() => readLSBool(LS_PICKED))
-  const [tab, setTab] = useState<AppTab>('library')
   const navWide = useMediaQuery('(min-width: 600px)')
   const [themeId, setThemeId] = useState(() => resolveThemeId(readLS(LS_THEME, 'default')))
   const [mode, setMode] = useState<Mode>(() => {
     const m = readLS(LS_MODE, 'system')
     return m === 'light' || m === 'dark' || m === 'system' ? m : 'system'
   })
-  const [screen, setScreen] = useState<Screen>({ name: 'main' })
 
-  const stackRef = useRef<Screen[]>([{ name: 'main' }])
-  const backFnRef = useRef<() => boolean>(() => false)
+  const [stack, setStack] = useState<StackEntry[]>(() => {
+    if (readLSBool(LS_PICKED)) {
+      return [{ key: 's0', screen: { name: 'main', tab: 'library' } }]
+    }
+    return [{ key: 's0', screen: { name: 'theme' } }]
+  })
+
+  const stackRef = useRef(stack)
+  useEffect(() => { stackRef.current = stack }, [stack])
+
+  const keyCounterRef = useRef(0)
+
+  const push = useCallback((screen: Screen) => {
+    const key = `s${++keyCounterRef.current}`
+    setStack(prev => [...prev, { key, screen }])
+  }, [])
+
+  const replaceTop = useCallback((screen: Screen) => {
+    setStack(prev => {
+      if (prev.length === 0) return prev
+      const next = [...prev]
+      next[next.length - 1] = { ...next[next.length - 1], screen }
+      return next
+    })
+  }, [])
 
   const goBackOne = useCallback((): boolean => {
     if (stackRef.current.length <= 1) return false
-    stackRef.current = stackRef.current.slice(0, -1)
-    const last = stackRef.current[stackRef.current.length - 1]
-    setScreen(last)
+    setStack(prev => prev.slice(0, -1))
     return true
   }, [])
 
+  const openBook = useCallback((bookId: string) => {
+    push({ name: 'details', bookId })
+  }, [push])
+
+  const openReader = useCallback((bookId: string, number: number) => {
+    if (stackRef.current.length > 0 && stackRef.current[stackRef.current.length - 1].screen.name === 'reader') {
+      replaceTop({ name: 'reader', bookId, number })
+    } else {
+      push({ name: 'reader', bookId, number })
+    }
+  }, [push, replaceTop])
+
+  const openThemeSelect = useCallback(() => {
+    push({ name: 'theme' })
+  }, [push])
+
+  const openTab = useCallback((next: AppTab) => {
+    const last = stackRef.current[stackRef.current.length - 1]
+    if (last && last.screen.name === 'main' && last.screen.tab === next) return
+    push({ name: 'main', tab: next })
+  }, [push])
+
+  const backFnRef = useRef<() => boolean>(() => false)
   backFnRef.current = goBackOne
 
   useEffect(() => {
@@ -171,25 +214,6 @@ export default function App() {
       window.__bookshelfBack__ = undefined
     }
   }, [])
-
-  const navigateTo = useCallback((next: Screen) => {
-    stackRef.current = [...stackRef.current, next]
-    setScreen(next)
-  }, [])
-
-  const openBook = useCallback(
-    (bookId: string) => {
-      navigateTo({ name: 'details', bookId })
-    },
-    [navigateTo],
-  )
-
-  const openReader = useCallback(
-    (bookId: string, number: number) => {
-      navigateTo({ name: 'reader', bookId, number })
-    },
-    [navigateTo],
-  )
 
   useLayoutEffect(() => {
     document.documentElement.dataset.theme = resolveThemeId(themeId)
@@ -217,8 +241,6 @@ export default function App() {
   const handlePick = useCallback((id: string, m: Mode) => {
     setThemeId(id)
     setMode(m)
-    setEverPicked(true)
-    setShowMain(true)
     try {
       localStorage.setItem(LS_THEME, id)
       localStorage.setItem(LS_MODE, m)
@@ -227,43 +249,44 @@ export default function App() {
       // ignore storage errors
     }
     setNativeThemeMode(m)
-  }, [])
+    if (!goBackOne()) {
+      replaceTop({ name: 'main', tab: 'library' })
+    }
+  }, [goBackOne, replaceTop])
 
-  const openThemeSelect = useCallback(() => setShowMain(false), [])
-  const closeThemeSelect = useCallback(() => setShowMain(true), [])
+  function renderScreen(screen: Screen, active: boolean): ReactNode {
+    switch (screen.name) {
+      case 'main':
+        return (
+          <>
+            <FadeThrough tab={screen.tab} onOpenThemeSelect={openThemeSelect} onOpenBook={openBook} active={active} />
+            {navWide ? (
+              <NavRail active={screen.tab} onChange={openTab} />
+            ) : (
+              <BottomNav active={screen.tab} onChange={openTab} />
+            )}
+          </>
+        )
+      case 'details':
+        return <BookDetails bookId={screen.bookId} onOpenReader={openReader} onBack={goBackOne} />
+      case 'reader':
+        return <Reader bookId={screen.bookId} chapterNumber={screen.number} onNavigateChapter={openReader} onBack={goBackOne} />
+      case 'theme':
+        return <ThemeSelect themeId={themeId} mode={mode} onLiveChange={handleLiveChange} onPick={handlePick} onBack={goBackOne} />
+    }
+  }
 
   return (
     <LanguageProvider>
       <div className="screen">
-        {showMain ? (
-          screen.name === 'details' ? (
-            <BookDetails bookId={screen.bookId} onOpenReader={openReader} onBack={goBackOne} />
-          ) : screen.name === 'reader' ? (
-            <Reader
-              bookId={screen.bookId}
-              chapterNumber={screen.number}
-              onNavigateChapter={openReader}
-              onBack={goBackOne}
-            />
-          ) : (
-            <>
-              <FadeThrough tab={tab} onOpenThemeSelect={openThemeSelect} onOpenBook={openBook} />
-              {navWide ? (
-                <NavRail active={tab} onChange={setTab} />
-              ) : (
-                <BottomNav active={tab} onChange={setTab} />
-              )}
-            </>
+        {stack.map((entry, idx) => {
+          const active = idx === stack.length - 1
+          return (
+            <div key={entry.key} className={active ? 'screen-entry active' : 'screen-entry'} aria-hidden={!active}>
+              {renderScreen(entry.screen, active)}
+            </div>
           )
-        ) : (
-          <ThemeSelect
-            themeId={themeId}
-            mode={mode}
-            onLiveChange={handleLiveChange}
-            onPick={handlePick}
-            onClose={everPicked ? closeThemeSelect : undefined}
-          />
-        )}
+        })}
       </div>
     </LanguageProvider>
   )

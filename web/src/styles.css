@@ -7,7 +7,17 @@
 }
 
 .screen {
+  position: relative;
   min-height: 100dvh;
+}
+
+.screen-entry {
+  display: none;
+  height: 100%;
+}
+
+.screen-entry.active {
+  display: block;
 }
 
 /* ---------- shared controls ---------- */

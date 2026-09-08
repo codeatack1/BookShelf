@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import BookCard from './components/BookCard'
 import CategoryTabs from './components/CategoryTabs'
 import EmptyState from './components/EmptyState'
@@ -26,9 +26,10 @@ function idHash(s: string): number {
 
 interface LibraryProps {
   onOpenBook: (bookId: string) => void
+  active: boolean
 }
 
-export default function Library({ onOpenBook }: LibraryProps) {
+export default function Library({ onOpenBook, active }: LibraryProps) {
   const { t, lang } = useT()
   const [books, setBooks] = useState<Book[]>([])
   const [loading, setLoading] = useState(true)
@@ -42,6 +43,16 @@ export default function Library({ onOpenBook }: LibraryProps) {
   const [display, setDisplay] = useState<DisplayMode>('comfortable')
   const [sheetOpen, setSheetOpen] = useState(false)
   const [randomSeed] = useState(() => Math.random())
+
+  const scrollRef = useRef<number>(0)
+
+  useEffect(() => {
+    if (active) {
+      requestAnimationFrame(() => { window.scrollTo(0, scrollRef.current) })
+    } else {
+      scrollRef.current = window.scrollY
+    }
+  }, [active])
 
   useEffect(() => {
     let cancelled = false
