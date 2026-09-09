@@ -9,6 +9,7 @@ import com.bookshelf.data.AppStorage
 import com.bookshelf.data.BookRepository
 import com.bookshelf.data.BookSeed
 import com.bookshelf.server.LocalServer
+import com.bookshelf.server.RemoteImport
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -30,6 +31,7 @@ class App : Application() {
         super.onCreate()
         AppStorage.init(this)
         BookRepository.init(this)
+        RemoteImport.init(this)
         appScope.launch {
             runCatching { BookSeed.importIfEmpty(this@App) }
                 .onFailure { Log.e("BookSeed", "seed import failed", it) }

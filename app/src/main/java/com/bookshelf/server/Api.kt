@@ -103,6 +103,8 @@ data class SearchResultDto(
     val description: String? = null,
     val year: Int? = null,
     val source: String,
+    val pageUrl: String? = null,
+    val grade: Int? = null,
 )
 
 @Serializable
@@ -122,6 +124,18 @@ data class CreateBookRequest(
     val genre: String? = null,
     val source: String? = null,
     val lang: String? = null,
+)
+
+@Serializable
+data class ImportUrlRequest(
+    val bookId: String,
+    val url: String,
+)
+
+@Serializable
+data class ImportUrlResponse(
+    val ok: Boolean = true,
+    val error: String? = null,
 )
 
 private val json = Json { encodeDefaults = true }
@@ -320,6 +334,30 @@ object Api {
             BookRepository.insertBook(book)
             val body = json.encodeToString(book.toDto(0, 0))
             call.respondText(body, ContentType.Application.Json)
+        }
+
+        route.post("/api/import-url") {
+            val text = call.receiveText()
+            val req = try {
+                json.decodeFromString<ImportUrlRequest>(text)
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.BadRequest, StateOkResponse(ok = false))
+                return@post
+            }
+            if (req.bookId.isBlank() || req.url.isBlank()) {
+                call.respond(HttpStatusCode.BadRequest, StateOkResponse(ok = false))
+                return@post
+            }
+            val book = BookRepository.getBook(req.bookId)
+            if (book == null) {
+                call.respond(HttpStatusCode.NotFound, StateOkResponse(ok = false))
+                return@post
+            }
+            val error = RemoteImport.importFromPage(req.bookId, req.url)
+            call.respondText(
+                json.encodeToString(ImportUrlResponse(ok = error == null, error = error)),
+                ContentType.Application.Json,
+            )
         }
 
         route.put("/api/books/{id}/progress") {

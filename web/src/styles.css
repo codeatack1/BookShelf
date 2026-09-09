@@ -39,6 +39,11 @@
   background: color-mix(in srgb, var(--md-on-surface-variant) 10%, transparent);
 }
 
+.icon-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
 .icon-btn svg {
   width: 22px;
   height: 22px;
@@ -975,6 +980,13 @@
 .search-card__btn:disabled:hover {
   filter: none;
   box-shadow: none;
+}
+
+.search-card__error {
+  padding: 0 4px 4px;
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--md-error, #b3261e);
 }
 
 .search__load-more {

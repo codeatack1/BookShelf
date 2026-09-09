@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
+    implementation("org.jsoup:jsoup:1.18.1")
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

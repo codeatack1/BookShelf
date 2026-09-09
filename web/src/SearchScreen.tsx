@@ -1,5 +1,5 @@
 import { useState, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react'
-import { createBook, postSearch } from './api'
+import { createBook, importUrl, postSearch } from './api'
 import { SearchIcon } from './components/icons'
 import { useT } from './i18n'
 import type { SearchResult } from './bookTypes'
@@ -8,17 +8,26 @@ interface SearchScreenProps {
   onOpenBook: (bookId: string) => void
 }
 
+interface CardState {
+  status: 'idle' | 'creating' | 'importing' | 'done' | 'error'
+  bookId?: string
+  message?: string
+}
+
 interface ResultCardProps {
   result: SearchResult
-  addedId?: string
+  state: CardState
   style?: CSSProperties
   onAdd: (result: SearchResult) => void
+  onRetry: (result: SearchResult) => void
   onOpen: (bookId: string) => void
 }
 
-function ResultCard({ result, addedId, style, onAdd, onOpen }: ResultCardProps) {
+function ResultCard({ result, state, style, onAdd, onRetry, onOpen }: ResultCardProps) {
   const { t } = useT()
-  const added = addedId != null
+  const { status, bookId, message } = state
+  const done = status === 'done'
+  const busy = status === 'creating' || status === 'importing'
   const sourceLabel =
     result.source === 'google' || result.source === 'openlibrary'
       ? t(`search.source.${result.source}`)
@@ -26,20 +35,30 @@ function ResultCard({ result, addedId, style, onAdd, onOpen }: ResultCardProps) 
   const meta = [result.author, result.year != null ? String(result.year) : null]
     .filter(Boolean)
     .join(' · ')
+  const label =
+    status === 'creating'
+      ? t('search.adding')
+      : status === 'importing'
+        ? t('search.importing')
+        : status === 'done'
+          ? t('search.added')
+          : status === 'error'
+            ? t('search.retry')
+            : t('search.add')
 
   return (
     <article
-      className={`library__card library__card--comfortable search-card${added ? ' library__card--clickable' : ''}`}
+      className={`library__card library__card--comfortable search-card${done ? ' library__card--clickable' : ''}`}
       style={style}
-      role={added ? 'button' : undefined}
-      tabIndex={added ? 0 : undefined}
+      role={done ? 'button' : undefined}
+      tabIndex={done ? 0 : undefined}
       onClick={() => {
-        if (addedId != null) onOpen(addedId)
+        if (done && bookId != null) onOpen(bookId)
       }}
       onKeyDown={(e) => {
-        if (addedId != null && (e.key === 'Enter' || e.key === ' ')) {
+        if (done && bookId != null && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault()
-          onOpen(addedId)
+          onOpen(bookId)
         }
       }}
     >
@@ -60,14 +79,20 @@ function ResultCard({ result, addedId, style, onAdd, onOpen }: ResultCardProps) 
       <button
         type="button"
         className="btn-primary search-card__btn"
-        disabled={added}
+        disabled={busy || done}
         onClick={(e) => {
           e.stopPropagation()
-          if (!added) onAdd(result)
+          if (status === 'error') onRetry(result)
+          else if (status === 'idle') onAdd(result)
         }}
       >
-        {added ? t('search.added') : t('search.add')}
+        {label}
       </button>
+      {status === 'error' && message && (
+        <p className="search-card__error">
+          {t('search.importError')}: {message}
+        </p>
+      )}
     </article>
   )
 }
@@ -81,8 +106,18 @@ export default function SearchScreen({ onOpenBook }: SearchScreenProps) {
   const [hasNextPage, setHasNextPage] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [added, setAdded] = useState<Map<string, string>>(new Map())
+  const [statuses, setStatuses] = useState<Map<string, CardState>>(new Map())
   const [searched, setSearched] = useState(false)
+
+  const queryTooShort = query.trim().length < 4
+
+  const setCardState = (key: string, patch: Partial<CardState>) => {
+    setStatuses((prev) => {
+      const next = new Map(prev)
+      next.set(key, { ...(next.get(key) ?? { status: 'idle' as const }), ...patch })
+      return next
+    })
+  }
 
   const run = async (q: string, p: number) => {
     setLoading(true)
@@ -102,7 +137,7 @@ export default function SearchScreen({ onOpenBook }: SearchScreenProps) {
 
   const submit = () => {
     const q = query.trim()
-    if (!q || loading) return
+    if (q.length < 4 || loading) return
     setSubmittedQuery(q)
     void run(q, 1)
   }
@@ -123,19 +158,50 @@ export default function SearchScreen({ onOpenBook }: SearchScreenProps) {
     void run(q, 1)
   }
 
-  const addBook = async (result: SearchResult) => {
+  const runImport = async (result: SearchResult, bookId: string) => {
+    if (!result.pageUrl) {
+      setCardState(result.title, { status: 'error', bookId, message: 'pageUrl missing' })
+      return
+    }
+    setCardState(result.title, { status: 'importing', bookId, message: undefined })
+    try {
+      const res = await importUrl(bookId, result.pageUrl)
+      if (res.ok) {
+        setCardState(result.title, { status: 'done', bookId, message: undefined })
+      } else {
+        setCardState(result.title, { status: 'error', bookId, message: res.error ?? 'unknown' })
+      }
+    } catch (err) {
+      console.warn('[search] import-url failed:', err)
+      setCardState(result.title, { status: 'error', bookId, message: 'network' })
+    }
+  }
+
+  const handleAdd = async (result: SearchResult) => {
+    setCardState(result.title, { status: 'creating', message: undefined })
     try {
       const book = await createBook({
         title: result.title,
-        author: result.author ?? null,
-        coverUrl: result.coverUrl ?? null,
-        description: result.description ?? null,
-        year: result.year ?? null,
-        source: result.source,
+        author: result.author,
+        coverUrl: result.coverUrl,
+        year: result.year,
+        genre: null,
+        source: 'pidruchnyk',
+        lang: null,
       })
-      setAdded((prev) => new Map(prev).set(result.title, book.id))
+      await runImport(result, book.id)
     } catch (err) {
-      console.warn('[search] failed to add book:', err)
+      console.warn('[search] failed to create book:', err)
+      setCardState(result.title, { status: 'error', message: 'create' })
+    }
+  }
+
+  const handleRetry = (result: SearchResult) => {
+    const current = statuses.get(result.title)
+    if (current?.bookId) {
+      void runImport(result, current.bookId)
+    } else {
+      void handleAdd(result)
     }
   }
 
@@ -143,7 +209,7 @@ export default function SearchScreen({ onOpenBook }: SearchScreenProps) {
   if (!searched) {
     body = (
       <div className="library__empty">
-        <p className="library__empty__text">{t('search.hint')}</p>
+        <p className="library__empty__text">{queryTooShort ? t('search.queryTooShort') : t('search.hint')}</p>
       </div>
     )
   } else if (loading && results.length === 0) {
@@ -175,9 +241,10 @@ export default function SearchScreen({ onOpenBook }: SearchScreenProps) {
             <ResultCard
               key={`${r.source}:${r.title}`}
               result={r}
-              addedId={added.get(r.title)}
+              state={statuses.get(r.title) ?? { status: 'idle' }}
               style={{ ['--i' as string]: Math.min(index, 8) }}
-              onAdd={addBook}
+              onAdd={handleAdd}
+              onRetry={handleRetry}
               onOpen={onOpenBook}
             />
           ))}
@@ -208,7 +275,13 @@ export default function SearchScreen({ onOpenBook }: SearchScreenProps) {
           onKeyDown={handleKeyDown}
           autoFocus
         />
-        <button type="button" className="icon-btn" aria-label={t('nav.search')} onClick={submit}>
+        <button
+          type="button"
+          className="icon-btn"
+          aria-label={t('nav.search')}
+          onClick={submit}
+          disabled={queryTooShort}
+        >
           <SearchIcon />
         </button>
       </header>

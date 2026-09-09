@@ -100,11 +100,15 @@ const ru = {
   search: {
     hint: 'Найди учебник и добавь в библиотеку',
     placeholder: 'Поиск по названию…',
+    queryTooShort: 'Минимум 4 символа',
     noResults: 'Ничего не найдено',
     error: 'Поиск временно недоступен',
     retry: 'Повторить',
     loadMore: 'Загрузить ещё',
     add: 'Добавить',
+    adding: 'Добавляю…',
+    importing: 'Скачиваю и импортирую…',
+    importError: 'Не удалось скачать',
     added: 'Добавлено',
     source: {
       google: 'Google Books',
@@ -229,11 +233,15 @@ const en: DeepString<typeof ru> = {
   search: {
     hint: 'Find a textbook and add it to your library',
     placeholder: 'Search by title…',
+    queryTooShort: 'At least 4 characters',
     noResults: 'No results found',
     error: 'Search is temporarily unavailable',
     retry: 'Retry',
     loadMore: 'Load more',
     add: 'Add',
+    adding: 'Adding…',
+    importing: 'Downloading & importing…',
+    importError: 'Failed to download',
     added: 'Added',
     source: {
       google: 'Google Books',

@@ -2,170 +2,62 @@ package com.bookshelf.server
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.contentOrNull
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.longOrNull
-import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.URL
-import java.net.URLEncoder
+import org.jsoup.Jsoup
 
 object BookSearch {
 
     private const val TAG = "BookSearch"
-    private const val CONNECT_TIMEOUT = 5000
-    private const val READ_TIMEOUT = 8000
-    private const val USER_AGENT = "BookShelf/1.0"
-    private const val GOOGLE_RETRY_DELAY_MS = 800L
+    private const val SEARCH_URL = "https://pidruchnyk.com.ua/index.php?do=search"
+    private const val SITE_URL = "https://pidruchnyk.com.ua"
+    private const val USER_AGENT = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36"
 
-    private data class ProviderResult(
-        val code: Int?,
-        val response: SearchResponse?,
-        val retryable: Boolean = false,
-    ) {
-        val isOk: Boolean
-            get() = code != null && code >= 200 && code <= 299
-    }
+    private val TITLE_REGEX = Regex("""^(.+?)\s*\((.+?)\)\s+(\d+)\s+klas\s*(.*)$""")
 
     suspend fun search(query: String, page: Int): SearchResponse = withContext(Dispatchers.IO) {
-        val enc = URLEncoder.encode(query, "UTF-8")
-
-        val google = searchGoogle(enc, page)
-        val googleResp = google.response
-        if (google.isOk && googleResp != null && googleResp.results.isNotEmpty()) {
-            Log.d(
-                TAG,
-                "result: results=" + googleResp.results.size + ", hasNext=" + googleResp.hasNextPage + ", error=" + googleResp.error,
-            )
-            return@withContext googleResp
+        if (query.trim().length < 4) {
+            return@withContext SearchResponse(error = "query_too_short")
         }
-
-        val openLibrary = searchOpenLibrary(enc, page)
-        val openResp = openLibrary.response
-        Log.d(TAG, "openlibrary: http=" + openLibrary.code + ", docs=" + (openResp?.results?.size ?: 0))
-
-        val result = when {
-            google.isOk -> {
-                if (openResp != null && openResp.results.isNotEmpty()) {
-                    openResp
-                } else {
-                    googleResp?.copy(error = null) ?: SearchResponse(error = "search_unavailable")
+        val response = try {
+            val doc = Jsoup.connect(SEARCH_URL)
+                .userAgent(USER_AGENT)
+                .data("do", "search")
+                .data("subaction", "search")
+                .data("story", query)
+                .data("search_start", (page - 1).toString())
+                .data("full_search", "0")
+                .data("result_from", ((page - 1) * 10 + 1).toString())
+                .post()
+            val results = doc.select("article.post").mapNotNull { el ->
+                val titleEl = el.selectFirst("h2.title a") ?: return@mapNotNull null
+                val title = titleEl.text()
+                val href = titleEl.absUrl("href").ifEmpty { SITE_URL + titleEl.attr("href") }
+                val cover = el.selectFirst("img")?.let { img ->
+                    img.absUrl("src").ifEmpty { SITE_URL + img.attr("src") }
                 }
+                val match = TITLE_REGEX.find(title)
+                val subject = match?.groupValues?.getOrNull(1) ?: title
+                val author = match?.groupValues?.getOrNull(2)
+                val grade = match?.groupValues?.getOrNull(3)?.toIntOrNull()
+                val year = match?.groupValues?.getOrNull(4)?.toIntOrNull()
+                val description = if (grade != null) "$grade клас · $subject" else null
+                SearchResultDto(
+                    title = title,
+                    author = author,
+                    coverUrl = cover,
+                    description = description,
+                    year = year,
+                    source = "pidruchnyk",
+                    pageUrl = href,
+                    grade = grade,
+                )
             }
-            openLibrary.isOk -> {
-                if (openResp != null && openResp.results.isNotEmpty()) {
-                    openResp
-                } else {
-                    SearchResponse(error = "search_unavailable")
-                }
-            }
-            else -> SearchResponse(error = "search_unavailable")
-        }
-        Log.d(
-            TAG,
-            "result: results=" + result.results.size + ", hasNext=" + result.hasNextPage + ", error=" + result.error,
-        )
-        result
-    }
-
-    private suspend fun searchGoogle(enc: String, page: Int): ProviderResult {
-        var attempt = attemptGoogle(enc, page)
-        if (attempt.code == 429 || attempt.code == 403 || attempt.retryable) {
-            delay(GOOGLE_RETRY_DELAY_MS)
-            attempt = attemptGoogle(enc, page)
-        }
-        Log.d(TAG, "google: http=" + attempt.code + ", items=" + (attempt.response?.results?.size ?: 0))
-        return attempt
-    }
-
-    private suspend fun attemptGoogle(enc: String, page: Int): ProviderResult {
-        val startIndex = (page - 1) * 20
-        val url = URL("https://www.googleapis.com/books/v1/volumes?q=$enc&startIndex=$startIndex&maxResults=20&country=US")
-        val conn = url.openConnection() as HttpURLConnection
-        conn.connectTimeout = CONNECT_TIMEOUT
-        conn.readTimeout = READ_TIMEOUT
-        conn.setRequestProperty("User-Agent", USER_AGENT)
-        return try {
-            val code = conn.responseCode
-            if (code != 200) {
-                ProviderResult(code = code, response = null)
-            } else {
-                val body = conn.inputStream.bufferedReader().use { it.readText() }
-                val root = Json.parseToJsonElement(body).jsonObject
-                val items = root["items"]?.jsonArray.orEmpty()
-                val results = items.mapNotNull { item ->
-                    val volumeInfo = item.jsonObject["volumeInfo"]?.jsonObject ?: return@mapNotNull null
-                    val title = volumeInfo["title"]?.jsonPrimitive?.contentOrNull ?: return@mapNotNull null
-                    val author = volumeInfo["authors"]?.jsonArray?.firstOrNull()?.jsonPrimitive?.contentOrNull
-                    val coverUrl = volumeInfo["imageLinks"]?.jsonObject?.get("thumbnail")?.jsonPrimitive?.contentOrNull
-                        ?.let {
-                            if (it.startsWith("http://")) "https://" + it.removePrefix("http://") else it
-                        }
-                    val description = volumeInfo["description"]?.jsonPrimitive?.contentOrNull
-                    val year = volumeInfo["publishedDate"]?.jsonPrimitive?.contentOrNull?.take(4)?.toIntOrNull()
-                    SearchResultDto(
-                        title = title,
-                        author = author,
-                        coverUrl = coverUrl,
-                        description = description,
-                        year = year,
-                        source = "google",
-                    )
-                }
-                ProviderResult(code = code, response = SearchResponse(results = results, hasNextPage = items.size == 20))
-            }
-        } catch (e: IOException) {
-            ProviderResult(code = null, response = null, retryable = true)
+            Log.d(TAG, "pidruchnyk: results=" + results.size)
+            SearchResponse(results = results, hasNextPage = results.size >= 10)
         } catch (e: Exception) {
-            ProviderResult(code = null, response = null)
-        } finally {
-            conn.disconnect()
+            SearchResponse(error = "search_unavailable")
         }
-    }
-
-    private suspend fun searchOpenLibrary(enc: String, page: Int): ProviderResult {
-        val url = URL("https://openlibrary.org/search.json?q=$enc&page=$page&limit=20")
-        val conn = url.openConnection() as HttpURLConnection
-        conn.connectTimeout = CONNECT_TIMEOUT
-        conn.readTimeout = READ_TIMEOUT
-        conn.setRequestProperty("User-Agent", USER_AGENT)
-        return try {
-            val code = conn.responseCode
-            if (code != 200) {
-                ProviderResult(code = code, response = null)
-            } else {
-                val body = conn.inputStream.bufferedReader().use { it.readText() }
-                val root = Json.parseToJsonElement(body).jsonObject
-                val docs = root["docs"]?.jsonArray.orEmpty()
-                val start = root["start"]?.jsonPrimitive?.longOrNull ?: 0L
-                val numFound = root["numFound"]?.jsonPrimitive?.longOrNull ?: 0L
-                val results = docs.mapNotNull { doc ->
-                    val docObj = doc.jsonObject
-                    val title = docObj["title"]?.jsonPrimitive?.contentOrNull ?: return@mapNotNull null
-                    val author = docObj["author_name"]?.jsonArray?.firstOrNull()?.jsonPrimitive?.contentOrNull
-                    val coverId = docObj["cover_i"]?.jsonPrimitive?.longOrNull
-                    val coverUrl = coverId?.let { "https://covers.openlibrary.org/b/id/$it-L.jpg" }
-                    val year = docObj["first_publish_year"]?.jsonPrimitive?.longOrNull?.toInt()
-                    SearchResultDto(
-                        title = title,
-                        author = author,
-                        coverUrl = coverUrl,
-                        year = year,
-                        source = "openlibrary",
-                    )
-                }
-                val hasNextPage = (start + numFound) > (page * 20L)
-                ProviderResult(code = code, response = SearchResponse(results = results, hasNextPage = hasNextPage))
-            }
-        } catch (e: Exception) {
-            ProviderResult(code = null, response = null)
-        } finally {
-            conn.disconnect()
-        }
+        Log.d(TAG, "result: results=" + response.results.size + ", hasNext=" + response.hasNextPage + ", error=" + response.error)
+        response
     }
 }

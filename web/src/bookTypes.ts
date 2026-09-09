@@ -44,12 +44,19 @@ export interface SearchResult {
   coverUrl?: string | null
   description?: string | null
   year?: number | null
+  pageUrl?: string | null
+  grade?: number | null
   source: string
 }
 
 export interface SearchResponse {
   results: SearchResult[]
   hasNextPage: boolean
+  error?: string | null
+}
+
+export interface ImportUrlResponse {
+  ok: boolean
   error?: string | null
 }
 

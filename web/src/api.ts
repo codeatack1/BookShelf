@@ -1,4 +1,11 @@
-import type { Book, BookDetail, ChapterContent, CreateBookPayload, SearchResponse } from './bookTypes'
+import type {
+  Book,
+  BookDetail,
+  ChapterContent,
+  CreateBookPayload,
+  ImportUrlResponse,
+  SearchResponse,
+} from './bookTypes'
 
 const BASE = '/api'
 
@@ -73,5 +80,17 @@ export async function createBook(payload: CreateBookPayload): Promise<Book> {
   if (!res.ok) throw new Error(`API ${res.status}: /api/books`)
   const data = (await res.json()) as Book
   console.log('[api] book created:', data.id)
+  return data
+}
+
+export async function importUrl(bookId: string, url: string): Promise<ImportUrlResponse> {
+  const res = await fetch('/api/import-url', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ bookId, url }),
+  })
+  if (!res.ok) throw new Error(`API ${res.status}: /api/import-url`)
+  const data = (await res.json()) as ImportUrlResponse
+  console.log('[api] import-url:', bookId, data.ok ? 'ok' : data.error)
   return data
 }
