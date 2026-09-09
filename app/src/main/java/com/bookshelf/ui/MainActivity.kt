@@ -55,6 +55,7 @@ import com.bookshelf.R
 import com.bookshelf.data.AppStorage
 import com.bookshelf.data.BookRepository
 import com.bookshelf.data.EpubImporter
+import com.bookshelf.data.PdfImporter
 import com.bookshelf.server.LocalServer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -73,11 +74,21 @@ class MainActivity : ComponentActivity() {
         val ctx = applicationContext
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val file = File(ctx.filesDir, "epubs/$bookId.epub")
+                val mime = ctx.contentResolver.getType(uri)
+                val name = uri.lastPathSegment?.lowercase() ?: ""
+                val isPdf = mime == "application/pdf" || name.endsWith(".pdf")
+                val isEpub = !isPdf && (mime?.contains("epub") == true || name.endsWith(".epub"))
+                if (!isPdf && !isEpub) {
+                    notifyImportResult(bookId, "error", "unsupported_format")
+                    return@launch
+                }
+                val subDir = if (isPdf) "pdfs" else "epubs"
+                val ext = if (isPdf) "pdf" else "epub"
+                val file = File(ctx.filesDir, "$subDir/$bookId.$ext")
                 file.parentFile?.mkdirs()
                 val input = ctx.contentResolver.openInputStream(uri) ?: throw IllegalStateException("cannot open file")
                 input.use { src -> file.outputStream().use { src.copyTo(it) } }
-                val chapters = EpubImporter.parse(file, bookId)
+                val chapters = if (isPdf) PdfImporter.parse(file, bookId) else EpubImporter.parse(file, bookId)
                 BookRepository.replaceChapters(bookId, chapters)
                 notifyImportResult(bookId, "ok", null)
             } catch (e: Exception) {
@@ -195,7 +206,7 @@ class MainActivity : ComponentActivity() {
 
     fun startImport(bookId: String) {
         pendingImportBookId = bookId
-        importEpubLauncher.launch(arrayOf("application/epub+zip", "application/octet-stream"))
+        importEpubLauncher.launch(arrayOf("application/epub+zip", "application/pdf", "application/octet-stream"))
     }
 
     @Composable

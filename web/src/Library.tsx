@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import BookCard from './components/BookCard'
 import CategoryTabs from './components/CategoryTabs'
 import EmptyState from './components/EmptyState'
@@ -45,51 +45,50 @@ export default function Library({ onOpenBook, active }: LibraryProps) {
   const [randomSeed] = useState(() => Math.random())
 
   const scrollRef = useRef<number>(0)
+  const prevActive = useRef(active)
+
+  const load = useCallback(async (silent: boolean) => {
+    if (!silent) {
+      setLoading(true)
+      setLoadError(false)
+    }
+    try {
+      const data = await getLibrary()
+      setBooks(data)
+      if (silent) {
+        console.log('[api] library refresh')
+      } else {
+        setLoading(false)
+      }
+    } catch {
+      if (silent) {
+        console.warn('[api] library refresh failed, keeping current data')
+      } else {
+        console.warn('[api] fallback to mock')
+        setBooks(mockBooks)
+        setLoading(false)
+      }
+    }
+  }, [])
 
   useEffect(() => {
+    void load(false)
+  }, [load])
+
+  useEffect(() => {
+    if (active && !prevActive.current) {
+      load(true)
+    }
     if (active) {
       requestAnimationFrame(() => { window.scrollTo(0, scrollRef.current) })
     } else {
       scrollRef.current = window.scrollY
     }
-  }, [active])
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setLoadError(false)
-    getLibrary()
-      .then((data) => {
-        if (!cancelled) {
-          setBooks(data)
-          setLoading(false)
-        }
-      })
-      .catch(() => {
-        console.warn('[api] fallback to mock')
-        if (!cancelled) {
-          setBooks(mockBooks)
-          setLoading(false)
-        }
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
+    prevActive.current = active
+  }, [active, load])
 
   const retryLoad = () => {
-    setLoading(true)
-    setLoadError(false)
-    getLibrary()
-      .then((data) => {
-        setBooks(data)
-        setLoading(false)
-      })
-      .catch(() => {
-        console.warn('[api] fallback to mock')
-        setBooks(mockBooks)
-        setLoading(false)
-      })
+    void load(false)
   }
 
   const categories = useMemo(() => {
