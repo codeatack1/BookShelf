@@ -1760,6 +1760,7 @@
 .reader {
   display: flex;
   flex-direction: column;
+  height: 100vh;        /* fallback for WebViews without dvh support */
   height: 100dvh;
   background-color: var(--md-background);
   color: var(--md-on-background);
@@ -1817,6 +1818,7 @@
 .reader__img {
   display: block;
   width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 

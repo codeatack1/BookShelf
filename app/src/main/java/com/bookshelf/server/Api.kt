@@ -138,7 +138,7 @@ data class ImportUrlResponse(
     val error: String? = null,
 )
 
-private val json = Json { encodeDefaults = true }
+private val json = Json { encodeDefaults = true; ignoreUnknownKeys = true }
 
 object Api {
 
